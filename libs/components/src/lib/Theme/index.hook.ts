@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 // locals
 import { ThemeColor } from "../../index.type";
