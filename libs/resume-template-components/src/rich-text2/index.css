@@ -1,0 +1,15 @@
+.ql-editor {
+  padding: 0 !important;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.ql-container {
+  border-width: 0 !important;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.ql-tooltip {
+  font-size: 12px;
+}

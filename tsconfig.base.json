@@ -32,6 +32,8 @@
       "@bright-resume/components/*": ["libs/components/src/lib/*"],
       "@bright-resume/errors": ["libs/errors/src/index.ts"],
       "@bright-resume/utils": ["libs/utils/src/index.ts"],
+      "@chatbot-components": ["libs/chatbot-components/src/index.ts"],
+      "@chatbot-components/*": ["libs/chatbot-components/src/*"],
       "@components": ["libs/components/src/index.ts"],
       "@components/*": ["libs/components/src/lib/*"],
       "@dto": ["libs/dto/src/index.ts"],
@@ -39,7 +41,13 @@
       "@errors": ["libs/errors/src/index.ts"],
       "@libs/scss": ["libs/components/scss"],
       "@utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/*"]
+      "@web/*": ["apps/web/*"],
+      "@resume-template-components/*": [
+        "libs/resume-template-components/src/*"
+      ],
+      "@resume-template-components/server": [
+        "libs/resume-template-components/src/server.ts"
+      ]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },

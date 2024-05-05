@@ -53,4 +53,30 @@ export class PdfService {
 
     return await this.generatePdf(fileId, htmlContent);
   }
+
+  async generateFromUrl() {
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox"],
+      ignoreDefaultArgs: ["--disable-extensions"],
+    });
+
+    const page = await browser.newPage();
+    await page.setJavaScriptEnabled(false);
+    await page.goto("http://localhost:4200");
+
+    await page.emulateMediaType("print");
+
+    const filename = "test1" + ".pdf";
+    const path = join(process.cwd(), "./files/" + filename);
+
+    await page.pdf({
+      path,
+      format: "A4",
+      printBackground: true,
+    });
+
+    await browser.close();
+
+    return path;
+  }
 }
