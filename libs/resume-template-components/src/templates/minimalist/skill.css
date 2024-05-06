@@ -1,0 +1,16 @@
+.sk-container {
+  margin-bottom: 10px;
+}
+
+.sk-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.sk-item {
+  display: flex;
+}
+
+.sk-item-icon {
+  margin-right: 3px;
+}

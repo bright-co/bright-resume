@@ -1,41 +1,42 @@
+import { IEducation } from "@models";
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
 @Schema({ _id: false })
 @ObjectType()
-export class Education extends Document {
+export class Education extends Document implements IEducation {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  degree: string;
+  degree?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowInstitute: boolean;
+  isShowInstitute?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  institute: string;
+  institute?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLocation: boolean;
+  isShowLocation?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  location: string;
+  location?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowGpa: boolean;
+  isShowGpa?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  gpa: string;
+  gpa?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowDate: boolean;
+  isShowDate?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -59,11 +60,11 @@ export class Education extends Document {
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowPoints: boolean;
+  isShowPoints?: boolean;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
-  points: string[];
+  points?: string[];
 }
 
 export const EducationSchema = SchemaFactory.createForClass(Education);

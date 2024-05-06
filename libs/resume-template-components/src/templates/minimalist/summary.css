@@ -1,0 +1,12 @@
+.sm-container {
+  margin-bottom: 10px;
+}
+
+.sm-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.sm-text {
+  margin-top: 2px;
+}

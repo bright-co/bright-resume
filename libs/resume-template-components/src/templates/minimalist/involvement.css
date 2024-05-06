@@ -1,0 +1,43 @@
+.iv-container {
+  margin-bottom: 10px;
+}
+
+.iv-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.iv-item {
+  margin-bottom: 10px;
+}
+
+.iv-item-role {
+  font-weight: bold;
+}
+
+.iv-item-company-date-location {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.iv-item-company {
+  font-weight: bold;
+}
+
+.iv-item-date {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.iv-item-location {
+  font-weight: bold;
+}
+
+.iv-item-point {
+  display: flex;
+}
+
+.iv-item-point-icon {
+  margin-right: 3px;
+}

@@ -1,49 +1,50 @@
+import { ICourseWork } from "@models";
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
 @Schema({ _id: false })
 @ObjectType()
-export class CourseWork extends Document {
+export class CourseWork extends Document implements ICourseWork {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  name: string;
+  name?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowInstitute: boolean;
+  isShowInstitute?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  institute: string;
+  institute?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowDate: boolean;
+  isShowDate?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, reqßuired: false })
-  year: string;
+  year?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowSkills: boolean;
+  isShowSkills?: boolean;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isSkills: boolean;
+  isSkills?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, reqßuired: false })
-  skills: string;
+  skills?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowPoints: boolean;
+  isShowPoints?: boolean;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
-  points: string[];
+  points?: string[];
 }
 
 export const CourseWorkSchema = SchemaFactory.createForClass(CourseWork);

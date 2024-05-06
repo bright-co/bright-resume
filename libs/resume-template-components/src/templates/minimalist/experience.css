@@ -1,0 +1,43 @@
+.ex-container {
+  margin-bottom: 10px;
+}
+
+.ex-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.ex-item {
+  margin-bottom: 10px;
+}
+
+.ex-item-role {
+  font-weight: bold;
+}
+
+.ex-item-company-date-location {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ex-item-company {
+  font-weight: bold;
+}
+
+.ex-item-date {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.ex-item-location {
+  font-weight: bold;
+}
+
+.ex-item-point {
+  display: flex;
+}
+
+.ex-item-point-icon {
+  margin-right: 3px;
+}

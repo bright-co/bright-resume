@@ -32,12 +32,21 @@
       "@bright-resume/components/*": ["libs/components/src/lib/*"],
       "@bright-resume/errors": ["libs/errors/src/index.ts"],
       "@bright-resume/utils": ["libs/utils/src/index.ts"],
+      "@chatbot-components": ["libs/chatbot-components/src/index.ts"],
+      "@chatbot-components/*": ["libs/chatbot-components/src/*"],
       "@components": ["libs/components/src/index.ts"],
       "@components/*": ["libs/components/src/lib/*"],
       "@dto": ["libs/dto/src/index.ts"],
       "@enums": ["libs/enums/src/index.ts"],
       "@errors": ["libs/errors/src/index.ts"],
       "@libs/scss": ["libs/components/scss"],
+      "@models": ["libs/models/src/index.ts"],
+      "@resume-template-components/*": [
+        "libs/resume-template-components/src/*"
+      ],
+      "@resume-template-components/server": [
+        "libs/resume-template-components/src/server.ts"
+      ],
       "@utils": ["libs/utils/src/index.ts"],
       "@web/*": ["apps/web/*"]
     },
