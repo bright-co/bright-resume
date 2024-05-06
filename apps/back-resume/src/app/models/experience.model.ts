@@ -1,10 +1,11 @@
+import { IExperience } from "@models";
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
 @Schema({ _id: false })
 @ObjectType()
-export class Experience extends Document {
+export class Experience extends Document implements IExperience {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   role?: string;
@@ -15,7 +16,7 @@ export class Experience extends Document {
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLocation: boolean;
+  isShowLocation?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -23,7 +24,7 @@ export class Experience extends Document {
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowDate: boolean;
+  isShowDate?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -47,7 +48,7 @@ export class Experience extends Document {
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowPoints: boolean;
+  isShowPoints?: boolean;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })

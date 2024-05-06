@@ -15,6 +15,7 @@ import {
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@@back-resume/app/enums";
+import { IResume } from "@models";
 
 @Schema({
   collection: "resumes",
@@ -28,10 +29,10 @@ import {
   },
 })
 @ObjectType()
-export class Resume extends Document {
+export class Resume extends Document implements IResume {
   @Field(() => ID, { nullable: true })
   @Prop({ type: String, required: false, name: "_id" })
-  id: string;
+  id?: string;
 
   @Field(() => ID, { nullable: false })
   @Prop({ type: String, required: true })
@@ -39,11 +40,11 @@ export class Resume extends Document {
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  name: string;
+  name?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  title: string;
+  title?: string;
 
   @Field(() => ResumeFontSizeEnum, { nullable: true })
   @Prop({ type: String, enum: ResumeFontSizeEnum, required: false })
@@ -59,283 +60,283 @@ export class Resume extends Document {
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  role: string;
+  role?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowPhoneNumber: boolean;
+  isShowPhoneNumber?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLinkedin: boolean;
+  isShowLinkedin?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  linkedin: string;
+  linkedin?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowWebsite: boolean;
+  isShowWebsite?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  website: string;
+  website?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowEmail: boolean;
+  isShowEmail?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  email: string;
+  email?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLocation: boolean;
+  isShowLocation?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  location: string;
+  location?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowBirthDay: boolean;
+  isShowBirthDay?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  birthDay: string;
+  birthDay?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowSummary: boolean;
+  isShowSummary?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  summaryLabel: string;
+  summaryLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  summary: string;
+  summary?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowExperience: boolean;
+  isShowExperience?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  experienceLabel: string;
+  experienceLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  experienceRoleLabel: string;
+  experienceRoleLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  experienceCompanyLabel: string;
+  experienceCompanyLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  experienceLocationLabel: string;
+  experienceLocationLabel?: string;
 
   @Field(() => [Experience], { nullable: true })
   @Prop({ type: [ExperienceSchema], required: false })
-  experiences: Experience[];
+  experiences?: Experience[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowProject: boolean;
+  isShowProject?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectLabel: string;
+  projectLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectRoleLabel: string;
+  projectRoleLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectTitleLabel: string;
+  projectTitleLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectCompanyLabel: string;
+  projectCompanyLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectLocationLabel: string;
+  projectLocationLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  projectUrlLabel: string;
+  projectUrlLabel?: string;
 
   @Field(() => [Project], { nullable: true })
   @Prop({ type: [ProjectSchema], required: false })
-  projects: Project[];
+  projects?: Project[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowEducation: boolean;
+  isShowEducation?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  educationLabel: string;
+  educationLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  educationDegreeLabel: string;
+  educationDegreeLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  educationInstituteLabel: string;
+  educationInstituteLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  educationLocationLabel: string;
+  educationLocationLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  educationGpaLabel: string;
+  educationGpaLabel?: string;
 
   @Field(() => [Education], { nullable: true })
   @Prop({ type: [EducationSchema], required: false })
-  educations: Education[];
+  educations?: Education[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowCertification: boolean;
+  isShowCertification?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  certificationLabel: string;
+  certificationLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  certificationNameLabel: string;
+  certificationNameLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  certificationInstituteLabel: string;
+  certificationInstituteLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  certificationYearLabel: string;
+  certificationYearLabel?: string;
 
   @Field(() => [Certification], { nullable: true })
   @Prop({ type: [CertificationSchema], required: false })
-  certifications: Certification[];
+  certifications?: Certification[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowCourseWork: boolean;
+  isShowCourseWork?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkLabel: string;
+  courseWorkLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkTitleLabel: string;
+  courseWorkTitleLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkNameLabel: string;
+  courseWorkNameLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkInstituteLabel: string;
+  courseWorkInstituteLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkYearLabel: string;
+  courseWorkYearLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  courseWorkSkillsLabel: string;
+  courseWorkSkillsLabel?: string;
 
   @Field(() => [CourseWork], { nullable: true })
   @Prop({ type: [CourseWorkSchema], required: false })
-  courseWorks: CourseWork[];
+  courseWorks?: CourseWork[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowInvolvement: boolean;
+  isShowInvolvement?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  involvementLabel: string;
+  involvementLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  involvementRoleLabel: string;
+  involvementRoleLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  involvementCompanyLabel: string;
+  involvementCompanyLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  involvementLocationLabel: string;
+  involvementLocationLabel?: string;
 
   @Field(() => [Involvement], { nullable: true })
   @Prop({ type: [InvolvementSchema], required: false })
-  involvements: Involvement[];
+  involvements?: Involvement[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowSkill: boolean;
+  isShowSkill?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  skillLabel: string;
+  skillLabel?: string;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
-  skills: string[];
+  skills?: string[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLanguage: boolean;
+  isShowLanguage?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  languageLabel: string;
+  languageLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  languageNameLabel: string;
+  languageNameLabel?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  languageLevelLabel: string;
+  languageLevelLabel?: string;
 
   @Field(() => [Language], { nullable: true })
   @Prop({ type: [LanguageSchema], required: false })
-  languages: Language[];
+  languages?: Language[];
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  hobbyLabel: string;
+  hobbyLabel?: string;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
-  hobbies: string[];
+  hobbies?: string[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowHobby: boolean;
+  isShowHobby?: boolean;
 
   @Field(() => Date, { nullable: false })
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  createdAt?: Date;
 
   @Field(() => Date, { nullable: false })
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 export const ResumeSchema = SchemaFactory.createForClass(Resume);

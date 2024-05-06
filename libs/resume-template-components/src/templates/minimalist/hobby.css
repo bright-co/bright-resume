@@ -1,0 +1,16 @@
+.hb-container {
+  margin-bottom: 10px;
+}
+
+.hb-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.hb-item {
+  display: flex;
+}
+
+.hb-item-icon {
+  margin-right: 3px;
+}

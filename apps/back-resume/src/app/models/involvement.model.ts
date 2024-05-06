@@ -1,61 +1,62 @@
+import { IInvolvement } from "@models";
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
 @Schema({ _id: false })
 @ObjectType()
-export class Involvement extends Document {
+export class Involvement extends Document implements IInvolvement {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  role: string;
+  role?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowCompany: boolean;
+  isShowCompany?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  company: string;
+  company?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowLocation: boolean;
+  isShowLocation?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  location: string;
+  location?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowDate: boolean;
+  isShowDate?: boolean;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  fromMonth: string;
+  fromMonth?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, reqßuired: false })
-  fromYear: string;
+  fromYear?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  toMonth: string;
+  toMonth?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  toYear: string;
+  toYear?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  untilNow: boolean;
+  untilNow?: boolean;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
-  isShowPoints: boolean;
+  isShowPoints?: boolean;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
-  points: string[];
+  points?: string[];
 }
 
 export const InvolvementSchema = SchemaFactory.createForClass(Involvement);

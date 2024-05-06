@@ -1,0 +1,16 @@
+.ln-container {
+  margin-bottom: 10px;
+}
+
+.ln-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.ln-item {
+  display: flex;
+}
+
+.ln-item-icon {
+  margin-right: 3px;
+}

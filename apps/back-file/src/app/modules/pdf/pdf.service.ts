@@ -73,6 +73,14 @@ export class PdfService {
       path,
       format: "A4",
       printBackground: true,
+      width: "21cm",
+      height: "29.7cm",
+      margin: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      },
     });
 
     await browser.close();

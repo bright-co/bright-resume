@@ -1,0 +1,42 @@
+.cw-container {
+  margin-bottom: 10px;
+}
+
+.cw-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.cw-item {
+  margin-bottom: 10px;
+}
+
+.cw-item-role {
+  font-weight: bold;
+}
+
+.cw-item-institute-date {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cw-item-institute {
+  font-weight: bold;
+}
+
+.cw-item-date {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.cw-item-skill {
+}
+
+.cw-item-point {
+  display: flex;
+}
+
+.cw-item-point-icon {
+  margin-right: 3px;
+}

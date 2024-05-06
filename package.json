@@ -12,7 +12,7 @@
     "cms:dev": "nx serve back-cms",
     "resume-template:dev": "nx serve resume-template",
     "components": "nx run components:storybook",
-    "resume-template-components": "nx run resume-template-components:storybook",
+    "resume-template-components:dev": "nx run resume-template-components:storybook",
     "file:build": "nx build back-file",
     "file:dev": "nx serve back-file",
     "file:test": "nx test back-file --runInBand",

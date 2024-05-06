@@ -1,0 +1,43 @@
+.pr-container {
+  margin-bottom: 10px;
+}
+
+.pr-label {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.pr-item {
+  margin-bottom: 10px;
+}
+
+.pr-item-role {
+  font-weight: bold;
+}
+
+.pr-item-company-date-location {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.pr-item-company {
+  font-weight: bold;
+}
+
+.pr-item-date {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.pr-item-location {
+  font-weight: bold;
+}
+
+.pr-item-point {
+  display: flex;
+}
+
+.pr-item-point-icon {
+  margin-right: 3px;
+}

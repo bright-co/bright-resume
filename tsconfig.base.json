@@ -40,14 +40,15 @@
       "@enums": ["libs/enums/src/index.ts"],
       "@errors": ["libs/errors/src/index.ts"],
       "@libs/scss": ["libs/components/scss"],
-      "@utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/*"],
+      "@models": ["libs/models/src/index.ts"],
       "@resume-template-components/*": [
         "libs/resume-template-components/src/*"
       ],
       "@resume-template-components/server": [
         "libs/resume-template-components/src/server.ts"
-      ]
+      ],
+      "@utils": ["libs/utils/src/index.ts"],
+      "@web/*": ["apps/web/*"]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
