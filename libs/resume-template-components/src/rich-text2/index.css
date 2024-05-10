@@ -8,6 +8,7 @@
   border-width: 0 !important;
   font-size: inherit;
   line-height: inherit;
+  font-family: inherit;
 }
 
 .ql-tooltip {

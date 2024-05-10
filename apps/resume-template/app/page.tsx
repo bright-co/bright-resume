@@ -7,14 +7,15 @@ import {
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@enums";
+import { IResume } from "@models";
 
 export default async function Index() {
   const resumeObj: IResume = {
     userId: "userId",
     name: faker.person.fullName(),
     title: faker.person.fullName(),
-    color: ResumeColorEnum.black,
-    fontFamily: ResumeFontFamilyEnum.nunito,
+    color: ResumeColorEnum.orange,
+    fontFamily: ResumeFontFamilyEnum.montserrat,
     fontSize: ResumeFontSizeEnum.large,
     role: faker.person.jobTitle(),
     isShowPhoneNumber: faker.datatype.boolean(),

@@ -9,7 +9,14 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/resume-template"
+        "outputPath": "dist/apps/resume-template",
+        "assets": [
+          {
+            "input": "libs/assets/src",
+            "glob": "**/*.{png,jpeg,jpg,svg,ttf,gif,eot,woff,woff2,otf,ico}",
+            "output": "/assets"
+          }
+        ]
       },
       "configurations": {
         "development": {

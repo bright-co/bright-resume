@@ -4,7 +4,7 @@
 
 .ln-label {
   font-weight: bold;
-  border-bottom: 1.5px solid #000;
+  border-bottom: 1.5px solid;
 }
 
 .ln-item {
@@ -13,4 +13,13 @@
 
 .ln-item-icon {
   margin-right: 3px;
+}
+
+.ln-item-text {
+  display: flex;
+}
+
+.ln-item-divider {
+  margin-left: 2px;
+  margin-right: 2px;
 }
