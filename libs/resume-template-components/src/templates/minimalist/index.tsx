@@ -19,6 +19,12 @@ import "./skill.css";
 import "./language.css";
 import "./involvement.css";
 import "./hobby.css";
+import {
+  ResumeColorEnum,
+  ResumeFontFamilyEnum,
+  ResumeFontSizeEnum,
+} from "@enums";
+import { RichText2 } from "@resume-template-components/rich-text2";
 
 export interface TemplateMinimalistProps {
   staticMode?: boolean;
@@ -29,48 +35,172 @@ export function TemplateMinimalist({
   resume,
   staticMode,
 }: TemplateMinimalistProps) {
-  const fontSizeText0 = "font-size-7";
-  const fontSizeText1 = "font-size-10";
-  const fontSizeText2 = "font-size-11";
-  const fontSizeHeader0 = "font-size-12";
-  const fontSizeHeader1 = "font-size-13";
-  const fontSizeHeader2 = "font-size-18";
+  const { fontSize, fontFamily, color } = resume;
+
+  let subTextFontSize: string;
+  let textFontSize: string;
+  let subTitleFontSize: string;
+  let titleFontSize: string;
+  let headerFontSize: string;
+
+  if (fontSize === ResumeFontSizeEnum.xx_small) {
+    subTextFontSize = "font-size-6";
+    textFontSize = "font-size-7";
+    subTitleFontSize = "font-size-9";
+    titleFontSize = "font-size-10";
+    headerFontSize = "font-size-15";
+  } else if (fontSize === ResumeFontSizeEnum.x_small) {
+    subTextFontSize = "font-size-7";
+    textFontSize = "font-size-8";
+    subTitleFontSize = "font-size-10";
+    titleFontSize = "font-size-11";
+    headerFontSize = "font-size-16";
+  } else if (fontSize === ResumeFontSizeEnum.small) {
+    subTextFontSize = "font-size-8";
+    textFontSize = "font-size-9";
+    subTitleFontSize = "font-size-11";
+    titleFontSize = "font-size-12";
+    headerFontSize = "font-size-17";
+  } else if (fontSize === ResumeFontSizeEnum.medium) {
+    subTextFontSize = "font-size-9";
+    textFontSize = "font-size-10";
+    subTitleFontSize = "font-size-12";
+    titleFontSize = "font-size-13";
+    headerFontSize = "font-size-18";
+  } else if (fontSize === ResumeFontSizeEnum.large) {
+    subTextFontSize = "font-size-10";
+    textFontSize = "font-size-11";
+    subTitleFontSize = "font-size-13";
+    titleFontSize = "font-size-14";
+    headerFontSize = "font-size-18";
+  } else if (fontSize === ResumeFontSizeEnum.x_large) {
+    subTextFontSize = "font-size-11";
+    textFontSize = "font-size-12";
+    subTitleFontSize = "font-size-14";
+    titleFontSize = "font-size-15";
+    headerFontSize = "font-size-18";
+  } else if (fontSize === ResumeFontSizeEnum.xx_large) {
+    subTextFontSize = "font-size-12";
+    textFontSize = "font-size-13";
+    subTitleFontSize = "font-size-15";
+    titleFontSize = "font-size-16";
+    headerFontSize = "font-size-18";
+  }
+
+  let fontColorClass = "text-black";
+  let borderColorClass = "border-black";
+  if (color === ResumeColorEnum.black) {
+    fontColorClass = "text-black";
+    borderColorClass = "border-black";
+  } else if (color === ResumeColorEnum.gray) {
+    fontColorClass = "text-gray";
+    borderColorClass = "border-gray";
+  } else if (color === ResumeColorEnum.red) {
+    fontColorClass = "text-red";
+    borderColorClass = "border-red";
+  } else if (color === ResumeColorEnum.yellow) {
+    fontColorClass = "text-yellow";
+    borderColorClass = "border-yellow";
+  } else if (color === ResumeColorEnum.blue) {
+    fontColorClass = "text-blue";
+    borderColorClass = "border-blue";
+  } else if (color === ResumeColorEnum.green) {
+    fontColorClass = "text-green";
+    borderColorClass = "border-green";
+  } else if (color === ResumeColorEnum.purple) {
+    fontColorClass = "text-purple";
+    borderColorClass = "border-purple";
+  } else if (color === ResumeColorEnum.orange) {
+    fontColorClass = "text-orange";
+    borderColorClass = "border-orange";
+  } else if (color === ResumeColorEnum.brown) {
+    fontColorClass = "text-brown";
+    borderColorClass = "border-brown";
+  }
+
+  let fontFamilyClass = "font-family-arial";
+  if (fontFamily === ResumeFontFamilyEnum.arial) {
+    fontFamilyClass = "font-family-arial";
+  } else if (fontFamily === ResumeFontFamilyEnum.montserrat) {
+    fontFamilyClass = "font-family-montserrat";
+  } else if (fontFamily === ResumeFontFamilyEnum.nunito) {
+    fontFamilyClass = "font-family-nunito";
+  } else if (fontFamily === ResumeFontFamilyEnum.roboto) {
+    fontFamilyClass = "font-family-roboto";
+  } else if (fontFamily === ResumeFontFamilyEnum.raleway) {
+    fontFamilyClass = "font-family-raleway";
+  }
 
   const renderHeader = () => {
     return (
       <div className="hr-container">
-        <img className="hr-image" src={faker.image.avatar()} />
+        <img
+          className="hr-image"
+          src={faker.image.avatar()}
+          alt={resume.name}
+        />
         <div className="hr-text">
-          <div className={["hr-name", fontSizeHeader2].join(" ")}>
-            {resume.name}
+          <div
+            className={["hr-name", headerFontSize, fontColorClass].join(" ")}
+          >
+            {staticMode ? (
+              resume.name
+            ) : (
+              <RichText2 value={resume.name || ""} onChange={() => {}} />
+            )}
           </div>
-          <div className={["hr-role", fontSizeHeader2].join(" ")}>
-            {resume.role}
+          <div
+            className={["hr-role", headerFontSize, fontColorClass].join(" ")}
+          >
+            {staticMode ? (
+              resume.role
+            ) : (
+              <RichText2 value={resume.role || ""} onChange={() => {}} />
+            )}
           </div>
           <div className="hr-social-media">
-            <div className={["hr-item", fontSizeText0].join(" ")}>
+            <div className={["hr-item", subTextFontSize].join(" ")}>
               <div className="hr-item-icon">
                 <LinkedinIcon />
               </div>
-              {resume.linkedin}
+              {staticMode ? (
+                resume.linkedin
+              ) : (
+                <RichText2 value={resume.linkedin || ""} onChange={() => {}} />
+              )}
             </div>
-            <div className={["hr-item", fontSizeText0].join(" ")}>
+            <div className={["hr-item", subTextFontSize].join(" ")}>
               <div className="hr-item-icon">
                 <MailIcon />
               </div>
-              {resume.email}
+              {staticMode ? (
+                resume.email
+              ) : (
+                <RichText2 value={resume.email || ""} onChange={() => {}} />
+              )}
             </div>
-            <div className={["hr-item", fontSizeText0].join(" ")}>
+            <div className={["hr-item", subTextFontSize].join(" ")}>
               <div className="hr-item-icon">
                 <PhoneIcon />
               </div>
-              {resume.phoneNumber}
+              {staticMode ? (
+                resume.phoneNumber
+              ) : (
+                <RichText2
+                  value={resume.phoneNumber || ""}
+                  onChange={() => {}}
+                />
+              )}
             </div>
-            <div className={["hr-item", fontSizeText0].join(" ")}>
+            <div className={["hr-item", subTextFontSize].join(" ")}>
               <div className="hr-item-icon">
                 <WebIcon />
               </div>
-              {resume.website}
+              {staticMode ? (
+                resume.website
+              ) : (
+                <RichText2 value={resume.website || ""} onChange={() => {}} />
+              )}
             </div>
           </div>
         </div>
@@ -81,11 +211,26 @@ export function TemplateMinimalist({
   const renderSummary = () => {
     return (
       <div className="sm-container">
-        <div className={["sm-label", fontSizeHeader1].join(" ")}>
-          {resume.summaryLabel}
+        <div
+          className={[
+            "sm-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.summaryLabel
+          ) : (
+            <RichText2 value={resume.summaryLabel || ""} onChange={() => {}} />
+          )}
         </div>
-        <div className={["sm-text", fontSizeText1].join(" ")}>
-          {resume.summary}
+        <div className={["sm-text", textFontSize].join(" ")}>
+          {staticMode ? (
+            resume.summary
+          ) : (
+            <RichText2 value={resume.summary || ""} onChange={() => {}} />
+          )}
         </div>
       </div>
     );
@@ -94,35 +239,73 @@ export function TemplateMinimalist({
   const renderExperience = () => {
     return (
       <div className="ex-container">
-        <div className={["ex-label", fontSizeHeader1].join(" ")}>
-          {resume.experienceLabel}
+        <div
+          className={[
+            "ex-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.experienceLabel
+          ) : (
+            <RichText2
+              value={resume.experienceLabel || ""}
+              onChange={() => {}}
+            />
+          )}
         </div>
         {resume.experiences &&
           resume.experiences.map((experience, index) => (
             <div key={index} className="ex-item">
-              <div className={["ex-item-role", fontSizeHeader0].join(" ")}>
-                {experience.role}
+              <div className={["ex-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  experience.role
+                ) : (
+                  <RichText2 value={resume.role || ""} onChange={() => {}} />
+                )}
               </div>
               <div className="ex-item-company-date-location">
-                <div className={["ex-item-company", fontSizeText1].join(" ")}>
-                  {experience.company}
+                <div className={["ex-item-company", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    experience.company
+                  ) : (
+                    <RichText2
+                      value={experience.company || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
-                <div className={["ex-item-date", fontSizeText1].join(" ")}>
+                <div className={["ex-item-date", textFontSize].join(" ")}>
                   {experience.fromMonth} {experience.fromYear} -
-                  {experience.toMonth} {experience.toYear}
+                  {experience.toMonth} {experience.toYear},
                 </div>
-                <div className={["ex-item-location", fontSizeText1].join(" ")}>
-                  ,{experience.location}
+                <div className={["ex-item-location", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    experience.location
+                  ) : (
+                    <RichText2
+                      value={experience.location || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
               </div>
               {experience.points &&
                 experience.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["ex-item-point", fontSizeText1].join(" ")}
+                    className={["ex-item-point", textFontSize].join(" ")}
                   >
                     <div className="ex-item-point-icon">•</div>
-                    <div className="ex-item-point-text">{point}</div>
+                    <div className="ex-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -134,35 +317,76 @@ export function TemplateMinimalist({
   const renderInvolvement = () => {
     return (
       <div className="iv-container">
-        <div className={["iv-label", fontSizeHeader1].join(" ")}>
-          {resume.involvementLabel}
+        <div
+          className={[
+            "iv-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.involvementLabel
+          ) : (
+            <RichText2
+              value={resume.involvementLabel || ""}
+              onChange={() => {}}
+            />
+          )}
         </div>
         {resume.involvements &&
           resume.involvements.map((involvement, index) => (
             <div key={index} className="iv-item">
-              <div className={["iv-item-role", fontSizeHeader0].join(" ")}>
-                {involvement.role}
+              <div className={["iv-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  resume.role
+                ) : (
+                  <RichText2
+                    value={involvement.role || ""}
+                    onChange={() => {}}
+                  />
+                )}
               </div>
               <div className="iv-item-company-date-location">
-                <div className={["iv-item-company", fontSizeText1].join(" ")}>
-                  {involvement.company}
+                <div className={["iv-item-company", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    involvement.company
+                  ) : (
+                    <RichText2
+                      value={involvement.company || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
-                <div className={["iv-item-date", fontSizeText1].join(" ")}>
+                <div className={["iv-item-date", textFontSize].join(" ")}>
                   {involvement.fromMonth} {involvement.fromYear} -
-                  {involvement.toMonth} {involvement.toYear}
+                  {involvement.toMonth} {involvement.toYear},
                 </div>
-                <div className={["iv-item-location", fontSizeText1].join(" ")}>
-                  ,{involvement.location}
+                <div className={["iv-item-location", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    involvement.location
+                  ) : (
+                    <RichText2
+                      value={involvement.location || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
               </div>
               {involvement.points &&
                 involvement.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["iv-item-point", fontSizeText1].join(" ")}
+                    className={["iv-item-point", textFontSize].join(" ")}
                   >
                     <div className="iv-item-point-icon">•</div>
-                    <div className="iv-item-point-text">{point}</div>
+                    <div className="iv-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -174,35 +398,75 @@ export function TemplateMinimalist({
   const renderProject = () => {
     return (
       <div className="pr-container">
-        <div className={["pr-label", fontSizeHeader1].join(" ")}>
-          {resume.projectLabel}
+        <div
+          className={[
+            "pr-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.projectLabel
+          ) : (
+            <RichText2 value={resume.projectLabel || ""} onChange={() => {}} />
+          )}
         </div>
         {resume.projects &&
           resume.projects.map((project, index) => (
             <div key={index} className="pr-item">
-              <div className={["pr-item-role", fontSizeHeader0].join(" ")}>
-                {project.role}
+              <div className={["pr-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  project.role
+                ) : (
+                  <RichText2 value={project.role || ""} onChange={() => {}} />
+                )}
               </div>
               <div className="pr-item-company-date-location">
-                <div className={["pr-item-company", fontSizeText1].join(" ")}>
-                  {project.company} {project.url}
+                <div className={["pr-item-company", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    project.company
+                  ) : (
+                    <RichText2
+                      value={project.company || ""}
+                      onChange={() => {}}
+                    />
+                  )}
+                  {staticMode ? (
+                    project.url
+                  ) : (
+                    <RichText2 value={project.url || ""} onChange={() => {}} />
+                  )}
                 </div>
-                <div className={["pr-item-date", fontSizeText1].join(" ")}>
+                <div className={["pr-item-date", textFontSize].join(" ")}>
                   {project.fromMonth} {project.fromYear} -{project.toMonth}{" "}
-                  {project.toYear}
+                  {project.toYear},
                 </div>
-                <div className={["pr-item-location", fontSizeText1].join(" ")}>
-                  ,{project.location}
+                <div className={["pr-item-location", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    project.location
+                  ) : (
+                    <RichText2
+                      value={project.location || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
               </div>
               {project.points &&
                 project.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["pr-item-point", fontSizeText1].join(" ")}
+                    className={["pr-item-point", textFontSize].join(" ")}
                   >
                     <div className="pr-item-point-icon">•</div>
-                    <div className="pr-item-point-text">{point}</div>
+                    <div className="pr-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -214,35 +478,84 @@ export function TemplateMinimalist({
   const renderEducation = () => {
     return (
       <div className="ed-container">
-        <div className={["ed-label", fontSizeHeader1].join(" ")}>
-          {resume.educationLabel}
+        <div
+          className={[
+            "ed-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.educationLabel
+          ) : (
+            <RichText2
+              value={resume.educationLabel || ""}
+              onChange={() => {}}
+            />
+          )}
         </div>
         {resume.educations &&
           resume.educations.map((education, index) => (
             <div key={index} className="ed-item">
-              <div className={["ed-item-role", fontSizeHeader0].join(" ")}>
-                {education.degree}
+              <div className={["ed-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  education.degree
+                ) : (
+                  <RichText2
+                    value={education.degree || ""}
+                    onChange={() => {}}
+                  />
+                )}
               </div>
               <div className="ed-item-company-date-location">
-                <div className={["ed-item-company", fontSizeText1].join(" ")}>
-                  {education.institute} {education.gpa}
+                <div className={["ed-item-company", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    education.institute
+                  ) : (
+                    <RichText2
+                      value={education.institute || ""}
+                      onChange={() => {}}
+                    />
+                  )}{" "}
+                  {staticMode ? (
+                    education.gpa
+                  ) : (
+                    <RichText2
+                      value={education.gpa || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
-                <div className={["ed-item-date", fontSizeText1].join(" ")}>
+                <div className={["ed-item-date", textFontSize].join(" ")}>
                   {education.fromMonth} {education.fromYear} -
-                  {education.toMonth} {education.toYear}
+                  {education.toMonth} {education.toYear},
                 </div>
-                <div className={["ed-item-location", fontSizeText1].join(" ")}>
-                  ,{education.location}
+                <div className={["ed-item-location", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    education.location
+                  ) : (
+                    <RichText2
+                      value={education.location || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
               </div>
               {education.points &&
                 education.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["ed-item-point", fontSizeText1].join(" ")}
+                    className={["ed-item-point", textFontSize].join(" ")}
                   >
                     <div className="ed-item-point-icon">•</div>
-                    <div className="ed-item-point-text">{point}</div>
+                    <div className="ed-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -254,14 +567,31 @@ export function TemplateMinimalist({
   const renderSkills = () => {
     return (
       <div className="sk-container">
-        <div className={["sk-label", fontSizeHeader1].join(" ")}>
-          {resume.skillLabel}
+        <div
+          className={[
+            "sk-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.skillLabel
+          ) : (
+            <RichText2 value={resume.skillLabel || ""} onChange={() => {}} />
+          )}
         </div>
         {resume.skills &&
           resume.skills.map((item, index) => (
-            <div key={index} className={["sk-item", fontSizeText1].join(" ")}>
+            <div key={index} className={["sk-item", textFontSize].join(" ")}>
               <div className="sk-item-icon">•</div>
-              <div className="sk-item-text">{item}</div>
+              <div className="sk-item-text">
+                {staticMode ? (
+                  item
+                ) : (
+                  <RichText2 value={item || ""} onChange={() => {}} />
+                )}
+              </div>
             </div>
           ))}
       </div>
@@ -271,15 +601,37 @@ export function TemplateMinimalist({
   const renderLanguages = () => {
     return (
       <div className="ln-container">
-        <div className={["ln-label", fontSizeHeader1].join(" ")}>
-          {resume.languageLabel}
+        <div
+          className={[
+            "ln-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.languageLabel
+          ) : (
+            <RichText2 value={resume.languageLabel || ""} onChange={() => {}} />
+          )}
         </div>
         {resume.languages &&
           resume.languages.map((item, index) => (
-            <div key={index} className={["ln-item", fontSizeText1].join(" ")}>
+            <div key={index} className={["ln-item", textFontSize].join(" ")}>
               <div className="ln-item-icon">•</div>
               <div className="ln-item-text">
-                {item.name}:{item.level}
+                {staticMode ? (
+                  item.name
+                ) : (
+                  <RichText2 value={item.name || ""} onChange={() => {}} />
+                )}
+                <div className="ln-item-divider">{":"}</div>
+
+                {staticMode ? (
+                  item.level
+                ) : (
+                  <RichText2 value={item.level || ""} onChange={() => {}} />
+                )}
               </div>
             </div>
           ))}
@@ -290,35 +642,76 @@ export function TemplateMinimalist({
   const renderCourseWork = () => {
     return (
       <div className="cw-container">
-        <div className={["cw-label", fontSizeHeader1].join(" ")}>
-          {resume.courseWorkLabel}
+        <div
+          className={[
+            "cw-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.courseWorkLabel
+          ) : (
+            <RichText2
+              value={resume.courseWorkLabel || ""}
+              onChange={() => {}}
+            />
+          )}
         </div>
         {resume.courseWorks &&
           resume.courseWorks.map((courseWork, index) => (
             <div key={index} className="cw-item">
-              <div className={["cw-item-role", fontSizeHeader0].join(" ")}>
-                {courseWork.name}
+              <div className={["cw-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  courseWork.name
+                ) : (
+                  <RichText2
+                    value={courseWork.name || ""}
+                    onChange={() => {}}
+                  />
+                )}
               </div>
               <div className="cw-item-institute-date">
-                <div className={["cw-item-institute", fontSizeText1].join(" ")}>
-                  {courseWork.institute}
+                <div className={["cw-item-institute", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    courseWork.institute
+                  ) : (
+                    <RichText2
+                      value={courseWork.institute || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
-                <div className={["cw-item-date", fontSizeText1].join(" ")}>
+                <div className={["cw-item-date", textFontSize].join(" ")}>
                   {courseWork.year}
                 </div>
               </div>
-              <div className={["cw-item-skill", fontSizeText1].join(" ")}>
-                {courseWork.skills}
+              <div className={["cw-item-skill", textFontSize].join(" ")}>
+                {staticMode ? (
+                  courseWork.skills
+                ) : (
+                  <RichText2
+                    value={courseWork.skills || ""}
+                    onChange={() => {}}
+                  />
+                )}
               </div>
 
               {courseWork.points &&
                 courseWork.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["cw-item-point", fontSizeText1].join(" ")}
+                    className={["cw-item-point", textFontSize].join(" ")}
                   >
                     <div className="cw-item-point-icon">•</div>
-                    <div className="cw-item-point-text">{point}</div>
+                    <div className="cw-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -330,20 +723,48 @@ export function TemplateMinimalist({
   const renderCertification = () => {
     return (
       <div className="cc-container">
-        <div className={["cc-label", fontSizeHeader1].join(" ")}>
-          {resume.certificationLabel}
+        <div
+          className={[
+            "cc-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.certificationLabel
+          ) : (
+            <RichText2
+              value={resume.certificationLabel || ""}
+              onChange={() => {}}
+            />
+          )}
         </div>
         {resume.certifications &&
           resume.certifications.map((certification, index) => (
             <div key={index} className="cc-item">
-              <div className={["cc-item-role", fontSizeHeader0].join(" ")}>
-                {certification.name}
+              <div className={["cc-item-role", subTitleFontSize].join(" ")}>
+                {staticMode ? (
+                  certification.name
+                ) : (
+                  <RichText2
+                    value={certification.name || ""}
+                    onChange={() => {}}
+                  />
+                )}
               </div>
               <div className="cc-item-institute-date">
-                <div className={["cc-item-institute", fontSizeText1].join(" ")}>
-                  {certification.institute}
+                <div className={["cc-item-institute", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    certification.institute
+                  ) : (
+                    <RichText2
+                      value={certification.institute || ""}
+                      onChange={() => {}}
+                    />
+                  )}
                 </div>
-                <div className={["cc-item-date", fontSizeText1].join(" ")}>
+                <div className={["cc-item-date", textFontSize].join(" ")}>
                   {certification.year}
                 </div>
               </div>
@@ -352,10 +773,16 @@ export function TemplateMinimalist({
                 certification.points.map((point, index) => (
                   <div
                     key={index}
-                    className={["cc-item-point", fontSizeText1].join(" ")}
+                    className={["cc-item-point", textFontSize].join(" ")}
                   >
                     <div className="cc-item-point-icon">•</div>
-                    <div className="cc-item-point-text">{point}</div>
+                    <div className="cc-item-point-text">
+                      {staticMode ? (
+                        point
+                      ) : (
+                        <RichText2 value={point || ""} onChange={() => {}} />
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -367,14 +794,31 @@ export function TemplateMinimalist({
   const renderHobbies = () => {
     return (
       <div className="hb-container">
-        <div className={["hb-label", fontSizeHeader1].join(" ")}>
-          {resume.hobbyLabel}
+        <div
+          className={[
+            "hb-label",
+            titleFontSize,
+            fontColorClass,
+            borderColorClass,
+          ].join(" ")}
+        >
+          {staticMode ? (
+            resume.hobbyLabel
+          ) : (
+            <RichText2 value={resume.hobbyLabel || ""} onChange={() => {}} />
+          )}
         </div>
         {resume.hobbies &&
           resume.hobbies.map((item, index) => (
-            <div key={index} className={["hb-item", fontSizeText1].join(" ")}>
+            <div key={index} className={["hb-item", textFontSize].join(" ")}>
               <div className="hb-item-icon">•</div>
-              <div className="hb-item-text">{item}</div>
+              <div className="hb-item-text">
+                {staticMode ? (
+                  item
+                ) : (
+                  <RichText2 value={item || ""} onChange={() => {}} />
+                )}
+              </div>
             </div>
           ))}
       </div>
@@ -382,7 +826,7 @@ export function TemplateMinimalist({
   };
 
   return (
-    <div className="container">
+    <div className={["container", fontFamilyClass].join(" ")}>
       {renderHeader()}
       {renderSummary()}
       {renderExperience()}

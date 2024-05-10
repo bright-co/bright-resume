@@ -18,8 +18,8 @@ const resumeObj: IResume = {
   userId: "userId",
   name: faker.person.fullName(),
   title: faker.person.fullName(),
-  color: ResumeColorEnum.black,
-  fontFamily: ResumeFontFamilyEnum.nunito,
+  color: ResumeColorEnum.blue,
+  fontFamily: ResumeFontFamilyEnum.raleway,
   fontSize: ResumeFontSizeEnum.large,
   role: faker.person.jobTitle(),
   isShowPhoneNumber: faker.datatype.boolean(),
@@ -294,5 +294,8 @@ const Template: StoryFn<typeof TemplateMinimalist> = (args) => {
   return <TemplateMinimalist {...args} />;
 };
 
-export const Main = Template.bind({});
-Main.args = { resume: resumeObj };
+export const Dynamic = Template.bind({});
+Dynamic.args = { resume: resumeObj };
+
+export const Static = Template.bind({});
+Static.args = { resume: resumeObj, staticMode: true };

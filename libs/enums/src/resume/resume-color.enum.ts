@@ -8,5 +8,4 @@ export enum ResumeColorEnum {
   purple = "purple",
   orange = "orange",
   brown = "brown",
-  white = "white",
 }

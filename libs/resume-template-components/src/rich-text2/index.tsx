@@ -8,6 +8,7 @@ import "./index.css";
 export interface RichText2Props {
   value: string;
   onChange: (value: string) => void;
+  style?: string;
   fontSize?: number;
   withToolbar?: boolean;
 }
@@ -15,8 +16,9 @@ export interface RichText2Props {
 export function RichText2({
   value,
   onChange,
+  style,
   fontSize = 30,
-  withToolbar = true,
+  withToolbar = false,
 }: RichText2Props) {
   const { quill, quillRef } = useQuill({
     modules: {
@@ -112,14 +114,8 @@ export function RichText2({
   };
 
   return (
-    <div className="bg-gray-100 relative">
-      <div
-        ref={quillRef}
-        style={{
-          fontSize: `${fontSize}px`,
-          lineHeight: `${fontSize + 5}px`,
-        }}
-      />
+    <div className="relative">
+      <div ref={quillRef} className={style} />
       {renderToolbar()}
     </div>
   );
