@@ -1,17 +1,21 @@
+import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { RichText } from ".";
-import { useState } from "react";
 
 export default {
   component: RichText,
-  title: "RichText",
+  title: "RichText3",
 } as Meta<typeof RichText>;
 
 const Template: StoryFn<typeof RichText> = (args) => {
   const [value, setValue] = useState(
-    "<p>this is a test  <strong>bright-resume</strong> </p> "
+    "this is a test  <strong>bright-resume</strong>"
   );
-  return <RichText {...args} value={value} onChange={setValue} />;
+  return (
+    <div style={{ display: "flex" }}>
+      <RichText value={value} onChange={(value) => setValue(value)} />
+    </div>
+  );
 };
 
 export const WithToolbar = Template.bind({});

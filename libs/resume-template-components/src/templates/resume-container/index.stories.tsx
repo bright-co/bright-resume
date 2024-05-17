@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from "@storybook/react";
 import moment from "moment";
 import { faker } from "@faker-js/faker";
-import { TemplateMinimalist } from ".";
-import { IResume } from "@models";
+import { ResumeContainer } from ".";
+import { IResume, ResumeModel } from "@models";
 import {
   ResumeColorEnum,
   ResumeFontFamilyEnum,
@@ -10,15 +10,15 @@ import {
 } from "@enums";
 
 export default {
-  component: TemplateMinimalist,
-  title: "TemplateMinimalist",
-} as Meta<typeof TemplateMinimalist>;
+  component: ResumeContainer,
+  title: "ResumeContainer",
+} as Meta<typeof ResumeContainer>;
 
 const resumeObj: IResume = {
   userId: "userId",
   name: faker.person.fullName(),
   title: faker.person.fullName(),
-  color: ResumeColorEnum.blue,
+  color: ResumeColorEnum.green,
   fontFamily: ResumeFontFamilyEnum.roboto,
   fontSize: ResumeFontSizeEnum.large,
   role: faker.person.jobTitle(),
@@ -290,12 +290,9 @@ const resumeObj: IResume = {
   hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
 };
 
-const Template: StoryFn<typeof TemplateMinimalist> = (args) => {
-  return <TemplateMinimalist {...args} />;
+const Template: StoryFn<typeof ResumeContainer> = (args) => {
+  return <ResumeContainer {...args} />;
 };
 
-export const Dynamic = Template.bind({});
-Dynamic.args = { resume: resumeObj };
-
-export const Static = Template.bind({});
-Static.args = { resume: resumeObj, staticMode: true };
+export const Main = Template.bind({});
+Main.args = { resumeModel: new ResumeModel(resumeObj) };

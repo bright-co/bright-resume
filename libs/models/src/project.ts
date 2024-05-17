@@ -18,7 +18,7 @@ export interface IProject {
   points?: string[];
 }
 
-export class Project {
+export class ProjectModel {
   constructor(private input: Partial<IProject>) {}
 
   getTitle(): string | undefined {

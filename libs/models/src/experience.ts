@@ -13,7 +13,7 @@ export interface IExperience {
   points?: string[];
 }
 
-export class Experience {
+export class ExperienceModel {
   constructor(private input: Partial<IExperience>) {}
 
   getRole(): string | undefined {

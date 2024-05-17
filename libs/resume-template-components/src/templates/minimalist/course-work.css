@@ -1,5 +1,6 @@
 .cw-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .cw-label {
@@ -7,8 +8,19 @@
   border-bottom: 1.5px solid;
 }
 
+.cw-label:hover {
+  background-color: #0002;
+}
+
 .cw-item {
   margin-bottom: 10px;
+}
+
+.cw-item-header {
+  position: relative;
+}
+.cw-item-header:hover {
+  background-color: #0002;
 }
 
 .cw-item-role {
@@ -35,6 +47,11 @@
 
 .cw-item-point {
   display: flex;
+  position: relative;
+}
+.cw-item-point:hover {
+  display: flex;
+  background-color: #0002;
 }
 
 .cw-item-point-icon {

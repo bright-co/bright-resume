@@ -4,7 +4,7 @@ export interface ILanguage {
   level?: string;
 }
 
-export class Language {
+export class LanguageModel {
   constructor(private input: Partial<ILanguage>) {}
 
   getName(): string | undefined {

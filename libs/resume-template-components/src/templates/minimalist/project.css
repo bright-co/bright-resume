@@ -1,14 +1,25 @@
 .pr-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .pr-label {
   font-weight: bold;
   border-bottom: 1.5px solid;
 }
+.pr-label:hover {
+  background-color: #0002;
+}
 
 .pr-item {
   margin-bottom: 10px;
+}
+
+.pr-item-header {
+  position: relative;
+}
+.pr-item-header:hover {
+  background-color: #0002;
 }
 
 .pr-item-role {
@@ -36,6 +47,11 @@
 
 .pr-item-point {
   display: flex;
+  position: relative;
+}
+
+.pr-item-point:hover {
+  background-color: #0002;
 }
 
 .pr-item-point-icon {
