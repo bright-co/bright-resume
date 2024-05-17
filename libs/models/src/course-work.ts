@@ -11,7 +11,7 @@ export interface ICourseWork {
   points?: string[];
 }
 
-export class CourseWork {
+export class CourseWorkModel {
   constructor(private input: Partial<ICourseWork>) {}
 
   getName(): string | undefined {

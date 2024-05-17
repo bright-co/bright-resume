@@ -14,7 +14,7 @@ export interface IInvolvement {
   points?: string[];
 }
 
-export class Involvement {
+export class InvolvementModel {
   constructor(private input: Partial<IInvolvement>) {}
 
   getRole(): string | undefined {

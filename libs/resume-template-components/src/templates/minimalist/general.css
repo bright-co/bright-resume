@@ -3,9 +3,78 @@
   width: 21cm;
   max-width: 21cm;
   min-height: 29.7cm;
-  /* background-color: #3331; */
   overflow-x: hidden;
-  /* border: 1px solid red; */
+}
+
+.container * {
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+}
+
+.container .section-toolbar {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  padding-right: 3px;
+
+  border-radius: 2px;
+  display: none;
+}
+
+.container .section-toolbar-show {
+  display: block;
+}
+
+.container .section-toolbar .button {
+  cursor: pointer;
+  padding: 2px;
+  background-color: #0002;
+  margin-bottom: 2px;
+}
+
+.container .sub-section-toolbar {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  padding-right: 3px;
+  border-radius: 2px;
+  display: none;
+}
+
+.container .sub-section-toolbar-show {
+  display: block;
+}
+
+.container .sub-section-toolbar .button {
+  cursor: pointer;
+  padding: 2px;
+  background-color: #0002;
+  margin-bottom: 2px;
+}
+
+.container .section-toolbar-point {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  padding-right: 3px;
+  border-radius: 2px;
+  display: none;
+}
+
+.container .section-toolbar-point-show {
+  display: block;
+}
+
+.container .section-toolbar-point .button {
+  cursor: pointer;
+  padding: 2px;
+  background-color: #0002;
+  margin-bottom: 2px;
 }
 
 @font-face {

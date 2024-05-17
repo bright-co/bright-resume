@@ -1,5 +1,6 @@
 .cc-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .cc-label {
@@ -7,8 +8,19 @@
   border-bottom: 1.5px solid;
 }
 
+.cc-label:hover {
+  background-color: #0002;
+}
+
 .cc-item {
   margin-bottom: 10px;
+}
+
+.cc-item-header {
+  position: relative;
+}
+.cc-item-header:hover {
+  background-color: #0002;
 }
 
 .cc-item-role {
@@ -32,6 +44,11 @@
 
 .cc-item-point {
   display: flex;
+  position: relative;
+}
+
+.cc-item-point:hover {
+  background-color: #0002;
 }
 
 .cc-item-point-icon {

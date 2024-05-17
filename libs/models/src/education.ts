@@ -16,7 +16,7 @@ export interface IEducation {
   points?: string[];
 }
 
-export class Education {
+export class EducationModel {
   constructor(private input: Partial<IEducation>) {}
 
   getDegree(): string | undefined {

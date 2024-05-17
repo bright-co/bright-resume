@@ -1,5 +1,6 @@
 .iv-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .iv-label {
@@ -7,8 +8,20 @@
   border-bottom: 1.5px solid;
 }
 
+.iv-label:hover {
+  background-color: #0002;
+}
+
 .iv-item {
   margin-bottom: 10px;
+}
+
+.iv-item-header {
+  position: relative;
+}
+
+.iv-item-header:hover {
+  background-color: #0002;
 }
 
 .iv-item-role {
@@ -36,6 +49,11 @@
 
 .iv-item-point {
   display: flex;
+  position: relative;
+}
+
+.iv-item-point:hover {
+  background-color: #0002;
 }
 
 .iv-item-point-icon {

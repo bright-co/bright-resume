@@ -92,8 +92,8 @@ export interface IResume {
   updatedAt?: Date;
 }
 
-export class Resume {
-  constructor(private input: Partial<IResume>) {}
+export class ResumeModel {
+  constructor(public input: Partial<IResume>) {}
 
   getUserId(): string | undefined {
     return this.input.userId;

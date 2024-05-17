@@ -8,7 +8,7 @@ export interface ICertification {
   points?: string[];
 }
 
-export class Certification {
+export class CertificationModel {
   constructor(private input: Partial<ICertification>) {}
 
   getName(): string | undefined {

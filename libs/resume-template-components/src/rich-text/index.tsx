@@ -1,106 +1,103 @@
-"use client";
-
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { KeyboardEvent, useState } from "react";
+import {
+  BtnBold,
+  BtnItalic,
+  ContentEditableEvent,
+  Editor,
+  EditorProvider,
+  Toolbar,
+} from "react-simple-wysiwyg";
 import "./index.css";
 
 export interface RichTextProps {
-  value: string;
-  onChange: (value: string) => void;
-  fontSize?: number;
+  value?: string;
+  onChange?: (value: string) => void;
+  className?: string;
   withToolbar?: boolean;
 }
 
 export function RichText({
-  value,
-  onChange,
-  fontSize = 30,
+  value = "",
+  onChange = () => "",
+  className,
   withToolbar = false,
 }: RichTextProps) {
-  const [top, setTop] = useState(30);
-  const [height, setHeight] = useState(100);
-  // const [width, setWidth] = useState(200);
-
-  console.log({ value });
-
-  const [value2, setValue2] = useState("<p>value2</p>");
-
-  const padding = 8;
-
+  const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
-  const [isShowToolbar, setIsShowToolbar] = useState(false);
+  const [height, setHeight] = useState(0);
+  const [displayToolbar, setToolbarDisplay] = useState("none");
 
-  const renderToolbar = () => {
-    return (
-      <div
-        id="custom-toolbar"
-        style={{
-          display: isShowToolbar ? "block" : "none",
-          top: top + height,
-          left,
-          position: "absolute",
-          width: 4 * 29 + 2 * padding,
-          height: 24 + 2 * padding,
-          // border: "1px solid red",
-          backgroundColor: "white",
-        }}
-      >
-        <button className="ql-bold" />
-        <button className="ql-italic" />
-        <button className="ql-underline" />
-        <button className="ql-link" />
-      </div>
-    );
+  const cleanHtml = (htmlString: string) => {
+    const allowedTags = ["b", "strong", "em", "i"];
+    const tagRegex = new RegExp(`<([^\\s>]+)(?:[^>]*)>(.*?)</\\1>`, "gi");
+
+    htmlString = htmlString.replace(tagRegex, (match, tagName) => {
+      if (allowedTags.includes(tagName.toLowerCase())) {
+        // Remove inline styles
+        return match.replace(/(style="[^"]*")|(style='[^']*')/gi, "");
+      } else {
+        return "";
+      }
+    });
+
+    htmlString = htmlString.replace(/(style="[^"]*")|(style='[^']*')/gi, "");
+
+    return htmlString;
+  };
+
+  const onChangeEvent = (event: ContentEditableEvent) => {
+    onChange(cleanHtml(event.target.value));
+  };
+
+  const onKeyDownEvent = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
+  const onBlueEvent = () => {
+    setToolbarDisplay("none");
+  };
+
+  const onSelectEvent = () => {
+    const selection = window.getSelection();
+    if (selection) {
+      const range = selection.getRangeAt(0);
+      const text = selection.toString();
+      const rect = range.getBoundingClientRect();
+      const top = rect.top + window.pageYOffset;
+      const left = rect.left + window.pageXOffset;
+      const height = rect.height + 5;
+      setToolbarDisplay(text ? "block" : "none");
+      setTop(top);
+      setLeft(left);
+      setHeight(height);
+    }
   };
 
   return (
-    <div className="bg-gray-100 relative">
-      <ReactQuill
-        preserveWhitespace={false}
+    <EditorProvider>
+      <Editor
+        className={className}
+        value={value}
+        onKeyDown={onKeyDownEvent}
+        onChange={onChangeEvent}
+        onBlur={onBlueEvent}
+        onSelect={onSelectEvent}
+      ></Editor>
+      <Toolbar
         style={{
-          fontSize: `${fontSize}px`,
-          lineHeight: `${fontSize + 5}px`,
+          display: withToolbar ? displayToolbar : "none",
+          position: "fixed",
+          top: top + height,
+          left,
+          width: 70,
+          height: 30,
         }}
-        value={value2}
-        modules={{
-          toolbar: {
-            container: "#custom-toolbar",
-          },
-        }}
-        onChange={(value: string, delta, source, editor) => {
-          console.log({ delta });
-
-          if (
-            delta &&
-            delta.ops &&
-            delta.ops[1] &&
-            delta.ops[1].insert === "\n"
-          ) {
-            console.log("return");
-
-            return;
-          }
-          setValue2(value);
-          // onChange(value);
-        }}
-        onChangeSelection={(selection, source, editor) => {
-          if (!withToolbar) return;
-          if (selection && selection.length) {
-            setIsShowToolbar(true);
-            const { top, left, height } = editor.getBounds(
-              selection.index,
-              selection.length
-            );
-            setTop(top);
-            setHeight(height);
-            setLeft(left);
-          } else {
-            setIsShowToolbar(false);
-          }
-        }}
-      />
-      {renderToolbar()}
-    </div>
+      >
+        <BtnBold />
+        <BtnItalic />
+      </Toolbar>
+    </EditorProvider>
   );
 }
