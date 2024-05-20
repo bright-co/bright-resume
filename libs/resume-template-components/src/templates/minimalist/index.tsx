@@ -32,7 +32,7 @@ import {
 } from "@enums";
 import { RichText } from "@resume-template-components/rich-text";
 import {
-  HoverSectionType,
+  ResumeSectionType,
   ResumeTemplateProps,
 } from "../resume-template-props";
 
@@ -45,6 +45,17 @@ export function TemplateMinimalist({
   setHoverSubSectionPoint,
   hoverSubSection,
   setHoverSubSection,
+  onChangeSectionOrder,
+  onChangeSubSectionIndex,
+  onChangeSubSectionPointIndex,
+  updateResume,
+  updateResumeProject,
+  updateResumeCertification,
+  updateResumeCourseWork,
+  updateResumeEducation,
+  updateResumeExperience,
+  updateResumeInvolvement,
+  updateResumeLanguage,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -142,7 +153,7 @@ export function TemplateMinimalist({
     fontFamilyClass = "font-family-raleway";
   }
 
-  const onMouseOverSection = (part: HoverSectionType) => {
+  const onMouseOverSection = (part: ResumeSectionType) => {
     if (setHoverSection) {
       setHoverSection(part);
     }
@@ -154,8 +165,8 @@ export function TemplateMinimalist({
     }
   };
 
-  const onMouseoverSubSection = (
-    section: HoverSectionType,
+  const onMouseOverSubSection = (
+    section: ResumeSectionType,
     subSectionIndex: number
   ) => {
     if (setHoverSubSection) {
@@ -169,8 +180,8 @@ export function TemplateMinimalist({
     }
   };
 
-  const onMouseoverSubSectionPoint = (
-    section: HoverSectionType,
+  const onMouseOverSubSectionPoint = (
+    section: ResumeSectionType,
     subSectionIndex: number,
     pointIndex: number
   ) => {
@@ -185,7 +196,10 @@ export function TemplateMinimalist({
     }
   };
 
-  const renderSectionToolbar = (section: typeof hoverSection) => {
+  const renderSectionToolbar = (
+    section: typeof hoverSection,
+    order: number | undefined
+  ) => {
     return (
       <div
         className={[
@@ -193,18 +207,83 @@ export function TemplateMinimalist({
           hoverSection === section && "section-toolbar-show",
         ].join(" ")}
       >
-        <div className="button">
-          <UpIcon />
-        </div>
+        {onChangeSectionOrder && order && order > 1 && (
+          <div
+            className="button"
+            onClick={() => onChangeSectionOrder(section, order - 1)}
+          >
+            <UpIcon />
+          </div>
+        )}
         <div className="button">
           <EditIcon />
         </div>
         <div className="button">
           <AIIcon />
         </div>
+        {onChangeSectionOrder && order && order < 10 && (
+          <div
+            className="button"
+            onClick={() => onChangeSectionOrder(section, order + 1)}
+          >
+            <DownIcon />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderSubSectionToolbar = (
+    section: typeof hoverSection,
+    subSectionIndex: number,
+    subSectionLength: number
+  ) => {
+    return (
+      <div
+        className={[
+          "sub-section-toolbar",
+          hoverSubSection &&
+            hoverSubSection.section === section &&
+            hoverSubSection.subSectionIndex === subSectionIndex &&
+            "sub-section-toolbar-show",
+        ].join(" ")}
+      >
+        {onChangeSubSectionIndex &&
+          subSectionIndex > 0 &&
+          subSectionLength > 1 && (
+            <div
+              className="button"
+              onClick={() =>
+                onChangeSubSectionIndex(
+                  section,
+                  subSectionIndex,
+                  subSectionIndex - 1
+                )
+              }
+            >
+              <UpIcon />
+            </div>
+          )}
         <div className="button">
-          <DownIcon />
+          <EditIcon />
         </div>
+        <div className="button">
+          <AIIcon />
+        </div>
+        {onChangeSubSectionIndex && subSectionIndex < subSectionLength - 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionIndex(
+                section,
+                subSectionIndex,
+                subSectionIndex + 1
+              )
+            }
+          >
+            <DownIcon />
+          </div>
+        )}
       </div>
     );
   };
@@ -212,7 +291,8 @@ export function TemplateMinimalist({
   const renderSubSectionPointToolbar = (
     section: typeof hoverSection,
     subSectionIndex: number,
-    pointIndex: number
+    pointIndex: number,
+    pointLength: number
   ) => {
     return (
       <div
@@ -225,48 +305,42 @@ export function TemplateMinimalist({
             "section-toolbar-point-show",
         ].join(" ")}
       >
-        <div className="button">
-          <UpIcon />
-        </div>
-        <div className="button">
-          <EditIcon />
-        </div>
-        <div className="button">
-          <AIIcon />
-        </div>
-        <div className="button">
-          <DownIcon />
-        </div>
-      </div>
-    );
-  };
-
-  const renderSubSectionToolbar = (
-    section: typeof hoverSection,
-    subSectionIndex: number
-  ) => {
-    return (
-      <div
-        className={[
-          "sub-section-toolbar",
-          hoverSubSection &&
-            hoverSubSection.section === section &&
-            hoverSubSection.subSectionIndex === subSectionIndex &&
-            "sub-section-toolbar-show",
-        ].join(" ")}
-      >
-        <div className="button">
-          <UpIcon />
-        </div>
+        {onChangeSubSectionPointIndex && pointIndex > 0 && pointLength > 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionPointIndex(
+                section,
+                subSectionIndex,
+                pointIndex,
+                pointIndex - 1
+              )
+            }
+          >
+            <UpIcon />
+          </div>
+        )}
         <div className="button">
           <EditIcon />
         </div>
         <div className="button">
           <AIIcon />
         </div>
-        <div className="button">
-          <DownIcon />
-        </div>
+        {onChangeSubSectionPointIndex && pointIndex < pointLength - 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionPointIndex(
+                section,
+                subSectionIndex,
+                pointIndex,
+                pointIndex + 1
+              )
+            }
+          >
+            <DownIcon />
+          </div>
+        )}
       </div>
     );
   };
@@ -286,7 +360,12 @@ export function TemplateMinimalist({
             {staticMode ? (
               resume.name
             ) : (
-              <RichText value={resume.name || ""} onChange={() => {}} />
+              <RichText
+                value={resume.name || ""}
+                onChange={(value) =>
+                  updateResume && updateResume("setName", value)
+                }
+              />
             )}
           </div>
           <div
@@ -295,7 +374,12 @@ export function TemplateMinimalist({
             {staticMode ? (
               resume.role
             ) : (
-              <RichText value={resume.role || ""} onChange={() => {}} />
+              <RichText
+                value={resume.role || ""}
+                onChange={(value) =>
+                  updateResume && updateResume("setRole", value)
+                }
+              />
             )}
           </div>
           <div className="hr-social-media">
@@ -306,7 +390,12 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.linkedin
               ) : (
-                <RichText value={resume.linkedin || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.linkedin || ""}
+                  onChange={(value) =>
+                    updateResume && updateResume("setLinkedin", value)
+                  }
+                />
               )}
             </div>
             <div className={["hr-item", subTextFontSize].join(" ")}>
@@ -316,7 +405,12 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.email
               ) : (
-                <RichText value={resume.email || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.email || ""}
+                  onChange={(value) =>
+                    updateResume && updateResume("setEmail", value)
+                  }
+                />
               )}
             </div>
             <div className={["hr-item", subTextFontSize].join(" ")}>
@@ -328,7 +422,9 @@ export function TemplateMinimalist({
               ) : (
                 <RichText
                   value={resume.phoneNumber || ""}
-                  onChange={() => {}}
+                  onChange={(value) =>
+                    updateResume && updateResume("setPhoneNumber", value)
+                  }
                 />
               )}
             </div>
@@ -339,7 +435,12 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.website
               ) : (
-                <RichText value={resume.website || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.website || ""}
+                  onChange={(value) =>
+                    updateResume && updateResume("setWebsite", value)
+                  }
+                />
               )}
             </div>
           </div>
@@ -361,18 +462,28 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("summary")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("summary")}
+          {renderSectionToolbar("summary", resume.summaryOrder)}
           {staticMode ? (
             resume.summaryLabel
           ) : (
-            <RichText value={resume.summaryLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.summaryLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setSummaryLabel", value)
+              }
+            />
           )}
         </div>
         <div className={["sm-text", textFontSize].join(" ")}>
           {staticMode ? (
             resume.summary
           ) : (
-            <RichText value={resume.summary || ""} onChange={() => {}} />
+            <RichText
+              value={resume.summary || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setSummary", value)
+              }
+            />
           )}
         </div>
       </div>
@@ -392,13 +503,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("experience")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("experience")}
+          {renderSectionToolbar("experience", resume.experienceOrder)}
           {staticMode ? (
             resume.experienceLabel
           ) : (
             <RichText
               value={resume.experienceLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                updateResume && updateResume("setExperienceLabel", value)
+              }
             />
           )}
         </div>
@@ -408,16 +521,30 @@ export function TemplateMinimalist({
               <div
                 className="ex-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("experience", subSectionIndex)
+                  onMouseOverSubSection("experience", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("experience", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "experience",
+                  subSectionIndex,
+                  resume.experiences?.length || 0
+                )}
                 <div className={["ex-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     experience.role
                   ) : (
-                    <RichText value={resume.role || ""} onChange={() => {}} />
+                    <RichText
+                      value={experience.role || ""}
+                      onChange={(value) =>
+                        updateResumeExperience &&
+                        updateResumeExperience(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
+                      }
+                    />
                   )}
                 </div>
                 <div className="ex-item-company-date-location">
@@ -427,13 +554,80 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={experience.company || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
                   <div className={["ex-item-date", textFontSize].join(" ")}>
-                    {experience.fromMonth} {experience.fromYear} -
-                    {experience.toMonth} {experience.toYear},
+                    {staticMode ? (
+                      experience.fromMonth
+                    ) : (
+                      <RichText
+                        value={experience.fromMonth || ""}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      experience.fromYear
+                    ) : (
+                      <RichText
+                        value={experience.fromYear || ""}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      experience.toMonth
+                    ) : (
+                      <RichText
+                        value={experience.toMonth || ""}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}{" "}
+                    {staticMode ? (
+                      experience.toYear
+                    ) : (
+                      <RichText
+                        value={experience.toYear || ""}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
                   </div>
                   <div className={["ex-item-location", textFontSize].join(" ")}>
                     {staticMode ? (
@@ -441,7 +635,14 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={experience.location || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeExperience &&
+                          updateResumeExperience(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
@@ -453,7 +654,7 @@ export function TemplateMinimalist({
                     key={"ex-item-point" + pointIndex}
                     className={["ex-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "experience",
                         subSectionIndex,
                         pointIndex
@@ -464,14 +665,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "experience",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      experience.points?.length || 0
                     )}
                     <div className="ex-item-point-icon">•</div>
                     <div className="ex-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeExperience &&
+                            updateResumeExperience(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -495,13 +708,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("involvement")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("involvement")}
+          {renderSectionToolbar("involvement", resume.involvementOrder)}
           {staticMode ? (
             resume.involvementLabel
           ) : (
             <RichText
               value={resume.involvementLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                updateResume && updateResume("setInvolvementLabel", value)
+              }
             />
           )}
         </div>
@@ -511,18 +726,29 @@ export function TemplateMinimalist({
               <div
                 className="iv-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("involvement", subSectionIndex)
+                  onMouseOverSubSection("involvement", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("involvement", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "involvement",
+                  subSectionIndex,
+                  resume.involvements?.length || 0
+                )}
                 <div className={["iv-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     resume.role
                   ) : (
                     <RichText
                       value={involvement.role || ""}
-                      onChange={() => {}}
+                      onChange={(value) =>
+                        updateResumeInvolvement &&
+                        updateResumeInvolvement(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
@@ -533,13 +759,80 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={involvement.company || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
                   <div className={["iv-item-date", textFontSize].join(" ")}>
-                    {involvement.fromMonth} {involvement.fromYear} -
-                    {involvement.toMonth} {involvement.toYear},
+                    {staticMode ? (
+                      involvement.fromMonth
+                    ) : (
+                      <RichText
+                        value={involvement.fromMonth || ""}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      involvement.fromYear
+                    ) : (
+                      <RichText
+                        value={involvement.fromYear || ""}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      involvement.toMonth
+                    ) : (
+                      <RichText
+                        value={involvement.toMonth || ""}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}{" "}
+                    {staticMode ? (
+                      involvement.toYear
+                    ) : (
+                      <RichText
+                        value={involvement.toYear || ""}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
                   </div>
                   <div className={["iv-item-location", textFontSize].join(" ")}>
                     {staticMode ? (
@@ -547,7 +840,14 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={involvement.location || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeInvolvement &&
+                          updateResumeInvolvement(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
@@ -559,7 +859,7 @@ export function TemplateMinimalist({
                     key={"iv-item-point" + pointIndex}
                     className={["iv-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "involvement",
                         subSectionIndex,
                         pointIndex
@@ -570,14 +870,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "involvement",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      involvement.points?.length || 0
                     )}
                     <div className="iv-item-point-icon">•</div>
                     <div className="iv-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeInvolvement &&
+                            updateResumeInvolvement(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -601,11 +913,16 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("project")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("project")}
+          {renderSectionToolbar("project", resume.projectOrder)}
           {staticMode ? (
             resume.projectLabel
           ) : (
-            <RichText value={resume.projectLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.projectLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setProjectLabel", value)
+              }
+            />
           )}
         </div>
         {resume.projects &&
@@ -614,16 +931,26 @@ export function TemplateMinimalist({
               <div
                 className="pr-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("project", subSectionIndex)
+                  onMouseOverSubSection("project", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("project", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "project",
+                  subSectionIndex,
+                  resume.projects?.length || 0
+                )}
                 <div className={["pr-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     project.role
                   ) : (
-                    <RichText value={project.role || ""} onChange={() => {}} />
+                    <RichText
+                      value={project.role || ""}
+                      onChange={(value) =>
+                        updateResumeProject &&
+                        updateResumeProject(subSectionIndex, "setRole", value)
+                      }
+                    />
                   )}
                 </div>
                 <div className="pr-item-company-date-location">
@@ -633,18 +960,91 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={project.company || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
                       />
                     )}
                     {staticMode ? (
                       project.url
                     ) : (
-                      <RichText value={project.url || ""} onChange={() => {}} />
+                      <RichText
+                        value={project.url || ""}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(subSectionIndex, "setUrl", value)
+                        }
+                      />
                     )}
                   </div>
                   <div className={["pr-item-date", textFontSize].join(" ")}>
-                    {project.fromMonth} {project.fromYear} -{project.toMonth}{" "}
-                    {project.toYear},
+                    {staticMode ? (
+                      project.fromMonth
+                    ) : (
+                      <RichText
+                        value={project.fromMonth || ""}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      project.fromYear
+                    ) : (
+                      <RichText
+                        value={project.fromYear || ""}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      project.toMonth
+                    ) : (
+                      <RichText
+                        value={project.toMonth || ""}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      project.toYear
+                    ) : (
+                      <RichText
+                        value={project.toYear || ""}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
                   </div>
                   <div className={["pr-item-location", textFontSize].join(" ")}>
                     {staticMode ? (
@@ -652,7 +1052,14 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={project.location || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeProject &&
+                          updateResumeProject(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
@@ -664,7 +1071,7 @@ export function TemplateMinimalist({
                     key={"pr-item-point" + pointIndex}
                     className={["pr-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "project",
                         subSectionIndex,
                         pointIndex
@@ -675,14 +1082,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "project",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      project.points?.length || 0
                     )}
                     <div className="pr-item-point-icon">•</div>
                     <div className="pr-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeProject &&
+                            updateResumeProject(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -706,11 +1125,16 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("education")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("education")}
+          {renderSectionToolbar("education", resume.educationOrder)}
           {staticMode ? (
             resume.educationLabel
           ) : (
-            <RichText value={resume.educationLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.educationLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setEducationLabel", value)
+              }
+            />
           )}
         </div>
         {resume.educations &&
@@ -719,18 +1143,29 @@ export function TemplateMinimalist({
               <div
                 className="ed-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("education", subSectionIndex)
+                  onMouseOverSubSection("education", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("education", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "education",
+                  subSectionIndex,
+                  resume.educations?.length || 0
+                )}
                 <div className={["ed-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     education.degree
                   ) : (
                     <RichText
                       value={education.degree || ""}
-                      onChange={() => {}}
+                      onChange={(value) =>
+                        updateResumeEducation &&
+                        updateResumeEducation(
+                          subSectionIndex,
+                          "setDegree",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
@@ -741,7 +1176,14 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={education.institute || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
                       />
                     )}{" "}
                     {staticMode ? (
@@ -749,13 +1191,80 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={education.gpa || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setGpa",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
                   <div className={["ed-item-date", textFontSize].join(" ")}>
-                    {education.fromMonth} {education.fromYear} -
-                    {education.toMonth} {education.toYear},
+                    {staticMode ? (
+                      education.fromMonth
+                    ) : (
+                      <RichText
+                        value={education.fromMonth || ""}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      education.fromYear
+                    ) : (
+                      <RichText
+                        value={education.fromYear || ""}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      education.toMonth
+                    ) : (
+                      <RichText
+                        value={education.toMonth || ""}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      education.toYear
+                    ) : (
+                      <RichText
+                        value={education.toYear || ""}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
                   </div>
                   <div className={["ed-item-location", textFontSize].join(" ")}>
                     {staticMode ? (
@@ -763,7 +1272,14 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={education.location || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeEducation &&
+                          updateResumeEducation(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
@@ -775,7 +1291,7 @@ export function TemplateMinimalist({
                     key={"ed-item-point" + pointIndex}
                     className={["ed-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "education",
                         subSectionIndex,
                         pointIndex
@@ -786,14 +1302,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "education",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      education.points?.length || 0
                     )}
                     <div className="ed-item-point-icon">•</div>
                     <div className="ed-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeEducation &&
+                            updateResumeEducation(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -817,7 +1345,7 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("skill")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("skill")}
+          {renderSectionToolbar("skill", resume.skillOrder)}
           {staticMode ? (
             resume.skillLabel
           ) : (
@@ -830,11 +1358,15 @@ export function TemplateMinimalist({
               key={subSectionIndex}
               className={["sk-item", textFontSize].join(" ")}
               onMouseOver={() =>
-                onMouseoverSubSection("skill", subSectionIndex)
+                onMouseOverSubSection("skill", subSectionIndex)
               }
               onMouseOut={() => onMouseOutSubSection()}
             >
-              {renderSubSectionToolbar("skill", subSectionIndex)}
+              {renderSubSectionToolbar(
+                "skill",
+                subSectionIndex,
+                resume.skills?.length || 0
+              )}
               <div className="sk-item-icon">•</div>
               <div className="sk-item-text">
                 {staticMode ? (
@@ -862,11 +1394,16 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("language")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("language")}
+          {renderSectionToolbar("language", resume.languageOrder)}
           {staticMode ? (
             resume.languageLabel
           ) : (
-            <RichText value={resume.languageLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.languageLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setLanguageLabel", value)
+              }
+            />
           )}
         </div>
         {resume.languages &&
@@ -875,24 +1412,40 @@ export function TemplateMinimalist({
               key={"ln-item" + subSectionIndex}
               className={["ln-item", textFontSize].join(" ")}
               onMouseOver={() =>
-                onMouseoverSubSection("language", subSectionIndex)
+                onMouseOverSubSection("language", subSectionIndex)
               }
               onMouseOut={() => onMouseOutSubSection()}
             >
-              {renderSubSectionToolbar("language", subSectionIndex)}
+              {renderSubSectionToolbar(
+                "language",
+                subSectionIndex,
+                resume.languages?.length || 0
+              )}
               <div className="ln-item-icon">•</div>
               <div className="ln-item-text">
                 {staticMode ? (
                   item.name
                 ) : (
-                  <RichText value={item.name || ""} onChange={() => {}} />
+                  <RichText
+                    value={item.name || ""}
+                    onChange={(value) =>
+                      updateResumeLanguage &&
+                      updateResumeLanguage(subSectionIndex, "setName", value)
+                    }
+                  />
                 )}
                 <div className="ln-item-divider">{":"}</div>
 
                 {staticMode ? (
                   item.level
                 ) : (
-                  <RichText value={item.level || ""} onChange={() => {}} />
+                  <RichText
+                    value={item.level || ""}
+                    onChange={(value) =>
+                      updateResumeLanguage &&
+                      updateResumeLanguage(subSectionIndex, "setLevel", value)
+                    }
+                  />
                 )}
               </div>
             </div>
@@ -914,13 +1467,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("courseWork")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("courseWork")}
+          {renderSectionToolbar("courseWork", resume.courseWorkOrder)}
           {staticMode ? (
             resume.courseWorkLabel
           ) : (
             <RichText
               value={resume.courseWorkLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                updateResume && updateResume("setCourseWorkLabel", value)
+              }
             />
           )}
         </div>
@@ -930,18 +1485,29 @@ export function TemplateMinimalist({
               <div
                 className="cw-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("courseWork", subSectionIndex)
+                  onMouseOverSubSection("courseWork", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("courseWork", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "courseWork",
+                  subSectionIndex,
+                  resume.courseWorks?.length || 0
+                )}
                 <div className={["cw-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     courseWork.name
                   ) : (
                     <RichText
                       value={courseWork.name || ""}
-                      onChange={() => {}}
+                      onChange={(value) =>
+                        updateResumeCourseWork &&
+                        updateResumeCourseWork(
+                          subSectionIndex,
+                          "setName",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
@@ -954,12 +1520,33 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={courseWork.institute || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeCourseWork &&
+                          updateResumeCourseWork(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
                   <div className={["cw-item-date", textFontSize].join(" ")}>
-                    {courseWork.year}
+                    {staticMode ? (
+                      courseWork.year
+                    ) : (
+                      <RichText
+                        value={courseWork.year || ""}
+                        onChange={(value) =>
+                          updateResumeCourseWork &&
+                          updateResumeCourseWork(
+                            subSectionIndex,
+                            "setYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
                   </div>
                 </div>
                 <div className={["cw-item-skill", textFontSize].join(" ")}>
@@ -968,7 +1555,14 @@ export function TemplateMinimalist({
                   ) : (
                     <RichText
                       value={courseWork.skills || ""}
-                      onChange={() => {}}
+                      onChange={(value) =>
+                        updateResumeCourseWork &&
+                        updateResumeCourseWork(
+                          subSectionIndex,
+                          "setSkills",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
@@ -979,7 +1573,7 @@ export function TemplateMinimalist({
                     key={"cw-item-point" + pointIndex}
                     className={["cw-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "courseWork",
                         subSectionIndex,
                         pointIndex
@@ -990,14 +1584,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "courseWork",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      courseWork.points?.length || 0
                     )}
                     <div className="cw-item-point-icon">•</div>
                     <div className="cw-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeCourseWork &&
+                            updateResumeCourseWork(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -1021,13 +1627,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("certification")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("certification")}
+          {renderSectionToolbar("certification", resume.certificationOrder)}
           {staticMode ? (
             resume.certificationLabel
           ) : (
             <RichText
               value={resume.certificationLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                updateResume && updateResume("setCertificationLabel", value)
+              }
             />
           )}
         </div>
@@ -1037,18 +1645,29 @@ export function TemplateMinimalist({
               <div
                 className="cc-item-header"
                 onMouseOver={() =>
-                  onMouseoverSubSection("certification", subSectionIndex)
+                  onMouseOverSubSection("certification", subSectionIndex)
                 }
                 onMouseOut={() => onMouseOutSubSection()}
               >
-                {renderSubSectionToolbar("certification", subSectionIndex)}
+                {renderSubSectionToolbar(
+                  "certification",
+                  subSectionIndex,
+                  resume.certifications?.length || 0
+                )}
                 <div className={["cc-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
                     certification.name
                   ) : (
                     <RichText
                       value={certification.name || ""}
-                      onChange={() => {}}
+                      onChange={(value) =>
+                        updateResumeCertification &&
+                        updateResumeCertification(
+                          subSectionIndex,
+                          "setName",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
@@ -1061,12 +1680,33 @@ export function TemplateMinimalist({
                     ) : (
                       <RichText
                         value={certification.institute || ""}
-                        onChange={() => {}}
+                        onChange={(value) =>
+                          updateResumeCertification &&
+                          updateResumeCertification(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
                       />
                     )}
                   </div>
                   <div className={["cc-item-date", textFontSize].join(" ")}>
-                    {certification.year}
+                    {staticMode ? (
+                      certification.year
+                    ) : (
+                      <RichText
+                        value={certification.year || ""}
+                        onChange={(value) =>
+                          updateResumeCertification &&
+                          updateResumeCertification(
+                            subSectionIndex,
+                            "setYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -1076,7 +1716,7 @@ export function TemplateMinimalist({
                     key={"cc-item-point" + pointIndex}
                     className={["cc-item-point", textFontSize].join(" ")}
                     onMouseOver={() =>
-                      onMouseoverSubSectionPoint(
+                      onMouseOverSubSectionPoint(
                         "certification",
                         subSectionIndex,
                         pointIndex
@@ -1087,14 +1727,26 @@ export function TemplateMinimalist({
                     {renderSubSectionPointToolbar(
                       "certification",
                       subSectionIndex,
-                      pointIndex
+                      pointIndex,
+                      certification.points?.length || 0
                     )}
                     <div className="cc-item-point-icon">•</div>
                     <div className="cc-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText value={point || ""} onChange={() => {}} />
+                        <RichText
+                          value={point || ""}
+                          onChange={(value) =>
+                            updateResumeCertification &&
+                            updateResumeCertification(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -1118,7 +1770,7 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("hobby")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("hobby")}
+          {renderSectionToolbar("hobby", resume.hobbyOrder)}
           {staticMode ? (
             resume.hobbyLabel
           ) : (
@@ -1131,11 +1783,15 @@ export function TemplateMinimalist({
               key={subSectionIndex + "hb-item"}
               className={["hb-item", textFontSize].join(" ")}
               onMouseOver={() =>
-                onMouseoverSubSection("hobby", subSectionIndex)
+                onMouseOverSubSection("hobby", subSectionIndex)
               }
               onMouseOut={() => onMouseOutSubSection()}
             >
-              {renderSubSectionToolbar("hobby", subSectionIndex)}
+              {renderSubSectionToolbar(
+                "hobby",
+                subSectionIndex,
+                resume.hobbies?.length || 0
+              )}
               <div className="hb-item-icon">•</div>
               <div className="hb-item-text">
                 {staticMode ? (
@@ -1153,16 +1809,60 @@ export function TemplateMinimalist({
   return (
     <div className={["container", fontFamilyClass].join(" ")}>
       {renderHeader()}
-      {renderSummary()}
-      {renderExperience()}
-      {renderProject()}
-      {renderEducation()}
-      {renderInvolvement()}
-      {renderCourseWork()}
-      {renderCertification()}
-      {renderSkills()}
-      {renderLanguages()}
-      {renderHobbies()}
+      {[
+        {
+          title: "summary",
+          order: resume.summaryOrder || 1,
+          render: renderSummary,
+        },
+        {
+          title: "experience",
+          order: resume.experienceOrder || 2,
+          render: renderExperience,
+        },
+        {
+          title: "project",
+          order: resume.projectOrder || 3,
+          render: renderProject,
+        },
+        {
+          title: "education",
+          order: resume.educationOrder || 4,
+          render: renderEducation,
+        },
+        {
+          title: "involvement",
+          order: resume.involvementOrder || 5,
+          render: renderInvolvement,
+        },
+        {
+          title: "courseWork",
+          order: resume.courseWorkOrder || 6,
+          render: renderCourseWork,
+        },
+        {
+          title: "certification",
+          order: resume.certificationOrder || 7,
+          render: renderCertification,
+        },
+        {
+          title: "skill",
+          order: resume.skillOrder || 8,
+          render: renderSkills,
+        },
+        {
+          title: "language",
+          order: resume.languageOrder || 9,
+          render: renderLanguages,
+        },
+        {
+          title: "hobby",
+          order: resume.hobbyOrder || 10,
+          render: renderHobbies,
+        },
+      ]
+        .sort((item1, item2) => item1.order - item2.order)
+        .map((item) => item.render())}
     </div>
   );
 }
