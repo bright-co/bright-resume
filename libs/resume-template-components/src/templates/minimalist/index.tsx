@@ -56,6 +56,7 @@ export function TemplateMinimalist({
   updateResumeExperience,
   updateResumeInvolvement,
   updateResumeLanguage,
+  updateResumeSkill,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -1349,11 +1350,16 @@ export function TemplateMinimalist({
           {staticMode ? (
             resume.skillLabel
           ) : (
-            <RichText value={resume.skillLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.skillLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setSkillLabel", value)
+              }
+            />
           )}
         </div>
         {resume.skills &&
-          resume.skills.map((item, subSectionIndex) => (
+          resume.skills.map((skill, subSectionIndex) => (
             <div
               key={subSectionIndex}
               className={["sk-item", textFontSize].join(" ")}
@@ -1370,9 +1376,15 @@ export function TemplateMinimalist({
               <div className="sk-item-icon">•</div>
               <div className="sk-item-text">
                 {staticMode ? (
-                  item
+                  skill.point
                 ) : (
-                  <RichText value={item || ""} onChange={() => {}} />
+                  <RichText
+                    value={skill.point || ""}
+                    onChange={(value) =>
+                      updateResumeSkill &&
+                      updateResumeSkill(subSectionIndex, "setPoint", value)
+                    }
+                  />
                 )}
               </div>
             </div>

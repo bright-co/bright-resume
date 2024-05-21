@@ -18,9 +18,9 @@ const resumeObj: IResume = {
   userId: "userId",
   name: faker.person.fullName(),
   title: faker.person.fullName(),
-  color: ResumeColorEnum.green,
-  fontFamily: ResumeFontFamilyEnum.roboto,
-  fontSize: ResumeFontSizeEnum.large,
+  color: ResumeColorEnum.blue,
+  fontFamily: ResumeFontFamilyEnum.nunito,
+  fontSize: ResumeFontSizeEnum.xx_large,
   role: faker.person.jobTitle(),
   isShowPhoneNumber: faker.datatype.boolean(),
   phoneNumber: faker.phone.number(),
@@ -272,10 +272,18 @@ const resumeObj: IResume = {
   skillLabel: "SKILLS",
   skillOrder: 10,
   skills: [
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
   ],
   isShowLanguage: faker.datatype.boolean(),
   languageLabel: "LANGUAGES",

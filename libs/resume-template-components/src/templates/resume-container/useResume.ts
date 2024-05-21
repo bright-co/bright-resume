@@ -15,6 +15,8 @@ import {
   ProjectModelSetMethodsKeyType,
   ResumeModel,
   ResumeModelSetMethodsKeyType,
+  SkillModel,
+  SkillModelSetMethodsKeyType,
 } from "@models";
 import {
   ResumeSectionType,
@@ -225,6 +227,17 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
+  const updateResumeSkill = <M extends SkillModelSetMethodsKeyType>(
+    index: number,
+    methodName: M,
+    ...args: Parameters<SkillModel[M]>
+  ) => {
+    if (index >= resumeModel.getSkills().length) return;
+
+    resumeModel.getSkills()[index].callSetMethod(methodName, ...args);
+    setResumeModel(new ResumeModel(resumeModel.input));
+  };
+
   return {
     resumeModel,
     hoverSection,
@@ -244,5 +257,6 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     updateResumeExperience,
     updateResumeInvolvement,
     updateResumeLanguage,
+    updateResumeSkill,
   };
 };

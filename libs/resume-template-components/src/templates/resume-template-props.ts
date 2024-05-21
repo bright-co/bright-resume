@@ -16,6 +16,8 @@ import {
   ProjectModelSetMethodsKeyType,
   ResumeModel,
   ResumeModelSetMethodsKeyType,
+  SkillModel,
+  SkillModelSetMethodsKeyType,
 } from "@models";
 
 export type ResumeSectionType =
@@ -106,5 +108,10 @@ export interface ResumeTemplateProps {
     index: number,
     methodName: M,
     ...args: Parameters<LanguageModel[M]>
+  ) => void;
+  updateResumeSkill: <M extends SkillModelSetMethodsKeyType>(
+    index: number,
+    methodName: M,
+    ...args: Parameters<SkillModel[M]>
   ) => void;
 }

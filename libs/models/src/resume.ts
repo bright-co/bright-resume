@@ -11,6 +11,7 @@ import { ExperienceModel, IExperience } from "./experience";
 import { IProject, ProjectModel } from "./project";
 import { IInvolvement, InvolvementModel } from "./involvement";
 import { ILanguage, LanguageModel } from "./language";
+import { ISkill, SkillModel } from "./skill";
 
 export interface IResume {
   id?: string;
@@ -87,7 +88,7 @@ export interface IResume {
   isShowSkill?: boolean;
   skillLabel?: string;
   skillOrder?: number;
-  skills?: string[];
+  skills?: ISkill[];
   isShowLanguage?: boolean;
   languageOrder?: number;
   languageLabel?: string;
@@ -579,16 +580,12 @@ export class ResumeModel {
     return this.input.skillLabel;
   }
 
-  getSkills(): string[] {
-    return this.input.skills || [];
+  getSkills(): SkillModel[] {
+    return this.input.skills?.map((skill) => new SkillModel(skill)) || [];
   }
 
   setSkillLabel(skillLabel: string | undefined): void {
     this.input.skillLabel = skillLabel;
-  }
-
-  setSkills(skills: string[]): void {
-    this.input.skills = skills;
   }
 
   getIsShowLanguage(): boolean | undefined {
@@ -1318,4 +1315,5 @@ export type ResumeModelSetMethodsKeyType =
   | "setLanguageLabel"
   | "setIsShowInvolvement"
   | "setInvolvementLabel"
-  | "setInvolvementRoleLabel";
+  | "setInvolvementRoleLabel"
+  | "setSkillLabel";
