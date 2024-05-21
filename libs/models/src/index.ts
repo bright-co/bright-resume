@@ -6,3 +6,4 @@ export * from "./experience";
 export * from "./language";
 export * from "./project";
 export * from "./course-work";
+export * from "./skill";

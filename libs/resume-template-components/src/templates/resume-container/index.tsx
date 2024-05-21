@@ -2,34 +2,18 @@
 
 import { ResumeModel } from "@models";
 import { TemplateMinimalist } from "../minimalist";
-import { useState } from "react";
-import { ResumeTemplateProps } from "../resume-template-props";
+import { useResume } from "./useResume";
 
 export interface TemplateMinimalistProps {
   resumeModel: ResumeModel;
 }
 
 export function ResumeContainer(props: TemplateMinimalistProps) {
-  const [resumeModel] = useState(props.resumeModel);
-
-  const [hoverSection, setHoverSection] =
-    useState<ResumeTemplateProps["hoverSection"]>();
-
-  const [hoverSubSectionPoint, setHoverSubSectionPoint] =
-    useState<ResumeTemplateProps["hoverSubSectionPoint"]>();
-
-  const [hoverSubSection, setHoverSubSection] =
-    useState<ResumeTemplateProps["hoverSubSection"]>();
+  const data = useResume({ resumeMode: props.resumeModel });
 
   return (
-    <TemplateMinimalist
-      resume={resumeModel.input}
-      hoverSection={hoverSection}
-      setHoverSection={setHoverSection}
-      hoverSubSection={hoverSubSection}
-      setHoverSubSection={setHoverSubSection}
-      hoverSubSectionPoint={hoverSubSectionPoint}
-      setHoverSubSectionPoint={setHoverSubSectionPoint}
-    />
+    <div style={{ paddingBottom: "30px" }}>
+      <TemplateMinimalist {...data} resume={data.resumeModel.input} />
+    </div>
   );
 }
