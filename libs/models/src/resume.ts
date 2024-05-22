@@ -12,6 +12,7 @@ import { IProject, ProjectModel } from "./project";
 import { IInvolvement, InvolvementModel } from "./involvement";
 import { ILanguage, LanguageModel } from "./language";
 import { ISkill, SkillModel } from "./skill";
+import { IHobby, HobbyModel } from "./hobby";
 
 export interface IResume {
   id?: string;
@@ -97,7 +98,7 @@ export interface IResume {
   languages?: ILanguage[];
   hobbyOrder?: number;
   hobbyLabel?: string;
-  hobbies?: string[];
+  hobbies?: IHobby[];
   isShowHobby?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -1208,8 +1209,8 @@ export class ResumeModel {
     this.setHobbyOrder(newOrder);
   }
 
-  getHobbies(): string[] {
-    return this.input.hobbies || [];
+  getHobbies(): HobbyModel[] {
+    return this.input.hobbies?.map((hobby) => new HobbyModel(hobby)) || [];
   }
 
   changeHobbiesIndex(index1: number, index2: number) {
@@ -1316,4 +1317,5 @@ export type ResumeModelSetMethodsKeyType =
   | "setIsShowInvolvement"
   | "setInvolvementLabel"
   | "setInvolvementRoleLabel"
-  | "setSkillLabel";
+  | "setSkillLabel"
+  | "setHobbyLabel";

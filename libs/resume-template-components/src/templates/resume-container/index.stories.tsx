@@ -305,7 +305,14 @@ const resumeObj: IResume = {
   hobbyLabel: "HOBBIES",
   hobbyOrder: 9,
   isShowHobby: faker.datatype.boolean(),
-  hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+  hobbies: [
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+  ],
 };
 
 const Template: StoryFn<typeof ResumeContainer> = (args) => {

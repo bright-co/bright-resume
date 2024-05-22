@@ -7,6 +7,8 @@ import {
   EducationModelSetMethodsKeyType,
   ExperienceModel,
   ExperienceModelSetMethodsKeyType,
+  HobbyModel,
+  HobbyModelSetMethodsKeyType,
   InvolvementModel,
   InvolvementModelSetMethodsKeyType,
   LanguageModel,
@@ -238,6 +240,17 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
+  const updateResumeHobby = <M extends HobbyModelSetMethodsKeyType>(
+    index: number,
+    methodName: M,
+    ...args: Parameters<HobbyModel[M]>
+  ) => {
+    if (index >= resumeModel.getHobbies().length) return;
+
+    resumeModel.getHobbies()[index].callSetMethod(methodName, ...args);
+    setResumeModel(new ResumeModel(resumeModel.input));
+  };
+
   return {
     resumeModel,
     hoverSection,
@@ -258,5 +271,6 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     updateResumeInvolvement,
     updateResumeLanguage,
     updateResumeSkill,
+    updateResumeHobby,
   };
 };

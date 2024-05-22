@@ -7,6 +7,8 @@ import {
   EducationModelSetMethodsKeyType,
   ExperienceModel,
   ExperienceModelSetMethodsKeyType,
+  HobbyModel,
+  HobbyModelSetMethodsKeyType,
   IResume,
   InvolvementModel,
   InvolvementModelSetMethodsKeyType,
@@ -113,5 +115,10 @@ export interface ResumeTemplateProps {
     index: number,
     methodName: M,
     ...args: Parameters<SkillModel[M]>
+  ) => void;
+  updateResumeHobby: <M extends HobbyModelSetMethodsKeyType>(
+    index: number,
+    methodName: M,
+    ...args: Parameters<HobbyModel[M]>
   ) => void;
 }

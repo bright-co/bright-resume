@@ -57,6 +57,7 @@ export function TemplateMinimalist({
   updateResumeInvolvement,
   updateResumeLanguage,
   updateResumeSkill,
+  updateResumeHobby,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -1786,11 +1787,16 @@ export function TemplateMinimalist({
           {staticMode ? (
             resume.hobbyLabel
           ) : (
-            <RichText value={resume.hobbyLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.hobbyLabel || ""}
+              onChange={(value) =>
+                updateResume && updateResume("setHobbyLabel", value)
+              }
+            />
           )}
         </div>
         {resume.hobbies &&
-          resume.hobbies.map((item, subSectionIndex) => (
+          resume.hobbies.map((hobby, subSectionIndex) => (
             <div
               key={subSectionIndex + "hb-item"}
               className={["hb-item", textFontSize].join(" ")}
@@ -1807,9 +1813,15 @@ export function TemplateMinimalist({
               <div className="hb-item-icon">•</div>
               <div className="hb-item-text">
                 {staticMode ? (
-                  item
+                  hobby.point
                 ) : (
-                  <RichText value={item || ""} onChange={() => {}} />
+                  <RichText
+                    value={hobby.point || ""}
+                    onChange={(value) =>
+                      updateResumeHobby &&
+                      updateResumeHobby(subSectionIndex, "setPoint", value)
+                    }
+                  />
                 )}
               </div>
             </div>
