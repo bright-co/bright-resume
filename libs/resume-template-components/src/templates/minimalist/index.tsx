@@ -11,6 +11,7 @@ import {
   UpIcon,
   DownIcon,
   AIIcon,
+  VisibilityOffIcon,
 } from "../icons";
 
 import "./general.css";
@@ -58,6 +59,7 @@ export function TemplateMinimalist({
   updateResumeLanguage,
   updateResumeSkill,
   updateResumeHobby,
+  onHiddenSection,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -217,6 +219,9 @@ export function TemplateMinimalist({
             <UpIcon />
           </div>
         )}
+        <div className="button" onClick={() => onHiddenSection(section)}>
+          <VisibilityOffIcon />
+        </div>
         <div className="button">
           <EditIcon />
         </div>
@@ -1831,60 +1836,71 @@ export function TemplateMinimalist({
   };
 
   return (
-    <div className={["container", fontFamilyClass].join(" ")}>
+    <div className={["container", fontFamilyClass, borderColorClass].join(" ")}>
       {renderHeader()}
       {[
         {
           title: "summary",
           order: resume.summaryOrder || 1,
           render: renderSummary,
+          show: resume.isShowSummary,
         },
         {
           title: "experience",
           order: resume.experienceOrder || 2,
           render: renderExperience,
+          show: resume.isShowExperience,
         },
         {
           title: "project",
           order: resume.projectOrder || 3,
           render: renderProject,
+          show: resume.isShowProject,
         },
         {
           title: "education",
           order: resume.educationOrder || 4,
           render: renderEducation,
+          show: resume.isShowEducation,
         },
         {
           title: "involvement",
           order: resume.involvementOrder || 5,
           render: renderInvolvement,
+          show: resume.isShowInvolvement,
         },
         {
           title: "courseWork",
           order: resume.courseWorkOrder || 6,
           render: renderCourseWork,
+          show: resume.isShowCourseWork,
         },
         {
           title: "certification",
           order: resume.certificationOrder || 7,
           render: renderCertification,
+          show: resume.isShowCertification,
         },
         {
           title: "skill",
           order: resume.skillOrder || 8,
           render: renderSkills,
+          show: resume.isShowSkill,
         },
         {
           title: "language",
           order: resume.languageOrder || 9,
           render: renderLanguages,
+          show: resume.isShowLanguage,
         },
         {
           title: "hobby",
           order: resume.hobbyOrder || 10,
           render: renderHobbies,
+          show: resume.isShowHobby,
         },
       ]
+        .filter((item) => item.show)
         .sort((item1, item2) => item1.order - item2.order)
         .map((item) => item.render())}
     </div>

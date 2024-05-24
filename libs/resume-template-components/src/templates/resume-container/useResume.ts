@@ -69,6 +69,32 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
+  const onHiddenSection = (section: ResumeSectionType) => {
+    if (section === "summary") {
+      resumeModel.setIsShowSummary(false);
+    } else if (section === "education") {
+      resumeModel.setIsShowEducation(false);
+    } else if (section === "project") {
+      resumeModel.setIsShowProject(false);
+    } else if (section === "experience") {
+      resumeModel.setIsShowExperience(false);
+    } else if (section === "skill") {
+      resumeModel.setIsShowSkill(false);
+    } else if (section === "certification") {
+      resumeModel.setIsShowCertification(false);
+    } else if (section === "courseWork") {
+      resumeModel.setIsShowCourseWork(false);
+    } else if (section === "involvement") {
+      resumeModel.setIsShowInvolvement(false);
+    } else if (section === "language") {
+      resumeModel.setIsShowLanguage(false);
+    } else if (section === "hobby") {
+      resumeModel.setIsShowHobby(false);
+    }
+
+    setResumeModel(new ResumeModel(resumeModel.input));
+  };
+
   const onChangeSubSectionIndex = (
     section: ResumeSectionType,
     subSectionIndex: number,
@@ -272,5 +298,6 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     updateResumeLanguage,
     updateResumeSkill,
     updateResumeHobby,
+    onHiddenSection,
   };
 };

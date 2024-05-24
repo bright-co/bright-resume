@@ -2,8 +2,11 @@
   padding: 30px;
   width: 21cm;
   max-width: 21cm;
+  min-width: 21cm;
   min-height: 29.7cm;
   overflow-x: hidden;
+  background: #fff;
+  /* box-shadow: 0px 2px 38px rgba(0, 0, 0, 0.2); */
 }
 
 .container * {

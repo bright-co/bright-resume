@@ -12,8 +12,11 @@ export function ResumeContainer(props: TemplateMinimalistProps) {
   const data = useResume({ resumeMode: props.resumeModel });
 
   return (
-    <div style={{ paddingBottom: "30px" }}>
-      <TemplateMinimalist {...data} resume={data.resumeModel.input} />
+    <div className="border border-black flex justify-center flex-col items-center bg-slate-100">
+      <div className="my-10 border border-red">toolbar</div>
+      <div className="shadow-md my-10">
+        <TemplateMinimalist {...data} resume={data.resumeModel.input} />
+      </div>
     </div>
   );
 }

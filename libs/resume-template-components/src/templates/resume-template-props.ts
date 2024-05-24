@@ -121,4 +121,5 @@ export interface ResumeTemplateProps {
     methodName: M,
     ...args: Parameters<HobbyModel[M]>
   ) => void;
+  onHiddenSection: (section: ResumeSectionType) => void;
 }
