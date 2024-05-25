@@ -2,8 +2,30 @@
   padding: 30px;
   width: 21cm;
   max-width: 21cm;
+  min-width: 21cm;
   min-height: 29.7cm;
   overflow-x: hidden;
+  background: #fff;
+  transform-origin: top left;
+}
+
+.container-scale-0_50 {
+  transform: scale(0.5);
+}
+.container-scale-0_75 {
+  transform: scale(0.75);
+}
+.container-scale-1 {
+  transform: scale(1);
+}
+.container-scale-1_25 {
+  transform: scale(1.25);
+}
+.container-scale-1_50 {
+  transform: scale(1.5);
+}
+.container-scale-1_75 {
+  transform: scale(1.75);
 }
 
 .container * {
@@ -132,7 +154,7 @@
   color: #ff0000;
 }
 .text-yellow {
-  color: #ffff00;
+  color: #cd9d00;
 }
 .text-blue {
   color: #0000ff;
@@ -160,7 +182,7 @@
   border-color: #ff0000;
 }
 .border-yellow {
-  border-color: #ffff00;
+  border-color: #cd9d00;
 }
 .border-blue {
   border-color: #0000ff;

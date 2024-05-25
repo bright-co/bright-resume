@@ -7,6 +7,8 @@ import {
   EducationModelSetMethodsKeyType,
   ExperienceModel,
   ExperienceModelSetMethodsKeyType,
+  HobbyModel,
+  HobbyModelSetMethodsKeyType,
   InvolvementModel,
   InvolvementModelSetMethodsKeyType,
   LanguageModel,
@@ -17,11 +19,10 @@ import {
   ResumeModelSetMethodsKeyType,
   SkillModel,
   SkillModelSetMethodsKeyType,
-} from "@models";
-import {
   ResumeSectionType,
-  ResumeTemplateProps,
-} from "../resume-template-props";
+  ResumeModelGetMethodsKeyType,
+} from "@models";
+import { ResumeTemplateProps } from "../resume-template-props";
 import { useState } from "react";
 
 export const useResume = (props: { resumeMode: ResumeModel }) => {
@@ -36,33 +37,20 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
   const [hoverSubSection, setHoverSubSection] =
     useState<ResumeTemplateProps["hoverSubSection"]>();
 
-  const onChangeSectionOrder = (
-    section: ResumeSectionType,
-    newOrder: number
-  ) => {
-    if (newOrder <= 0 || newOrder > 10) return;
+  const onMoveUpSection = (section1: ResumeSectionType) => {
+    const section2 = resumeModel.getUpperAndVisibleSection(section1);
 
-    if (section === "summary") {
-      resumeModel.changeSummaryOrder(newOrder);
-    } else if (section === "education") {
-      resumeModel.changeEducationOrder(newOrder);
-    } else if (section === "project") {
-      resumeModel.changeProjectOrder(newOrder);
-    } else if (section === "experience") {
-      resumeModel.changeExperienceOrder(newOrder);
-    } else if (section === "skill") {
-      resumeModel.changeSkillOrder(newOrder);
-    } else if (section === "certification") {
-      resumeModel.changeCertificationOrder(newOrder);
-    } else if (section === "courseWork") {
-      resumeModel.changeCourseWorkOrder(newOrder);
-    } else if (section === "involvement") {
-      resumeModel.changeInvolvementOrder(newOrder);
-    } else if (section === "language") {
-      resumeModel.changeLanguageOrder(newOrder);
-    } else if (section === "hobby") {
-      resumeModel.changeHobbyOrder(newOrder);
-    }
+    if (section2 === undefined) return;
+    resumeModel.changeOrderOfTwoSections(section1, section2);
+
+    setResumeModel(new ResumeModel(resumeModel.input));
+  };
+
+  const onMoveDownSection = (section1: ResumeSectionType) => {
+    const section2 = resumeModel.getLowerAndVisibleSection(section1);
+
+    if (section2 === undefined) return;
+    resumeModel.changeOrderOfTwoSections(section1, section2);
 
     setResumeModel(new ResumeModel(resumeModel.input));
   };
@@ -140,15 +128,22 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResume = <M extends ResumeModelSetMethodsKeyType>(
+  const callResumeSetMethod = <M extends ResumeModelSetMethodsKeyType>(
     methodName: M,
     ...args: Parameters<ResumeModel[M]>
   ) => {
-    resumeModel.callSetMethod(methodName, ...args);
+    resumeModel.setMethod(methodName, ...args);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeProject = <M extends ProjectModelSetMethodsKeyType>(
+  const callResumeGetMethod = <M extends ResumeModelGetMethodsKeyType>(
+    methodName: M,
+    ...args: Parameters<ResumeModel[M]>
+  ): ReturnType<ResumeModel[M]> => {
+    return resumeModel.getMethod(methodName, ...args);
+  };
+
+  const callResumeProjectSetMethod = <M extends ProjectModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<ProjectModel[M]>
@@ -159,7 +154,7 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeCertification = <
+  const callResumeCertificationSetMethod = <
     M extends CertificationModelSetMethodsKeyType
   >(
     index: number,
@@ -172,7 +167,9 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeCourseWork = <M extends CourseWorkModelSetMethodsKeyType>(
+  const callResumeCourseWorkSetMethod = <
+    M extends CourseWorkModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<CourseWorkModel[M]>
@@ -183,7 +180,9 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeEducation = <M extends EducationModelSetMethodsKeyType>(
+  const callResumeEducationSetMethod = <
+    M extends EducationModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<EducationModel[M]>
@@ -194,7 +193,9 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeExperience = <M extends ExperienceModelSetMethodsKeyType>(
+  const callResumeExperienceSetMethod = <
+    M extends ExperienceModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<ExperienceModel[M]>
@@ -205,7 +206,9 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeInvolvement = <M extends InvolvementModelSetMethodsKeyType>(
+  const callResumeInvolvementSetMethod = <
+    M extends InvolvementModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<InvolvementModel[M]>
@@ -216,7 +219,9 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeLanguage = <M extends LanguageModelSetMethodsKeyType>(
+  const callResumeLanguageSetMethod = <
+    M extends LanguageModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<LanguageModel[M]>
@@ -227,7 +232,7 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
-  const updateResumeSkill = <M extends SkillModelSetMethodsKeyType>(
+  const callResumeSkillSetMethod = <M extends SkillModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<SkillModel[M]>
@@ -235,6 +240,17 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     if (index >= resumeModel.getSkills().length) return;
 
     resumeModel.getSkills()[index].callSetMethod(methodName, ...args);
+    setResumeModel(new ResumeModel(resumeModel.input));
+  };
+
+  const callResumeHobbySetMethod = <M extends HobbyModelSetMethodsKeyType>(
+    index: number,
+    methodName: M,
+    ...args: Parameters<HobbyModel[M]>
+  ) => {
+    if (index >= resumeModel.getHobbies().length) return;
+
+    resumeModel.getHobbies()[index].callSetMethod(methodName, ...args);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -246,17 +262,20 @@ export const useResume = (props: { resumeMode: ResumeModel }) => {
     setHoverSubSectionPoint,
     hoverSubSection,
     setHoverSubSection,
-    onChangeSectionOrder,
     onChangeSubSectionIndex,
     onChangeSubSectionPointIndex,
-    updateResume,
-    updateResumeProject,
-    updateResumeCertification,
-    updateResumeCourseWork,
-    updateResumeEducation,
-    updateResumeExperience,
-    updateResumeInvolvement,
-    updateResumeLanguage,
-    updateResumeSkill,
+    callResumeSetMethod,
+    callResumeGetMethod,
+    callResumeProjectSetMethod,
+    callResumeCertificationSetMethod,
+    callResumeCourseWorkSetMethod,
+    callResumeEducationSetMethod,
+    callResumeExperienceSetMethod,
+    callResumeInvolvementSetMethod,
+    callResumeLanguageSetMethod,
+    callResumeSkillSetMethod,
+    callResumeHobbySetMethod,
+    onMoveUpSection,
+    onMoveDownSection,
   };
 };

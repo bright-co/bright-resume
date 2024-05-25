@@ -12,6 +12,21 @@ import { IProject, ProjectModel } from "./project";
 import { IInvolvement, InvolvementModel } from "./involvement";
 import { ILanguage, LanguageModel } from "./language";
 import { ISkill, SkillModel } from "./skill";
+import { IHobby, HobbyModel } from "./hobby";
+
+export type ResumeSectionType =
+  | "header"
+  | "summary"
+  | "experience"
+  | "involvement"
+  | "project"
+  | "education"
+  | "skill"
+  | "courseWork"
+  | "certification"
+  | "hobby"
+  | "language"
+  | undefined;
 
 export interface IResume {
   id?: string;
@@ -22,6 +37,7 @@ export interface IResume {
   fontFamily?: ResumeFontFamilyEnum;
   color?: ResumeColorEnum;
   role?: string;
+  isShowImage?: boolean;
   isShowPhoneNumber?: boolean;
   phoneNumber?: string;
   isShowLinkedin?: boolean;
@@ -97,7 +113,7 @@ export interface IResume {
   languages?: ILanguage[];
   hobbyOrder?: number;
   hobbyLabel?: string;
-  hobbies?: string[];
+  hobbies?: IHobby[];
   isShowHobby?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -146,6 +162,19 @@ export class ResumeModel {
     return this.input.color;
   }
 
+  getColorValue(color: ResumeColorEnum): string {
+    if (color === ResumeColorEnum.red) return "#ff0000";
+    if (color === ResumeColorEnum.black) return "#000000";
+    if (color === ResumeColorEnum.blue) return "#0000ff";
+    if (color === ResumeColorEnum.yellow) return "#CD9D00";
+    if (color === ResumeColorEnum.green) return "#008000";
+    if (color === ResumeColorEnum.gray) return "#808080";
+    if (color === ResumeColorEnum.purple) return "#800080";
+    if (color === ResumeColorEnum.orange) return "#ffa500";
+    if (color === ResumeColorEnum.brown) return "#a52a2a";
+    return "#000";
+  }
+
   setColor(color: ResumeColorEnum | undefined): void {
     this.input.color = color;
   }
@@ -156,6 +185,14 @@ export class ResumeModel {
 
   setRole(role: string | undefined): void {
     this.input.role = role;
+  }
+
+  getIsShowImage(): boolean | undefined {
+    return this.input.isShowImage;
+  }
+
+  setIsShowImage(isShowImage: boolean | undefined): void {
+    this.input.isShowImage = isShowImage;
   }
 
   getIsShowPhoneNumber(): boolean | undefined {
@@ -638,29 +675,160 @@ export class ResumeModel {
     this.input.summaryOrder = order;
   }
 
-  changeSummaryOrder(newOrder: number) {
-    const oldOrder = this.input.summaryOrder;
-
-    if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
+  getSectionByOrder(order: number): ResumeSectionType | undefined {
+    if (order === this.getExperienceOrder()) {
+      return "experience";
+    } else if (order === this.getProjectOrder()) {
+      return "project";
+    } else if (order === this.getSummaryOrder()) {
+      return "summary";
+    } else if (order === this.getEducationOrder()) {
+      return "education";
+    } else if (order === this.getCertificationOrder()) {
+      return "certification";
+    } else if (order === this.getCourseWorkOrder()) {
+      return "courseWork";
+    } else if (order === this.getInvolvementOrder()) {
+      return "involvement";
+    } else if (order === this.getSkillOrder()) {
+      return "skill";
+    } else if (order === this.getLanguageOrder()) {
+      return "language";
+    } else if (order === this.getHobbyOrder()) {
+      return "hobby";
     }
-    this.setSummaryOrder(newOrder);
+  }
+
+  setSectionOrder(section: ResumeSectionType, order: number): void {
+    if (section === "experience") {
+      this.setExperienceOrder(order);
+    } else if (section === "project") {
+      this.setProjectOrder(order);
+    } else if (section === "summary") {
+      this.setSummaryOrder(order);
+    } else if (section === "education") {
+      this.setEducationOrder(order);
+    } else if (section === "certification") {
+      this.setCertificationOrder(order);
+    } else if (section === "courseWork") {
+      this.setCourseWorkOrder(order);
+    } else if (section === "involvement") {
+      this.setInvolvementOrder(order);
+    } else if (section === "skill") {
+      this.setSkillOrder(order);
+    } else if (section === "language") {
+      this.setLanguageOrder(order);
+    } else if (section === "hobby") {
+      this.setHobbyOrder(order);
+    }
+  }
+
+  getSectionOrder(section: ResumeSectionType): number | undefined {
+    if (section === "experience") {
+      return this.getExperienceOrder();
+    } else if (section === "project") {
+      return this.getProjectOrder();
+    } else if (section === "summary") {
+      return this.getSummaryOrder();
+    } else if (section === "education") {
+      return this.getEducationOrder();
+    } else if (section === "certification") {
+      return this.getCertificationOrder();
+    } else if (section === "courseWork") {
+      return this.getCourseWorkOrder();
+    } else if (section === "involvement") {
+      return this.getInvolvementOrder();
+    } else if (section === "skill") {
+      return this.getSkillOrder();
+    } else if (section === "language") {
+      return this.getLanguageOrder();
+    } else if (section === "hobby") {
+      return this.getHobbyOrder();
+    }
+  }
+
+  getSectionIsShow(section: ResumeSectionType): boolean {
+    if (section === "experience") {
+      return !!this.getIsShowExperience();
+    } else if (section === "project") {
+      return !!this.getIsShowProject();
+    } else if (section === "summary") {
+      return !!this.getIsShowSummary();
+    } else if (section === "education") {
+      return !!this.getIsShowEducation();
+    } else if (section === "certification") {
+      return !!this.getIsShowCertification();
+    } else if (section === "courseWork") {
+      return !!this.getIsShowCourseWork();
+    } else if (section === "involvement") {
+      return !!this.getIsShowInvolvement();
+    } else if (section === "skill") {
+      return !!this.getIsShowSkill();
+    } else if (section === "language") {
+      return !!this.getIsShowLanguage();
+    } else if (section === "hobby") {
+      return !!this.getIsShowHobby();
+    }
+    return false;
+  }
+
+  getUpperAndVisibleSection(
+    section: ResumeSectionType
+  ): ResumeSectionType | undefined {
+    const order = this.getSectionOrder(section);
+
+    if (order === undefined || order <= 1) {
+      return;
+    }
+
+    let output = order - 1;
+
+    while (output >= 1) {
+      const section = this.getSectionByOrder(output);
+      const isShow = section && this.getSectionIsShow(section);
+
+      if (isShow) {
+        return section;
+      }
+      output--;
+    }
+  }
+
+  getLowerAndVisibleSection(
+    section: ResumeSectionType
+  ): ResumeSectionType | undefined {
+    const order = this.getSectionOrder(section);
+
+    if (order === undefined || order >= 10) {
+      return;
+    }
+
+    let output = order + 1;
+
+    while (output <= 10) {
+      const section = this.getSectionByOrder(output);
+      const isShow = section && this.getSectionIsShow(section);
+
+      if (isShow) {
+        return section;
+      }
+      output++;
+    }
+  }
+
+  changeOrderOfTwoSections(
+    section1: ResumeSectionType,
+    section2: ResumeSectionType
+  ) {
+    const order1 = this.getSectionOrder(section1);
+    const order2 = this.getSectionOrder(section2);
+
+    if (order1 === undefined || order2 === undefined) {
+      return;
+    }
+
+    this.setSectionOrder(section1, order2);
+    this.setSectionOrder(section2, order1);
   }
 
   getExperienceOrder(): number | undefined {
@@ -669,31 +837,6 @@ export class ResumeModel {
 
   setExperienceOrder(order: number | undefined): void {
     this.input.experienceOrder = order;
-  }
-
-  changeExperienceOrder(newOrder: number) {
-    const oldOrder = this.input.experienceOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setExperienceOrder(newOrder);
   }
 
   getExperiences(): ExperienceModel[] {
@@ -742,31 +885,6 @@ export class ResumeModel {
     this.input.projectOrder = order;
   }
 
-  changeProjectOrder(newOrder: number) {
-    const oldOrder = this.input.projectOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setProjectOrder(newOrder);
-  }
-
   getProjects(): ProjectModel[] {
     return (
       this.input.projects?.map((project) => new ProjectModel(project)) || []
@@ -811,31 +929,6 @@ export class ResumeModel {
     this.input.educationOrder = order;
   }
 
-  changeEducationOrder(newOrder: number) {
-    const oldOrder = this.input.educationOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setEducationOrder(newOrder);
-  }
-
   changeEducationsIndex(index1: number, index2: number) {
     if (!this.input.educations) {
       return;
@@ -871,30 +964,6 @@ export class ResumeModel {
   }
   setCertificationOrder(order: number | undefined): void {
     this.input.certificationOrder = order;
-  }
-  changeCertificationOrder(newOrder: number) {
-    const oldOrder = this.input.certificationOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setCertificationOrder(newOrder);
   }
 
   getCertifications(): CertificationModel[] {
@@ -940,30 +1009,6 @@ export class ResumeModel {
   }
   setCourseWorkOrder(order: number | undefined): void {
     this.input.courseWorkOrder = order;
-  }
-  changeCourseWorkOrder(newOrder: number) {
-    const oldOrder = this.input.courseWorkOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setCourseWorkOrder(newOrder);
   }
 
   getCourseWorks(): CourseWorkModel[] {
@@ -1011,31 +1056,6 @@ export class ResumeModel {
     this.input.involvementOrder = order;
   }
 
-  changeInvolvementOrder(newOrder: number) {
-    const oldOrder = this.input.involvementOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setInvolvementOrder(newOrder);
-  }
-
   getInvolvements(): InvolvementModel[] {
     return (
       this.input.involvements?.map(
@@ -1081,31 +1101,6 @@ export class ResumeModel {
     this.input.skillOrder = order;
   }
 
-  changeSkillOrder(newOrder: number) {
-    const oldOrder = this.input.skillOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setSkillOrder(newOrder);
-  }
-
   changeSkillsIndex(index1: number, index2: number) {
     if (!this.input.skills) {
       return;
@@ -1127,31 +1122,6 @@ export class ResumeModel {
   }
   setLanguageOrder(order: number | undefined): void {
     this.input.languageOrder = order;
-  }
-
-  changeLanguageOrder(newOrder: number) {
-    const oldOrder = this.input.languageOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getHobbyOrder()) {
-      this.setHobbyOrder(oldOrder);
-    }
-    this.setLanguageOrder(newOrder);
   }
 
   getLanguages(): LanguageModel[] {
@@ -1183,33 +1153,8 @@ export class ResumeModel {
     this.input.hobbyOrder = order;
   }
 
-  changeHobbyOrder(newOrder: number) {
-    const oldOrder = this.input.hobbyOrder;
-
-    if (newOrder === this.getSummaryOrder()) {
-      this.setSummaryOrder(oldOrder);
-    } else if (newOrder === this.getExperienceOrder()) {
-      this.setExperienceOrder(oldOrder);
-    } else if (newOrder === this.getProjectOrder()) {
-      this.setProjectOrder(oldOrder);
-    } else if (newOrder === this.getEducationOrder()) {
-      this.setEducationOrder(oldOrder);
-    } else if (newOrder === this.getCertificationOrder()) {
-      this.setCertificationOrder(oldOrder);
-    } else if (newOrder === this.getCourseWorkOrder()) {
-      this.setCourseWorkOrder(oldOrder);
-    } else if (newOrder === this.getInvolvementOrder()) {
-      this.setInvolvementOrder(oldOrder);
-    } else if (newOrder === this.getSkillOrder()) {
-      this.setSkillOrder(oldOrder);
-    } else if (newOrder === this.getLanguageOrder()) {
-      this.setLanguageOrder(oldOrder);
-    }
-    this.setHobbyOrder(newOrder);
-  }
-
-  getHobbies(): string[] {
-    return this.input.hobbies || [];
+  getHobbies(): HobbyModel[] {
+    return this.input.hobbies?.map((hobby) => new HobbyModel(hobby)) || [];
   }
 
   changeHobbiesIndex(index1: number, index2: number) {
@@ -1244,8 +1189,71 @@ export class ResumeModel {
     return this.input.updatedAt;
   }
 
-  callSetMethod<M extends ResumeModelSetMethodsKeyType>(
+  setHiddenSection(section: ResumeSectionType) {
+    if (section === "summary") {
+      this.setIsShowSummary(false);
+    } else if (section === "education") {
+      this.setIsShowEducation(false);
+    } else if (section === "project") {
+      this.setIsShowProject(false);
+    } else if (section === "experience") {
+      this.setIsShowExperience(false);
+    } else if (section === "skill") {
+      this.setIsShowSkill(false);
+    } else if (section === "certification") {
+      this.setIsShowCertification(false);
+    } else if (section === "courseWork") {
+      this.setIsShowCourseWork(false);
+    } else if (section === "involvement") {
+      this.setIsShowInvolvement(false);
+    } else if (section === "language") {
+      this.setIsShowLanguage(false);
+    } else if (section === "hobby") {
+      this.setIsShowHobby(false);
+    }
+  }
+
+  setShowSection = (section: ResumeSectionType) => {
+    if (section === "summary") {
+      this.setIsShowSummary(true);
+    } else if (section === "education") {
+      this.setIsShowEducation(true);
+    } else if (section === "project") {
+      this.setIsShowProject(true);
+    } else if (section === "experience") {
+      this.setIsShowExperience(true);
+    } else if (section === "skill") {
+      this.setIsShowSkill(true);
+    } else if (section === "certification") {
+      this.setIsShowCertification(true);
+    } else if (section === "courseWork") {
+      this.setIsShowCourseWork(true);
+    } else if (section === "involvement") {
+      this.setIsShowInvolvement(true);
+    } else if (section === "language") {
+      this.setIsShowLanguage(true);
+    } else if (section === "hobby") {
+      this.setIsShowHobby(true);
+    }
+  };
+
+  setMethod<M extends ResumeModelSetMethodsKeyType>(
     methodName: ResumeModelSetMethodsKeyType,
+    ...args: Parameters<ResumeModel[M]>
+  ): ReturnType<ResumeModel[M]> {
+    if (!this[methodName]) {
+      throw new Error(`Method '${methodName}' does not exist on ResumeModel`);
+    }
+
+    return (
+      this[methodName] as (
+        ...args: Parameters<ResumeModel[M]>
+      ) => ReturnType<ResumeModel[M]>
+    )(...(args as Parameters<ResumeModel[M]>));
+  }
+
+  getMethod<M extends ResumeModelGetMethodsKeyType>(
+    methodName: ResumeModelGetMethodsKeyType,
     ...args: Parameters<ResumeModel[M]>
   ): ReturnType<ResumeModel[M]> {
     if (!this[methodName]) {
@@ -1267,6 +1275,7 @@ export type ResumeModelSetMethodsKeyType =
   | "setFontFamily"
   | "setColor"
   | "setRole"
+  | "setIsShowImage"
   | "setIsShowPhoneNumber"
   | "setPhoneNumber"
   | "setIsShowLinkedin"
@@ -1316,4 +1325,13 @@ export type ResumeModelSetMethodsKeyType =
   | "setIsShowInvolvement"
   | "setInvolvementLabel"
   | "setInvolvementRoleLabel"
-  | "setSkillLabel";
+  | "setSkillLabel"
+  | "setHobbyLabel"
+  | "getUpperAndVisibleSection"
+  | "getLowerAndVisibleSection"
+  | "setHiddenSection"
+  | "setShowSection";
+
+export type ResumeModelGetMethodsKeyType =
+  | "getUpperAndVisibleSection"
+  | "getLowerAndVisibleSection";

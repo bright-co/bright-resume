@@ -1,4 +1,6 @@
-import { KeyboardEvent, useState } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
+import useSize from "@react-hook/size";
+
 import {
   BtnBold,
   BtnItalic,
@@ -14,6 +16,7 @@ export interface RichTextProps {
   onChange?: (value: string) => void;
   className?: string;
   withToolbar?: boolean;
+  scale?: number;
 }
 
 export function RichText({
@@ -21,10 +24,11 @@ export function RichText({
   onChange = () => "",
   className,
   withToolbar = false,
+  scale = 1,
 }: RichTextProps) {
-  const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
-  const [height, setHeight] = useState(0);
+  const target = useRef(null);
+  const [containerWidth] = useSize(target);
   const [displayToolbar, setToolbarDisplay] = useState("none");
 
   const cleanHtml = (htmlString: string) => {
@@ -55,49 +59,76 @@ export function RichText({
     }
   };
 
-  const onBlueEvent = () => {
+  const onBlurEvent = () => {
     setToolbarDisplay("none");
   };
 
-  const onSelectEvent = () => {
-    const selection = window.getSelection();
-    if (selection) {
-      const range = selection.getRangeAt(0);
-      const text = selection.toString();
-      const rect = range.getBoundingClientRect();
-      const top = rect.top + window.pageYOffset;
-      const left = rect.left + window.pageXOffset;
-      const height = rect.height + 5;
-      setToolbarDisplay(text ? "block" : "none");
-      setTop(top);
-      setLeft(left);
-      setHeight(height);
-    }
-  };
-
   return (
-    <EditorProvider>
-      <Editor
-        className={className}
-        value={value}
-        onKeyDown={onKeyDownEvent}
-        onChange={onChangeEvent}
-        onBlur={onBlueEvent}
-        onSelect={onSelectEvent}
-      ></Editor>
-      <Toolbar
+    <div style={{ position: "relative", zIndex: 1 }} ref={target}>
+      <div
         style={{
-          display: withToolbar ? displayToolbar : "none",
-          position: "fixed",
-          top: top + height,
-          left,
-          width: 70,
-          height: 30,
+          position: "absolute",
+          top: "-90%",
+          left: 0,
+          width: "100%",
+          height: "190%",
+          // backgroundColor: "#F003",
+          zIndex: 2,
+          display: displayToolbar !== "none" ? "block" : "none",
+        }}
+        onMouseLeave={() => {
+          setToolbarDisplay("none");
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
         }}
       >
-        <BtnBold />
-        <BtnItalic />
-      </Toolbar>
-    </EditorProvider>
+        <EditorProvider>
+          <Editor
+            className={className}
+            value={value}
+            onKeyDown={onKeyDownEvent}
+            onChange={onChangeEvent}
+            onBlur={onBlurEvent}
+            onSelect={(e) => {
+              const selection = window.getSelection();
+              if (selection && selection.anchorOffset && e.nativeEvent.layerX) {
+                const text = selection.toString();
+                setToolbarDisplay(text ? "flex" : "none");
+                setLeft(e.nativeEvent.layerX / scale);
+              }
+            }}
+          ></Editor>
+          <Toolbar
+            style={{
+              display: withToolbar ? displayToolbar : "none",
+              position: "absolute",
+              bottom: "100%",
+              left: left > (containerWidth || 0) * 0.9 ? "unset" : left,
+              right: left > (containerWidth || 0) * 0.9 ? "5%" : "unset",
+            }}
+            onMouseOver={() => setToolbarDisplay("flex")}
+          >
+            <div className="rsw-btn-container">
+              <BtnBold />
+            </div>
+            <div className="rsw-btn-container">
+              <BtnItalic />
+            </div>
+            <button
+              className="rsw-btn-container"
+              onClick={(e) => {
+                console.log("Link");
+              }}
+            >
+              AI
+            </button>
+          </Toolbar>
+        </EditorProvider>
+      </div>
+    </div>
   );
 }
