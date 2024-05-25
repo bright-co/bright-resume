@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./*"],
       "@@back-auth/*": ["apps/back-auth/src/*"],
       "@@back-file/*": ["apps/back-file/src/*"],
       "@@back-gateway/*": ["apps/back-gateway/src/*"],

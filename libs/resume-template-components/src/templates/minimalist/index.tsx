@@ -32,12 +32,11 @@ import {
   ResumeFontSizeEnum,
 } from "@enums";
 import { RichText } from "@resume-template-components/rich-text";
-import {
-  ResumeSectionType,
-  ResumeTemplateProps,
-} from "../resume-template-props";
+import { ResumeTemplateProps } from "../resume-template-props";
+import { ResumeSectionType } from "@/libs/models/src";
 
 export function TemplateMinimalist({
+  zoom = 1,
   resume,
   staticMode,
   hoverSection,
@@ -46,20 +45,21 @@ export function TemplateMinimalist({
   setHoverSubSectionPoint,
   hoverSubSection,
   setHoverSubSection,
-  onChangeSectionOrder,
   onChangeSubSectionIndex,
   onChangeSubSectionPointIndex,
-  updateResume,
-  updateResumeProject,
-  updateResumeCertification,
-  updateResumeCourseWork,
-  updateResumeEducation,
-  updateResumeExperience,
-  updateResumeInvolvement,
-  updateResumeLanguage,
-  updateResumeSkill,
-  updateResumeHobby,
-  onHiddenSection,
+  callResumeSetMethod,
+  callResumeGetMethod,
+  callResumeProjectSetMethod,
+  callResumeCertificationSetMethod,
+  callResumeCourseWorkSetMethod,
+  callResumeEducationSetMethod,
+  callResumeExperienceSetMethod,
+  callResumeInvolvementSetMethod,
+  callResumeLanguageSetMethod,
+  callResumeSkillSetMethod,
+  callResumeHobbySetMethod,
+  onMoveUpSection,
+  onMoveDownSection,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -200,10 +200,7 @@ export function TemplateMinimalist({
     }
   };
 
-  const renderSectionToolbar = (
-    section: typeof hoverSection,
-    order: number | undefined
-  ) => {
+  const renderSectionToolbar = (section: typeof hoverSection) => {
     return (
       <div
         className={[
@@ -211,15 +208,17 @@ export function TemplateMinimalist({
           hoverSection === section && "section-toolbar-show",
         ].join(" ")}
       >
-        {onChangeSectionOrder && order && order > 1 && (
-          <div
-            className="button"
-            onClick={() => onChangeSectionOrder(section, order - 1)}
-          >
-            <UpIcon />
-          </div>
-        )}
-        <div className="button" onClick={() => onHiddenSection(section)}>
+        {onMoveUpSection &&
+          callResumeGetMethod("getUpperAndVisibleSection", section) && (
+            <div className="button" onClick={() => onMoveUpSection(section)}>
+              <UpIcon />
+            </div>
+          )}
+
+        <div
+          className="button"
+          onClick={() => callResumeSetMethod("setHiddenSection", section)}
+        >
           <VisibilityOffIcon />
         </div>
         <div className="button">
@@ -228,14 +227,12 @@ export function TemplateMinimalist({
         <div className="button">
           <AIIcon />
         </div>
-        {onChangeSectionOrder && order && order < 10 && (
-          <div
-            className="button"
-            onClick={() => onChangeSectionOrder(section, order + 1)}
-          >
-            <DownIcon />
-          </div>
-        )}
+        {onMoveDownSection &&
+          callResumeGetMethod("getLowerAndVisibleSection", section) && (
+            <div className="button" onClick={() => onMoveDownSection(section)}>
+              <DownIcon />
+            </div>
+          )}
       </div>
     );
   };
@@ -355,11 +352,13 @@ export function TemplateMinimalist({
   const renderHeader = () => {
     return (
       <div className="hr-container">
-        <img
-          className="hr-image"
-          src={faker.image.avatar()}
-          alt={resume.name}
-        />
+        {resume.isShowImage && (
+          <img
+            className="hr-image"
+            src={faker.image.avatar()}
+            alt={resume.name}
+          />
+        )}
         <div className="hr-text">
           <div
             className={["hr-name", headerFontSize, fontColorClass].join(" ")}
@@ -370,7 +369,7 @@ export function TemplateMinimalist({
               <RichText
                 value={resume.name || ""}
                 onChange={(value) =>
-                  updateResume && updateResume("setName", value)
+                  callResumeSetMethod && callResumeSetMethod("setName", value)
                 }
               />
             )}
@@ -384,7 +383,7 @@ export function TemplateMinimalist({
               <RichText
                 value={resume.role || ""}
                 onChange={(value) =>
-                  updateResume && updateResume("setRole", value)
+                  callResumeSetMethod && callResumeSetMethod("setRole", value)
                 }
               />
             )}
@@ -400,7 +399,8 @@ export function TemplateMinimalist({
                 <RichText
                   value={resume.linkedin || ""}
                   onChange={(value) =>
-                    updateResume && updateResume("setLinkedin", value)
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setLinkedin", value)
                   }
                 />
               )}
@@ -415,7 +415,8 @@ export function TemplateMinimalist({
                 <RichText
                   value={resume.email || ""}
                   onChange={(value) =>
-                    updateResume && updateResume("setEmail", value)
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setEmail", value)
                   }
                 />
               )}
@@ -430,7 +431,8 @@ export function TemplateMinimalist({
                 <RichText
                   value={resume.phoneNumber || ""}
                   onChange={(value) =>
-                    updateResume && updateResume("setPhoneNumber", value)
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setPhoneNumber", value)
                   }
                 />
               )}
@@ -445,7 +447,8 @@ export function TemplateMinimalist({
                 <RichText
                   value={resume.website || ""}
                   onChange={(value) =>
-                    updateResume && updateResume("setWebsite", value)
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setWebsite", value)
                   }
                 />
               )}
@@ -469,14 +472,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("summary")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("summary", resume.summaryOrder)}
+          {renderSectionToolbar("summary")}
           {staticMode ? (
             resume.summaryLabel
           ) : (
             <RichText
               value={resume.summaryLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setSummaryLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setSummaryLabel", value)
               }
             />
           )}
@@ -486,9 +490,11 @@ export function TemplateMinimalist({
             resume.summary
           ) : (
             <RichText
+              withToolbar
               value={resume.summary || ""}
+              scale={zoom}
               onChange={(value) =>
-                updateResume && updateResume("setSummary", value)
+                callResumeSetMethod && callResumeSetMethod("setSummary", value)
               }
             />
           )}
@@ -510,14 +516,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("experience")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("experience", resume.experienceOrder)}
+          {renderSectionToolbar("experience")}
           {staticMode ? (
             resume.experienceLabel
           ) : (
             <RichText
               value={resume.experienceLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setExperienceLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setExperienceLabel", value)
               }
             />
           )}
@@ -544,8 +551,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={experience.role || ""}
                       onChange={(value) =>
-                        updateResumeExperience &&
-                        updateResumeExperience(
+                        callResumeExperienceSetMethod &&
+                        callResumeExperienceSetMethod(
                           subSectionIndex,
                           "setRole",
                           value
@@ -562,8 +569,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.company || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setCompany",
                             value
@@ -579,8 +586,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.fromMonth || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setFromMonth",
                             value
@@ -594,8 +601,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.fromYear || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setFromYear",
                             value
@@ -610,8 +617,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.toMonth || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setToMonth",
                             value
@@ -625,8 +632,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.toYear || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setToYear",
                             value
@@ -643,8 +650,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={experience.location || ""}
                         onChange={(value) =>
-                          updateResumeExperience &&
-                          updateResumeExperience(
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
                             subSectionIndex,
                             "setLocation",
                             value
@@ -681,10 +688,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeExperience &&
-                            updateResumeExperience(
+                            callResumeExperienceSetMethod &&
+                            callResumeExperienceSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -715,14 +723,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("involvement")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("involvement", resume.involvementOrder)}
+          {renderSectionToolbar("involvement")}
           {staticMode ? (
             resume.involvementLabel
           ) : (
             <RichText
               value={resume.involvementLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setInvolvementLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setInvolvementLabel", value)
               }
             />
           )}
@@ -749,8 +758,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={involvement.role || ""}
                       onChange={(value) =>
-                        updateResumeInvolvement &&
-                        updateResumeInvolvement(
+                        callResumeInvolvementSetMethod &&
+                        callResumeInvolvementSetMethod(
                           subSectionIndex,
                           "setRole",
                           value
@@ -767,8 +776,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.company || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setCompany",
                             value
@@ -784,8 +793,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.fromMonth || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setFromMonth",
                             value
@@ -799,8 +808,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.fromYear || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setFromYear",
                             value
@@ -815,8 +824,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.toMonth || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setToMonth",
                             value
@@ -830,8 +839,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.toYear || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setToYear",
                             value
@@ -848,8 +857,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={involvement.location || ""}
                         onChange={(value) =>
-                          updateResumeInvolvement &&
-                          updateResumeInvolvement(
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
                             subSectionIndex,
                             "setLocation",
                             value
@@ -886,10 +895,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeInvolvement &&
-                            updateResumeInvolvement(
+                            callResumeInvolvementSetMethod &&
+                            callResumeInvolvementSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -920,14 +930,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("project")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("project", resume.projectOrder)}
+          {renderSectionToolbar("project")}
           {staticMode ? (
             resume.projectLabel
           ) : (
             <RichText
               value={resume.projectLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setProjectLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setProjectLabel", value)
               }
             />
           )}
@@ -954,8 +965,12 @@ export function TemplateMinimalist({
                     <RichText
                       value={project.role || ""}
                       onChange={(value) =>
-                        updateResumeProject &&
-                        updateResumeProject(subSectionIndex, "setRole", value)
+                        callResumeProjectSetMethod &&
+                        callResumeProjectSetMethod(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
                       }
                     />
                   )}
@@ -968,8 +983,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.company || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setCompany",
                             value
@@ -983,8 +998,12 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.url || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(subSectionIndex, "setUrl", value)
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setUrl",
+                            value
+                          )
                         }
                       />
                     )}
@@ -996,8 +1015,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.fromMonth || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setFromMonth",
                             value
@@ -1011,8 +1030,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.fromYear || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setFromYear",
                             value
@@ -1027,8 +1046,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.toMonth || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setToMonth",
                             value
@@ -1042,8 +1061,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.toYear || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setToYear",
                             value
@@ -1060,8 +1079,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={project.location || ""}
                         onChange={(value) =>
-                          updateResumeProject &&
-                          updateResumeProject(
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
                             subSectionIndex,
                             "setLocation",
                             value
@@ -1098,10 +1117,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeProject &&
-                            updateResumeProject(
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -1132,14 +1152,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("education")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("education", resume.educationOrder)}
+          {renderSectionToolbar("education")}
           {staticMode ? (
             resume.educationLabel
           ) : (
             <RichText
               value={resume.educationLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setEducationLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setEducationLabel", value)
               }
             />
           )}
@@ -1166,8 +1187,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={education.degree || ""}
                       onChange={(value) =>
-                        updateResumeEducation &&
-                        updateResumeEducation(
+                        callResumeEducationSetMethod &&
+                        callResumeEducationSetMethod(
                           subSectionIndex,
                           "setDegree",
                           value
@@ -1184,8 +1205,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.institute || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setInstitute",
                             value
@@ -1199,8 +1220,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.gpa || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setGpa",
                             value
@@ -1216,8 +1237,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.fromMonth || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setFromMonth",
                             value
@@ -1231,8 +1252,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.fromYear || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setFromYear",
                             value
@@ -1247,8 +1268,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.toMonth || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setToMonth",
                             value
@@ -1262,8 +1283,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.toYear || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setToYear",
                             value
@@ -1280,8 +1301,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={education.location || ""}
                         onChange={(value) =>
-                          updateResumeEducation &&
-                          updateResumeEducation(
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
                             subSectionIndex,
                             "setLocation",
                             value
@@ -1318,10 +1339,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeEducation &&
-                            updateResumeEducation(
+                            callResumeEducationSetMethod &&
+                            callResumeEducationSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -1352,14 +1374,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("skill")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("skill", resume.skillOrder)}
+          {renderSectionToolbar("skill")}
           {staticMode ? (
             resume.skillLabel
           ) : (
             <RichText
               value={resume.skillLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setSkillLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setSkillLabel", value)
               }
             />
           )}
@@ -1385,10 +1408,15 @@ export function TemplateMinimalist({
                   skill.point
                 ) : (
                   <RichText
+                    withToolbar
                     value={skill.point || ""}
                     onChange={(value) =>
-                      updateResumeSkill &&
-                      updateResumeSkill(subSectionIndex, "setPoint", value)
+                      callResumeSkillSetMethod &&
+                      callResumeSkillSetMethod(
+                        subSectionIndex,
+                        "setPoint",
+                        value
+                      )
                     }
                   />
                 )}
@@ -1412,14 +1440,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("language")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("language", resume.languageOrder)}
+          {renderSectionToolbar("language")}
           {staticMode ? (
             resume.languageLabel
           ) : (
             <RichText
               value={resume.languageLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setLanguageLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setLanguageLabel", value)
               }
             />
           )}
@@ -1447,8 +1476,12 @@ export function TemplateMinimalist({
                   <RichText
                     value={item.name || ""}
                     onChange={(value) =>
-                      updateResumeLanguage &&
-                      updateResumeLanguage(subSectionIndex, "setName", value)
+                      callResumeLanguageSetMethod &&
+                      callResumeLanguageSetMethod(
+                        subSectionIndex,
+                        "setName",
+                        value
+                      )
                     }
                   />
                 )}
@@ -1460,8 +1493,12 @@ export function TemplateMinimalist({
                   <RichText
                     value={item.level || ""}
                     onChange={(value) =>
-                      updateResumeLanguage &&
-                      updateResumeLanguage(subSectionIndex, "setLevel", value)
+                      callResumeLanguageSetMethod &&
+                      callResumeLanguageSetMethod(
+                        subSectionIndex,
+                        "setLevel",
+                        value
+                      )
                     }
                   />
                 )}
@@ -1485,14 +1522,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("courseWork")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("courseWork", resume.courseWorkOrder)}
+          {renderSectionToolbar("courseWork")}
           {staticMode ? (
             resume.courseWorkLabel
           ) : (
             <RichText
               value={resume.courseWorkLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setCourseWorkLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setCourseWorkLabel", value)
               }
             />
           )}
@@ -1519,8 +1557,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={courseWork.name || ""}
                       onChange={(value) =>
-                        updateResumeCourseWork &&
-                        updateResumeCourseWork(
+                        callResumeCourseWorkSetMethod &&
+                        callResumeCourseWorkSetMethod(
                           subSectionIndex,
                           "setName",
                           value
@@ -1539,8 +1577,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={courseWork.institute || ""}
                         onChange={(value) =>
-                          updateResumeCourseWork &&
-                          updateResumeCourseWork(
+                          callResumeCourseWorkSetMethod &&
+                          callResumeCourseWorkSetMethod(
                             subSectionIndex,
                             "setInstitute",
                             value
@@ -1556,8 +1594,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={courseWork.year || ""}
                         onChange={(value) =>
-                          updateResumeCourseWork &&
-                          updateResumeCourseWork(
+                          callResumeCourseWorkSetMethod &&
+                          callResumeCourseWorkSetMethod(
                             subSectionIndex,
                             "setYear",
                             value
@@ -1574,8 +1612,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={courseWork.skills || ""}
                       onChange={(value) =>
-                        updateResumeCourseWork &&
-                        updateResumeCourseWork(
+                        callResumeCourseWorkSetMethod &&
+                        callResumeCourseWorkSetMethod(
                           subSectionIndex,
                           "setSkills",
                           value
@@ -1611,10 +1649,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeCourseWork &&
-                            updateResumeCourseWork(
+                            callResumeCourseWorkSetMethod &&
+                            callResumeCourseWorkSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -1645,14 +1684,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("certification")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("certification", resume.certificationOrder)}
+          {renderSectionToolbar("certification")}
           {staticMode ? (
             resume.certificationLabel
           ) : (
             <RichText
               value={resume.certificationLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setCertificationLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setCertificationLabel", value)
               }
             />
           )}
@@ -1679,8 +1719,8 @@ export function TemplateMinimalist({
                     <RichText
                       value={certification.name || ""}
                       onChange={(value) =>
-                        updateResumeCertification &&
-                        updateResumeCertification(
+                        callResumeCertificationSetMethod &&
+                        callResumeCertificationSetMethod(
                           subSectionIndex,
                           "setName",
                           value
@@ -1699,8 +1739,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={certification.institute || ""}
                         onChange={(value) =>
-                          updateResumeCertification &&
-                          updateResumeCertification(
+                          callResumeCertificationSetMethod &&
+                          callResumeCertificationSetMethod(
                             subSectionIndex,
                             "setInstitute",
                             value
@@ -1716,8 +1756,8 @@ export function TemplateMinimalist({
                       <RichText
                         value={certification.year || ""}
                         onChange={(value) =>
-                          updateResumeCertification &&
-                          updateResumeCertification(
+                          callResumeCertificationSetMethod &&
+                          callResumeCertificationSetMethod(
                             subSectionIndex,
                             "setYear",
                             value
@@ -1754,10 +1794,11 @@ export function TemplateMinimalist({
                         point
                       ) : (
                         <RichText
+                          withToolbar
                           value={point || ""}
                           onChange={(value) =>
-                            updateResumeCertification &&
-                            updateResumeCertification(
+                            callResumeCertificationSetMethod &&
+                            callResumeCertificationSetMethod(
                               subSectionIndex,
                               "setPoint",
                               pointIndex,
@@ -1788,14 +1829,15 @@ export function TemplateMinimalist({
           onMouseOver={() => onMouseOverSection("hobby")}
           onMouseOut={() => onMouseOutSection()}
         >
-          {renderSectionToolbar("hobby", resume.hobbyOrder)}
+          {renderSectionToolbar("hobby")}
           {staticMode ? (
             resume.hobbyLabel
           ) : (
             <RichText
               value={resume.hobbyLabel || ""}
               onChange={(value) =>
-                updateResume && updateResume("setHobbyLabel", value)
+                callResumeSetMethod &&
+                callResumeSetMethod("setHobbyLabel", value)
               }
             />
           )}
@@ -1821,10 +1863,15 @@ export function TemplateMinimalist({
                   hobby.point
                 ) : (
                   <RichText
+                    withToolbar
                     value={hobby.point || ""}
                     onChange={(value) =>
-                      updateResumeHobby &&
-                      updateResumeHobby(subSectionIndex, "setPoint", value)
+                      callResumeHobbySetMethod &&
+                      callResumeHobbySetMethod(
+                        subSectionIndex,
+                        "setPoint",
+                        value
+                      )
                     }
                   />
                 )}
@@ -1836,7 +1883,18 @@ export function TemplateMinimalist({
   };
 
   return (
-    <div className={["container", fontFamilyClass, borderColorClass].join(" ")}>
+    <div
+      className={[
+        "container",
+        zoom === 0.5 && "container-scale-0_50",
+        zoom === 0.75 && "container-scale-0_75",
+        zoom === 1.25 && "container-scale-1_25",
+        zoom === 1.5 && "container-scale-1_50",
+        zoom === 1.75 && "container-scale-1_75",
+        fontFamilyClass,
+        borderColorClass,
+      ].join(" ")}
+    >
       {renderHeader()}
       {[
         {

@@ -17,26 +17,15 @@ import {
   ProjectModel,
   ProjectModelSetMethodsKeyType,
   ResumeModel,
+  ResumeModelGetMethodsKeyType,
   ResumeModelSetMethodsKeyType,
+  ResumeSectionType,
   SkillModel,
   SkillModelSetMethodsKeyType,
 } from "@models";
 
-export type ResumeSectionType =
-  | "header"
-  | "summary"
-  | "experience"
-  | "involvement"
-  | "project"
-  | "education"
-  | "skill"
-  | "courseWork"
-  | "certification"
-  | "hobby"
-  | "language"
-  | undefined;
-
 export interface ResumeTemplateProps {
+  zoom?: number;
   staticMode?: boolean;
   resume: Partial<IResume>;
   hoverSection?: ResumeSectionType;
@@ -59,7 +48,6 @@ export interface ResumeTemplateProps {
     subSectionIndex: number;
     pointIndex: number;
   }) => void;
-  onChangeSectionOrder?: (section: ResumeSectionType, newOrder: number) => void;
   onChangeSubSectionIndex?: (
     section: ResumeSectionType,
     subSectionIndex: number,
@@ -71,55 +59,62 @@ export interface ResumeTemplateProps {
     pointIndex: number,
     newIndex: number
   ) => void;
-  updateResume?: <M extends ResumeModelSetMethodsKeyType>(
+  callResumeSetMethod: <M extends ResumeModelSetMethodsKeyType>(
     methodName: M,
     ...args: Parameters<ResumeModel[M]>
   ) => void;
-  updateResumeProject?: <M extends ProjectModelSetMethodsKeyType>(
+  callResumeGetMethod: <M extends ResumeModelGetMethodsKeyType>(
+    methodName: M,
+    ...args: Parameters<ResumeModel[M]>
+  ) => ReturnType<ResumeModel[M]>;
+  callResumeProjectSetMethod?: <M extends ProjectModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<ProjectModel[M]>
   ) => void;
-  updateResumeCertification: <M extends CertificationModelSetMethodsKeyType>(
+  callResumeCertificationSetMethod: <
+    M extends CertificationModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<CertificationModel[M]>
   ) => void;
-  updateResumeCourseWork: <M extends CourseWorkModelSetMethodsKeyType>(
+  callResumeCourseWorkSetMethod: <M extends CourseWorkModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<CourseWorkModel[M]>
   ) => void;
-  updateResumeEducation: <M extends EducationModelSetMethodsKeyType>(
+  callResumeEducationSetMethod: <M extends EducationModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<EducationModel[M]>
   ) => void;
-  updateResumeExperience: <M extends ExperienceModelSetMethodsKeyType>(
+  callResumeExperienceSetMethod: <M extends ExperienceModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<ExperienceModel[M]>
   ) => void;
-  updateResumeInvolvement: <M extends InvolvementModelSetMethodsKeyType>(
+  callResumeInvolvementSetMethod: <M extends InvolvementModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<InvolvementModel[M]>
   ) => void;
 
-  updateResumeLanguage: <M extends LanguageModelSetMethodsKeyType>(
+  callResumeLanguageSetMethod: <M extends LanguageModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<LanguageModel[M]>
   ) => void;
-  updateResumeSkill: <M extends SkillModelSetMethodsKeyType>(
+  callResumeSkillSetMethod: <M extends SkillModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<SkillModel[M]>
   ) => void;
-  updateResumeHobby: <M extends HobbyModelSetMethodsKeyType>(
+  callResumeHobbySetMethod: <M extends HobbyModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<HobbyModel[M]>
   ) => void;
-  onHiddenSection: (section: ResumeSectionType) => void;
+  onMoveDownSection: (section: ResumeSectionType) => void;
+  onMoveUpSection: (section: ResumeSectionType) => void;
 }

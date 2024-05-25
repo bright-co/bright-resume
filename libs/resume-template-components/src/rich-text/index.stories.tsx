@@ -4,7 +4,7 @@ import { RichText } from ".";
 
 export default {
   component: RichText,
-  title: "RichText3",
+  title: "RichText",
 } as Meta<typeof RichText>;
 
 const Template: StoryFn<typeof RichText> = (args) => {
@@ -13,7 +13,7 @@ const Template: StoryFn<typeof RichText> = (args) => {
   );
   return (
     <div style={{ display: "flex" }}>
-      <RichText value={value} onChange={(value) => setValue(value)} />
+      <RichText value={value} onChange={(value) => setValue(value)} {...args} />
     </div>
   );
 };
