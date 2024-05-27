@@ -491,8 +491,8 @@ export function TemplateMinimalist({
           ) : (
             <RichText
               withToolbar
-              value={resume.summary || ""}
               scale={zoom}
+              value={resume.summary || ""}
               onChange={(value) =>
                 callResumeSetMethod && callResumeSetMethod("setSummary", value)
               }
@@ -689,6 +689,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeExperienceSetMethod &&
@@ -896,6 +897,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeInvolvementSetMethod &&
@@ -1118,6 +1120,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeProjectSetMethod &&
@@ -1340,6 +1343,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeEducationSetMethod &&
@@ -1409,6 +1413,7 @@ export function TemplateMinimalist({
                 ) : (
                   <RichText
                     withToolbar
+                    scale={zoom}
                     value={skill.point || ""}
                     onChange={(value) =>
                       callResumeSkillSetMethod &&
@@ -1650,6 +1655,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeCourseWorkSetMethod &&
@@ -1795,6 +1801,7 @@ export function TemplateMinimalist({
                       ) : (
                         <RichText
                           withToolbar
+                          scale={zoom}
                           value={point || ""}
                           onChange={(value) =>
                             callResumeCertificationSetMethod &&
@@ -1864,6 +1871,7 @@ export function TemplateMinimalist({
                 ) : (
                   <RichText
                     withToolbar
+                    scale={zoom}
                     value={hobby.point || ""}
                     onChange={(value) =>
                       callResumeHobbySetMethod &&

@@ -199,7 +199,7 @@ export function ResumeContainer(props: TemplateMinimalistProps) {
         </Menubar>
       </div>
       <div
-        className="resume my-4 ml-auto mr-auto relative"
+        className="resume my-4 ml-auto mr-auto relative overflow-hidden"
         style={{ width: width * zoom, height: height * zoom }}
       >
         <div className="shadow-md absolute left-0" ref={target}>

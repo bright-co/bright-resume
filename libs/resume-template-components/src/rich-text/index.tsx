@@ -107,8 +107,9 @@ export function RichText({
               display: withToolbar ? displayToolbar : "none",
               position: "absolute",
               bottom: "100%",
-              left: left > (containerWidth || 0) * 0.9 ? "unset" : left,
-              right: left > (containerWidth || 0) * 0.9 ? "5%" : "unset",
+              left: left > (containerWidth / scale || 0) * 0.9 ? "unset" : left,
+              right:
+                left > (containerWidth / scale || 0) * 0.9 ? "5%" : "unset",
             }}
             onMouseOver={() => setToolbarDisplay("flex")}
           >
