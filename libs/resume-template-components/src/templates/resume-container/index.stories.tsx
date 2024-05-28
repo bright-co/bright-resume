@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from "@storybook/react";
 import moment from "moment";
 import { faker } from "@faker-js/faker";
-import { TemplateMinimalist } from ".";
-import { IResume } from "@models";
+import { ResumeContainer } from ".";
+import { IResume, ResumeModel } from "@models";
 import {
   ResumeColorEnum,
   ResumeFontFamilyEnum,
@@ -10,17 +10,17 @@ import {
 } from "@enums";
 
 export default {
-  component: TemplateMinimalist,
-  title: "TemplateMinimalist",
-} as Meta<typeof TemplateMinimalist>;
+  component: ResumeContainer,
+  title: "ResumeContainer",
+} as Meta<typeof ResumeContainer>;
 
 const resumeObj: IResume = {
   userId: "userId",
   name: faker.person.fullName(),
   title: faker.person.fullName(),
   color: ResumeColorEnum.blue,
-  fontFamily: ResumeFontFamilyEnum.roboto,
-  fontSize: ResumeFontSizeEnum.large,
+  fontFamily: ResumeFontFamilyEnum.nunito,
+  fontSize: ResumeFontSizeEnum.xx_large,
   role: faker.person.jobTitle(),
   isShowPhoneNumber: faker.datatype.boolean(),
   phoneNumber: faker.phone.number(),
@@ -34,10 +34,12 @@ const resumeObj: IResume = {
   location: faker.location.county() + " " + faker.location.city(),
   isShowBirthDay: faker.datatype.boolean(),
   birthDay: moment(faker.date.birthdate()).format("YYYY"),
-  isShowSummary: faker.datatype.boolean(),
+  isShowSummary: true,
   summaryLabel: "MY SUMMARY",
+  summaryOrder: 2,
   summary: faker.lorem.paragraph({ min: 10, max: 12 }),
-  isShowExperience: faker.datatype.boolean(),
+  isShowExperience: true,
+  experienceOrder: 1,
   experienceLabel: "EXPERIENCE",
   experienceRoleLabel: faker.lorem.word(),
   experienceCompanyLabel: faker.lorem.word(),
@@ -117,7 +119,8 @@ const resumeObj: IResume = {
       ],
     },
   ],
-  isShowProject: faker.datatype.boolean(),
+  isShowProject: true,
+  projectOrder: 3,
   projectLabel: "PROJECTS",
   projectRoleLabel: faker.lorem.word(),
   projectTitleLabel: faker.lorem.word(),
@@ -174,8 +177,9 @@ const resumeObj: IResume = {
       ],
     },
   ],
-  isShowEducation: faker.datatype.boolean(),
+  isShowEducation: true,
   educationLabel: "EDUCATION",
+  educationOrder: 4,
   educationDegreeLabel: faker.lorem.word(),
   educationInstituteLabel: faker.lorem.word(),
   educationLocationLabel: faker.lorem.word(),
@@ -203,8 +207,9 @@ const resumeObj: IResume = {
       ],
     },
   ],
-  isShowCertification: faker.datatype.boolean(),
+  isShowCertification: true,
   certificationLabel: "CERTIFICATIONS",
+  certificationOrder: 5,
   certificationNameLabel: faker.lorem.word(),
   certificationInstituteLabel: faker.lorem.word(),
   certificationYearLabel: faker.lorem.word(),
@@ -219,8 +224,9 @@ const resumeObj: IResume = {
       points: [faker.lorem.paragraph(), faker.lorem.paragraph()],
     },
   ],
-  isShowCourseWork: faker.datatype.boolean(),
+  isShowCourseWork: true,
   courseWorkLabel: "COURSE WORK",
+  courseWorkOrder: 6,
   courseWorkTitleLabel: faker.lorem.word(),
   courseWorkNameLabel: faker.lorem.word(),
   courseWorkInstituteLabel: faker.lorem.word(),
@@ -239,8 +245,9 @@ const resumeObj: IResume = {
       points: [faker.lorem.paragraph()],
     },
   ],
-  isShowInvolvement: faker.datatype.boolean(),
+  isShowInvolvement: true,
   involvementLabel: "INVOLVEMENTS",
+  involvementOrder: 7,
   involvementRoleLabel: faker.lorem.word(),
   involvementCompanyLabel: faker.lorem.word(),
   involvementLocationLabel: faker.lorem.word(),
@@ -261,16 +268,26 @@ const resumeObj: IResume = {
       points: [faker.lorem.paragraph(), faker.lorem.paragraph()],
     },
   ],
-  isShowSkill: faker.datatype.boolean(),
+  isShowSkill: true,
   skillLabel: "SKILLS",
+  skillOrder: 10,
   skills: [
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
-    faker.lorem.paragraph(),
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
   ],
-  isShowLanguage: faker.datatype.boolean(),
+  isShowLanguage: true,
   languageLabel: "LANGUAGES",
+  languageOrder: 8,
   languageNameLabel: faker.lorem.word(),
   languageLevelLabel: faker.lorem.word(),
   languages: [
@@ -286,16 +303,21 @@ const resumeObj: IResume = {
     },
   ],
   hobbyLabel: "HOBBIES",
-  isShowHobby: faker.datatype.boolean(),
-  hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+  hobbyOrder: 9,
+  isShowHobby: true,
+  hobbies: [
+    {
+      point: faker.lorem.paragraph(),
+    },
+    {
+      point: faker.lorem.paragraph(),
+    },
+  ],
 };
 
-const Template: StoryFn<typeof TemplateMinimalist> = (args) => {
-  return <TemplateMinimalist {...args} />;
+const Template: StoryFn<typeof ResumeContainer> = (args) => {
+  return <ResumeContainer {...args} />;
 };
 
-export const Dynamic = Template.bind({});
-Dynamic.args = { resume: resumeObj };
-
-export const Static = Template.bind({});
-Static.args = { resume: resumeObj, staticMode: true };
+export const Main = Template.bind({});
+Main.args = { resumeModel: new ResumeModel(resumeObj) };

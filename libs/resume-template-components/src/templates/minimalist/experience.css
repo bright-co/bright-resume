@@ -1,5 +1,6 @@
 .ex-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .ex-label {
@@ -7,8 +8,19 @@
   border-bottom: 1.5px solid;
 }
 
+.ex-label:hover {
+  background-color: #0002;
+}
+
 .ex-item {
   margin-bottom: 10px;
+}
+
+.ex-item-header {
+  position: relative;
+}
+.ex-item-header:hover {
+  background-color: #0002;
 }
 
 .ex-item-role {
@@ -28,6 +40,8 @@
   font-weight: bold;
   margin-left: auto;
   margin-right: 5px;
+  display: flex;
+  gap: 3px;
 }
 
 .ex-item-location {
@@ -36,6 +50,11 @@
 
 .ex-item-point {
   display: flex;
+  position: relative;
+}
+
+.ex-item-point:hover {
+  background-color: #0002;
 }
 
 .ex-item-point-icon {

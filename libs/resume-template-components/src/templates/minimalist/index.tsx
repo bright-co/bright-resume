@@ -1,11 +1,18 @@
 "use client";
 
 import { faker } from "@faker-js/faker";
-import { LinkedinIcon } from "../icons/linkedin";
-import { MailIcon } from "../icons/mail";
-import { PhoneIcon } from "../icons/phone";
-import { WebIcon } from "../icons/web";
-import { IResume } from "@models";
+
+import {
+  WebIcon,
+  EditIcon,
+  PhoneIcon,
+  MailIcon,
+  LinkedinIcon,
+  UpIcon,
+  DownIcon,
+  AIIcon,
+  VisibilityOffIcon,
+} from "../icons";
 
 import "./general.css";
 import "./header.css";
@@ -24,17 +31,36 @@ import {
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@enums";
-import { RichText2 } from "@resume-template-components/rich-text2";
-
-export interface TemplateMinimalistProps {
-  staticMode?: boolean;
-  resume: IResume;
-}
+import { RichText } from "@resume-template-components/rich-text";
+import { ResumeTemplateProps } from "../resume-template-props";
+import { ResumeSectionType } from "@/libs/models/src";
 
 export function TemplateMinimalist({
+  zoom = 1,
   resume,
   staticMode,
-}: TemplateMinimalistProps) {
+  hoverSection,
+  setHoverSection,
+  hoverSubSectionPoint,
+  setHoverSubSectionPoint,
+  hoverSubSection,
+  setHoverSubSection,
+  onChangeSubSectionIndex,
+  onChangeSubSectionPointIndex,
+  callResumeSetMethod,
+  callResumeGetMethod,
+  callResumeProjectSetMethod,
+  callResumeCertificationSetMethod,
+  callResumeCourseWorkSetMethod,
+  callResumeEducationSetMethod,
+  callResumeExperienceSetMethod,
+  callResumeInvolvementSetMethod,
+  callResumeLanguageSetMethod,
+  callResumeSkillSetMethod,
+  callResumeHobbySetMethod,
+  onMoveUpSection,
+  onMoveDownSection,
+}: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
   let subTextFontSize: string;
@@ -131,14 +157,208 @@ export function TemplateMinimalist({
     fontFamilyClass = "font-family-raleway";
   }
 
+  const onMouseOverSection = (part: ResumeSectionType) => {
+    if (setHoverSection) {
+      setHoverSection(part);
+    }
+  };
+
+  const onMouseOutSection = () => {
+    if (setHoverSection) {
+      setHoverSection();
+    }
+  };
+
+  const onMouseOverSubSection = (
+    section: ResumeSectionType,
+    subSectionIndex: number
+  ) => {
+    if (setHoverSubSection) {
+      setHoverSubSection({ section, subSectionIndex });
+    }
+  };
+
+  const onMouseOutSubSection = () => {
+    if (setHoverSubSection) {
+      setHoverSubSection();
+    }
+  };
+
+  const onMouseOverSubSectionPoint = (
+    section: ResumeSectionType,
+    subSectionIndex: number,
+    pointIndex: number
+  ) => {
+    if (setHoverSubSectionPoint) {
+      setHoverSubSectionPoint({ section, subSectionIndex, pointIndex });
+    }
+  };
+
+  const onMouseOutSectionPoint = () => {
+    if (setHoverSubSectionPoint) {
+      setHoverSubSectionPoint();
+    }
+  };
+
+  const renderSectionToolbar = (section: typeof hoverSection) => {
+    return (
+      <div
+        className={[
+          "section-toolbar",
+          hoverSection === section && "section-toolbar-show",
+        ].join(" ")}
+      >
+        {onMoveUpSection &&
+          callResumeGetMethod("getUpperAndVisibleSection", section) && (
+            <div className="button" onClick={() => onMoveUpSection(section)}>
+              <UpIcon />
+            </div>
+          )}
+
+        <div
+          className="button"
+          onClick={() => callResumeSetMethod("setHiddenSection", section)}
+        >
+          <VisibilityOffIcon />
+        </div>
+        <div className="button">
+          <EditIcon />
+        </div>
+        <div className="button">
+          <AIIcon />
+        </div>
+        {onMoveDownSection &&
+          callResumeGetMethod("getLowerAndVisibleSection", section) && (
+            <div className="button" onClick={() => onMoveDownSection(section)}>
+              <DownIcon />
+            </div>
+          )}
+      </div>
+    );
+  };
+
+  const renderSubSectionToolbar = (
+    section: typeof hoverSection,
+    subSectionIndex: number,
+    subSectionLength: number
+  ) => {
+    return (
+      <div
+        className={[
+          "sub-section-toolbar",
+          hoverSubSection &&
+            hoverSubSection.section === section &&
+            hoverSubSection.subSectionIndex === subSectionIndex &&
+            "sub-section-toolbar-show",
+        ].join(" ")}
+      >
+        {onChangeSubSectionIndex &&
+          subSectionIndex > 0 &&
+          subSectionLength > 1 && (
+            <div
+              className="button"
+              onClick={() =>
+                onChangeSubSectionIndex(
+                  section,
+                  subSectionIndex,
+                  subSectionIndex - 1
+                )
+              }
+            >
+              <UpIcon />
+            </div>
+          )}
+        <div className="button">
+          <EditIcon />
+        </div>
+        <div className="button">
+          <AIIcon />
+        </div>
+        {onChangeSubSectionIndex && subSectionIndex < subSectionLength - 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionIndex(
+                section,
+                subSectionIndex,
+                subSectionIndex + 1
+              )
+            }
+          >
+            <DownIcon />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderSubSectionPointToolbar = (
+    section: typeof hoverSection,
+    subSectionIndex: number,
+    pointIndex: number,
+    pointLength: number
+  ) => {
+    return (
+      <div
+        className={[
+          "section-toolbar-point",
+          hoverSubSectionPoint &&
+            hoverSubSectionPoint.section === section &&
+            hoverSubSectionPoint.subSectionIndex === subSectionIndex &&
+            hoverSubSectionPoint.pointIndex === pointIndex &&
+            "section-toolbar-point-show",
+        ].join(" ")}
+      >
+        {onChangeSubSectionPointIndex && pointIndex > 0 && pointLength > 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionPointIndex(
+                section,
+                subSectionIndex,
+                pointIndex,
+                pointIndex - 1
+              )
+            }
+          >
+            <UpIcon />
+          </div>
+        )}
+        <div className="button">
+          <EditIcon />
+        </div>
+        <div className="button">
+          <AIIcon />
+        </div>
+        {onChangeSubSectionPointIndex && pointIndex < pointLength - 1 && (
+          <div
+            className="button"
+            onClick={() =>
+              onChangeSubSectionPointIndex(
+                section,
+                subSectionIndex,
+                pointIndex,
+                pointIndex + 1
+              )
+            }
+          >
+            <DownIcon />
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const renderHeader = () => {
     return (
       <div className="hr-container">
-        <img
-          className="hr-image"
-          src={faker.image.avatar()}
-          alt={resume.name}
-        />
+        {resume.isShowImage && (
+          <img
+            className="hr-image"
+            src={faker.image.avatar()}
+            alt={resume.name}
+          />
+        )}
         <div className="hr-text">
           <div
             className={["hr-name", headerFontSize, fontColorClass].join(" ")}
@@ -146,7 +366,12 @@ export function TemplateMinimalist({
             {staticMode ? (
               resume.name
             ) : (
-              <RichText2 value={resume.name || ""} onChange={() => {}} />
+              <RichText
+                value={resume.name || ""}
+                onChange={(value) =>
+                  callResumeSetMethod && callResumeSetMethod("setName", value)
+                }
+              />
             )}
           </div>
           <div
@@ -155,7 +380,12 @@ export function TemplateMinimalist({
             {staticMode ? (
               resume.role
             ) : (
-              <RichText2 value={resume.role || ""} onChange={() => {}} />
+              <RichText
+                value={resume.role || ""}
+                onChange={(value) =>
+                  callResumeSetMethod && callResumeSetMethod("setRole", value)
+                }
+              />
             )}
           </div>
           <div className="hr-social-media">
@@ -166,7 +396,13 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.linkedin
               ) : (
-                <RichText2 value={resume.linkedin || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.linkedin || ""}
+                  onChange={(value) =>
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setLinkedin", value)
+                  }
+                />
               )}
             </div>
             <div className={["hr-item", subTextFontSize].join(" ")}>
@@ -176,7 +412,13 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.email
               ) : (
-                <RichText2 value={resume.email || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.email || ""}
+                  onChange={(value) =>
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setEmail", value)
+                  }
+                />
               )}
             </div>
             <div className={["hr-item", subTextFontSize].join(" ")}>
@@ -186,9 +428,12 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.phoneNumber
               ) : (
-                <RichText2
+                <RichText
                   value={resume.phoneNumber || ""}
-                  onChange={() => {}}
+                  onChange={(value) =>
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setPhoneNumber", value)
+                  }
                 />
               )}
             </div>
@@ -199,7 +444,13 @@ export function TemplateMinimalist({
               {staticMode ? (
                 resume.website
               ) : (
-                <RichText2 value={resume.website || ""} onChange={() => {}} />
+                <RichText
+                  value={resume.website || ""}
+                  onChange={(value) =>
+                    callResumeSetMethod &&
+                    callResumeSetMethod("setWebsite", value)
+                  }
+                />
               )}
             </div>
           </div>
@@ -218,18 +469,34 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("summary")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("summary")}
           {staticMode ? (
             resume.summaryLabel
           ) : (
-            <RichText2 value={resume.summaryLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.summaryLabel || ""}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setSummaryLabel", value)
+              }
+            />
           )}
         </div>
         <div className={["sm-text", textFontSize].join(" ")}>
           {staticMode ? (
             resume.summary
           ) : (
-            <RichText2 value={resume.summary || ""} onChange={() => {}} />
+            <RichText
+              withToolbar
+              scale={zoom}
+              value={resume.summary || ""}
+              onChange={(value) =>
+                callResumeSetMethod && callResumeSetMethod("setSummary", value)
+              }
+            />
           )}
         </div>
       </div>
@@ -246,64 +513,194 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("experience")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("experience")}
           {staticMode ? (
             resume.experienceLabel
           ) : (
-            <RichText2
+            <RichText
               value={resume.experienceLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setExperienceLabel", value)
+              }
             />
           )}
         </div>
         {resume.experiences &&
-          resume.experiences.map((experience, index) => (
-            <div key={index} className="ex-item">
-              <div className={["ex-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  experience.role
-                ) : (
-                  <RichText2 value={resume.role || ""} onChange={() => {}} />
+          resume.experiences.map((experience, subSectionIndex) => (
+            <div key={"ex-item" + subSectionIndex} className="ex-item">
+              <div
+                className="ex-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("experience", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "experience",
+                  subSectionIndex,
+                  resume.experiences?.length || 0
                 )}
-              </div>
-              <div className="ex-item-company-date-location">
-                <div className={["ex-item-company", textFontSize].join(" ")}>
+                <div className={["ex-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    experience.company
+                    experience.role
                   ) : (
-                    <RichText2
-                      value={experience.company || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={experience.role || ""}
+                      onChange={(value) =>
+                        callResumeExperienceSetMethod &&
+                        callResumeExperienceSetMethod(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
-                <div className={["ex-item-date", textFontSize].join(" ")}>
-                  {experience.fromMonth} {experience.fromYear} -
-                  {experience.toMonth} {experience.toYear},
-                </div>
-                <div className={["ex-item-location", textFontSize].join(" ")}>
-                  {staticMode ? (
-                    experience.location
-                  ) : (
-                    <RichText2
-                      value={experience.location || ""}
-                      onChange={() => {}}
-                    />
-                  )}
+                <div className="ex-item-company-date-location">
+                  <div className={["ex-item-company", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      experience.company
+                    ) : (
+                      <RichText
+                        value={experience.company || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["ex-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      experience.fromMonth
+                    ) : (
+                      <RichText
+                        value={experience.fromMonth || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      experience.fromYear
+                    ) : (
+                      <RichText
+                        value={experience.fromYear || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      experience.toMonth
+                    ) : (
+                      <RichText
+                        value={experience.toMonth || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}{" "}
+                    {staticMode ? (
+                      experience.toYear
+                    ) : (
+                      <RichText
+                        value={experience.toYear || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
+                  </div>
+                  <div className={["ex-item-location", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      experience.location
+                    ) : (
+                      <RichText
+                        value={experience.location || ""}
+                        onChange={(value) =>
+                          callResumeExperienceSetMethod &&
+                          callResumeExperienceSetMethod(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               {experience.points &&
-                experience.points.map((point, index) => (
+                experience.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"ex-item-point" + pointIndex}
                     className={["ex-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "experience",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "experience",
+                      subSectionIndex,
+                      pointIndex,
+                      experience.points?.length || 0
+                    )}
                     <div className="ex-item-point-icon">•</div>
                     <div className="ex-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeExperienceSetMethod &&
+                            callResumeExperienceSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -324,67 +721,194 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("involvement")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("involvement")}
           {staticMode ? (
             resume.involvementLabel
           ) : (
-            <RichText2
+            <RichText
               value={resume.involvementLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setInvolvementLabel", value)
+              }
             />
           )}
         </div>
         {resume.involvements &&
-          resume.involvements.map((involvement, index) => (
-            <div key={index} className="iv-item">
-              <div className={["iv-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  resume.role
-                ) : (
-                  <RichText2
-                    value={involvement.role || ""}
-                    onChange={() => {}}
-                  />
+          resume.involvements.map((involvement, subSectionIndex) => (
+            <div key={"iv-item" + subSectionIndex} className="iv-item">
+              <div
+                className="iv-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("involvement", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "involvement",
+                  subSectionIndex,
+                  resume.involvements?.length || 0
                 )}
-              </div>
-              <div className="iv-item-company-date-location">
-                <div className={["iv-item-company", textFontSize].join(" ")}>
+                <div className={["iv-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    involvement.company
+                    resume.role
                   ) : (
-                    <RichText2
-                      value={involvement.company || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={involvement.role || ""}
+                      onChange={(value) =>
+                        callResumeInvolvementSetMethod &&
+                        callResumeInvolvementSetMethod(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
-                <div className={["iv-item-date", textFontSize].join(" ")}>
-                  {involvement.fromMonth} {involvement.fromYear} -
-                  {involvement.toMonth} {involvement.toYear},
-                </div>
-                <div className={["iv-item-location", textFontSize].join(" ")}>
-                  {staticMode ? (
-                    involvement.location
-                  ) : (
-                    <RichText2
-                      value={involvement.location || ""}
-                      onChange={() => {}}
-                    />
-                  )}
+                <div className="iv-item-company-date-location">
+                  <div className={["iv-item-company", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      involvement.company
+                    ) : (
+                      <RichText
+                        value={involvement.company || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["iv-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      involvement.fromMonth
+                    ) : (
+                      <RichText
+                        value={involvement.fromMonth || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      involvement.fromYear
+                    ) : (
+                      <RichText
+                        value={involvement.fromYear || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      involvement.toMonth
+                    ) : (
+                      <RichText
+                        value={involvement.toMonth || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}{" "}
+                    {staticMode ? (
+                      involvement.toYear
+                    ) : (
+                      <RichText
+                        value={involvement.toYear || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
+                  </div>
+                  <div className={["iv-item-location", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      involvement.location
+                    ) : (
+                      <RichText
+                        value={involvement.location || ""}
+                        onChange={(value) =>
+                          callResumeInvolvementSetMethod &&
+                          callResumeInvolvementSetMethod(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               {involvement.points &&
-                involvement.points.map((point, index) => (
+                involvement.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"iv-item-point" + pointIndex}
                     className={["iv-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "involvement",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "involvement",
+                      subSectionIndex,
+                      pointIndex,
+                      involvement.points?.length || 0
+                    )}
                     <div className="iv-item-point-icon">•</div>
                     <div className="iv-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeInvolvementSetMethod &&
+                            callResumeInvolvementSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -405,66 +929,209 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("project")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("project")}
           {staticMode ? (
             resume.projectLabel
           ) : (
-            <RichText2 value={resume.projectLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.projectLabel || ""}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setProjectLabel", value)
+              }
+            />
           )}
         </div>
         {resume.projects &&
-          resume.projects.map((project, index) => (
-            <div key={index} className="pr-item">
-              <div className={["pr-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  project.role
-                ) : (
-                  <RichText2 value={project.role || ""} onChange={() => {}} />
+          resume.projects.map((project, subSectionIndex) => (
+            <div key={"pr-item" + subSectionIndex} className="pr-item">
+              <div
+                className="pr-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("project", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "project",
+                  subSectionIndex,
+                  resume.projects?.length || 0
                 )}
-              </div>
-              <div className="pr-item-company-date-location">
-                <div className={["pr-item-company", textFontSize].join(" ")}>
+                <div className={["pr-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    project.company
+                    project.role
                   ) : (
-                    <RichText2
-                      value={project.company || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={project.role || ""}
+                      onChange={(value) =>
+                        callResumeProjectSetMethod &&
+                        callResumeProjectSetMethod(
+                          subSectionIndex,
+                          "setRole",
+                          value
+                        )
+                      }
                     />
                   )}
-                  {staticMode ? (
-                    project.url
-                  ) : (
-                    <RichText2 value={project.url || ""} onChange={() => {}} />
-                  )}
                 </div>
-                <div className={["pr-item-date", textFontSize].join(" ")}>
-                  {project.fromMonth} {project.fromYear} -{project.toMonth}{" "}
-                  {project.toYear},
-                </div>
-                <div className={["pr-item-location", textFontSize].join(" ")}>
-                  {staticMode ? (
-                    project.location
-                  ) : (
-                    <RichText2
-                      value={project.location || ""}
-                      onChange={() => {}}
-                    />
-                  )}
+                <div className="pr-item-company-date-location">
+                  <div className={["pr-item-company", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      project.company
+                    ) : (
+                      <RichText
+                        value={project.company || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setCompany",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      project.url
+                    ) : (
+                      <RichText
+                        value={project.url || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setUrl",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["pr-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      project.fromMonth
+                    ) : (
+                      <RichText
+                        value={project.fromMonth || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      project.fromYear
+                    ) : (
+                      <RichText
+                        value={project.fromYear || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      project.toMonth
+                    ) : (
+                      <RichText
+                        value={project.toMonth || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      project.toYear
+                    ) : (
+                      <RichText
+                        value={project.toYear || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
+                  </div>
+                  <div className={["pr-item-location", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      project.location
+                    ) : (
+                      <RichText
+                        value={project.location || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               {project.points &&
-                project.points.map((point, index) => (
+                project.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"pr-item-point" + pointIndex}
                     className={["pr-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "project",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "project",
+                      subSectionIndex,
+                      pointIndex,
+                      project.points?.length || 0
+                    )}
                     <div className="pr-item-point-icon">•</div>
                     <div className="pr-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -485,75 +1152,209 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("education")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("education")}
           {staticMode ? (
             resume.educationLabel
           ) : (
-            <RichText2
+            <RichText
               value={resume.educationLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setEducationLabel", value)
+              }
             />
           )}
         </div>
         {resume.educations &&
-          resume.educations.map((education, index) => (
-            <div key={index} className="ed-item">
-              <div className={["ed-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  education.degree
-                ) : (
-                  <RichText2
-                    value={education.degree || ""}
-                    onChange={() => {}}
-                  />
+          resume.educations.map((education, subSectionIndex) => (
+            <div key={"ed-item" + subSectionIndex} className="ed-item">
+              <div
+                className="ed-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("education", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "education",
+                  subSectionIndex,
+                  resume.educations?.length || 0
                 )}
-              </div>
-              <div className="ed-item-company-date-location">
-                <div className={["ed-item-company", textFontSize].join(" ")}>
+                <div className={["ed-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    education.institute
+                    education.degree
                   ) : (
-                    <RichText2
-                      value={education.institute || ""}
-                      onChange={() => {}}
-                    />
-                  )}{" "}
-                  {staticMode ? (
-                    education.gpa
-                  ) : (
-                    <RichText2
-                      value={education.gpa || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={education.degree || ""}
+                      onChange={(value) =>
+                        callResumeEducationSetMethod &&
+                        callResumeEducationSetMethod(
+                          subSectionIndex,
+                          "setDegree",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
-                <div className={["ed-item-date", textFontSize].join(" ")}>
-                  {education.fromMonth} {education.fromYear} -
-                  {education.toMonth} {education.toYear},
-                </div>
-                <div className={["ed-item-location", textFontSize].join(" ")}>
-                  {staticMode ? (
-                    education.location
-                  ) : (
-                    <RichText2
-                      value={education.location || ""}
-                      onChange={() => {}}
-                    />
-                  )}
+                <div className="ed-item-company-date-location">
+                  <div className={["ed-item-company", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      education.institute
+                    ) : (
+                      <RichText
+                        value={education.institute || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
+                      />
+                    )}{" "}
+                    {staticMode ? (
+                      education.gpa
+                    ) : (
+                      <RichText
+                        value={education.gpa || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setGpa",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["ed-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      education.fromMonth
+                    ) : (
+                      <RichText
+                        value={education.fromMonth || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setFromMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      education.fromYear
+                    ) : (
+                      <RichText
+                        value={education.fromYear || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setFromYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {"-"}
+                    {staticMode ? (
+                      education.toMonth
+                    ) : (
+                      <RichText
+                        value={education.toMonth || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setToMonth",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {staticMode ? (
+                      education.toYear
+                    ) : (
+                      <RichText
+                        value={education.toYear || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setToYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                    {","}
+                  </div>
+                  <div className={["ed-item-location", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      education.location
+                    ) : (
+                      <RichText
+                        value={education.location || ""}
+                        onChange={(value) =>
+                          callResumeEducationSetMethod &&
+                          callResumeEducationSetMethod(
+                            subSectionIndex,
+                            "setLocation",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               {education.points &&
-                education.points.map((point, index) => (
+                education.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"ed-item-point" + pointIndex}
                     className={["ed-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "education",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "education",
+                      subSectionIndex,
+                      pointIndex,
+                      education.points?.length || 0
+                    )}
                     <div className="ed-item-point-icon">•</div>
                     <div className="ed-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeEducationSetMethod &&
+                            callResumeEducationSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -574,22 +1375,55 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("skill")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("skill")}
           {staticMode ? (
             resume.skillLabel
           ) : (
-            <RichText2 value={resume.skillLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.skillLabel || ""}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setSkillLabel", value)
+              }
+            />
           )}
         </div>
         {resume.skills &&
-          resume.skills.map((item, index) => (
-            <div key={index} className={["sk-item", textFontSize].join(" ")}>
+          resume.skills.map((skill, subSectionIndex) => (
+            <div
+              key={subSectionIndex}
+              className={["sk-item", textFontSize].join(" ")}
+              onMouseOver={() =>
+                onMouseOverSubSection("skill", subSectionIndex)
+              }
+              onMouseOut={() => onMouseOutSubSection()}
+            >
+              {renderSubSectionToolbar(
+                "skill",
+                subSectionIndex,
+                resume.skills?.length || 0
+              )}
               <div className="sk-item-icon">•</div>
               <div className="sk-item-text">
                 {staticMode ? (
-                  item
+                  skill.point
                 ) : (
-                  <RichText2 value={item || ""} onChange={() => {}} />
+                  <RichText
+                    withToolbar
+                    scale={zoom}
+                    value={skill.point || ""}
+                    onChange={(value) =>
+                      callResumeSkillSetMethod &&
+                      callResumeSkillSetMethod(
+                        subSectionIndex,
+                        "setPoint",
+                        value
+                      )
+                    }
+                  />
                 )}
               </div>
             </div>
@@ -608,29 +1442,70 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("language")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("language")}
           {staticMode ? (
             resume.languageLabel
           ) : (
-            <RichText2 value={resume.languageLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.languageLabel || ""}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setLanguageLabel", value)
+              }
+            />
           )}
         </div>
         {resume.languages &&
-          resume.languages.map((item, index) => (
-            <div key={index} className={["ln-item", textFontSize].join(" ")}>
+          resume.languages.map((item, subSectionIndex) => (
+            <div
+              key={"ln-item" + subSectionIndex}
+              className={["ln-item", textFontSize].join(" ")}
+              onMouseOver={() =>
+                onMouseOverSubSection("language", subSectionIndex)
+              }
+              onMouseOut={() => onMouseOutSubSection()}
+            >
+              {renderSubSectionToolbar(
+                "language",
+                subSectionIndex,
+                resume.languages?.length || 0
+              )}
               <div className="ln-item-icon">•</div>
               <div className="ln-item-text">
                 {staticMode ? (
                   item.name
                 ) : (
-                  <RichText2 value={item.name || ""} onChange={() => {}} />
+                  <RichText
+                    value={item.name || ""}
+                    onChange={(value) =>
+                      callResumeLanguageSetMethod &&
+                      callResumeLanguageSetMethod(
+                        subSectionIndex,
+                        "setName",
+                        value
+                      )
+                    }
+                  />
                 )}
                 <div className="ln-item-divider">{":"}</div>
 
                 {staticMode ? (
                   item.level
                 ) : (
-                  <RichText2 value={item.level || ""} onChange={() => {}} />
+                  <RichText
+                    value={item.level || ""}
+                    onChange={(value) =>
+                      callResumeLanguageSetMethod &&
+                      callResumeLanguageSetMethod(
+                        subSectionIndex,
+                        "setLevel",
+                        value
+                      )
+                    }
+                  />
                 )}
               </div>
             </div>
@@ -649,67 +1524,149 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("courseWork")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("courseWork")}
           {staticMode ? (
             resume.courseWorkLabel
           ) : (
-            <RichText2
+            <RichText
               value={resume.courseWorkLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setCourseWorkLabel", value)
+              }
             />
           )}
         </div>
         {resume.courseWorks &&
-          resume.courseWorks.map((courseWork, index) => (
-            <div key={index} className="cw-item">
-              <div className={["cw-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  courseWork.name
-                ) : (
-                  <RichText2
-                    value={courseWork.name || ""}
-                    onChange={() => {}}
-                  />
+          resume.courseWorks.map((courseWork, subSectionIndex) => (
+            <div key={"cw-item" + subSectionIndex} className="cw-item">
+              <div
+                className="cw-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("courseWork", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "courseWork",
+                  subSectionIndex,
+                  resume.courseWorks?.length || 0
                 )}
-              </div>
-              <div className="cw-item-institute-date">
-                <div className={["cw-item-institute", textFontSize].join(" ")}>
+                <div className={["cw-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    courseWork.institute
+                    courseWork.name
                   ) : (
-                    <RichText2
-                      value={courseWork.institute || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={courseWork.name || ""}
+                      onChange={(value) =>
+                        callResumeCourseWorkSetMethod &&
+                        callResumeCourseWorkSetMethod(
+                          subSectionIndex,
+                          "setName",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
-                <div className={["cw-item-date", textFontSize].join(" ")}>
-                  {courseWork.year}
+                <div className="cw-item-institute-date">
+                  <div
+                    className={["cw-item-institute", textFontSize].join(" ")}
+                  >
+                    {staticMode ? (
+                      courseWork.institute
+                    ) : (
+                      <RichText
+                        value={courseWork.institute || ""}
+                        onChange={(value) =>
+                          callResumeCourseWorkSetMethod &&
+                          callResumeCourseWorkSetMethod(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["cw-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      courseWork.year
+                    ) : (
+                      <RichText
+                        value={courseWork.year || ""}
+                        onChange={(value) =>
+                          callResumeCourseWorkSetMethod &&
+                          callResumeCourseWorkSetMethod(
+                            subSectionIndex,
+                            "setYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className={["cw-item-skill", textFontSize].join(" ")}>
+                  {staticMode ? (
+                    courseWork.skills
+                  ) : (
+                    <RichText
+                      value={courseWork.skills || ""}
+                      onChange={(value) =>
+                        callResumeCourseWorkSetMethod &&
+                        callResumeCourseWorkSetMethod(
+                          subSectionIndex,
+                          "setSkills",
+                          value
+                        )
+                      }
+                    />
+                  )}
                 </div>
               </div>
-              <div className={["cw-item-skill", textFontSize].join(" ")}>
-                {staticMode ? (
-                  courseWork.skills
-                ) : (
-                  <RichText2
-                    value={courseWork.skills || ""}
-                    onChange={() => {}}
-                  />
-                )}
-              </div>
-
               {courseWork.points &&
-                courseWork.points.map((point, index) => (
+                courseWork.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"cw-item-point" + pointIndex}
                     className={["cw-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "courseWork",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "courseWork",
+                      subSectionIndex,
+                      pointIndex,
+                      courseWork.points?.length || 0
+                    )}
                     <div className="cw-item-point-icon">•</div>
                     <div className="cw-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeCourseWorkSetMethod &&
+                            callResumeCourseWorkSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -730,57 +1687,132 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("certification")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("certification")}
           {staticMode ? (
             resume.certificationLabel
           ) : (
-            <RichText2
+            <RichText
               value={resume.certificationLabel || ""}
-              onChange={() => {}}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setCertificationLabel", value)
+              }
             />
           )}
         </div>
         {resume.certifications &&
-          resume.certifications.map((certification, index) => (
-            <div key={index} className="cc-item">
-              <div className={["cc-item-role", subTitleFontSize].join(" ")}>
-                {staticMode ? (
-                  certification.name
-                ) : (
-                  <RichText2
-                    value={certification.name || ""}
-                    onChange={() => {}}
-                  />
+          resume.certifications.map((certification, subSectionIndex) => (
+            <div key={"cc-item" + subSectionIndex} className="cc-item">
+              <div
+                className="cc-item-header"
+                onMouseOver={() =>
+                  onMouseOverSubSection("certification", subSectionIndex)
+                }
+                onMouseOut={() => onMouseOutSubSection()}
+              >
+                {renderSubSectionToolbar(
+                  "certification",
+                  subSectionIndex,
+                  resume.certifications?.length || 0
                 )}
-              </div>
-              <div className="cc-item-institute-date">
-                <div className={["cc-item-institute", textFontSize].join(" ")}>
+                <div className={["cc-item-role", subTitleFontSize].join(" ")}>
                   {staticMode ? (
-                    certification.institute
+                    certification.name
                   ) : (
-                    <RichText2
-                      value={certification.institute || ""}
-                      onChange={() => {}}
+                    <RichText
+                      value={certification.name || ""}
+                      onChange={(value) =>
+                        callResumeCertificationSetMethod &&
+                        callResumeCertificationSetMethod(
+                          subSectionIndex,
+                          "setName",
+                          value
+                        )
+                      }
                     />
                   )}
                 </div>
-                <div className={["cc-item-date", textFontSize].join(" ")}>
-                  {certification.year}
+                <div className="cc-item-institute-date">
+                  <div
+                    className={["cc-item-institute", textFontSize].join(" ")}
+                  >
+                    {staticMode ? (
+                      certification.institute
+                    ) : (
+                      <RichText
+                        value={certification.institute || ""}
+                        onChange={(value) =>
+                          callResumeCertificationSetMethod &&
+                          callResumeCertificationSetMethod(
+                            subSectionIndex,
+                            "setInstitute",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  <div className={["cc-item-date", textFontSize].join(" ")}>
+                    {staticMode ? (
+                      certification.year
+                    ) : (
+                      <RichText
+                        value={certification.year || ""}
+                        onChange={(value) =>
+                          callResumeCertificationSetMethod &&
+                          callResumeCertificationSetMethod(
+                            subSectionIndex,
+                            "setYear",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
-
               {certification.points &&
-                certification.points.map((point, index) => (
+                certification.points.map((point, pointIndex) => (
                   <div
-                    key={index}
+                    key={"cc-item-point" + pointIndex}
                     className={["cc-item-point", textFontSize].join(" ")}
+                    onMouseOver={() =>
+                      onMouseOverSubSectionPoint(
+                        "certification",
+                        subSectionIndex,
+                        pointIndex
+                      )
+                    }
+                    onMouseOut={() => onMouseOutSectionPoint()}
                   >
+                    {renderSubSectionPointToolbar(
+                      "certification",
+                      subSectionIndex,
+                      pointIndex,
+                      certification.points?.length || 0
+                    )}
                     <div className="cc-item-point-icon">•</div>
                     <div className="cc-item-point-text">
                       {staticMode ? (
                         point
                       ) : (
-                        <RichText2 value={point || ""} onChange={() => {}} />
+                        <RichText
+                          withToolbar
+                          scale={zoom}
+                          value={point || ""}
+                          onChange={(value) =>
+                            callResumeCertificationSetMethod &&
+                            callResumeCertificationSetMethod(
+                              subSectionIndex,
+                              "setPoint",
+                              pointIndex,
+                              value
+                            )
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -801,22 +1833,55 @@ export function TemplateMinimalist({
             fontColorClass,
             borderColorClass,
           ].join(" ")}
+          onMouseOver={() => onMouseOverSection("hobby")}
+          onMouseOut={() => onMouseOutSection()}
         >
+          {renderSectionToolbar("hobby")}
           {staticMode ? (
             resume.hobbyLabel
           ) : (
-            <RichText2 value={resume.hobbyLabel || ""} onChange={() => {}} />
+            <RichText
+              value={resume.hobbyLabel || ""}
+              onChange={(value) =>
+                callResumeSetMethod &&
+                callResumeSetMethod("setHobbyLabel", value)
+              }
+            />
           )}
         </div>
         {resume.hobbies &&
-          resume.hobbies.map((item, index) => (
-            <div key={index} className={["hb-item", textFontSize].join(" ")}>
+          resume.hobbies.map((hobby, subSectionIndex) => (
+            <div
+              key={subSectionIndex + "hb-item"}
+              className={["hb-item", textFontSize].join(" ")}
+              onMouseOver={() =>
+                onMouseOverSubSection("hobby", subSectionIndex)
+              }
+              onMouseOut={() => onMouseOutSubSection()}
+            >
+              {renderSubSectionToolbar(
+                "hobby",
+                subSectionIndex,
+                resume.hobbies?.length || 0
+              )}
               <div className="hb-item-icon">•</div>
               <div className="hb-item-text">
                 {staticMode ? (
-                  item
+                  hobby.point
                 ) : (
-                  <RichText2 value={item || ""} onChange={() => {}} />
+                  <RichText
+                    withToolbar
+                    scale={zoom}
+                    value={hobby.point || ""}
+                    onChange={(value) =>
+                      callResumeHobbySetMethod &&
+                      callResumeHobbySetMethod(
+                        subSectionIndex,
+                        "setPoint",
+                        value
+                      )
+                    }
+                  />
                 )}
               </div>
             </div>
@@ -826,18 +1891,84 @@ export function TemplateMinimalist({
   };
 
   return (
-    <div className={["container", fontFamilyClass].join(" ")}>
+    <div
+      className={[
+        "container",
+        zoom === 0.5 && "container-scale-0_50",
+        zoom === 0.75 && "container-scale-0_75",
+        zoom === 1.25 && "container-scale-1_25",
+        zoom === 1.5 && "container-scale-1_50",
+        zoom === 1.75 && "container-scale-1_75",
+        fontFamilyClass,
+        borderColorClass,
+      ].join(" ")}
+    >
       {renderHeader()}
-      {renderSummary()}
-      {renderExperience()}
-      {renderProject()}
-      {renderEducation()}
-      {renderInvolvement()}
-      {renderCourseWork()}
-      {renderCertification()}
-      {renderSkills()}
-      {renderLanguages()}
-      {renderHobbies()}
+      {[
+        {
+          title: "summary",
+          order: resume.summaryOrder || 1,
+          render: renderSummary,
+          show: resume.isShowSummary,
+        },
+        {
+          title: "experience",
+          order: resume.experienceOrder || 2,
+          render: renderExperience,
+          show: resume.isShowExperience,
+        },
+        {
+          title: "project",
+          order: resume.projectOrder || 3,
+          render: renderProject,
+          show: resume.isShowProject,
+        },
+        {
+          title: "education",
+          order: resume.educationOrder || 4,
+          render: renderEducation,
+          show: resume.isShowEducation,
+        },
+        {
+          title: "involvement",
+          order: resume.involvementOrder || 5,
+          render: renderInvolvement,
+          show: resume.isShowInvolvement,
+        },
+        {
+          title: "courseWork",
+          order: resume.courseWorkOrder || 6,
+          render: renderCourseWork,
+          show: resume.isShowCourseWork,
+        },
+        {
+          title: "certification",
+          order: resume.certificationOrder || 7,
+          render: renderCertification,
+          show: resume.isShowCertification,
+        },
+        {
+          title: "skill",
+          order: resume.skillOrder || 8,
+          render: renderSkills,
+          show: resume.isShowSkill,
+        },
+        {
+          title: "language",
+          order: resume.languageOrder || 9,
+          render: renderLanguages,
+          show: resume.isShowLanguage,
+        },
+        {
+          title: "hobby",
+          order: resume.hobbyOrder || 10,
+          render: renderHobbies,
+          show: resume.isShowHobby,
+        },
+      ]
+        .filter((item) => item.show)
+        .sort((item1, item2) => item1.order - item2.order)
+        .map((item) => item.render())}
     </div>
   );
 }

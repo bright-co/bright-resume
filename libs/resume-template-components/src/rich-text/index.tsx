@@ -1,106 +1,135 @@
-"use client";
+import { KeyboardEvent, useRef, useState } from "react";
+import useSize from "@react-hook/size";
 
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import {
+  BtnBold,
+  BtnItalic,
+  ContentEditableEvent,
+  Editor,
+  EditorProvider,
+  Toolbar,
+} from "react-simple-wysiwyg";
 import "./index.css";
 
 export interface RichTextProps {
-  value: string;
-  onChange: (value: string) => void;
-  fontSize?: number;
+  value?: string;
+  onChange?: (value: string) => void;
+  className?: string;
   withToolbar?: boolean;
+  scale?: number;
 }
 
 export function RichText({
-  value,
-  onChange,
-  fontSize = 30,
+  value = "",
+  onChange = () => "",
+  className,
   withToolbar = false,
+  scale = 1,
 }: RichTextProps) {
-  const [top, setTop] = useState(30);
-  const [height, setHeight] = useState(100);
-  // const [width, setWidth] = useState(200);
-
-  console.log({ value });
-
-  const [value2, setValue2] = useState("<p>value2</p>");
-
-  const padding = 8;
-
   const [left, setLeft] = useState(0);
-  const [isShowToolbar, setIsShowToolbar] = useState(false);
+  const target = useRef(null);
+  const [containerWidth] = useSize(target);
+  const [displayToolbar, setToolbarDisplay] = useState("none");
 
-  const renderToolbar = () => {
-    return (
-      <div
-        id="custom-toolbar"
-        style={{
-          display: isShowToolbar ? "block" : "none",
-          top: top + height,
-          left,
-          position: "absolute",
-          width: 4 * 29 + 2 * padding,
-          height: 24 + 2 * padding,
-          // border: "1px solid red",
-          backgroundColor: "white",
-        }}
-      >
-        <button className="ql-bold" />
-        <button className="ql-italic" />
-        <button className="ql-underline" />
-        <button className="ql-link" />
-      </div>
-    );
+  const cleanHtml = (htmlString: string) => {
+    const allowedTags = ["b", "strong", "em", "i"];
+    const tagRegex = new RegExp(`<([^\\s>]+)(?:[^>]*)>(.*?)</\\1>`, "gi");
+
+    htmlString = htmlString.replace(tagRegex, (match, tagName) => {
+      if (allowedTags.includes(tagName.toLowerCase())) {
+        // Remove inline styles
+        return match.replace(/(style="[^"]*")|(style='[^']*')/gi, "");
+      } else {
+        return "";
+      }
+    });
+
+    htmlString = htmlString.replace(/(style="[^"]*")|(style='[^']*')/gi, "");
+
+    return htmlString;
+  };
+
+  const onChangeEvent = (event: ContentEditableEvent) => {
+    onChange(cleanHtml(event.target.value));
+  };
+
+  const onKeyDownEvent = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
+  const onBlurEvent = () => {
+    setToolbarDisplay("none");
   };
 
   return (
-    <div className="bg-gray-100 relative">
-      <ReactQuill
-        preserveWhitespace={false}
+    <div style={{ position: "relative", zIndex: 1 }} ref={target}>
+      <div
         style={{
-          fontSize: `${fontSize}px`,
-          lineHeight: `${fontSize + 5}px`,
+          position: "absolute",
+          top: "-90%",
+          left: 0,
+          width: "100%",
+          height: "190%",
+          // backgroundColor: "#F003",
+          zIndex: 2,
+          display: displayToolbar !== "none" ? "block" : "none",
         }}
-        value={value2}
-        modules={{
-          toolbar: {
-            container: "#custom-toolbar",
-          },
-        }}
-        onChange={(value: string, delta, source, editor) => {
-          console.log({ delta });
-
-          if (
-            delta &&
-            delta.ops &&
-            delta.ops[1] &&
-            delta.ops[1].insert === "\n"
-          ) {
-            console.log("return");
-
-            return;
-          }
-          setValue2(value);
-          // onChange(value);
-        }}
-        onChangeSelection={(selection, source, editor) => {
-          if (!withToolbar) return;
-          if (selection && selection.length) {
-            setIsShowToolbar(true);
-            const { top, left, height } = editor.getBounds(
-              selection.index,
-              selection.length
-            );
-            setTop(top);
-            setHeight(height);
-            setLeft(left);
-          } else {
-            setIsShowToolbar(false);
-          }
+        onMouseLeave={() => {
+          setToolbarDisplay("none");
         }}
       />
-      {renderToolbar()}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        <EditorProvider>
+          <Editor
+            className={className}
+            value={value}
+            onKeyDown={onKeyDownEvent}
+            onChange={onChangeEvent}
+            onBlur={onBlurEvent}
+            onSelect={(e) => {
+              const selection = window.getSelection();
+              if (selection && selection.anchorOffset && e.nativeEvent.layerX) {
+                const text = selection.toString();
+                setToolbarDisplay(text ? "flex" : "none");
+                setLeft(e.nativeEvent.layerX / scale);
+              }
+            }}
+          ></Editor>
+          <Toolbar
+            style={{
+              display: withToolbar ? displayToolbar : "none",
+              position: "absolute",
+              bottom: "100%",
+              left: left > (containerWidth / scale || 0) * 0.9 ? "unset" : left,
+              right:
+                left > (containerWidth / scale || 0) * 0.9 ? "5%" : "unset",
+            }}
+            onMouseOver={() => setToolbarDisplay("flex")}
+          >
+            <div className="rsw-btn-container">
+              <BtnBold />
+            </div>
+            <div className="rsw-btn-container">
+              <BtnItalic />
+            </div>
+            <button
+              className="rsw-btn-container"
+              onClick={(e) => {
+                console.log("Link");
+              }}
+            >
+              AI
+            </button>
+          </Toolbar>
+        </EditorProvider>
+      </div>
     </div>
   );
 }

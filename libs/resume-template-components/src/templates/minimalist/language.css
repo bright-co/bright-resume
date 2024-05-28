@@ -1,5 +1,6 @@
 .ln-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .ln-label {
@@ -7,8 +8,17 @@
   border-bottom: 1.5px solid;
 }
 
+.ln-label:hover {
+  background-color: #0002;
+}
+
 .ln-item {
   display: flex;
+  position: relative;
+}
+
+.ln-item:hover {
+  background-color: #0002;
 }
 
 .ln-item-icon {

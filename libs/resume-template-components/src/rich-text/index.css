@@ -1,15 +1,31 @@
-.ql-editor {
-  padding: 0 !important;
-  font-size: inherit;
+.rsw-editor {
+  min-height: unset;
   line-height: inherit;
+  font-family: inherit;
+  border: none;
 }
 
-.ql-container {
-  border-width: 0 !important;
-  font-size: inherit;
+.rsw-editor .rsw-ce {
+  min-height: unset;
   line-height: inherit;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  display: inline;
+  border: none;
 }
 
-.ql-tooltip {
-  font-size: 12px;
+.rsw-toolbar .rsw-btn-container {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: "white";
+}
+
+.rsw-toolbar .rsw-btn {
+  background-color: "white";
+  width: 25px;
+  height: 25px;
 }

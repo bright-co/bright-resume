@@ -1,5 +1,6 @@
 .ed-container {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .ed-label {
@@ -7,8 +8,20 @@
   border-bottom: 1.5px solid;
 }
 
+.ed-label:hover {
+  background-color: #0002;
+}
+
 .ed-item {
   margin-bottom: 10px;
+}
+
+.ed-item-header {
+  position: relative;
+}
+
+.ed-item-header:hover {
+  background-color: #0002;
 }
 
 .ed-item-role {
@@ -28,6 +41,8 @@
   font-weight: bold;
   margin-left: auto;
   margin-right: 5px;
+  display: flex;
+  gap: 3px;
 }
 
 .ed-item-location {
@@ -36,6 +51,11 @@
 
 .ed-item-point {
   display: flex;
+  position: relative;
+}
+
+.ed-item-point:hover {
+  background-color: #0002;
 }
 
 .ed-item-point-icon {
