@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@chatbot/components/theme-provider";
 import "./global.css";
 
 export default function RootLayout({
@@ -5,5 +6,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <body>{children}</body>;
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

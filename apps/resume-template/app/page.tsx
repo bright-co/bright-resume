@@ -257,5 +257,9 @@ export default async function Index() {
     hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
   };
 
-  return <TemplateMinimalist staticMode={true} resume={resumeObj} />;
+  return (
+    <div className="p-2">
+      <TemplateMinimalist staticMode={true} resume={resumeObj} />
+    </div>
+  );
 }

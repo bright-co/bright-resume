@@ -49,7 +49,8 @@
         "libs/resume-template-components/src/server.ts"
       ],
       "@utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/*"]
+      "@web/*": ["apps/web/*"],
+      "@chatbot/*": ["apps/chatbot/*"]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },

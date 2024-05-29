@@ -1,12 +1,10 @@
-import { HelloComponent } from "@chatbot-components/hello-component";
+import Link from "next/link";
+import React from "react";
 
-export default async function Index() {
+export default function Page() {
   return (
     <div>
-      <h1>this is a test to highlight</h1>
-      <header className=" bg-red-200">header</header>
-      <HelloComponent />
-      <div className="bg-red-200">footer</div>
+      <Link href="/chat">Start Chat</Link>
     </div>
   );
 }
