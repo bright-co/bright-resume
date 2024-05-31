@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@chatbot/components/theme-provider";
+import { ApolloProvider } from "@chatbot/providers";
 import "./global.css";
 
 export default function RootLayout({
@@ -9,14 +10,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <ApolloProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ApolloProvider>
       </body>
     </html>
   );
