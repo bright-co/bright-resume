@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@chatbot/components/theme-provider";
 import { ApolloProvider } from "@chatbot/providers";
 import "./global.css";
+import { Toaster } from "@resume-template-components/shadcn-ui";
 
 export default function RootLayout({
   children,
@@ -17,9 +18,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <main>{children}</main>
           </ThemeProvider>
         </ApolloProvider>
+        <Toaster />
       </body>
     </html>
   );

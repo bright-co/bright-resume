@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query getProfile {\n    getProfile {\n      id\n      name\n      username\n      email\n      picture\n    }\n  }\n": types.GetProfileDocument,
+    "\n  mutation signInAuth($signInAuthInputs: SignInAuthInputsGQL!) {\n    signIn(signInAuthInputs: $signInAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n": types.SignInAuthDocument,
+    "\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n": types.SignUpAuthDocument,
 };
 
 /**
@@ -33,7 +34,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getProfile {\n    getProfile {\n      id\n      name\n      username\n      email\n      picture\n    }\n  }\n"): (typeof documents)["\n  query getProfile {\n    getProfile {\n      id\n      name\n      username\n      email\n      picture\n    }\n  }\n"];
+export function graphql(source: "\n  mutation signInAuth($signInAuthInputs: SignInAuthInputsGQL!) {\n    signIn(signInAuthInputs: $signInAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  mutation signInAuth($signInAuthInputs: SignInAuthInputsGQL!) {\n    signIn(signInAuthInputs: $signInAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

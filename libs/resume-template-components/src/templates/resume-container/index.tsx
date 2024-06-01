@@ -4,7 +4,7 @@ import {
   ResumeColorEnum,
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
-} from "@/libs/enums/src";
+} from "@enums";
 import { useRef, useState } from "react";
 import { ResumeModel, ResumeSectionType } from "@models";
 import {
