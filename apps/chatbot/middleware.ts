@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { cookie } from "./cookie";
 import { getNestedValue, removeKeyFromObject } from "@utils";
+import { CookieKeyEnum } from "./cookie/enum";
+import { IJwtToken, jwtSetTokenOption } from "./cookie/jwt-token";
 
 export async function middleware(request: NextRequest) {
   const jwtToken = cookie.jwtToken.get();
@@ -12,8 +14,6 @@ export async function middleware(request: NextRequest) {
   } catch (error) {
     console.log("error request");
   }
-
-  console.log({ body });
 
   if (body) {
     try {
@@ -32,13 +32,20 @@ export async function middleware(request: NextRequest) {
       );
 
       const responseBody = await response.json();
-
       const tokenValue = getNestedValue(responseBody, "token");
-      if (tokenValue) {
-        cookie.jwtToken.set({ token: tokenValue });
-      }
 
-      return NextResponse.json(removeKeyFromObject(responseBody, "token"));
+      const responseToClient = NextResponse.json(
+        removeKeyFromObject(responseBody, "token")
+      );
+      if (tokenValue) {
+        const jwtToken: IJwtToken = { token: tokenValue };
+        responseToClient.cookies.set(
+          CookieKeyEnum.JWT_TOKEN,
+          JSON.stringify(jwtToken),
+          jwtSetTokenOption
+        );
+      }
+      return responseToClient;
     } catch (error) {
       console.log({ error });
       return NextResponse.error();

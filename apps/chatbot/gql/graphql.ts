@@ -759,10 +759,20 @@ export type VerifyUploadedFileFileInputsGql = {
   fileId: Scalars['String']['input'];
 };
 
-export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
+export type SignInAuthMutationVariables = Exact<{
+  signInAuthInputs: SignInAuthInputsGql;
+}>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id?: string | null, name?: string | null, username?: string | null, email?: string | null, picture?: string | null } };
+export type SignInAuthMutation = { __typename?: 'Mutation', signIn: { __typename?: 'User', id?: string | null, name?: string | null, username?: string | null, email?: string | null, token?: string | null, picture?: string | null, createdAt: any } };
+
+export type SignUpAuthMutationVariables = Exact<{
+  signUpAuthInputs: SignUpAuthInputsGql;
+}>;
 
 
-export const GetProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getProfile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getProfile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}}]}}]}}]} as unknown as DocumentNode<GetProfileQuery, GetProfileQueryVariables>;
+export type SignUpAuthMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id?: string | null, name?: string | null, username?: string | null, email?: string | null, token?: string | null, picture?: string | null, createdAt: any } };
+
+
+export const SignInAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signInAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignInAuthMutation, SignInAuthMutationVariables>;
+export const SignUpAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signUpAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignUpAuthMutation, SignUpAuthMutationVariables>;
