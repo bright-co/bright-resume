@@ -2,11 +2,11 @@ import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { CookieKeyEnum } from "./enum";
 import { cookies } from "next/headers";
 
-export interface IJwtToken {
+export interface IJwtTokenCookie {
   token: string;
 }
 
-export const jwtSetTokenOption: Partial<ResponseCookie> = {
+export const setJwtTokenCookieOption: Partial<ResponseCookie> = {
   httpOnly: true,
   secure: true,
   expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
@@ -18,19 +18,19 @@ const remove = () => {
   cookies().delete(CookieKeyEnum.JWT_TOKEN);
 };
 
-const set = (jwtToken: IJwtToken) => {
+const set = (jwtToken: IJwtTokenCookie) => {
   cookies().set(
     CookieKeyEnum.JWT_TOKEN,
     JSON.stringify(jwtToken),
-    jwtSetTokenOption
+    setJwtTokenCookieOption
   );
 };
 
-const get = (): IJwtToken | undefined => {
+const get = (): IJwtTokenCookie | undefined => {
   const cookieValue = cookies().get(CookieKeyEnum.JWT_TOKEN)?.value;
   if (cookieValue) {
     try {
-      return JSON.parse(cookieValue) as IJwtToken;
+      return JSON.parse(cookieValue) as IJwtTokenCookie;
     } catch (error) {
       return undefined;
     }

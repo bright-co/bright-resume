@@ -21,7 +21,6 @@ export async function clientApi<ResponseType>(
     const response = await axios(buildUrlClient(url, params), options);
     return response.data;
   } catch (error) {
-    // const errorResponse = (error as any)?.response?.data as ServerError;
     return Promise.reject(error);
   }
 }

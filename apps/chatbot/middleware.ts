@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { cookie } from "./cookie";
 import { getNestedValue, removeKeyFromObject } from "@utils";
 import { CookieKeyEnum } from "./cookie/enum";
-import { IJwtToken, jwtSetTokenOption } from "./cookie/jwt-token";
+import { IJwtTokenCookie, setJwtTokenCookieOption } from "./cookie/jwt-token";
 
 export async function middleware(request: NextRequest) {
   const jwtToken = cookie.jwtToken.get();
@@ -38,11 +38,11 @@ export async function middleware(request: NextRequest) {
         removeKeyFromObject(responseBody, "token")
       );
       if (tokenValue) {
-        const jwtToken: IJwtToken = { token: tokenValue };
+        const jwtToken: IJwtTokenCookie = { token: tokenValue };
         responseToClient.cookies.set(
           CookieKeyEnum.JWT_TOKEN,
           JSON.stringify(jwtToken),
-          jwtSetTokenOption
+          setJwtTokenCookieOption
         );
       }
       return responseToClient;
