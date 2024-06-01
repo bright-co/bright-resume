@@ -1,4 +1,6 @@
-export default function RootLayout({
+import { cookie } from "@chatbot/cookie";
+
+export default async function RootLayout({
   chatSection,
   resumeSection,
   pdfSection,
@@ -7,11 +9,16 @@ export default function RootLayout({
   resumeSection: React.ReactNode;
   pdfSection: React.ReactNode;
 }) {
+  const userCookie = await cookie.user.get();
+
   return (
-    <div className="h-screen flex gap-5 overflow-hidden p-2 bg-muted">
-      <section className="basis-[500px]">{resumeSection}</section>
-      <section className="basis-full">{chatSection}</section>
-      <section className="basis-[1400px]">{pdfSection}</section>
-    </div>
+    <>
+      {userCookie && <h1>welcome {userCookie.username}</h1>}
+      <div className="h-screen flex gap-5 overflow-hidden p-2 bg-muted">
+        <section className="basis-[500px]">{resumeSection}</section>
+        <section className="basis-full">{chatSection}</section>
+        <section className="basis-[1400px]">{pdfSection}</section>
+      </div>
+    </>
   );
 }

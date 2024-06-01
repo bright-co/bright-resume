@@ -1,6 +1,7 @@
 "use client";
 
 import { MUTATION_SIGN_IN_AUTH } from "./gql";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { SignInAuthInputs } from "@dto";
@@ -10,9 +11,12 @@ import {
   SignInAuthMutation,
   SignInAuthMutationVariables,
 } from "@chatbot/gql/graphql";
+import { client } from "@chatbot/app/api/client";
 
 export const useData = () => {
   const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<SignInAuthInputs>({
     resolver: classValidatorResolver(SignInAuthInputs),
     mode: "onChange",
@@ -33,22 +37,19 @@ export const useData = () => {
         description: error.message,
       });
     },
-    onCompleted: ({
-      signIn: { createdAt, email, id, name, picture, token, username },
-    }) => {
+    onCompleted: async ({ signIn: { email, id, name, picture, username } }) => {
+      await client.setUserCookie({
+        id,
+        email,
+        name,
+        picture,
+        username,
+      });
       toast({
         title: "Welcome!",
         description: "Sign In Success!",
       });
-      console.log("success:", {
-        createdAt,
-        email,
-        id,
-        name,
-        picture,
-        token,
-        username,
-      });
+      router.push("/chat");
     },
   });
 
