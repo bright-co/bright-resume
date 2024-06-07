@@ -68,10 +68,39 @@ export default function Page() {
     );
   };
 
+  const renderSocialMediaButtons = () => {
+    return (
+      <div className="flex gap-2 mt-9">
+        <Button
+          onClick={() =>
+            window.location.replace("http://localhost:4001/auth/sign-in/google")
+          }
+        >
+          Sign in with Google
+        </Button>
+        <Button
+          onClick={() =>
+            window.location.replace("http://localhost:4001/auth/sign-in/google")
+          }
+        >
+          Sign in with Linkedin
+        </Button>
+        <Button
+          onClick={() =>
+            window.location.replace("http://localhost:4001/auth/sign-in/google")
+          }
+        >
+          Sign in with Github
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col justify-center items-center w-100 h-screen gap-1  px-4">
       <h1 className="text-2xl mb-3">Sign up</h1>
       {renderForm()}
+      {renderSocialMediaButtons()}
     </div>
   );
 }

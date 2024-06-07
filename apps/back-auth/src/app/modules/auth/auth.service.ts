@@ -11,7 +11,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import {
   generateHashPassword,
-  generateUserToken,
+  generateJWTUserToken,
+  generateOAuthUserToken,
   verifyPassword,
 } from "@back-common/helpers";
 import { User } from "../../models";
@@ -51,7 +52,21 @@ export class AuthService {
       throw new CustomError(USERNAME_OR_PASSWORD_IS_INCORRECT);
     }
 
-    const token = await this.generateUserToken(user);
+    const token = await this.generateJWTUserToken(user);
+
+    user.token = token;
+
+    return user;
+  }
+
+  async signInWithOauthToken(userId: string): Promise<User> {
+    const user = await this.userModel.findById(userId);
+
+    if (!user) {
+      throw new CustomError(USERNAME_OR_PASSWORD_IS_INCORRECT);
+    }
+
+    const token = await this.generateJWTUserToken(user);
 
     user.token = token;
 
@@ -73,7 +88,7 @@ export class AuthService {
       password: await generateHashPassword(password),
     });
 
-    const token = await this.generateUserToken(newUser);
+    const token = await this.generateJWTUserToken(newUser);
 
     await newUser.save();
     newUser.token = token;
@@ -81,10 +96,21 @@ export class AuthService {
     return newUser;
   }
 
-  async generateUserToken(user: User): Promise<string> {
-    const token = await this.jwtService.signAsync(generateUserToken(user), {
+  async generateJWTUserToken(user: User): Promise<string> {
+    const token = await this.jwtService.signAsync(generateJWTUserToken(user), {
       secret: this.configService.get(EnvironmentVariablesEnum.JWT_SECRET),
     });
+
+    return token;
+  }
+
+  async generateOAuthUserToken(user: User): Promise<string> {
+    const token = await this.jwtService.signAsync(
+      generateOAuthUserToken(user),
+      {
+        secret: this.configService.get(EnvironmentVariablesEnum.JWT_SECRET),
+      }
+    );
 
     return token;
   }

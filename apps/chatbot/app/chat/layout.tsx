@@ -13,7 +13,7 @@ export default async function RootLayout({
 
   return (
     <>
-      {userCookie && <h1>welcome {userCookie.username}</h1>}
+      {userCookie && <h1>welcome {userCookie.username || userCookie.email}</h1>}
       <div className="h-screen flex gap-5 overflow-hidden p-2 bg-muted">
         <section className="basis-[500px]">{resumeSection}</section>
         <section className="basis-full">{chatSection}</section>

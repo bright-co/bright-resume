@@ -26,7 +26,7 @@ export const useData = () => {
     },
   });
 
-  const [createProductAdmin, { loading }] = useMutation<
+  const [signInAuth, { loading }] = useMutation<
     SignInAuthMutation,
     SignInAuthMutationVariables
   >(MUTATION_SIGN_IN_AUTH, {
@@ -54,7 +54,7 @@ export const useData = () => {
   });
 
   const onSubmit: SubmitHandler<SignInAuthInputs> = (signInAuthInputs) => {
-    createProductAdmin({ variables: { signInAuthInputs } });
+    signInAuth({ variables: { signInAuthInputs } });
   };
 
   return {

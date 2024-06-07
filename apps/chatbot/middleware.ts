@@ -17,19 +17,21 @@ export async function middleware(request: NextRequest) {
 
   if (body) {
     try {
-      const response = await fetch(
-        "https://back-development.bright-resume.com/graphql",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: jwtToken
-              ? "Bearer " + jwtToken.token
-              : requestHeaders.get("Authorization") || "",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      let token = "";
+      if (requestHeaders.get("Authorization")) {
+        token = requestHeaders.get("Authorization")!;
+      } else if (jwtToken) {
+        token = "Bearer " + jwtToken.token;
+      }
+
+      const response = await fetch(process.env["BACK_URL"] + "/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(body),
+      });
 
       const responseBody = await response.json();
       const tokenValue = getNestedValue(responseBody, "token");

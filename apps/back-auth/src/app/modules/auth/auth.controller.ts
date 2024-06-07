@@ -21,57 +21,57 @@ export class AuthController {
     private readonly configService: ConfigService
   ) {}
 
-  @Get("/login/google")
+  @Get("/sign-in/google")
   @UseGuards(AuthGuard("google"))
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async loginGoogle() {}
+  async signInGoogle() {}
 
-  @Get("/login/google/callback")
+  @Get("/sign-in/google/callback")
   @UseGuards(AuthGuard("google"))
-  async loginGoogleCallback(
+  async signInGoogleCallback(
     @Req() request: Request,
     @Res() response: Response
   ) {
-    const token = await this.authService.generateUserToken(request.user);
+    const token = await this.authService.generateOAuthUserToken(request.user);
     response.redirect(
       this.configService.get(EnvironmentVariablesEnum.CLIENT_AUTH_URL) +
-        `?token=${token}`
+        `?oauth-token=${token}`
     );
   }
 
-  @Get("/login/github")
+  @Get("/sign-in/github")
   @UseGuards(AuthGuard("github"))
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async loginGithub() {}
+  async signInGithub() {}
 
-  @Get("/login/github/callback")
+  @Get("/sign-in/github/callback")
   @UseGuards(AuthGuard("github"))
-  async loginGithubCallback(
+  async signInGithubCallback(
     @Req() request: Request,
     @Res() response: Response
   ) {
-    const token = await this.authService.generateUserToken(request.user);
+    const token = await this.authService.generateOAuthUserToken(request.user);
     response.redirect(
       this.configService.get(EnvironmentVariablesEnum.CLIENT_AUTH_URL) +
-        `?token=${token}`
+        `?oauth-token=${token}`
     );
   }
 
-  @Get("/login/linkedin")
+  @Get("/sign-in/linkedin")
   @UseGuards(AuthGuard("linkedin"))
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async loginLinkedin() {}
+  async signInLinkedin() {}
 
-  @Get("/login/linkedin/callback")
+  @Get("/sign-in/linkedin/callback")
   @UseGuards(AuthGuard("linkedin"))
-  async loginLinkedinCallback(
+  async signInLinkedinCallback(
     @Req() request: Request,
     @Res() response: Response
   ) {
-    const token = await this.authService.generateUserToken(request.user);
+    const token = await this.authService.generateOAuthUserToken(request.user);
     response.redirect(
       this.configService.get(EnvironmentVariablesEnum.CLIENT_AUTH_URL) +
-        `?token=${token}`
+        `?oauth-token=${token}`
     );
   }
 }

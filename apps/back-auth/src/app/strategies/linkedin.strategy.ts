@@ -20,7 +20,7 @@ export class LinkedInStrategy extends PassportStrategy(Strategy, "linkedin") {
       ),
       callbackURL:
         configService.get(EnvironmentVariablesEnum.SERVER_URL) +
-        "/auth/login/linkedin/callback",
+        "/auth/sign-in/linkedin/callback",
       scope: ["openid", "email", "profile"],
       state: true,
     });

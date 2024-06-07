@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { UseGuards } from "@nestjs/common";
 import { UserId } from "@back-common/decorators";
-import { GqlAuthGuard } from "@back-common/guards";
+import { GqlAuthGuard, GqlOAuthGuard } from "@back-common/guards";
 import { User } from "@@back-auth/app/models";
 import { SignInAuthInputsGQL, SignUpAuthInputsGQL } from "@back-common/dto";
 import { AuthService } from "./auth.service";
@@ -30,5 +30,11 @@ export class AuthResolver {
     inputs: SignInAuthInputsGQL
   ): Promise<User> {
     return await this.authService.signIn(inputs);
+  }
+
+  @Query(() => User, { nullable: false })
+  @UseGuards(GqlOAuthGuard)
+  async signInWithOAuthToken(@UserId() userId: string): Promise<User> {
+    return this.authService.signInWithOauthToken(userId);
   }
 }

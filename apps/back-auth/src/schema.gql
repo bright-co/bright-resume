@@ -28,6 +28,7 @@ scalar DateTime
 
 type Query {
   getProfile: User!
+  signInWithOAuthToken: User!
 }
 
 type Mutation {

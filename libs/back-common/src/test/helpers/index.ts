@@ -1,4 +1,4 @@
-import { IToken, generateUserToken } from "@back-common/helpers";
+import { IToken, generateJWTUserToken } from "@back-common/helpers";
 import { JwtService } from "@nestjs/jwt";
 import { faker } from "@faker-js/faker";
 import { randomUUID } from "crypto";
@@ -23,7 +23,7 @@ export const generateAuthorizationHeader = ({
 } => {
   const jwtService = new JwtService({ secret: process.env.JWT_SECRET });
 
-  const token = generateUserToken({
+  const token = generateJWTUserToken({
     createdAt: createdAt || new Date(),
     id: id || new mongoose.Types.ObjectId().toString(),
     username: username || faker.internet.userName(),

@@ -55,10 +55,37 @@ export default function Page() {
     );
   };
 
+  const renderSocialMediaButtons = () => {
+    return (
+      <div className="flex gap-2 mt-9">
+        <Button
+          onClick={() => window.location.replace("/back/auth/sign-in/google")}
+        >
+          Sign in with Google
+        </Button>
+        <Button
+          onClick={() => window.location.replace("/back/auth/sign-in/linkedin")}
+        >
+          Sign in with Linkedin
+        </Button>
+        <Button
+          onClick={() => window.location.replace("/back/auth/sign-in/google")}
+        >
+          Sign in with Github
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col justify-center items-center w-100 h-screen gap-1  px-4">
       <h1 className="text-2xl mb-3">Sign in</h1>
+      <button onClick={() => console.log(JSON.stringify(process.env))}>
+        env
+      </button>
+
       {renderForm()}
+      {renderSocialMediaButtons()}
     </div>
   );
 }
