@@ -32,7 +32,7 @@ export const removeKeyFromObject = <T extends AnyObject>(
     return obj; // Base case: Not an object or null, return as is
   }
 
-  const result = Array.isArray(obj) ? [] : {};
+  const result: AnyObject = Array.isArray(obj) ? [] : {};
 
   for (const [key, value] of Object.entries(obj)) {
     if (key !== keyToRemove) {
@@ -49,7 +49,7 @@ export const removeKeyFromObject = <T extends AnyObject>(
 export const getNestedValue = <T extends AnyObject>(
   obj: T,
   key: string
-): string => {
+): string | undefined => {
   if (typeof obj !== "object" || obj === null) {
     return undefined;
   }

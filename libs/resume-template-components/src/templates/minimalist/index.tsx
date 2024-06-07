@@ -33,7 +33,7 @@ import {
 } from "@enums";
 import { RichText } from "@resume-template-components/rich-text";
 import { ResumeTemplateProps } from "../resume-template-props";
-import { ResumeSectionType } from "@/libs/models/src";
+import { ResumeSectionType } from "@models";
 
 export function TemplateMinimalist({
   zoom = 1,

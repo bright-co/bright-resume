@@ -95,10 +95,13 @@ export function RichText({
             onBlur={onBlurEvent}
             onSelect={(e) => {
               const selection = window.getSelection();
-              if (selection && selection.anchorOffset && e.nativeEvent.layerX) {
+
+              // @ts-ignore
+              const layerX = (e.nativeEvent as MouseEvent).layerX;
+              if (selection && selection.anchorOffset && layerX) {
                 const text = selection.toString();
                 setToolbarDisplay(text ? "flex" : "none");
-                setLeft(e.nativeEvent.layerX / scale);
+                setLeft(layerX / scale);
               }
             }}
           ></Editor>
