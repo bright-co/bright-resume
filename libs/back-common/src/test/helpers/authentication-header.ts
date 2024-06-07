@@ -1,4 +1,4 @@
-import { generateUserToken } from "@back-common/helpers";
+import { generateJWTUserToken } from "@back-common/helpers";
 import { faker } from "@faker-js/faker";
 import { randomUUID } from "crypto";
 
@@ -16,7 +16,7 @@ export const generateAuthorizationHeader = ({
   createdAt,
 }: IGenerateAuthorizationHeader): { key: string; value: string } => ({
   key: "Authorization",
-  value: `Bearer ${generateUserToken({
+  value: `Bearer ${generateJWTUserToken({
     createdAt: createdAt || new Date(),
     id: id || randomUUID(),
     username: username || faker.internet.userName(),

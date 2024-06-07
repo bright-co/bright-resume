@@ -20,7 +20,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
       ),
       callbackURL:
         configService.get(EnvironmentVariablesEnum.SERVER_URL) +
-        "/auth/login/google/callback",
+        "/auth/sign-in/google/callback",
       scope: ["email", "profile"],
     });
   }

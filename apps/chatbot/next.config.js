@@ -19,6 +19,18 @@ const nextConfig = {
         source: "/api/graphql",
         destination: process.env["BACK_URL"] + "/graphql",
       },
+      {
+        source: "/back/auth/sign-in/google",
+        destination: process.env["BACK_URL"] + "/auth/sign-in/google",
+      },
+      {
+        source: "/back/auth/sign-in/linkedin",
+        destination: process.env["BACK_URL"] + "/auth/sign-in/linkedin",
+      },
+      {
+        source: "/back/auth/sign-in/github",
+        destination: process.env["BACK_URL"] + "/auth/sign-in/github",
+      },
     ];
   },
 };

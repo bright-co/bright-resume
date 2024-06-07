@@ -20,7 +20,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy, "github") {
       ),
       callbackURL:
         configService.get(EnvironmentVariablesEnum.SERVER_URL) +
-        "/auth/login/github/callback",
+        "/auth/sign-in/github/callback",
       scope: ["user:email"], // Request only the necessary scope
     });
   }
