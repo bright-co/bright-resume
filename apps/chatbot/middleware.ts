@@ -3,6 +3,7 @@ import { cookie } from "./cookie";
 import { getNestedValue, removeKeyFromObject } from "@utils";
 import { CookieKeyEnum } from "./cookie/enum";
 import { IJwtTokenCookie, setJwtTokenCookieOption } from "./cookie/jwt-token";
+import { EnvironmentVariablesEnum } from "./enums";
 
 export async function middleware(request: NextRequest) {
   const jwtToken = cookie.jwtToken.get();
@@ -37,8 +38,11 @@ export async function middleware(request: NextRequest) {
       const tokenValue = getNestedValue(responseBody, "token");
 
       const responseToClient = NextResponse.json(
-        removeKeyFromObject(responseBody, "token")
+        process.env[EnvironmentVariablesEnum.MODE] === "local"
+          ? responseBody
+          : removeKeyFromObject(responseBody, "token")
       );
+
       if (tokenValue) {
         const jwtToken: IJwtTokenCookie = { token: tokenValue };
         responseToClient.cookies.set(

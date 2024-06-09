@@ -28,8 +28,8 @@ jobs:
       - name: Build back-cms
         run: docker build -t ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }} -f infra/Dockerfile.cms .
 
-      - name: Build web
-        run: docker build -t ghcr.io/bright-co/bright-resume-web:${{ github.sha }} -f infra/Dockerfile.web .
+      - name: Build chatbot
+        run: docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
 
       - name: Docker Login
         uses: docker/login-action@v3.0.0
@@ -45,7 +45,7 @@ jobs:
           docker push ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}
           docker push ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}
           docker push ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-web:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
 
   update-manifest-stage:
     if: github.ref == 'refs/heads/development'
@@ -72,7 +72,7 @@ jobs:
           sed -i "s|image: ghcr.io/bright-co/bright-resume-back-file:.*|image: ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}|" ./development/file.yaml
           sed -i "s|image: ghcr.io/bright-co/bright-resume-back-gateway:.*|image: ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}|" ./development/gateway.yaml
           sed -i "s|image: ghcr.io/bright-co/bright-resume-back-cms:.*|image: ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }}|" ./development/cms.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-web:.*|image: ghcr.io/bright-co/bright-resume-web:${{ github.sha }}|" ./development/web.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./development/chatbot.yaml
           git add -A
           git commit -m "update image for - ${{ github.sha }}"
 

@@ -16,6 +16,8 @@ import {
   ResumeFontSizeEnum,
 } from "@@back-resume/app/enums";
 import { IResume } from "@models";
+import { Skill, SkillSchema } from "./skill.model";
+import { Hobby, HobbySchema } from "./hobby.model";
 
 @Schema({
   collection: "resumes",
@@ -61,6 +63,10 @@ export class Resume extends Document implements IResume {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   role?: string;
+
+  @Field(() => Boolean, { nullable: true })
+  @Prop({ type: Boolean, required: false })
+  isShowImage?: boolean;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
@@ -114,6 +120,10 @@ export class Resume extends Document implements IResume {
   @Prop({ type: Boolean, required: false })
   isShowSummary?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  summaryOrder?: number;
+
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   summaryLabel?: string;
@@ -125,6 +135,10 @@ export class Resume extends Document implements IResume {
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowExperience?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  experienceOrder?: number;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -149,6 +163,10 @@ export class Resume extends Document implements IResume {
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowProject?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  projectOrder?: number;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -182,6 +200,10 @@ export class Resume extends Document implements IResume {
   @Prop({ type: Boolean, required: false })
   isShowEducation?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  educationOrder?: number;
+
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   educationLabel?: string;
@@ -210,6 +232,10 @@ export class Resume extends Document implements IResume {
   @Prop({ type: Boolean, required: false })
   isShowCertification?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  certificationOrder?: number;
+
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   certificationLabel?: string;
@@ -233,6 +259,10 @@ export class Resume extends Document implements IResume {
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowCourseWork?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  courseWorkOrder?: number;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -266,6 +296,10 @@ export class Resume extends Document implements IResume {
   @Prop({ type: Boolean, required: false })
   isShowInvolvement?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  involvementOrder?: number;
+
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   involvementLabel?: string;
@@ -290,17 +324,25 @@ export class Resume extends Document implements IResume {
   @Prop({ type: Boolean, required: false })
   isShowSkill?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  skillOrder?: number;
+
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   skillLabel?: string;
 
-  @Field(() => [String], { nullable: true })
-  @Prop({ type: [String], required: false })
-  skills?: string[];
+  @Field(() => [Skill], { nullable: true })
+  @Prop({ type: [SkillSchema], required: false })
+  skills?: Skill[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowLanguage?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  languageOrder?: number;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
@@ -322,13 +364,17 @@ export class Resume extends Document implements IResume {
   @Prop({ type: String, required: false })
   hobbyLabel?: string;
 
-  @Field(() => [String], { nullable: true })
-  @Prop({ type: [String], required: false })
-  hobbies?: string[];
+  @Field(() => [Hobby], { nullable: true })
+  @Prop({ type: [HobbySchema], required: false })
+  hobbies?: Hobby[];
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowHobby?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  @Prop({ type: Number, required: false })
+  hobbyOrder?: number;
 
   @Field(() => Date, { nullable: false })
   @Prop({ type: Date, default: Date.now })

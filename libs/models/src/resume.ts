@@ -697,6 +697,8 @@ export class ResumeModel {
     } else if (order === this.getHobbyOrder()) {
       return "hobby";
     }
+
+    return undefined;
   }
 
   setSectionOrder(section: ResumeSectionType, order: number): void {
@@ -745,6 +747,8 @@ export class ResumeModel {
     } else if (section === "hobby") {
       return this.getHobbyOrder();
     }
+
+    return undefined;
   }
 
   getSectionIsShow(section: ResumeSectionType): boolean {
@@ -792,6 +796,8 @@ export class ResumeModel {
       }
       output--;
     }
+
+    return undefined;
   }
 
   getLowerAndVisibleSection(
@@ -814,6 +820,8 @@ export class ResumeModel {
       }
       output++;
     }
+
+    return undefined;
   }
 
   changeOrderOfTwoSections(
