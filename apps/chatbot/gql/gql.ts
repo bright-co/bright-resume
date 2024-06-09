@@ -16,6 +16,7 @@ const documents = {
     "\n  query signInWithOAuthToken {\n    signInWithOAuthToken {\n      id\n      name\n      token\n      username\n      email\n      picture\n    }\n  }\n": types.SignInWithOAuthTokenDocument,
     "\n  mutation signInAuth($signInAuthInputs: SignInAuthInputsGQL!) {\n    signIn(signInAuthInputs: $signInAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n": types.SignInAuthDocument,
     "\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n": types.SignUpAuthDocument,
+    "\n  query getResumes(\n    $getResumesResumeArgs: GetResumesResumeArgsGQL!\n    $paginationArgs: PaginationArgsGQL!\n  ) {\n    getResumes(\n      getResumesResumeArgs: $getResumesResumeArgs\n      paginationArgs: $paginationArgs\n    ) {\n      edges {\n        id\n        userId\n        name\n      }\n      pageInfo {\n        totalEdges\n        edgeCount\n        edgesPerPage\n        totalPages\n        currentPage\n      }\n    }\n  }\n": types.GetResumesDocument,
 };
 
 /**
@@ -44,6 +45,10 @@ export function graphql(source: "\n  mutation signInAuth($signInAuthInputs: Sign
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  mutation signUpAuth($signUpAuthInputs: SignUpAuthInputsGQL!) {\n    signUp(signUpAuthInputs: $signUpAuthInputs) {\n      id\n      name\n      username\n      email\n      token\n      picture\n      createdAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query getResumes(\n    $getResumesResumeArgs: GetResumesResumeArgsGQL!\n    $paginationArgs: PaginationArgsGQL!\n  ) {\n    getResumes(\n      getResumesResumeArgs: $getResumesResumeArgs\n      paginationArgs: $paginationArgs\n    ) {\n      edges {\n        id\n        userId\n        name\n      }\n      pageInfo {\n        totalEdges\n        edgeCount\n        edgesPerPage\n        totalPages\n        currentPage\n      }\n    }\n  }\n"): (typeof documents)["\n  query getResumes(\n    $getResumesResumeArgs: GetResumesResumeArgsGQL!\n    $paginationArgs: PaginationArgsGQL!\n  ) {\n    getResumes(\n      getResumesResumeArgs: $getResumesResumeArgs\n      paginationArgs: $paginationArgs\n    ) {\n      edges {\n        id\n        userId\n        name\n      }\n      pageInfo {\n        totalEdges\n        edgeCount\n        edgesPerPage\n        totalPages\n        currentPage\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

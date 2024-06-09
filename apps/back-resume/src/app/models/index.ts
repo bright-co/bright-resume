@@ -10,6 +10,8 @@ export * from "./experience.model";
 export * from "./involvement.model";
 export * from "./language.model";
 export * from "./project.model";
+export * from "./hobby.model";
+export * from "./skill.model";
 export * from "./resume.model";
 
 export const models: ModelDefinition[] = [
