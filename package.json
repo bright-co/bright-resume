@@ -25,6 +25,7 @@
     "resume:test:file": "nx test back-resume --testFile=apps/back-resume/src/app/test/resume/update-resume.spec.ts",
     "web": "nx run web:serve",
     "web:build": "nx run web:build",
+    "chatbot:build": "nx run chatbot:build",
     "chatbot:dev": "concurrently \"npm run chatbot:dev:graphql-codegen\" \"npm run chatbot:dev:serve\"",
     "chatbot:dev:graphql-codegen": "env-cmd graphql-codegen -c ./apps/chatbot/codegen.ts --watch",
     "chatbot:dev:serve": "nx serve chatbot",
