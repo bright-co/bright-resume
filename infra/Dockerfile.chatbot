@@ -22,6 +22,6 @@ ADD package.json /app/package.json
 COPY --from=build app/dist/apps/chatbot /app
 
 RUN apk update && apk add --no-cache git
-RUN pnpm install -P
+RUN pnpm install next dotenv
 
 CMD ["npm", "start"]
