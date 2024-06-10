@@ -7,6 +7,7 @@ require("dotenv").config();
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
+
 const nextConfig = {
   nx: {
     // Set this to true if you would like to use SVGR

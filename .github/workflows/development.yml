@@ -27,12 +27,11 @@ jobs:
 
       - name: Build back-cms
         run: docker build -t ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }} -f infra/Dockerfile.cms .
-      # BACK_URL=https://back-development.bright-resume.com
-      # MODE=develop
+
       - name: Build chatbot
         run: |
-          echo BACK_URL=https://back-development.bright-resume.com > .env
-          echo MODE=develop >> .env
+          echo BACK_URL=https://back-development.bright-resume.com > ./apps/chatbot/.env
+          echo MODE=develop >> ./apps/chatbot/.env
           docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
 
       - name: Docker Login
