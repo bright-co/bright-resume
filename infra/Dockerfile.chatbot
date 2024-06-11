@@ -14,4 +14,5 @@ RUN pnpm run chatbot:build
 RUN rm -rf ./node_modules
 RUN pnpm install -P
 
+
 CMD ["pnpm", "run" ,"chatbot:run"]
