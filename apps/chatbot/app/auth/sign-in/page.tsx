@@ -69,7 +69,7 @@ export default function Page() {
           Sign in with Linkedin
         </Button>
         <Button
-          onClick={() => window.location.replace("/back/auth/sign-in/google")}
+          onClick={() => window.location.replace("/back/auth/sign-in/github")}
         >
           Sign in with Github
         </Button>

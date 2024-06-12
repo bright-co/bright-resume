@@ -28,9 +28,11 @@ export const useData = (token: string | undefined) => {
           description: error.message,
         });
       },
-      onCompleted: async ({ signInWithOAuthToken }) => {
-        await client.setUserCookie(signInWithOAuthToken);
-        router.push("/chat");
+      onCompleted: async ({
+        signInWithOAuthToken: { username, email, id, name, picture },
+      }) => {
+        await client.setUserCookie({ email, id, name, picture, username });
+        router.push("/studio");
       },
     }
   );

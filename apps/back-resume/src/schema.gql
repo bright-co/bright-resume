@@ -108,6 +108,14 @@ type Experience {
   points: [String!]
 }
 
+type Skill {
+  point: String
+}
+
+type Hobby {
+  point: String
+}
+
 type Resume {
   id: ID
   userId: ID!
@@ -117,6 +125,7 @@ type Resume {
   fontFamily: ResumeFontFamilyEnum
   color: ResumeColorEnum
   role: String
+  isShowImage: Boolean
   isShowPhoneNumber: Boolean
   phoneNumber: String
   isShowLinkedin: Boolean
@@ -130,15 +139,18 @@ type Resume {
   isShowBirthDay: Boolean
   birthDay: String
   isShowSummary: Boolean
+  summaryOrder: Float
   summaryLabel: String
   summary: String
   isShowExperience: Boolean
+  experienceOrder: Float
   experienceLabel: String
   experienceRoleLabel: String
   experienceCompanyLabel: String
   experienceLocationLabel: String
   experiences: [Experience!]
   isShowProject: Boolean
+  projectOrder: Float
   projectLabel: String
   projectRoleLabel: String
   projectTitleLabel: String
@@ -147,6 +159,7 @@ type Resume {
   projectUrlLabel: String
   projects: [Project!]
   isShowEducation: Boolean
+  educationOrder: Float
   educationLabel: String
   educationDegreeLabel: String
   educationInstituteLabel: String
@@ -154,12 +167,14 @@ type Resume {
   educationGpaLabel: String
   educations: [Education!]
   isShowCertification: Boolean
+  certificationOrder: Float
   certificationLabel: String
   certificationNameLabel: String
   certificationInstituteLabel: String
   certificationYearLabel: String
   certifications: [Certification!]
   isShowCourseWork: Boolean
+  courseWorkOrder: Float
   courseWorkLabel: String
   courseWorkTitleLabel: String
   courseWorkNameLabel: String
@@ -168,22 +183,26 @@ type Resume {
   courseWorkSkillsLabel: String
   courseWorks: [CourseWork!]
   isShowInvolvement: Boolean
+  involvementOrder: Float
   involvementLabel: String
   involvementRoleLabel: String
   involvementCompanyLabel: String
   involvementLocationLabel: String
   involvements: [Involvement!]
   isShowSkill: Boolean
+  skillOrder: Float
   skillLabel: String
-  skills: [String!]
+  skills: [Skill!]
   isShowLanguage: Boolean
+  languageOrder: Float
   languageLabel: String
   languageNameLabel: String
   languageLevelLabel: String
   languages: [Language!]
   hobbyLabel: String
-  hobbies: [String!]
+  hobbies: [Hobby!]
   isShowHobby: Boolean
+  hobbyOrder: Float
   createdAt: DateTime!
   updatedAt: DateTime!
 }

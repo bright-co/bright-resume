@@ -72,23 +72,17 @@ export default function Page() {
     return (
       <div className="flex gap-2 mt-9">
         <Button
-          onClick={() =>
-            window.location.replace("http://localhost:4001/auth/sign-in/google")
-          }
+          onClick={() => window.location.replace("/back/auth/sign-in/google")}
         >
           Sign in with Google
         </Button>
         <Button
-          onClick={() =>
-            window.location.replace("http://localhost:4001/auth/sign-in/google")
-          }
+          onClick={() => window.location.replace("/back/auth/sign-in/linkedin")}
         >
           Sign in with Linkedin
         </Button>
         <Button
-          onClick={() =>
-            window.location.replace("http://localhost:4001/auth/sign-in/google")
-          }
+          onClick={() => window.location.replace("/back/auth/sign-in/github")}
         >
           Sign in with Github
         </Button>
