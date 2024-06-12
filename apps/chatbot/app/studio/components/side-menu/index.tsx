@@ -1,8 +1,8 @@
 "use client";
 
 import { FC } from "react";
-import { Menu, Plus, Loader2 } from "lucide-react";
-
+import { Menu, Plus, Loader2, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useData } from "./index.hook";
 import {
   Button,
@@ -14,10 +14,12 @@ import {
   ScrollArea,
   Separator,
 } from "@resume-template-components/shadcn-ui";
+import { client } from "@chatbot/app/api/client";
 
 export const SideMenu: FC = () => {
   const { isCollapsed, setIsCollapsed, form, onSubmit, resumes, loading } =
     useData();
+  const router = useRouter();
 
   const renderBurgerButton = () => {
     return (
@@ -104,6 +106,22 @@ export const SideMenu: FC = () => {
     );
   };
 
+  const renderSignOut = () => {
+    return (
+      <div>
+        <Button
+          variant="ghost"
+          className="p-2"
+          onClick={() => {
+            client.signOut();
+            router.push("/auth/sign-in");
+          }}
+        >
+          <LogOut className="h-4 w-4" />
+        </Button>
+      </div>
+    );
+  };
   return (
     <div
       style={{ width: isCollapsed ? 60 : 200 }}
@@ -112,6 +130,7 @@ export const SideMenu: FC = () => {
       {renderBurgerButton()}
       {renderNewButton()}
       {renderResumes()}
+      {renderSignOut()}
     </div>
   );
 };

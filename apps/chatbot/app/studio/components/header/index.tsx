@@ -1,11 +1,13 @@
 "use client";
 
 import { FC } from "react";
+import { useStudioContext } from "../use-context";
 
 export const Header: FC = () => {
+  const { user } = useStudioContext();
   return (
     <div style={{ height: "50px" }} className="bg-gray-400 w-full">
-      Header
+      Hi, {user && (user.name || user.email || user.username)}
     </div>
   );
 };

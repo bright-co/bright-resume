@@ -1,7 +1,8 @@
 "use client";
 
+import { IUserCookie } from "@chatbot/cookie/user";
 import { IContext } from "./context";
 
-export const useData = (): IContext => {
-  return {};
+export const useData = (user: IUserCookie): IContext => {
+  return { user };
 };

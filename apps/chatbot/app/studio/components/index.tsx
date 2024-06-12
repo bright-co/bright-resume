@@ -8,12 +8,17 @@ import { Chat } from "./chat";
 import { Resume } from "./resume";
 import { useData } from "./index.hook";
 import { Context } from "./context";
+import { IUserCookie } from "@chatbot/cookie/user";
 
-export default function Index() {
-  useData();
+type Props = {
+  user: IUserCookie;
+};
+
+export default function Index({ user }: Props) {
+  const data = useData(user);
 
   return (
-    <Context.Provider value={{}}>
+    <Context.Provider value={data}>
       <div className="w-full h-screen bg-amber-100 flex">
         <SideMenu />
         <div className="w-full h-full flex flex-col ">
