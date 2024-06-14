@@ -3,7 +3,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../libs/chatbot-components/src/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../libs/resume-template-components/src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     container: {
@@ -73,5 +73,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
