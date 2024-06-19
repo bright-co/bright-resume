@@ -11,3 +11,4 @@ export * from "./toaster";
 export * from "./use-toast";
 export * from "./scroll-area";
 export * from "./separator";
+export * from "./dialog";

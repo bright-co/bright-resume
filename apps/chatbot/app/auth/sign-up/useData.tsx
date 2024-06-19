@@ -49,7 +49,7 @@ export const useData = () => {
         title: "Welcome!",
         description: "Sign up Success!",
       });
-      router.push("/chat");
+      router.push("/studio");
     },
   });
 

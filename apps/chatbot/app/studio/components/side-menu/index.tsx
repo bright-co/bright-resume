@@ -3,7 +3,8 @@
 import { FC } from "react";
 import { Menu, Plus, Loader2, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useData } from "./index.hook";
+import clsx from "clsx";
+
 import {
   Button,
   Form,
@@ -14,11 +15,26 @@ import {
   ScrollArea,
   Separator,
 } from "@resume-template-components/shadcn-ui";
+
 import { client } from "@chatbot/app/api/client";
 
+import { useData } from "./index.hook";
+import { useStudioContext } from "../use-context";
+
 export const SideMenu: FC = () => {
-  const { isCollapsed, setIsCollapsed, form, onSubmit, resumes, loading } =
-    useData();
+  const {
+    isCollapsed,
+    setIsCollapsed,
+    form,
+    onSubmit,
+    resumes,
+    loading,
+    selectedResume,
+    setSelectedResume,
+    setSelectedResumeId,
+  } = useData();
+
+  const { setIsNewResumeDialog } = useStudioContext();
   const router = useRouter();
 
   const renderBurgerButton = () => {
@@ -39,7 +55,11 @@ export const SideMenu: FC = () => {
   const renderNewButton = () => {
     return (
       <div>
-        <Button variant="ghost" className="p-2">
+        <Button
+          variant="ghost"
+          className="p-2"
+          onClick={() => setIsNewResumeDialog(true)}
+        >
           <Plus className="h-4 w-4" />
         </Button>
       </div>
@@ -76,32 +96,22 @@ export const SideMenu: FC = () => {
           {!loading &&
             resumes.map(({ name, id }) => (
               <>
-                <div key={id} className="text-sm">
+                <div
+                  key={id}
+                  className={clsx("text-sm cursor-pointer", {
+                    "bg-red-400": selectedResume && selectedResume.id === id,
+                  })}
+                  onClick={() => {
+                    setSelectedResume({ id, name });
+                    setSelectedResumeId(id!);
+                  }}
+                >
                   {name}
                 </div>
                 <Separator className="my-2" />
               </>
             ))}
         </ScrollArea>
-        {/* <ScrollArea className="bg-orange-200"> */}
-        {/* {loading && (
-            <div className="flex justify-center items-center">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            </div>
-          )}
-          {!loading && resumes.length === 0 && <p> Not Found!</p>}
-          {!loading &&
-            resumes.map(({ name, id }) => (
-              <>
-                <div key={id} className="text-sm">
-                  {name}
-                </div>
-                <Separator className="my-2" />
-              </>
-            ))} */}
-
-        {/* </ScrollArea> */}
-        {/* </div> */}
       </div>
     );
   };

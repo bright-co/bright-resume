@@ -5,6 +5,7 @@ import { Resizable } from "re-resizable";
 import { SideMenu } from "./side-menu";
 import { Header } from "./header";
 import { Chat } from "./chat";
+import { NewResumeDialog } from "./new-resume-dialog";
 import { Resume } from "./resume";
 import { useData } from "./index.hook";
 import { Context } from "./context";
@@ -19,7 +20,10 @@ export default function Index({ user }: Props) {
 
   return (
     <Context.Provider value={data}>
-      <div className="w-full h-screen bg-amber-100 flex">
+      <div
+        className="w-full h-screen bg-amber-100 flex"
+        style={{ minWidth: 1200 }}
+      >
         <SideMenu />
         <div className="w-full h-full flex flex-col ">
           <Header />
@@ -48,6 +52,7 @@ export default function Index({ user }: Props) {
           </div>
         </div>
       </div>
+      <NewResumeDialog />
     </Context.Provider>
   );
 }

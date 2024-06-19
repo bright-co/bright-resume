@@ -12,13 +12,18 @@ import { GetResumesResumeArgs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useStudioContext } from "../use-context";
 
 export const useData = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [resumes, setResumes] = useState<
-    GetResumesQuery["getResumes"]["edges"]
-  >([]);
+  const {
+    resumes,
+    setResumes,
+    setSelectedResume,
+    selectedResume,
+    setSelectedResumeId,
+  } = useStudioContext();
 
   /* ---------------------------------- args ---------------------------------- */
 
@@ -44,6 +49,10 @@ export const useData = () => {
     },
 
     onCompleted: async ({ getResumes: { edges } }) => {
+      if (paginationArgs.page === 1) {
+        setSelectedResume(edges[0]);
+        setSelectedResumeId(edges[0].id!);
+      }
       setResumes(edges);
     },
   });
@@ -77,5 +86,8 @@ export const useData = () => {
     resumes,
     getResumesResumeArgs,
     paginationArgs,
+    selectedResume,
+    setSelectedResume,
+    setSelectedResumeId,
   };
 };
