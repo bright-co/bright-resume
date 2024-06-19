@@ -249,7 +249,7 @@ type PaginatedResume {
 
 type Query {
   getResumes(paginationArgs: PaginationArgsGQL!, getResumesResumeArgs: GetResumesResumeArgsGQL!): PaginatedResume!
-  getResumeById(resumeId: String!): Resume!
+  getResumeById(getResumeByIdResumeArgs: GetResumeByIdResumeArgsGQL!): Resume!
 }
 
 input PaginationArgsGQL {
@@ -259,6 +259,10 @@ input PaginationArgsGQL {
 
 input GetResumesResumeArgsGQL {
   name: String = ""
+}
+
+input GetResumeByIdResumeArgsGQL {
+  resumeId: String!
 }
 
 type Mutation {
