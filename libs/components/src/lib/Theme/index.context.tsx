@@ -15,9 +15,9 @@ export type Theme = {
 export const ThemeContext = createContext<Theme>({
   themeColor: ThemeColor.blue,
   changeThemeColor: () => undefined,
-  fontFamily: ResumeFontFamilyEnum.montserrat,
+  fontFamily: ResumeFontFamilyEnum.Montserrat,
   changeFontFamily: () => undefined,
-  fonSize: ResumeFontSizeEnum.small,
+  fonSize: ResumeFontSizeEnum.Small,
   changeFontSize: () => undefined,
 });
 

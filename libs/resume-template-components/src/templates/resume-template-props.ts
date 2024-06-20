@@ -27,7 +27,7 @@ import {
 export interface ResumeTemplateProps {
   zoom?: number;
   staticMode?: boolean;
-  resume: Partial<IResume>;
+  resume?: Partial<IResume> | undefined;
   hoverSection?: ResumeSectionType;
   setHoverSection?: (arg?: ResumeSectionType) => void;
   hoverSubSection?: {

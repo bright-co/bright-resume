@@ -18,7 +18,7 @@ export const useData = (user: IUserCookie): IContext => {
   >([]);
 
   const [selectedResume, setSelectedResume] =
-    useState<GetResumesQuery["getResumes"]["edges"][0]>();
+    useState<GetResumeByIdQuery["getResumeById"]>();
   const [selectedResumeId, setSelectedResumeId] = useState<string>("");
   const [isOpenNewResumeDialog, setIsNewResumeDialog] = useState(false);
 

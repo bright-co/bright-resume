@@ -1,20 +1,20 @@
 export interface IExperience {
-  role?: string;
-  company?: string;
-  isShowLocation?: boolean;
-  location?: string;
-  isShowDate?: boolean;
-  fromMonth?: string;
-  fromYear?: string;
-  toMonth?: string;
-  toYear?: string;
-  untilNow?: boolean;
-  isShowPoints?: boolean;
-  points?: string[];
+  role?: string | null;
+  company?: string | null;
+  isShowLocation?: boolean | null;
+  location?: string | null;
+  isShowDate?: boolean | null;
+  fromMonth?: string | null;
+  fromYear?: string | null;
+  toMonth?: string | null;
+  toYear?: string | null;
+  untilNow?: boolean | null;
+  isShowPoints?: boolean | null;
+  points?: string[] | null;
 }
 
 export class ExperienceModel {
-  constructor(private input: Partial<IExperience>) {}
+  constructor(private input: Partial<IExperience> = {}) {}
 
   getRole(): string | undefined {
     return this.input.role;

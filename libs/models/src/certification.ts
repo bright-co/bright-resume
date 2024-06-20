@@ -1,15 +1,15 @@
 export interface ICertification {
-  name?: string;
-  isShowInstitute?: boolean;
-  institute?: string;
-  isShowDate?: boolean;
-  year?: string;
-  isShowPoints?: boolean;
-  points?: string[];
+  name?: string | null;
+  isShowInstitute?: boolean | null;
+  institute?: string | null;
+  isShowDate?: boolean | null;
+  year?: string | null;
+  isShowPoints?: boolean | null;
+  points?: string[] | null;
 }
 
 export class CertificationModel {
-  constructor(private input: Partial<ICertification>) {}
+  constructor(private input: Partial<ICertification> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;

@@ -1,25 +1,25 @@
 export interface IProject {
-  title?: string;
-  isShowRole?: boolean;
-  role?: string;
-  isShowCompany?: boolean;
-  company?: string;
-  isShowLocation?: boolean;
-  location?: string;
-  isShowUrl?: boolean;
-  url?: string;
-  isShowDate?: boolean;
-  fromMonth?: string;
-  fromYear?: string;
-  toMonth?: string;
-  toYear?: string;
-  untilNow?: boolean;
-  isShowPoints?: boolean;
-  points?: string[];
+  title?: string | null;
+  isShowRole?: boolean | null;
+  role?: string | null;
+  isShowCompany?: boolean | null;
+  company?: string | null;
+  isShowLocation?: boolean | null;
+  location?: string | null;
+  isShowUrl?: boolean | null;
+  url?: string | null;
+  isShowDate?: boolean | null;
+  fromMonth?: string | null;
+  fromYear?: string | null;
+  toMonth?: string | null;
+  toYear?: string | null;
+  untilNow?: boolean | null;
+  isShowPoints?: boolean | null;
+  points?: string[] | null;
 }
 
 export class ProjectModel {
-  constructor(private input: Partial<IProject>) {}
+  constructor(private input: Partial<IProject> = {}) {}
 
   getTitle(): string | undefined {
     return this.input.title;

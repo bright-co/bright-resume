@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  transition-property: all;
-  transition-duration: 0.1s;
-  transition-timing-function: linear;
-  transition-delay: 0s;
-}
-
 body {
   min-height: 100vh;
 }

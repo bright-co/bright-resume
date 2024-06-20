@@ -1,11 +1,11 @@
 export interface ILanguage {
-  name?: string;
-  isShowLevel?: boolean;
-  level?: string;
+  name?: string | null;
+  isShowLevel?: boolean | null;
+  level?: string | null;
 }
 
 export class LanguageModel {
-  constructor(private input: Partial<ILanguage>) {}
+  constructor(private input: Partial<ILanguage> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;

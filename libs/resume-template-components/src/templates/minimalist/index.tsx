@@ -37,7 +37,7 @@ import { ResumeSectionType } from "@models";
 
 export function TemplateMinimalist({
   zoom = 1,
-  resume,
+  resume = {},
   staticMode,
   hoverSection,
   setHoverSection,
@@ -69,43 +69,43 @@ export function TemplateMinimalist({
   let titleFontSize: string;
   let headerFontSize: string;
 
-  if (fontSize === ResumeFontSizeEnum.xx_small) {
+  if (fontSize === ResumeFontSizeEnum.XxSmall) {
     subTextFontSize = "font-size-6";
     textFontSize = "font-size-7";
     subTitleFontSize = "font-size-9";
     titleFontSize = "font-size-10";
     headerFontSize = "font-size-15";
-  } else if (fontSize === ResumeFontSizeEnum.x_small) {
+  } else if (fontSize === ResumeFontSizeEnum.XSmall) {
     subTextFontSize = "font-size-7";
     textFontSize = "font-size-8";
     subTitleFontSize = "font-size-10";
     titleFontSize = "font-size-11";
     headerFontSize = "font-size-16";
-  } else if (fontSize === ResumeFontSizeEnum.small) {
+  } else if (fontSize === ResumeFontSizeEnum.Small) {
     subTextFontSize = "font-size-8";
     textFontSize = "font-size-9";
     subTitleFontSize = "font-size-11";
     titleFontSize = "font-size-12";
     headerFontSize = "font-size-17";
-  } else if (fontSize === ResumeFontSizeEnum.medium) {
+  } else if (fontSize === ResumeFontSizeEnum.Medium) {
     subTextFontSize = "font-size-9";
     textFontSize = "font-size-10";
     subTitleFontSize = "font-size-12";
     titleFontSize = "font-size-13";
     headerFontSize = "font-size-18";
-  } else if (fontSize === ResumeFontSizeEnum.large) {
+  } else if (fontSize === ResumeFontSizeEnum.Large) {
     subTextFontSize = "font-size-10";
     textFontSize = "font-size-11";
     subTitleFontSize = "font-size-13";
     titleFontSize = "font-size-14";
     headerFontSize = "font-size-18";
-  } else if (fontSize === ResumeFontSizeEnum.x_large) {
+  } else if (fontSize === ResumeFontSizeEnum.XLarge) {
     subTextFontSize = "font-size-11";
     textFontSize = "font-size-12";
     subTitleFontSize = "font-size-14";
     titleFontSize = "font-size-15";
     headerFontSize = "font-size-18";
-  } else if (fontSize === ResumeFontSizeEnum.xx_large) {
+  } else if (fontSize === ResumeFontSizeEnum.XxLarge) {
     subTextFontSize = "font-size-12";
     textFontSize = "font-size-13";
     subTitleFontSize = "font-size-15";
@@ -115,45 +115,45 @@ export function TemplateMinimalist({
 
   let fontColorClass = "text-black";
   let borderColorClass = "border-black";
-  if (color === ResumeColorEnum.black) {
+  if (color === ResumeColorEnum.Black) {
     fontColorClass = "text-black";
     borderColorClass = "border-black";
-  } else if (color === ResumeColorEnum.gray) {
+  } else if (color === ResumeColorEnum.Gray) {
     fontColorClass = "text-gray";
     borderColorClass = "border-gray";
-  } else if (color === ResumeColorEnum.red) {
+  } else if (color === ResumeColorEnum.Red) {
     fontColorClass = "text-red";
     borderColorClass = "border-red";
-  } else if (color === ResumeColorEnum.yellow) {
+  } else if (color === ResumeColorEnum.Yellow) {
     fontColorClass = "text-yellow";
     borderColorClass = "border-yellow";
-  } else if (color === ResumeColorEnum.blue) {
+  } else if (color === ResumeColorEnum.Blue) {
     fontColorClass = "text-blue";
     borderColorClass = "border-blue";
-  } else if (color === ResumeColorEnum.green) {
+  } else if (color === ResumeColorEnum.Green) {
     fontColorClass = "text-green";
     borderColorClass = "border-green";
-  } else if (color === ResumeColorEnum.purple) {
+  } else if (color === ResumeColorEnum.Purple) {
     fontColorClass = "text-purple";
     borderColorClass = "border-purple";
-  } else if (color === ResumeColorEnum.orange) {
+  } else if (color === ResumeColorEnum.Orange) {
     fontColorClass = "text-orange";
     borderColorClass = "border-orange";
-  } else if (color === ResumeColorEnum.brown) {
+  } else if (color === ResumeColorEnum.Brown) {
     fontColorClass = "text-brown";
     borderColorClass = "border-brown";
   }
 
   let fontFamilyClass = "font-family-arial";
-  if (fontFamily === ResumeFontFamilyEnum.arial) {
+  if (fontFamily === ResumeFontFamilyEnum.Arial) {
     fontFamilyClass = "font-family-arial";
-  } else if (fontFamily === ResumeFontFamilyEnum.montserrat) {
+  } else if (fontFamily === ResumeFontFamilyEnum.Montserrat) {
     fontFamilyClass = "font-family-montserrat";
-  } else if (fontFamily === ResumeFontFamilyEnum.nunito) {
+  } else if (fontFamily === ResumeFontFamilyEnum.Nunito) {
     fontFamilyClass = "font-family-nunito";
-  } else if (fontFamily === ResumeFontFamilyEnum.roboto) {
+  } else if (fontFamily === ResumeFontFamilyEnum.Roboto) {
     fontFamilyClass = "font-family-roboto";
-  } else if (fontFamily === ResumeFontFamilyEnum.raleway) {
+  } else if (fontFamily === ResumeFontFamilyEnum.Raleway) {
     fontFamilyClass = "font-family-raleway";
   }
 
@@ -356,7 +356,7 @@ export function TemplateMinimalist({
           <img
             className="hr-image"
             src={faker.image.avatar()}
-            alt={resume.name}
+            alt={resume.name || ""}
           />
         )}
         <div className="hr-text">

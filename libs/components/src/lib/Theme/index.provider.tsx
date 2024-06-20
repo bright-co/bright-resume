@@ -14,8 +14,8 @@ export type ThemeProps = {
 export const ThemeProvider: React.FC<ThemeProps> = ({
   children,
   themeColor = ThemeColor.blue,
-  fontFamily = ResumeFontFamilyEnum.montserrat,
-  fonSize = ResumeFontSizeEnum.small,
+  fontFamily = ResumeFontFamilyEnum.Montserrat,
+  fonSize = ResumeFontSizeEnum.Small,
 }) => {
   const data = useData({ themeColor, fontFamily, fonSize });
 

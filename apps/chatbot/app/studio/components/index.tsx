@@ -26,8 +26,13 @@ export default function Index({ user }: Props) {
       >
         <SideMenu />
         <div className="w-full h-full flex flex-col ">
-          <Header />
-          <div className="w-full flex-grow bg-amber-200 flex border-3 border-blue-800">
+          <div style={{ maxHeight: "50px" }}>
+            <Header />
+          </div>
+          <div
+            style={{ maxHeight: "calc( 100% - 50px)" }}
+            className="w-full flex-grow flex border-3 border-blue-800"
+          >
             <Resizable
               className="h-full"
               style={{
@@ -46,7 +51,7 @@ export default function Index({ user }: Props) {
             >
               <Chat />
             </Resizable>
-            <div className="h-full w-full bg-purple-500">
+            <div className="h-full w-full overflow-auto">
               <Resume />
             </div>
           </div>

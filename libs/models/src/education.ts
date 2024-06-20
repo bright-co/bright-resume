@@ -1,23 +1,23 @@
 export interface IEducation {
-  degree?: string;
-  isShowInstitute?: boolean;
-  institute?: string;
-  isShowLocation?: boolean;
-  location?: string;
-  isShowGpa?: boolean;
-  gpa?: string;
-  isShowDate?: boolean;
-  fromMonth?: string;
-  fromYear?: string;
-  toMonth?: string;
-  toYear?: string;
-  untilNow?: boolean;
-  isShowPoints?: boolean;
-  points?: string[];
+  degree?: string | null;
+  isShowInstitute?: boolean | null;
+  institute?: string | null;
+  isShowLocation?: boolean | null;
+  location?: string | null;
+  isShowGpa?: boolean | null;
+  gpa?: string | null;
+  isShowDate?: boolean | null;
+  fromMonth?: string | null;
+  fromYear?: string | null;
+  toMonth?: string | null;
+  toYear?: string | null;
+  untilNow?: boolean | null;
+  isShowPoints?: boolean | null;
+  points?: string[] | null;
 }
 
 export class EducationModel {
-  constructor(public input: Partial<IEducation>) {}
+  constructor(public input: Partial<IEducation> = {}) {}
 
   getDegree(): string | undefined {
     return this.input.degree;
