@@ -1,18 +1,18 @@
 export interface ICourseWork {
-  name?: string;
-  isShowInstitute?: boolean;
-  institute?: string;
-  isShowDate?: boolean;
-  year?: string;
-  isShowSkills?: boolean;
-  isSkills?: boolean;
-  skills?: string;
-  isShowPoints?: boolean;
-  points?: string[];
+  name?: string | null;
+  isShowInstitute?: boolean | null;
+  institute?: string | null;
+  isShowDate?: boolean | null;
+  year?: string | null;
+  isShowSkills?: boolean | null;
+  isSkills?: boolean | null;
+  skills?: string | null;
+  isShowPoints?: boolean | null;
+  points?: string[] | null;
 }
 
 export class CourseWorkModel {
-  constructor(private input: Partial<ICourseWork>) {}
+  constructor(private input: Partial<ICourseWork> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;

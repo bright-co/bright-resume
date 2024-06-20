@@ -7,6 +7,7 @@ import {
 } from "@enums";
 import { useRef, useState } from "react";
 import { ResumeModel, ResumeSectionType } from "@models";
+import useSize from "@react-hook/size";
 import {
   Checkbox,
   Menubar,
@@ -17,7 +18,6 @@ import {
   MenubarRadioItem,
   MenubarTrigger,
 } from "../../shadcn-ui";
-import useSize from "@react-hook/size";
 import { TemplateMinimalist } from "../minimalist";
 import { useResume } from "./useResume";
 

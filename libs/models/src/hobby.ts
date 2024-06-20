@@ -1,9 +1,9 @@
 export interface IHobby {
-  point?: string;
+  point?: string | null;
 }
 
 export class HobbyModel {
-  constructor(public input: Partial<IHobby>) {}
+  constructor(public input: Partial<IHobby> = {}) {}
 
   getPoints(): string | undefined {
     return this.input.point;

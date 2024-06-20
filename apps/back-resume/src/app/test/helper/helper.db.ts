@@ -42,9 +42,9 @@ export class HelperDB {
       userId: userId || new mongoose.Types.ObjectId().toString(),
 
       name: faker.person.fullName(),
-      color: ResumeColorEnum.green,
-      fontFamily: ResumeFontFamilyEnum.raleway,
-      fontSize: ResumeFontSizeEnum.small,
+      color: ResumeColorEnum.Green,
+      fontFamily: ResumeFontFamilyEnum.Raleway,
+      fontSize: ResumeFontSizeEnum.Small,
       role: faker.person.jobTitle(),
       isShowPhoneNumber: faker.datatype.boolean(),
       phoneNumber: faker.phone.number(),

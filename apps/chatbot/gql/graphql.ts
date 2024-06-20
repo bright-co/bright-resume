@@ -646,33 +646,33 @@ export type Resume = {
 };
 
 export enum ResumeColorEnum {
-  Black = 'black',
-  Blue = 'blue',
-  Brown = 'brown',
-  Gray = 'gray',
-  Green = 'green',
-  Orange = 'orange',
-  Purple = 'purple',
-  Red = 'red',
-  Yellow = 'yellow'
+  Black = 'Black',
+  Blue = 'Blue',
+  Brown = 'Brown',
+  Gray = 'Gray',
+  Green = 'Green',
+  Orange = 'Orange',
+  Purple = 'Purple',
+  Red = 'Red',
+  Yellow = 'Yellow'
 }
 
 export enum ResumeFontFamilyEnum {
-  Arial = 'arial',
-  Montserrat = 'montserrat',
-  Nunito = 'nunito',
-  Raleway = 'raleway',
-  Roboto = 'roboto'
+  Arial = 'Arial',
+  Montserrat = 'Montserrat',
+  Nunito = 'Nunito',
+  Raleway = 'Raleway',
+  Roboto = 'Roboto'
 }
 
 export enum ResumeFontSizeEnum {
-  Large = 'large',
-  Medium = 'medium',
-  Small = 'small',
-  XLarge = 'x_large',
-  XSmall = 'x_small',
-  XxLarge = 'xx_large',
-  XxSmall = 'xx_small'
+  Large = 'Large',
+  Medium = 'Medium',
+  Small = 'Small',
+  XLarge = 'XLarge',
+  XSmall = 'XSmall',
+  XxLarge = 'XxLarge',
+  XxSmall = 'XxSmall'
 }
 
 export type SignInAuthInputsGql = {

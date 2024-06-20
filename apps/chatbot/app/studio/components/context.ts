@@ -1,5 +1,5 @@
 import { IUserCookie } from "@chatbot/cookie/user";
-import { GetResumesQuery } from "@chatbot/gql/graphql";
+import { GetResumeByIdQuery, GetResumesQuery } from "@chatbot/gql/graphql";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 export interface IContext {
@@ -8,9 +8,9 @@ export interface IContext {
   setIsNewResumeDialog: Dispatch<SetStateAction<boolean>>;
   resumes: GetResumesQuery["getResumes"]["edges"];
   setResumes: Dispatch<SetStateAction<GetResumesQuery["getResumes"]["edges"]>>;
-  selectedResume: GetResumesQuery["getResumes"]["edges"][0] | undefined;
+  selectedResume: GetResumeByIdQuery["getResumeById"] | undefined;
   setSelectedResume: Dispatch<
-    SetStateAction<GetResumesQuery["getResumes"]["edges"][0] | undefined>
+    SetStateAction<GetResumeByIdQuery["getResumeById"] | undefined>
   >;
   selectedResumeId: string;
   setSelectedResumeId: Dispatch<SetStateAction<string>>;

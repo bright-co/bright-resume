@@ -208,33 +208,33 @@ type Resume {
 }
 
 enum ResumeFontSizeEnum {
-  xx_small
-  x_small
-  small
-  medium
-  large
-  x_large
-  xx_large
+  Large
+  Medium
+  Small
+  XLarge
+  XSmall
+  XxLarge
+  XxSmall
 }
 
 enum ResumeFontFamilyEnum {
-  arial
-  montserrat
-  nunito
-  roboto
-  raleway
+  Arial
+  Montserrat
+  Nunito
+  Raleway
+  Roboto
 }
 
 enum ResumeColorEnum {
-  red
-  yellow
-  blue
-  green
-  black
-  gray
-  purple
-  orange
-  brown
+  Black
+  Blue
+  Brown
+  Gray
+  Green
+  Orange
+  Purple
+  Red
+  Yellow
 }
 
 """

@@ -1,9 +1,9 @@
 export interface ISkill {
-  point?: string;
+  point?: string | null;
 }
 
 export class SkillModel {
-  constructor(public input: Partial<ISkill>) {}
+  constructor(public input: Partial<ISkill> = {}) {}
 
   getPoints(): string | undefined {
     return this.input.point;
