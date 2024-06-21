@@ -88,9 +88,10 @@ export class AuthService {
       password: await generateHashPassword(password),
     });
 
+    await newUser.save();
+
     const token = await this.generateJWTUserToken(newUser);
 
-    await newUser.save();
     newUser.token = token;
 
     return newUser;

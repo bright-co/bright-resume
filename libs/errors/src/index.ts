@@ -16,9 +16,9 @@ export const RESUME_NOT_FOUND: ICustomError = {
   description: "Resume Not Found!",
 };
 
-export const A_RESUME_WITH_THE_GIVEN_NAME_ALREADY_EXISTS: ICustomError = {
+export const A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS: ICustomError = {
   status: HttpStatus.BAD_REQUEST,
-  description: "A Resume With the Given Name Already Exists!",
+  description: "A Resume With the Given Title Already Exists!",
 };
 
 export const USER_NOT_FOUND: ICustomError = {

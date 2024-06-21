@@ -9,9 +9,12 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsNotEmpty,
   IsOptional,
+  IsPositive,
   IsString,
   MaxLength,
+  MinLength,
   ValidateNested,
 } from "class-validator";
 
@@ -237,11 +240,6 @@ export class CreateResumeCertificationItemInputs {
   name?: string;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(100)
-  title?: string;
-
-  @IsOptional()
   @IsBoolean()
   isShowInstitute?: boolean;
 
@@ -396,16 +394,31 @@ export class CreateResumeLanguageItemInputs {
   level?: string;
 }
 
+export class CreateResumeSkillItemInputs {
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
+  point?: string;
+}
+
+export class CreateResumeHobbyItemInputs {
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
+  point?: string;
+}
+
 export class CreateResumeResumeInputs {
   @IsOptional()
   @IsString()
   @MaxLength(50)
   name?: string;
 
-  @IsOptional()
   @IsString()
   @MaxLength(50)
-  title?: string;
+  @MinLength(3)
+  @IsNotEmpty()
+  title: string;
 
   @IsOptional()
   @IsString()
@@ -483,6 +496,10 @@ export class CreateResumeResumeInputs {
   isShowSummary?: boolean;
 
   @IsOptional()
+  @IsPositive()
+  summaryOrder?: number;
+
+  @IsOptional()
   @IsString()
   @MaxLength(2500)
   summary?: string;
@@ -495,6 +512,10 @@ export class CreateResumeResumeInputs {
   @IsOptional()
   @IsBoolean()
   isShowExperience?: boolean;
+
+  @IsOptional()
+  @IsPositive()
+  experienceOrder?: number;
 
   @IsOptional()
   @IsString()
@@ -527,6 +548,10 @@ export class CreateResumeResumeInputs {
   @IsOptional()
   @IsBoolean()
   isShowProject?: boolean;
+
+  @IsOptional()
+  @IsPositive()
+  projectOrder?: number;
 
   @IsOptional()
   @IsString()
@@ -576,6 +601,10 @@ export class CreateResumeResumeInputs {
   educationLabel?: string;
 
   @IsOptional()
+  @IsPositive()
+  educationOrder?: number;
+
+  @IsOptional()
   @IsString()
   @MaxLength(50)
   educationDegreeLabel?: string;
@@ -608,6 +637,10 @@ export class CreateResumeResumeInputs {
   isShowCertification?: boolean;
 
   @IsOptional()
+  @IsPositive()
+  certificationOrder?: number;
+
+  @IsOptional()
   @IsString()
   @MaxLength(50)
   certificationLabel?: string;
@@ -638,6 +671,10 @@ export class CreateResumeResumeInputs {
   @IsOptional()
   @IsBoolean()
   isShowCourseWork?: boolean;
+
+  @IsOptional()
+  @IsPositive()
+  courseWorkOrder?: number;
 
   @IsOptional()
   @IsString()
@@ -687,6 +724,10 @@ export class CreateResumeResumeInputs {
   involvementLabel?: string;
 
   @IsOptional()
+  @IsPositive()
+  involvementOrder?: number;
+
+  @IsOptional()
   @IsString()
   @MaxLength(50)
   involvementRoleLabel?: string;
@@ -719,11 +760,16 @@ export class CreateResumeResumeInputs {
   skillLabel?: string;
 
   @IsOptional()
-  @IsString({ each: true })
-  @MaxLength(2000, { each: true })
+  @IsPositive()
+  skillOrder?: number;
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Expose()
+  @Type(() => CreateResumeSkillItemInputs)
   @IsArray()
-  @ArrayMaxSize(15)
-  skills?: string[];
+  @ArrayMaxSize(20)
+  skills?: CreateResumeSkillItemInputs[];
 
   @IsOptional()
   @IsBoolean()
@@ -733,6 +779,10 @@ export class CreateResumeResumeInputs {
   @IsString()
   @MaxLength(50)
   languageLabel?: string;
+
+  @IsOptional()
+  @IsPositive()
+  languageOrder?: number;
 
   @IsOptional()
   @IsString()
@@ -762,9 +812,14 @@ export class CreateResumeResumeInputs {
   hobbyLabel?: string;
 
   @IsOptional()
-  @IsString({ each: true })
-  @MaxLength(2000, { each: true })
+  @IsPositive()
+  hobbyOrder?: number;
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Expose()
+  @Type(() => CreateResumeHobbyItemInputs)
   @IsArray()
-  @ArrayMaxSize(15)
-  hobbies?: string[];
+  @ArrayMaxSize(20)
+  hobbies?: CreateResumeHobbyItemInputs[];
 }

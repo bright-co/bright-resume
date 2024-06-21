@@ -8,6 +8,8 @@ import {
   CreateResumeInvolvementItemInputs,
   CreateResumeLanguageItemInputs,
   CreateResumeProjectItemInputs,
+  CreateResumeSkillItemInputs,
+  CreateResumeHobbyItemInputs,
 } from "@dto";
 import {
   ResumeColorEnum,
@@ -260,12 +262,24 @@ export class CreateResumeLanguageItemInputsGQL extends CreateResumeLanguageItemI
 }
 
 @InputType()
+export class CreateResumeSkillItemInputsGQL extends CreateResumeSkillItemInputs {
+  @Field(() => String, { nullable: true })
+  point?: string;
+}
+
+@InputType()
+export class CreateResumeHobbyItemInputsGQL extends CreateResumeHobbyItemInputs {
+  @Field(() => String, { nullable: true })
+  point?: string;
+}
+
+@InputType()
 export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => String, { nullable: true })
   name?: string;
 
-  @Field(() => String, { nullable: true })
-  title?: string;
+  @Field(() => String, { nullable: false })
+  title: string;
 
   @Field(() => ResumeFontSizeEnum, { nullable: true })
   fontSize?: ResumeFontSizeEnum;
@@ -318,6 +332,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => Boolean, { nullable: true })
   isShowSummary?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  summaryOrder?: number;
+
   @Field(() => String, { nullable: true })
   summaryLabel?: string;
 
@@ -326,6 +343,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
 
   @Field(() => Boolean, { nullable: true })
   isShowExperience?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  experienceOrder?: number;
 
   @Field(() => String, { nullable: true })
   experienceLabel?: string;
@@ -344,6 +364,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
 
   @Field(() => Boolean, { nullable: true })
   isShowProject?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  projectOrder?: number;
 
   @Field(() => String, { nullable: true })
   projectLabel?: string;
@@ -372,6 +395,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => String, { nullable: true })
   educationLabel?: string;
 
+  @Field(() => Number, { nullable: true })
+  educationOrder?: number;
+
   @Field(() => String, { nullable: true })
   educationDegreeLabel?: string;
 
@@ -390,6 +416,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => Boolean, { nullable: true })
   isShowCertification?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  certificationOrder?: number;
+
   @Field(() => String, { nullable: true })
   certificationLabel?: string;
 
@@ -407,6 +436,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
 
   @Field(() => Boolean, { nullable: true })
   isShowCourseWork?: boolean;
+
+  @Field(() => Number, { nullable: true })
+  courseWorkOrder?: number;
 
   @Field(() => String, { nullable: true })
   courseWorkLabel?: string;
@@ -435,6 +467,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => String, { nullable: true })
   involvementLabel?: string;
 
+  @Field(() => Number, { nullable: true })
+  involvementOrder?: number;
+
   @Field(() => String, { nullable: true })
   involvementRoleLabel?: string;
 
@@ -453,14 +488,20 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => String, { nullable: true })
   skillLabel?: string;
 
-  @Field(() => [String], { nullable: true })
-  skills?: string[];
+  @Field(() => Number, { nullable: true })
+  skillOrder?: number;
+
+  @Field(() => [CreateResumeSkillItemInputsGQL], { nullable: true })
+  skills?: CreateResumeSkillItemInputsGQL[];
 
   @Field(() => Boolean, { nullable: true })
   isShowLanguage?: boolean;
 
   @Field(() => String, { nullable: true })
   languageLabel?: string;
+
+  @Field(() => Number, { nullable: true })
+  languageOrder?: number;
 
   @Field(() => String, { nullable: true })
   languageNameLabel?: string;
@@ -474,9 +515,12 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   @Field(() => String, { nullable: true })
   hobbyLabel?: string;
 
+  @Field(() => Number, { nullable: true })
+  hobbyOrder?: number;
+
   @Field(() => Boolean, { nullable: true })
   isShowHobby?: boolean;
 
-  @Field(() => [String], { nullable: true })
-  hobbies?: string[];
+  @Field(() => [CreateResumeHobbyItemInputsGQL], { nullable: true })
+  hobbies?: CreateResumeHobbyItemInputsGQL[];
 }

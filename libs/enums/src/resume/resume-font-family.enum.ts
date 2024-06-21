@@ -1,7 +1,7 @@
 export enum ResumeFontFamilyEnum {
-  Arial = "arial",
-  Montserrat = "montserrat",
-  Nunito = "nunito",
-  Raleway = "raleway",
-  Roboto = "roboto",
+  Arial = "Arial",
+  Montserrat = "Montserrat",
+  Nunito = "Nunito",
+  Raleway = "Raleway",
+  Roboto = "Roboto",
 }

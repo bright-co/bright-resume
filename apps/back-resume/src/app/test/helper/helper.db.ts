@@ -40,7 +40,7 @@ export class HelperDB {
 
     const resume = await this.dbService.resumeModel.create({
       userId: userId || new mongoose.Types.ObjectId().toString(),
-
+      title: faker.person.fullName(),
       name: faker.person.fullName(),
       color: ResumeColorEnum.Green,
       fontFamily: ResumeFontFamilyEnum.Raleway,
@@ -221,7 +221,6 @@ export class HelperDB {
       ],
       isShowSkill: faker.datatype.boolean(),
       skillLabel: faker.lorem.word(),
-      skills: [faker.lorem.paragraph(), faker.lorem.paragraph()],
       isShowLanguage: faker.datatype.boolean(),
       languageLabel: faker.lorem.word(),
       languageNameLabel: faker.lorem.word(),
@@ -235,7 +234,14 @@ export class HelperDB {
       ],
       hobbyLabel: faker.lorem.word(),
       isShowHobby: faker.datatype.boolean(),
-      hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      hobbies: [
+        { point: faker.lorem.paragraph() },
+        { point: faker.lorem.paragraph() },
+      ],
+      skills: [
+        { point: faker.lorem.paragraph() },
+        { point: faker.lorem.paragraph() },
+      ],
     });
 
     return resume;

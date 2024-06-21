@@ -12,7 +12,7 @@ import {
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@enums";
-import { A_RESUME_WITH_THE_GIVEN_NAME_ALREADY_EXISTS } from "@bright-resume/errors";
+import { A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS } from "@bright-resume/errors";
 
 describe("microservice:resume CreateResume", () => {
   const integrationTestManager = new IntegrationTestManager();
@@ -35,13 +35,13 @@ describe("microservice:resume CreateResume", () => {
     await integrationTestManager.afterAll();
   });
 
-  it("should return 400 if a user tries to create a resume with a duplicate name", async () => {
+  it("should return 400 if a user tries to create a resume with a duplicate title", async () => {
     const authHeader = generateAuthorizationHeader({});
 
     const resume = await helperDB.createResume({ userId: authHeader.token.id });
 
     const createResumeResumeInputs: CreateResumeResumeInputs = {
-      name: resume.name,
+      title: resume.title,
     };
 
     const { errors } = await request<
@@ -54,7 +54,7 @@ describe("microservice:resume CreateResume", () => {
           mutation ($createResumeResumeInputs: CreateResumeResumeInputsGQL!) {
             createResume(createResumeResumeInputs: $createResumeResumeInputs) {
               id
-              name
+              title
               userId
             }
           }
@@ -66,7 +66,7 @@ describe("microservice:resume CreateResume", () => {
 
     expect(errors).toBeDefined();
     expect(errors[0].message).toBe(
-      A_RESUME_WITH_THE_GIVEN_NAME_ALREADY_EXISTS.description
+      A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS.description
     );
   });
 
@@ -75,10 +75,10 @@ describe("microservice:resume CreateResume", () => {
 
     const createResumeResumeInputs: CreateResumeResumeInputs = {
       name: faker.person.fullName(),
-      title: faker.person.fullName(),
-      color: ResumeColorEnum.black,
-      fontFamily: ResumeFontFamilyEnum.nunito,
-      fontSize: ResumeFontSizeEnum.large,
+      title: faker.person.jobTitle(),
+      color: ResumeColorEnum.Black,
+      fontFamily: ResumeFontFamilyEnum.Nunito,
+      fontSize: ResumeFontSizeEnum.Large,
       role: faker.person.jobTitle(),
       isShowPhoneNumber: faker.datatype.boolean(),
       phoneNumber: faker.phone.number(),

@@ -153,7 +153,7 @@ input GeneratePdfOfResumeFileInputsGQL {
   involvements: [CreateResumeInvolvementItemInputsGQL!]
   isShowSkill: Boolean
   skillLabel: String
-  skills: [String!]
+  skills: [CreateResumeSkillItemInputsGQL!]
   isShowLanguage: Boolean
   languageLabel: String
   languageNameLabel: String
@@ -161,7 +161,7 @@ input GeneratePdfOfResumeFileInputsGQL {
   languages: [CreateResumeLanguageItemInputsGQL!]
   hobbyLabel: String
   isShowHobby: Boolean
-  hobbies: [String!]
+  hobbies: [CreateResumeHobbyItemInputsGQL!]
 }
 
 input CreateResumeExperienceItemResumeInputsGQL {
@@ -255,8 +255,16 @@ input CreateResumeInvolvementItemInputsGQL {
   points: [String!]
 }
 
+input CreateResumeSkillItemInputsGQL {
+  point: String
+}
+
 input CreateResumeLanguageItemInputsGQL {
   name: String
   isShowLevel: Boolean
   level: String
+}
+
+input CreateResumeHobbyItemInputsGQL {
+  point: String
 }
