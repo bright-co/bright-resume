@@ -98,6 +98,10 @@ export type CreateResumeExperienceItemResumeInputsGql = {
   untilNow?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type CreateResumeHobbyItemInputsGql = {
+  point?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type CreateResumeInvolvementItemInputsGql = {
   company?: InputMaybe<Scalars['String']['input']>;
   fromMonth?: InputMaybe<Scalars['String']['input']>;
@@ -173,7 +177,7 @@ export type CreateResumeResumeInputsGql = {
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
   fontFamily?: InputMaybe<ResumeFontFamilyEnum>;
   fontSize?: InputMaybe<ResumeFontSizeEnum>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
   hobbyOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
@@ -218,12 +222,16 @@ export type CreateResumeResumeInputsGql = {
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
   skillOrder?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
   summaryOrder?: InputMaybe<Scalars['Float']['input']>;
   title: Scalars['String']['input'];
   website?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateResumeSkillItemInputsGql = {
+  point?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DeleteResumeResumeInputsGql = {
@@ -325,7 +333,7 @@ export type GeneratePdfOfResumeFileInputsGql = {
   experienceLocationLabel?: InputMaybe<Scalars['String']['input']>;
   experienceRoleLabel?: InputMaybe<Scalars['String']['input']>;
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLabel?: InputMaybe<Scalars['String']['input']>;
@@ -366,7 +374,7 @@ export type GeneratePdfOfResumeFileInputsGql = {
   resumeId: Scalars['String']['input'];
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
@@ -734,7 +742,7 @@ export type UpdateResumeResumeInputsGql = {
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
   fontFamily?: InputMaybe<ResumeFontFamilyEnum>;
   fontSize?: InputMaybe<ResumeFontSizeEnum>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
   hobbyOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
@@ -780,7 +788,7 @@ export type UpdateResumeResumeInputsGql = {
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
   skillOrder?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
   summaryOrder?: InputMaybe<Scalars['Float']['input']>;
