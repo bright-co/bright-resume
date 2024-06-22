@@ -1,9 +1,9 @@
 export enum ResumeFontSizeEnum {
-  Large = "large",
-  Medium = "medium",
-  Small = "small",
-  XLarge = "x_large",
-  XSmall = "x_small",
-  XxLarge = "xx_large",
-  XxSmall = "xx_small",
+  XxSmall = "XxSmall",
+  XSmall = "XSmall",
+  Small = "Small",
+  Medium = "Medium",
+  Large = "Large",
+  XLarge = "XLarge",
+  XxLarge = "XxLarge",
 }

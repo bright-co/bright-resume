@@ -11,7 +11,8 @@ export const QUERY_GET_RESUMES_RESUME = gql`
     ) {
       edges {
         id
-        name
+        title
+        userId
       }
       pageInfo {
         totalEdges

@@ -1,6 +1,10 @@
 "use client";
 
-import { Resizable } from "re-resizable";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@resume-template-components/shadcn-ui";
 
 import { SideMenu } from "./side-menu";
 import { Header } from "./header";
@@ -20,40 +24,27 @@ export default function Index({ user }: Props) {
 
   return (
     <Context.Provider value={data}>
-      <div
-        className="w-full h-screen bg-amber-100 flex"
-        style={{ minWidth: 1200 }}
-      >
+      <div className="w-full h-screen flex" style={{ minWidth: 1200 }}>
         <SideMenu />
-        <div className="w-full h-full flex flex-col ">
-          <div style={{ maxHeight: "50px" }}>
+        <div className="w-full h-full flex flex-col">
+          <div style={{ maxHeight: "50px", height: "50px" }}>
             <Header />
           </div>
           <div
             style={{ maxHeight: "calc( 100% - 50px)" }}
-            className="w-full flex-grow flex border-3 border-blue-800"
+            className="w-full flex-grow flex"
           >
-            <Resizable
-              className="h-full"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "solid 1px #ddd",
-                background: "#f0f0f0",
-              }}
-              defaultSize={{
-                width: "400px",
-              }}
-              enable={{ right: true }}
-              maxWidth="100%"
-              minWidth="1"
-            >
-              <Chat />
-            </Resizable>
-            <div className="h-full w-full overflow-auto">
-              <Resume />
-            </div>
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel defaultSize={30}>
+                <Chat />
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={70}>
+                <div className="h-full w-full overflow-auto bg-slate-100">
+                  <Resume />
+                </div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
           </div>
         </div>
       </div>

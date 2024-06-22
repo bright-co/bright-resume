@@ -208,13 +208,13 @@ type Resume {
 }
 
 enum ResumeFontSizeEnum {
-  Large
-  Medium
-  Small
-  XLarge
-  XSmall
-  XxLarge
   XxSmall
+  XSmall
+  Small
+  Medium
+  Large
+  XLarge
+  XxLarge
 }
 
 enum ResumeFontFamilyEnum {
@@ -277,7 +277,7 @@ input DeleteResumeResumeInputsGQL {
 
 input CreateResumeResumeInputsGQL {
   name: String
-  title: String
+  title: String!
   fontSize: ResumeFontSizeEnum
   fontFamily: ResumeFontFamilyEnum
   color: ResumeColorEnum
@@ -295,15 +295,18 @@ input CreateResumeResumeInputsGQL {
   isShowBirthDay: Boolean
   birthDay: String
   isShowSummary: Boolean
+  summaryOrder: Float
   summaryLabel: String
   summary: String
   isShowExperience: Boolean
+  experienceOrder: Float
   experienceLabel: String
   experienceRoleLabel: String
   experienceCompanyLabel: String
   experienceLocationLabel: String
   experiences: [CreateResumeExperienceItemResumeInputsGQL!]
   isShowProject: Boolean
+  projectOrder: Float
   projectLabel: String
   projectRoleLabel: String
   projectTitleLabel: String
@@ -313,18 +316,21 @@ input CreateResumeResumeInputsGQL {
   projects: [CreateResumeProjectItemInputsGQL!]
   isShowEducation: Boolean
   educationLabel: String
+  educationOrder: Float
   educationDegreeLabel: String
   educationInstituteLabel: String
   educationLocationLabel: String
   educationGpaLabel: String
   educations: [CreateResumeEducationItemInputsGQL!]
   isShowCertification: Boolean
+  certificationOrder: Float
   certificationLabel: String
   certificationNameLabel: String
   certificationInstituteLabel: String
   certificationYearLabel: String
   certifications: [CreateResumeCertificationItemInputsGQL!]
   isShowCourseWork: Boolean
+  courseWorkOrder: Float
   courseWorkLabel: String
   courseWorkTitleLabel: String
   courseWorkNameLabel: String
@@ -334,21 +340,25 @@ input CreateResumeResumeInputsGQL {
   courseWorks: [CreateResumeCourseWorkItemInputsGQL!]
   isShowInvolvement: Boolean
   involvementLabel: String
+  involvementOrder: Float
   involvementRoleLabel: String
   involvementCompanyLabel: String
   involvementLocationLabel: String
   involvements: [CreateResumeInvolvementItemInputsGQL!]
   isShowSkill: Boolean
   skillLabel: String
-  skills: [String!]
+  skillOrder: Float
+  skills: [CreateResumeSkillItemInputsGQL!]
   isShowLanguage: Boolean
   languageLabel: String
+  languageOrder: Float
   languageNameLabel: String
   languageLevelLabel: String
   languages: [CreateResumeLanguageItemInputsGQL!]
   hobbyLabel: String
+  hobbyOrder: Float
   isShowHobby: Boolean
-  hobbies: [String!]
+  hobbies: [CreateResumeHobbyItemInputsGQL!]
 }
 
 input CreateResumeExperienceItemResumeInputsGQL {
@@ -442,10 +452,18 @@ input CreateResumeInvolvementItemInputsGQL {
   points: [String!]
 }
 
+input CreateResumeSkillItemInputsGQL {
+  point: String
+}
+
 input CreateResumeLanguageItemInputsGQL {
   name: String
   isShowLevel: Boolean
   level: String
+}
+
+input CreateResumeHobbyItemInputsGQL {
+  point: String
 }
 
 input UpdateResumeResumeInputsGQL {
@@ -469,15 +487,18 @@ input UpdateResumeResumeInputsGQL {
   isShowBirthDay: Boolean
   birthDay: String
   isShowSummary: Boolean
+  summaryOrder: Float
   summaryLabel: String
   summary: String
   isShowExperience: Boolean
+  experienceOrder: Float
   experienceLabel: String
   experienceRoleLabel: String
   experienceCompanyLabel: String
   experienceLocationLabel: String
   experiences: [CreateResumeExperienceItemResumeInputsGQL!]
   isShowProject: Boolean
+  projectOrder: Float
   projectLabel: String
   projectRoleLabel: String
   projectTitleLabel: String
@@ -487,18 +508,21 @@ input UpdateResumeResumeInputsGQL {
   projects: [CreateResumeProjectItemInputsGQL!]
   isShowEducation: Boolean
   educationLabel: String
+  educationOrder: Float
   educationDegreeLabel: String
   educationInstituteLabel: String
   educationLocationLabel: String
   educationGpaLabel: String
   educations: [CreateResumeEducationItemInputsGQL!]
   isShowCertification: Boolean
+  certificationOrder: Float
   certificationLabel: String
   certificationNameLabel: String
   certificationInstituteLabel: String
   certificationYearLabel: String
   certifications: [CreateResumeCertificationItemInputsGQL!]
   isShowCourseWork: Boolean
+  courseWorkOrder: Float
   courseWorkLabel: String
   courseWorkTitleLabel: String
   courseWorkNameLabel: String
@@ -508,19 +532,23 @@ input UpdateResumeResumeInputsGQL {
   courseWorks: [CreateResumeCourseWorkItemInputsGQL!]
   isShowInvolvement: Boolean
   involvementLabel: String
+  involvementOrder: Float
   involvementRoleLabel: String
   involvementCompanyLabel: String
   involvementLocationLabel: String
   involvements: [CreateResumeInvolvementItemInputsGQL!]
   isShowSkill: Boolean
   skillLabel: String
-  skills: [String!]
+  skillOrder: Float
+  skills: [CreateResumeSkillItemInputsGQL!]
   isShowLanguage: Boolean
   languageLabel: String
+  languageOrder: Float
   languageNameLabel: String
   languageLevelLabel: String
   languages: [CreateResumeLanguageItemInputsGQL!]
   hobbyLabel: String
-  hobbies: [String!]
+  hobbyOrder: Float
+  hobbies: [CreateResumeHobbyItemInputsGQL!]
   isShowHobby: Boolean
 }

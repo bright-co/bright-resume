@@ -4,7 +4,9 @@ import React from "react";
 export default function Page() {
   return (
     <div>
-      <Link href="/chat">Start Chat</Link>
+      <Link href="/studio" className="bg-green-400">
+        Get Start
+      </Link>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import {
-  A_RESUME_WITH_THE_GIVEN_NAME_ALREADY_EXISTS,
+  A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS,
   CustomError,
   RESUME_NOT_FOUND,
 } from "@bright-resume/errors";
@@ -94,11 +94,11 @@ export class ResumeService {
     inputs: CreateResumeResumeInputs
   ): Promise<Resume> {
     const nameDuplication = await this.resumeModel.findOne({
-      name: inputs.name,
+      title: inputs.title,
     });
 
     if (nameDuplication) {
-      throw new CustomError(A_RESUME_WITH_THE_GIVEN_NAME_ALREADY_EXISTS);
+      throw new CustomError(A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS);
     }
 
     const resume = await this.resumeModel.create({

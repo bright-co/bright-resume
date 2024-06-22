@@ -32,12 +32,12 @@ export const NewResumeDialog: FC = () => {
         >
           <FormField
             control={form.control}
-            name="name"
+            name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name of Your username</FormLabel>
+                <FormLabel>Title of the Resume</FormLabel>
                 <FormControl>
-                  <Input placeholder="name" {...field} />
+                  <Input placeholder="title" {...field} />
                 </FormControl>
               </FormItem>
             )}

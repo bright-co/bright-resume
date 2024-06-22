@@ -10,17 +10,22 @@ import { useToast } from "@resume-template-components/shadcn-ui";
 import {
   CreateResumeMutation,
   CreateResumeMutationVariables,
+  CreateResumeResumeInputsGql,
 } from "@chatbot/gql/graphql";
 
 import { MUTATION_CREATE_RESUME_RESUME } from "./gql";
 import { useStudioContext } from "../use-context";
+import {
+  ResumeColorEnum,
+  ResumeFontFamilyEnum,
+  ResumeFontSizeEnum,
+} from "@enums";
 
 export const useData = () => {
   const {
     isOpenNewResumeDialog,
     setIsNewResumeDialog,
     setResumes,
-    setSelectedResume,
     setSelectedResumeId,
   } = useStudioContext();
   const { toast } = useToast();
@@ -29,7 +34,128 @@ export const useData = () => {
     resolver: classValidatorResolver(CreateResumeResumeInputs),
     mode: "onChange",
     defaultValues: {
-      name: "",
+      title: "",
+
+      name: "Your Name",
+      role: "Your Role",
+      fontFamily: ResumeFontFamilyEnum.Arial,
+      color: ResumeColorEnum.Black,
+      fontSize: ResumeFontSizeEnum.Medium,
+
+      summaryLabel: "Summary",
+      summary: "Your summary",
+      summaryOrder: 1,
+      isShowSummary: true,
+
+      experienceLabel: "Experiences",
+      experienceOrder: 2,
+      isShowExperience: true,
+      experiences: [
+        {
+          company: "Company",
+          role: "Role",
+          fromMonth: "From",
+          fromYear: "Year",
+          toMonth: "To ",
+          toYear: "Year",
+          location: "Location",
+          isShowDate: true,
+          isShowLocation: true,
+          isShowPoints: true,
+          points: ["Point ....."],
+        },
+      ],
+
+      isShowInvolvement: true,
+      involvementLabel: "Involvements",
+      involvementOrder: 3,
+      involvements: [
+        {
+          company: "Involvement",
+          role: "Role",
+          fromMonth: "From",
+          fromYear: "Year",
+          toMonth: "To ",
+          toYear: "Year",
+          location: "Location",
+          isShowDate: true,
+          isShowLocation: true,
+          isShowPoints: true,
+          points: ["point ....."],
+        },
+      ],
+
+      projectLabel: "Projects",
+      isShowProject: true,
+      projectOrder: 4,
+      projects: [
+        {
+          company: "Company",
+          role: "Role",
+          fromMonth: "From",
+          fromYear: "Year",
+          toMonth: "To ",
+          toYear: "Year",
+          isShowCompany: true,
+          isShowDate: true,
+          isShowPoints: true,
+          isShowLocation: true,
+          title: "Project Title",
+          isShowRole: true,
+          isShowUrl: true,
+          url: "url address",
+          points: ["point 1 ....", "point 2 ...."],
+        },
+      ],
+
+      educationLabel: "Educations",
+      isShowEducation: true,
+      educationOrder: 5,
+      educations: [
+        {
+          degree: "Degree",
+          fromMonth: "From",
+          fromYear: "Year",
+          toMonth: "To ",
+          toYear: "Year",
+          gpa: "GPA",
+          isShowInstitute: true,
+          isShowLocation: true,
+          isShowPoints: true,
+          location: "Location",
+          institute: "Institute",
+          isShowDate: true,
+          isShowGpa: true,
+          points: ["point 1 ....", "point 2 ...."],
+        },
+      ],
+
+      skillLabel: "Skills",
+      skillOrder: 6,
+
+      certificationLabel: "Certifications",
+      isShowCertification: true,
+      certificationOrder: 7,
+      certifications: [
+        {
+          institute: "Institute",
+          name: "Name",
+          year: "Year",
+          points: ["point 1 ....", "point 2 ...."],
+          isShowDate: true,
+          isShowInstitute: true,
+          isShowPoints: true,
+        },
+      ],
+
+      courseWorkLabel: "CourseWork",
+      courseWorkOrder: 8,
+
+      languageLabel: "Languages",
+      languageOrder: 9,
+
+      hobbyLabel: "Hobbies",
+      hobbyOrder: 10,
     },
   });
 
@@ -44,20 +170,21 @@ export const useData = () => {
         description: error.message,
       });
     },
-    onCompleted: async ({ createResume: { id, name } }) => {
+    onCompleted: async ({ createResume: { id, title, userId } }) => {
       toast({
         title: "Welcome!",
         description: "Resume Created Successfully!",
       });
       setIsNewResumeDialog(false);
-      setResumes((prev) => [{ id, name }, ...prev]);
-      setSelectedResume({ id, name });
+      setResumes((prev) => [{ id, title, userId }, ...prev]);
       setSelectedResumeId(id!);
     },
   });
 
-  const onSubmit: SubmitHandler<CreateResumeResumeInputs> = ({ name }) => {
-    signInAuth({ variables: { createResumeResumeInputs: { name } } });
+  const onSubmit: SubmitHandler<CreateResumeResumeInputsGql> = (
+    createResumeResumeInputs
+  ) => {
+    signInAuth({ variables: { createResumeResumeInputs } });
   };
 
   return {

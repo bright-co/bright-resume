@@ -30,7 +30,6 @@ export const SideMenu: FC = () => {
     resumes,
     loading,
     selectedResume,
-    setSelectedResume,
     setSelectedResumeId,
   } = useData();
 
@@ -94,7 +93,7 @@ export const SideMenu: FC = () => {
           )}
           {!loading && resumes.length === 0 && <p> Not Found!</p>}
           {!loading &&
-            resumes.map(({ name, id }) => (
+            resumes.map(({ title, id }) => (
               <>
                 <div
                   key={id}
@@ -102,11 +101,10 @@ export const SideMenu: FC = () => {
                     "bg-red-400": selectedResume && selectedResume.id === id,
                   })}
                   onClick={() => {
-                    setSelectedResume({ id, name });
                     setSelectedResumeId(id!);
                   }}
                 >
-                  {name}
+                  {title}
                 </div>
                 <Separator className="my-2" />
               </>

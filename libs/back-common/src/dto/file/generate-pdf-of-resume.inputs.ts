@@ -4,9 +4,11 @@ import {
   CreateResumeCourseWorkItemInputsGQL,
   CreateResumeEducationItemInputsGQL,
   CreateResumeExperienceItemResumeInputsGQL,
+  CreateResumeHobbyItemInputsGQL,
   CreateResumeInvolvementItemInputsGQL,
   CreateResumeLanguageItemInputsGQL,
   CreateResumeProjectItemInputsGQL,
+  CreateResumeSkillItemInputsGQL,
 } from "../resume";
 import { CreateResumeResumeInputs, GeneratePdfOfResumeFileInputs } from "@dto";
 
@@ -198,8 +200,8 @@ export class GeneratePdfOfResumeFileInputsGQL
   @Field(() => String, { nullable: true })
   skillLabel?: string;
 
-  @Field(() => [String], { nullable: true })
-  skills?: string[];
+  @Field(() => [CreateResumeSkillItemInputsGQL], { nullable: true })
+  skills?: CreateResumeSkillItemInputsGQL[];
 
   @Field(() => Boolean, { nullable: true })
   isShowLanguage?: boolean;
@@ -222,6 +224,6 @@ export class GeneratePdfOfResumeFileInputsGQL
   @Field(() => Boolean, { nullable: true })
   isShowHobby?: boolean;
 
-  @Field(() => [String], { nullable: true })
-  hobbies?: string[];
+  @Field(() => [CreateResumeHobbyItemInputsGQL], { nullable: true })
+  hobbies?: CreateResumeHobbyItemInputsGQL[];
 }

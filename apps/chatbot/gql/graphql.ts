@@ -98,6 +98,10 @@ export type CreateResumeExperienceItemResumeInputsGql = {
   untilNow?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type CreateResumeHobbyItemInputsGql = {
+  point?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type CreateResumeInvolvementItemInputsGql = {
   company?: InputMaybe<Scalars['String']['input']>;
   fromMonth?: InputMaybe<Scalars['String']['input']>;
@@ -145,12 +149,14 @@ export type CreateResumeResumeInputsGql = {
   certificationInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   certificationLabel?: InputMaybe<Scalars['String']['input']>;
   certificationNameLabel?: InputMaybe<Scalars['String']['input']>;
+  certificationOrder?: InputMaybe<Scalars['Float']['input']>;
   certificationYearLabel?: InputMaybe<Scalars['String']['input']>;
   certifications?: InputMaybe<Array<CreateResumeCertificationItemInputsGql>>;
   color?: InputMaybe<ResumeColorEnum>;
   courseWorkInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkNameLabel?: InputMaybe<Scalars['String']['input']>;
+  courseWorkOrder?: InputMaybe<Scalars['Float']['input']>;
   courseWorkSkillsLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkTitleLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkYearLabel?: InputMaybe<Scalars['String']['input']>;
@@ -160,20 +166,24 @@ export type CreateResumeResumeInputsGql = {
   educationInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   educationLabel?: InputMaybe<Scalars['String']['input']>;
   educationLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  educationOrder?: InputMaybe<Scalars['Float']['input']>;
   educations?: InputMaybe<Array<CreateResumeEducationItemInputsGql>>;
   email?: InputMaybe<Scalars['String']['input']>;
   experienceCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   experienceLabel?: InputMaybe<Scalars['String']['input']>;
   experienceLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  experienceOrder?: InputMaybe<Scalars['Float']['input']>;
   experienceRoleLabel?: InputMaybe<Scalars['String']['input']>;
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
   fontFamily?: InputMaybe<ResumeFontFamilyEnum>;
   fontSize?: InputMaybe<ResumeFontSizeEnum>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
+  hobbyOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  involvementOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementRoleLabel?: InputMaybe<Scalars['String']['input']>;
   involvements?: InputMaybe<Array<CreateResumeInvolvementItemInputsGql>>;
   isShowBirthDay?: InputMaybe<Scalars['Boolean']['input']>;
@@ -195,6 +205,7 @@ export type CreateResumeResumeInputsGql = {
   languageLabel?: InputMaybe<Scalars['String']['input']>;
   languageLevelLabel?: InputMaybe<Scalars['String']['input']>;
   languageNameLabel?: InputMaybe<Scalars['String']['input']>;
+  languageOrder?: InputMaybe<Scalars['Float']['input']>;
   languages?: InputMaybe<Array<CreateResumeLanguageItemInputsGql>>;
   linkedin?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
@@ -203,17 +214,24 @@ export type CreateResumeResumeInputsGql = {
   projectCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   projectLabel?: InputMaybe<Scalars['String']['input']>;
   projectLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  projectOrder?: InputMaybe<Scalars['Float']['input']>;
   projectRoleLabel?: InputMaybe<Scalars['String']['input']>;
   projectTitleLabel?: InputMaybe<Scalars['String']['input']>;
   projectUrlLabel?: InputMaybe<Scalars['String']['input']>;
   projects?: InputMaybe<Array<CreateResumeProjectItemInputsGql>>;
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillOrder?: InputMaybe<Scalars['Float']['input']>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
+  summaryOrder?: InputMaybe<Scalars['Float']['input']>;
+  title: Scalars['String']['input'];
   website?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateResumeSkillItemInputsGql = {
+  point?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DeleteResumeResumeInputsGql = {
@@ -315,7 +333,7 @@ export type GeneratePdfOfResumeFileInputsGql = {
   experienceLocationLabel?: InputMaybe<Scalars['String']['input']>;
   experienceRoleLabel?: InputMaybe<Scalars['String']['input']>;
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLabel?: InputMaybe<Scalars['String']['input']>;
@@ -356,7 +374,7 @@ export type GeneratePdfOfResumeFileInputsGql = {
   resumeId: Scalars['String']['input'];
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
@@ -696,12 +714,14 @@ export type UpdateResumeResumeInputsGql = {
   certificationInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   certificationLabel?: InputMaybe<Scalars['String']['input']>;
   certificationNameLabel?: InputMaybe<Scalars['String']['input']>;
+  certificationOrder?: InputMaybe<Scalars['Float']['input']>;
   certificationYearLabel?: InputMaybe<Scalars['String']['input']>;
   certifications?: InputMaybe<Array<CreateResumeCertificationItemInputsGql>>;
   color?: InputMaybe<ResumeColorEnum>;
   courseWorkInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkNameLabel?: InputMaybe<Scalars['String']['input']>;
+  courseWorkOrder?: InputMaybe<Scalars['Float']['input']>;
   courseWorkSkillsLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkTitleLabel?: InputMaybe<Scalars['String']['input']>;
   courseWorkYearLabel?: InputMaybe<Scalars['String']['input']>;
@@ -711,20 +731,24 @@ export type UpdateResumeResumeInputsGql = {
   educationInstituteLabel?: InputMaybe<Scalars['String']['input']>;
   educationLabel?: InputMaybe<Scalars['String']['input']>;
   educationLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  educationOrder?: InputMaybe<Scalars['Float']['input']>;
   educations?: InputMaybe<Array<CreateResumeEducationItemInputsGql>>;
   email?: InputMaybe<Scalars['String']['input']>;
   experienceCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   experienceLabel?: InputMaybe<Scalars['String']['input']>;
   experienceLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  experienceOrder?: InputMaybe<Scalars['Float']['input']>;
   experienceRoleLabel?: InputMaybe<Scalars['String']['input']>;
   experiences?: InputMaybe<Array<CreateResumeExperienceItemResumeInputsGql>>;
   fontFamily?: InputMaybe<ResumeFontFamilyEnum>;
   fontSize?: InputMaybe<ResumeFontSizeEnum>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
+  hobbies?: InputMaybe<Array<CreateResumeHobbyItemInputsGql>>;
   hobbyLabel?: InputMaybe<Scalars['String']['input']>;
+  hobbyOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLabel?: InputMaybe<Scalars['String']['input']>;
   involvementLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  involvementOrder?: InputMaybe<Scalars['Float']['input']>;
   involvementRoleLabel?: InputMaybe<Scalars['String']['input']>;
   involvements?: InputMaybe<Array<CreateResumeInvolvementItemInputsGql>>;
   isShowBirthDay?: InputMaybe<Scalars['Boolean']['input']>;
@@ -746,6 +770,7 @@ export type UpdateResumeResumeInputsGql = {
   languageLabel?: InputMaybe<Scalars['String']['input']>;
   languageLevelLabel?: InputMaybe<Scalars['String']['input']>;
   languageNameLabel?: InputMaybe<Scalars['String']['input']>;
+  languageOrder?: InputMaybe<Scalars['Float']['input']>;
   languages?: InputMaybe<Array<CreateResumeLanguageItemInputsGql>>;
   linkedin?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
@@ -754,6 +779,7 @@ export type UpdateResumeResumeInputsGql = {
   projectCompanyLabel?: InputMaybe<Scalars['String']['input']>;
   projectLabel?: InputMaybe<Scalars['String']['input']>;
   projectLocationLabel?: InputMaybe<Scalars['String']['input']>;
+  projectOrder?: InputMaybe<Scalars['Float']['input']>;
   projectRoleLabel?: InputMaybe<Scalars['String']['input']>;
   projectTitleLabel?: InputMaybe<Scalars['String']['input']>;
   projectUrlLabel?: InputMaybe<Scalars['String']['input']>;
@@ -761,9 +787,11 @@ export type UpdateResumeResumeInputsGql = {
   resumeId: Scalars['String']['input'];
   role?: InputMaybe<Scalars['String']['input']>;
   skillLabel?: InputMaybe<Scalars['String']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillOrder?: InputMaybe<Scalars['Float']['input']>;
+  skills?: InputMaybe<Array<CreateResumeSkillItemInputsGql>>;
   summary?: InputMaybe<Scalars['String']['input']>;
   summaryLabel?: InputMaybe<Scalars['String']['input']>;
+  summaryOrder?: InputMaybe<Scalars['Float']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
 };
@@ -815,7 +843,7 @@ export type CreateResumeMutationVariables = Exact<{
 }>;
 
 
-export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', id?: string | null, name?: string | null } };
+export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', id?: string | null, title?: string | null, userId: string } };
 
 export type GetResumesQueryVariables = Exact<{
   getResumesResumeArgs: GetResumesResumeArgsGql;
@@ -823,12 +851,12 @@ export type GetResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetResumesQuery = { __typename?: 'Query', getResumes: { __typename?: 'PaginatedResume', edges: Array<{ __typename?: 'Resume', id?: string | null, name?: string | null }>, pageInfo: { __typename?: 'PageInfo', totalEdges: number, edgeCount?: number | null, edgesPerPage: number, totalPages: number, currentPage: number } } };
+export type GetResumesQuery = { __typename?: 'Query', getResumes: { __typename?: 'PaginatedResume', edges: Array<{ __typename?: 'Resume', id?: string | null, title?: string | null, userId: string }>, pageInfo: { __typename?: 'PageInfo', totalEdges: number, edgeCount?: number | null, edgesPerPage: number, totalPages: number, currentPage: number } } };
 
 
 export const SignInWithOAuthTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signInWithOAuthToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithOAuthToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}}]}}]}}]} as unknown as DocumentNode<SignInWithOAuthTokenQuery, SignInWithOAuthTokenQueryVariables>;
 export const SignInAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signInAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignInAuthMutation, SignInAuthMutationVariables>;
 export const SignUpAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signUpAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignUpAuthMutation, SignUpAuthMutationVariables>;
 export const GetResumeByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumeById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumeByIdResumeArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumeById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumeByIdResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"fontSize"}},{"kind":"Field","name":{"kind":"Name","value":"fontFamily"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowImage"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPhoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLinkedin"}},{"kind":"Field","name":{"kind":"Name","value":"linkedin"}},{"kind":"Field","name":{"kind":"Name","value":"isShowWebsite"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"isShowEmail"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowBirthDay"}},{"kind":"Field","name":{"kind":"Name","value":"birthDay"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSummary"}},{"kind":"Field","name":{"kind":"Name","value":"summaryOrder"}},{"kind":"Field","name":{"kind":"Name","value":"summaryLabel"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"isShowExperience"}},{"kind":"Field","name":{"kind":"Name","value":"experienceOrder"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowProject"}},{"kind":"Field","name":{"kind":"Name","value":"projectOrder"}},{"kind":"Field","name":{"kind":"Name","value":"projectLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectUrlLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projects"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"isShowRole"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowUrl"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowEducation"}},{"kind":"Field","name":{"kind":"Name","value":"educationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"educationDegreeLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationGpaLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowGpa"}},{"kind":"Field","name":{"kind":"Name","value":"gpa"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCertification"}},{"kind":"Field","name":{"kind":"Name","value":"certificationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"certificationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCourseWork"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkOrder"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkSkillsLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkills"}},{"kind":"Field","name":{"kind":"Name","value":"isSkills"}},{"kind":"Field","name":{"kind":"Name","value":"skills"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowInvolvement"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementOrder"}},{"kind":"Field","name":{"kind":"Name","value":"involvementRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkill"}},{"kind":"Field","name":{"kind":"Name","value":"skillLabel"}},{"kind":"Field","name":{"kind":"Name","value":"skillOrder"}},{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowLanguage"}},{"kind":"Field","name":{"kind":"Name","value":"languageOrder"}},{"kind":"Field","name":{"kind":"Name","value":"languageLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageLevelLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLevel"}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hobbyOrder"}},{"kind":"Field","name":{"kind":"Name","value":"hobbyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowHobby"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetResumeByIdQuery, GetResumeByIdQueryVariables>;
-export const CreateResumeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createResume"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateResumeResumeInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createResume"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createResumeResumeInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CreateResumeMutation, CreateResumeMutationVariables>;
-export const GetResumesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumesResumeArgsGQL"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumesResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}}},{"kind":"Argument","name":{"kind":"Name","value":"paginationArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalEdges"}},{"kind":"Field","name":{"kind":"Name","value":"edgeCount"}},{"kind":"Field","name":{"kind":"Name","value":"edgesPerPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"currentPage"}}]}}]}}]}}]} as unknown as DocumentNode<GetResumesQuery, GetResumesQueryVariables>;
+export const CreateResumeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createResume"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateResumeResumeInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createResume"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createResumeResumeInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<CreateResumeMutation, CreateResumeMutationVariables>;
+export const GetResumesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumesResumeArgsGQL"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumesResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}}},{"kind":"Argument","name":{"kind":"Name","value":"paginationArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalEdges"}},{"kind":"Field","name":{"kind":"Name","value":"edgeCount"}},{"kind":"Field","name":{"kind":"Name","value":"edgesPerPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"currentPage"}}]}}]}}]}}]} as unknown as DocumentNode<GetResumesQuery, GetResumesQueryVariables>;

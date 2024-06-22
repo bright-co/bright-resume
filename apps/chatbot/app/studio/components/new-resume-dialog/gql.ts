@@ -6,7 +6,8 @@ export const MUTATION_CREATE_RESUME_RESUME = gql`
   ) {
     createResume(createResumeResumeInputs: $createResumeResumeInputs) {
       id
-      name
+      title
+      userId
     }
   }
 `;

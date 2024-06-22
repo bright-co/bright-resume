@@ -49,8 +49,7 @@ export const useData = () => {
     },
 
     onCompleted: async ({ getResumes: { edges } }) => {
-      if (paginationArgs.page === 1) {
-        setSelectedResume(edges[0]);
+      if (paginationArgs.page === 1 && edges.length) {
         setSelectedResumeId(edges[0].id!);
       }
       setResumes(edges);

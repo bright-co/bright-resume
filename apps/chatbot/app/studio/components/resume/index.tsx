@@ -27,17 +27,19 @@ type ZoomRangeType = 0.5 | 0.75 | 1 | 1.25 | 1.5 | 1.75;
 
 export const Resume: FC = () => {
   const data = useData();
-
   const [zoom, setZoom] = useState<ZoomRangeType>(1);
   const target = useRef(null);
   const [width, height] = useSize(target);
 
   return (
-    <div className="resume-container bg-slate-100 overflow-scroll border border-cyan-400">
-      <div className="my-3 flex justify-center items-center">
+    <div className="resume-container overflow-scroll h-full px-9">
+      <div
+        className="my-3 flex justify-center items-center"
+        style={{ minWidth: width * zoom }}
+      >
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>{`FontSize: (${data.resumeModel.getFontSize()})`}</MenubarTrigger>
+            <MenubarTrigger className="whitespace-nowrap">{`FontSize: (${data.resumeModel.getFontSize()})`}</MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value={data.resumeModel.getFontSize()}>
                 {Object.values(ResumeFontSizeEnum).map((value) => (
@@ -56,7 +58,7 @@ export const Resume: FC = () => {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>{`Color: (${data.resumeModel.getColor()})`}</MenubarTrigger>
+            <MenubarTrigger className="whitespace-nowrap">{`Color: (${data.resumeModel.getColor()})`}</MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value={data.resumeModel.getColor()}>
                 {Object.values(ResumeColorEnum).map((value) => (
@@ -83,7 +85,7 @@ export const Resume: FC = () => {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>{`FontFamily: (${data.resumeModel.getFontFamily()})`}</MenubarTrigger>
+            <MenubarTrigger className="whitespace-nowrap">{`FontFamily: (${data.resumeModel.getFontFamily()})`}</MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value={data.resumeModel.getFontFamily()}>
                 {Object.values(ResumeFontFamilyEnum).map((value) => (
@@ -181,7 +183,9 @@ export const Resume: FC = () => {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>{`Zoom (×${zoom})`} </MenubarTrigger>
+            <MenubarTrigger className="whitespace-nowrap">
+              {`Zoom (×${zoom})`}{" "}
+            </MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value={zoom.toString()}>
                 {([0.5, 0.75, 1, 1.25, 1.5, 1.75] as ZoomRangeType[]).map(

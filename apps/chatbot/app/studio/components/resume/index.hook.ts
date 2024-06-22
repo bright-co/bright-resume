@@ -24,7 +24,7 @@ import {
 } from "@models";
 
 import { ResumeTemplateProps } from "@resume-template-components/templates/resume-template-props";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useStudioContext } from "../use-context";
 
@@ -34,6 +34,10 @@ export const useData = () => {
   const [resumeModel, setResumeModel] = useState(
     new ResumeModel(selectedResume)
   );
+
+  useEffect(() => {
+    setResumeModel(new ResumeModel(selectedResume));
+  }, [selectedResume]);
 
   const [hoverSection, setHoverSection] =
     useState<ResumeTemplateProps["hoverSection"]>();

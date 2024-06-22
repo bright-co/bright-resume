@@ -9,6 +9,8 @@ export const UserId = createParamDecorator(
 
     const ctx = GqlExecutionContext.create(context);
 
+    console.log({ "ctx.getContext().req.user": ctx.getContext().req.user });
+
     return ctx.getContext().req.user.id;
   }
 );
