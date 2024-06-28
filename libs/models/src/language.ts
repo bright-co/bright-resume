@@ -5,14 +5,14 @@ export interface ILanguage {
 }
 
 export class LanguageModel {
-  constructor(private input: Partial<ILanguage> = {}) {}
+  constructor(public input: Partial<ILanguage> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;
   }
 
   setName(name: string): void {
-    this.input.name = name;
+    this.input = { ...this.input, name };
   }
 
   getIsShowLevel(): boolean | undefined {
@@ -20,7 +20,7 @@ export class LanguageModel {
   }
 
   setIsShowRole(isShowLevel: boolean): void {
-    this.input.isShowLevel = isShowLevel;
+    this.input = { ...this.input, isShowLevel };
   }
 
   getLevel(): string | undefined {
@@ -28,7 +28,7 @@ export class LanguageModel {
   }
 
   setLevel(level: string): void {
-    this.input.level = level;
+    this.input = { ...this.input, level };
   }
 
   callSetMethod<M extends LanguageModelSetMethodsKeyType>(

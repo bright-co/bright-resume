@@ -100,38 +100,44 @@ export const useData = () => {
     newIndex: number
   ) => {
     if (section === "education") {
-      resumeModel.changeEducationsPointIndex(
+      callResumeEducationSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
     } else if (section === "project") {
-      resumeModel.changeProjectsPointIndex(
+      callResumeProjectSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
     } else if (section === "experience") {
-      resumeModel.changeExperiencesPointIndex(
+      callResumeExperienceSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
     } else if (section === "certification") {
-      resumeModel.changeCertificationsPointIndex(
+      callResumeCertificationSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
     } else if (section === "courseWork") {
-      resumeModel.changeCourseWorksPointIndex(
+      callResumeCourseWorkSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
     } else if (section === "involvement") {
-      resumeModel.changeInvolvementsPointIndex(
+      callResumeInvolvementSetMethod(
         subSectionIndex,
+        "changePointsIndex",
         pointIndex,
         newIndex
       );
@@ -161,7 +167,12 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getProjects().length) return;
 
-    resumeModel.getProjects()[index].callSetMethod(methodName, ...args);
+    const projectModel = resumeModel.getProjects()[index];
+
+    projectModel.callSetMethod(methodName, ...args);
+
+    resumeModel.setProject(index, projectModel.input);
+
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -174,7 +185,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getCertifications().length) return;
 
-    resumeModel.getCertifications()[index].callSetMethod(methodName, ...args);
+    const certificationModel = resumeModel.getCertifications()[index];
+    certificationModel.callSetMethod(methodName, ...args);
+    resumeModel.setCertification(index, certificationModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -187,7 +200,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getCourseWorks().length) return;
 
-    resumeModel.getCourseWorks()[index].callSetMethod(methodName, ...args);
+    const courseWorkModel = resumeModel.getCourseWorks()[index];
+    courseWorkModel.callSetMethod(methodName, ...args);
+    resumeModel.setCourseWork(index, courseWorkModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -200,7 +215,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getEducations().length) return;
 
-    resumeModel.getEducations()[index].callSetMethod(methodName, ...args);
+    const educationModel = resumeModel.getEducations()[index];
+    educationModel.callSetMethod(methodName, ...args);
+    resumeModel.setEducation(index, educationModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -213,7 +230,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getExperiences().length) return;
 
-    resumeModel.getExperiences()[index].callSetMethod(methodName, ...args);
+    const experienceModel = resumeModel.getExperiences()[index];
+    experienceModel.callSetMethod(methodName, ...args);
+    resumeModel.setExperience(index, experienceModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -226,7 +245,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getInvolvements().length) return;
 
-    resumeModel.getInvolvements()[index].callSetMethod(methodName, ...args);
+    const involvementModel = resumeModel.getInvolvements()[index];
+    involvementModel.callSetMethod(methodName, ...args);
+    resumeModel.setInvolvement(index, involvementModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -239,7 +260,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getLanguages().length) return;
 
-    resumeModel.getLanguages()[index].callSetMethod(methodName, ...args);
+    const languageModel = resumeModel.getLanguages()[index];
+    languageModel.callSetMethod(methodName, ...args);
+    resumeModel.setLanguage(index, languageModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -250,7 +273,9 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getSkills().length) return;
 
-    resumeModel.getSkills()[index].callSetMethod(methodName, ...args);
+    const skillModel = resumeModel.getSkills()[index];
+    skillModel.callSetMethod(methodName, ...args);
+    resumeModel.setSkill(index, skillModel.input);
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
@@ -261,7 +286,10 @@ export const useData = () => {
   ) => {
     if (index >= resumeModel.getHobbies().length) return;
 
-    resumeModel.getHobbies()[index].callSetMethod(methodName, ...args);
+    const hobbyModel = resumeModel.getHobbies()[index];
+    hobbyModel.callSetMethod(methodName, ...args);
+    resumeModel.setHobby(index, hobbyModel.input);
+
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 

@@ -24,7 +24,7 @@ export class EducationModel {
   }
 
   setDegree(degree: string): void {
-    this.input.degree = degree;
+    this.input = { ...this.input, degree };
   }
 
   getIsShowInstitute(): boolean | undefined {
@@ -32,7 +32,7 @@ export class EducationModel {
   }
 
   setIsShowInstitute(isShowInstitute: boolean): void {
-    this.input.isShowInstitute = isShowInstitute;
+    this.input = { ...this.input, isShowInstitute };
   }
 
   getInstitute(): string | undefined {
@@ -40,7 +40,7 @@ export class EducationModel {
   }
 
   setInstitute(institute: string): void {
-    this.input.institute = institute;
+    this.input = { ...this.input, institute };
   }
 
   getIsShowLocation(): boolean | undefined {
@@ -48,7 +48,7 @@ export class EducationModel {
   }
 
   setIsShowLocation(isShowLocation: boolean): void {
-    this.input.isShowLocation = isShowLocation;
+    this.input = { ...this.input, isShowLocation };
   }
 
   getIsShowGpa(): boolean | undefined {
@@ -56,7 +56,7 @@ export class EducationModel {
   }
 
   setIsShowGpa(isShowGpa: boolean): void {
-    this.input.isShowGpa = isShowGpa;
+    this.input = { ...this.input, isShowGpa };
   }
 
   getLocation(): string | undefined {
@@ -64,7 +64,7 @@ export class EducationModel {
   }
 
   setLocation(location: string): void {
-    this.input.location = location;
+    this.input = { ...this.input, location };
   }
 
   getGpa(): string | undefined {
@@ -72,7 +72,7 @@ export class EducationModel {
   }
 
   setGpa(gpa: string): void {
-    this.input.gpa = gpa;
+    this.input = { ...this.input, gpa };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -80,7 +80,7 @@ export class EducationModel {
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getFromMonth(): string | undefined {
@@ -88,7 +88,7 @@ export class EducationModel {
   }
 
   setFromMonth(fromMonth: string): void {
-    this.input.fromMonth = fromMonth;
+    this.input = { ...this.input, fromMonth };
   }
 
   getFromYear(): string | undefined {
@@ -96,7 +96,7 @@ export class EducationModel {
   }
 
   setFromYear(fromYear: string): void {
-    this.input.fromYear = fromYear;
+    this.input = { ...this.input, fromYear };
   }
 
   getToMonth(): string | undefined {
@@ -104,7 +104,7 @@ export class EducationModel {
   }
 
   setToMonth(toMonth: string): void {
-    this.input.toMonth = toMonth;
+    this.input = { ...this.input, toMonth };
   }
 
   getToYear(): string | undefined {
@@ -112,7 +112,7 @@ export class EducationModel {
   }
 
   setToYear(toYear: string): void {
-    this.input.toYear = toYear;
+    this.input = { ...this.input, toYear };
   }
 
   getUntilNow(): boolean | undefined {
@@ -120,7 +120,7 @@ export class EducationModel {
   }
 
   setUntilNow(untilNow: boolean): void {
-    this.input.untilNow = untilNow;
+    this.input = { ...this.input, untilNow };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -128,7 +128,7 @@ export class EducationModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -138,7 +138,9 @@ export class EducationModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -151,11 +153,15 @@ export class EducationModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends EducationModelSetMethodsKeyType>(
@@ -191,4 +197,5 @@ export type EducationModelSetMethodsKeyType =
   | "setToYear"
   | "setUntilNow"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";

@@ -15,7 +15,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../use-context";
 
 export const useData = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const {
     resumes,
@@ -79,8 +78,6 @@ export const useData = () => {
     onSubmit,
     form,
     loading,
-    isCollapsed,
-    setIsCollapsed,
     errorMessage,
     resumes,
     getResumesResumeArgs,

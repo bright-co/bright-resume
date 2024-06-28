@@ -9,26 +9,26 @@ export interface ICertification {
 }
 
 export class CertificationModel {
-  constructor(private input: Partial<ICertification> = {}) {}
+  constructor(public input: Partial<ICertification> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;
   }
 
   setName(name: string): void {
-    this.input.name = name;
+    this.input = { ...this.input, name };
   }
 
   getIsShowInstitute(): boolean | undefined {
     return this.input.isShowInstitute;
   }
 
-  setIsShowInstitute(): boolean | undefined {
-    return this.input.isShowInstitute;
+  setIsShowInstitute(isShowInstitute: boolean | undefined) {
+    this.input = { ...this.input, isShowInstitute };
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getInstitute(): string | undefined {
@@ -36,7 +36,7 @@ export class CertificationModel {
   }
 
   setInstitute(institute: string): void {
-    this.input.institute = institute;
+    this.input = { ...this.input, institute };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -48,7 +48,7 @@ export class CertificationModel {
   }
 
   setYear(year: string): void {
-    this.input.year = year;
+    this.input = { ...this.input, year };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -56,7 +56,7 @@ export class CertificationModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -66,7 +66,9 @@ export class CertificationModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -79,11 +81,15 @@ export class CertificationModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends CertificationModelSetMethodsKeyType>(
@@ -110,4 +116,5 @@ export type CertificationModelSetMethodsKeyType =
   | "setYear"
   | "setIsShowDate"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";

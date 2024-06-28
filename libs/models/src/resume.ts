@@ -120,7 +120,11 @@ export interface IResume {
 }
 
 export class ResumeModel {
-  constructor(public input: Partial<IResume> | undefined = {}) {}
+  input: Partial<IResume> | undefined = {};
+
+  constructor(input: Partial<IResume> | undefined = {}) {
+    this.input = input;
+  }
 
   getUserId(): string | undefined {
     return this.input.userId;
@@ -469,6 +473,12 @@ export class ResumeModel {
     );
   }
 
+  setEducation(index: number, education: IEducation) {
+    const educations = [...this.input.educations];
+    educations[index] = education;
+    this.input.educations = educations;
+  }
+
   getIsShowCertification(): boolean | undefined {
     return this.input.isShowCertification;
   }
@@ -619,6 +629,12 @@ export class ResumeModel {
 
   getSkills(): SkillModel[] {
     return this.input.skills?.map((skill) => new SkillModel(skill)) || [];
+  }
+
+  setSkill(index: number, skill: ISkill) {
+    const skills = [...this.input.skills];
+    skills[index] = skill;
+    this.input.skills = skills;
   }
 
   setSkillLabel(skillLabel: string | undefined): void {
@@ -855,6 +871,12 @@ export class ResumeModel {
     );
   }
 
+  setExperience(index: number, experience: IExperience) {
+    const experiences = [...this.input.experiences];
+    experiences[index] = experience;
+    this.input.experiences = experiences;
+  }
+
   changeExperiencesIndex(index1: number, index2: number) {
     if (!this.input.experiences) {
       return;
@@ -897,6 +919,14 @@ export class ResumeModel {
     return (
       this.input.projects?.map((project) => new ProjectModel(project)) || []
     );
+  }
+
+  setProject(index: number, project: IProject) {
+    const projects = [...this.input.projects];
+    projects[index] = project;
+    this.input.projects = projects;
+
+    console.log(this.input.projects);
   }
 
   changeProjectsIndex(index1: number, index2: number) {
@@ -982,6 +1012,12 @@ export class ResumeModel {
     );
   }
 
+  setCertification(index: number, certification: ICertification) {
+    const certifications = [...this.input.certifications];
+    certifications[index] = certification;
+    this.input.certifications = certifications;
+  }
+
   changeCertificationsIndex(index1: number, index2: number) {
     if (!this.input.certifications) {
       return;
@@ -1025,6 +1061,12 @@ export class ResumeModel {
         (courseWork) => new CourseWorkModel(courseWork)
       ) || []
     );
+  }
+
+  setCourseWork(index: number, courseWork: ICourseWork) {
+    const courseWorks = [...this.input.courseWorks];
+    courseWorks[index] = courseWork;
+    this.input.courseWorks = courseWorks;
   }
 
   changeCourseWorksIndex(index1: number, index2: number) {
@@ -1072,6 +1114,12 @@ export class ResumeModel {
     );
   }
 
+  setInvolvement(index: number, involvement: IInvolvement) {
+    const involvements = [...this.input.involvements];
+    involvements[index] = involvement;
+    this.input.involvements = involvements;
+  }
+
   changeInvolvementsIndex(index1: number, index2: number) {
     if (!this.input.involvements) {
       return;
@@ -1105,6 +1153,7 @@ export class ResumeModel {
   getSkillOrder(): number | undefined {
     return this.input.skillOrder;
   }
+
   setSkillOrder(order: number | undefined): void {
     this.input.skillOrder = order;
   }
@@ -1138,6 +1187,12 @@ export class ResumeModel {
     );
   }
 
+  setLanguage(index: number, language: ILanguage) {
+    const languages = [...this.input.languages];
+    languages[index] = language;
+    this.input.languages = languages;
+  }
+
   changeLanguagesIndex(index1: number, index2: number) {
     if (!this.input.languages) {
       return;
@@ -1163,6 +1218,12 @@ export class ResumeModel {
 
   getHobbies(): HobbyModel[] {
     return this.input.hobbies?.map((hobby) => new HobbyModel(hobby)) || [];
+  }
+
+  setHobby(index: number, hobby: IHobby) {
+    const hobbies = [...this.input.hobbies];
+    hobbies[index] = hobby;
+    this.input.hobbies = hobbies;
   }
 
   changeHobbiesIndex(index1: number, index2: number) {

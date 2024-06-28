@@ -12,6 +12,7 @@ import {
   MenubarRadioGroup,
   MenubarRadioItem,
   MenubarTrigger,
+  Button,
 } from "@resume-template-components/shadcn-ui";
 import { TemplateMinimalist } from "@resume-template-components/templates/minimalist";
 
@@ -201,6 +202,11 @@ export const Resume: FC = () => {
                 )}
               </MenubarRadioGroup>
             </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <Button variant="outline" size="icon">
+              Save
+            </Button>
           </MenubarMenu>
         </Menubar>
       </div>

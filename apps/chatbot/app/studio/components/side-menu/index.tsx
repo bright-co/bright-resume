@@ -23,8 +23,6 @@ import { useStudioContext } from "../use-context";
 
 export const SideMenu: FC = () => {
   const {
-    isCollapsed,
-    setIsCollapsed,
     form,
     onSubmit,
     resumes,
@@ -32,6 +30,8 @@ export const SideMenu: FC = () => {
     selectedResume,
     setSelectedResumeId,
   } = useData();
+
+  const { isCollapsedSideMenu, setIsCollapsedSideMenu } = useStudioContext();
 
   const { setIsNewResumeDialog } = useStudioContext();
   const router = useRouter();
@@ -43,7 +43,7 @@ export const SideMenu: FC = () => {
           variant="ghost"
           size="icon"
           className="p-2"
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={() => setIsCollapsedSideMenu(!isCollapsedSideMenu)}
         >
           <Menu className="h-4 w-4" />
         </Button>
@@ -131,10 +131,7 @@ export const SideMenu: FC = () => {
     );
   };
   return (
-    <div
-      style={{ width: isCollapsed ? 60 : 200 }}
-      className="bg-red-300 flex flex-col gap-1 p-2"
-    >
+    <div className="bg-red-300 flex flex-col gap-1 p-2 w-full h-full">
       {renderBurgerButton()}
       {renderNewButton()}
       {renderResumes()}

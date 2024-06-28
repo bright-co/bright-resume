@@ -13,3 +13,4 @@ export * from "./scroll-area";
 export * from "./separator";
 export * from "./dialog";
 export * from "./resizable";
+export * from "./sheet";
