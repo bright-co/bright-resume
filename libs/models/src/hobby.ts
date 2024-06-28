@@ -10,7 +10,7 @@ export class HobbyModel {
   }
 
   setPoint(point: string | undefined): void {
-    this.input.point = point;
+    this.input = { ...this.input, point };
   }
 
   callSetMethod<M extends HobbyModelSetMethodsKeyType>(

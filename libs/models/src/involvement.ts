@@ -15,14 +15,14 @@ export interface IInvolvement {
 }
 
 export class InvolvementModel {
-  constructor(private input: Partial<IInvolvement> = {}) {}
+  constructor(public input: Partial<IInvolvement> = {}) {}
 
   getRole(): string | undefined {
     return this.input.role;
   }
 
   setRole(role: string): void {
-    this.input.role = role;
+    this.input = { ...this.input, role };
   }
 
   getIsShowCompany(): boolean | undefined {
@@ -30,7 +30,7 @@ export class InvolvementModel {
   }
 
   setIsShowCompany(isShowCompany: boolean): void {
-    this.input.isShowCompany = isShowCompany;
+    this.input = { ...this.input, isShowCompany };
   }
 
   getCompany(): string | undefined {
@@ -38,7 +38,7 @@ export class InvolvementModel {
   }
 
   setCompany(company: string): void {
-    this.input.company = company;
+    this.input = { ...this.input, company };
   }
 
   getIsShowLocation(): boolean | undefined {
@@ -46,7 +46,7 @@ export class InvolvementModel {
   }
 
   setIsShowLocation(isShowLocation: boolean): void {
-    this.input.isShowLocation = isShowLocation;
+    this.input = { ...this.input, isShowLocation };
   }
 
   getLocation(): string | undefined {
@@ -54,7 +54,7 @@ export class InvolvementModel {
   }
 
   setLocation(location: string): void {
-    this.input.location = location;
+    this.input = { ...this.input, location };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -62,7 +62,7 @@ export class InvolvementModel {
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getFromMonth(): string | undefined {
@@ -70,7 +70,7 @@ export class InvolvementModel {
   }
 
   setFromMonth(fromMonth: string): void {
-    this.input.fromMonth = fromMonth;
+    this.input = { ...this.input, fromMonth };
   }
 
   getFromYear(): string | undefined {
@@ -78,7 +78,7 @@ export class InvolvementModel {
   }
 
   setFromYear(fromYear: string): void {
-    this.input.fromYear = fromYear;
+    this.input = { ...this.input, fromYear };
   }
 
   getToMonth(): string | undefined {
@@ -86,7 +86,7 @@ export class InvolvementModel {
   }
 
   setToMonth(toMonth: string): void {
-    this.input.toMonth = toMonth;
+    this.input = { ...this.input, toMonth };
   }
 
   getToYear(): string | undefined {
@@ -94,7 +94,7 @@ export class InvolvementModel {
   }
 
   setToYear(toYear: string): void {
-    this.input.toYear = toYear;
+    this.input = { ...this.input, toYear };
   }
 
   getUntilNow(): boolean | undefined {
@@ -102,7 +102,7 @@ export class InvolvementModel {
   }
 
   setUntilNow(untilNow: boolean): void {
-    this.input.untilNow = untilNow;
+    this.input = { ...this.input, untilNow };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -110,7 +110,7 @@ export class InvolvementModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -120,7 +120,9 @@ export class InvolvementModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -133,11 +135,15 @@ export class InvolvementModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends InvolvementModelSetMethodsKeyType>(
@@ -171,4 +177,5 @@ export type InvolvementModelSetMethodsKeyType =
   | "setToYear"
   | "setUntilNow"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";

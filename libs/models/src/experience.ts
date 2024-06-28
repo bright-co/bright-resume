@@ -14,14 +14,14 @@ export interface IExperience {
 }
 
 export class ExperienceModel {
-  constructor(private input: Partial<IExperience> = {}) {}
+  constructor(public input: Partial<IExperience> = {}) {}
 
   getRole(): string | undefined {
     return this.input.role;
   }
 
   setRole(role: string): void {
-    this.input.role = role;
+    this.input = { ...this.input, role };
   }
 
   getCompany(): string | undefined {
@@ -29,9 +29,7 @@ export class ExperienceModel {
   }
 
   setCompany(company: string): void {
-    console.log({ "Object.isFrozen(this.input)": Object.isFrozen(this.input) });
-
-    this.input.company = company;
+    this.input = { ...this.input, company };
   }
 
   getIsShowLocation(): boolean | undefined {
@@ -39,7 +37,7 @@ export class ExperienceModel {
   }
 
   setIsShowLocation(isShowLocation: boolean): void {
-    this.input.isShowLocation = isShowLocation;
+    this.input = { ...this.input, isShowLocation };
   }
 
   getLocation(): string | undefined {
@@ -47,7 +45,7 @@ export class ExperienceModel {
   }
 
   setLocation(location: string): void {
-    this.input.location = location;
+    this.input = { ...this.input, location };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -55,7 +53,7 @@ export class ExperienceModel {
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getFromMonth(): string | undefined {
@@ -63,7 +61,7 @@ export class ExperienceModel {
   }
 
   setFromMonth(fromMonth: string): void {
-    this.input.fromMonth = fromMonth;
+    this.input = { ...this.input, fromMonth };
   }
 
   getFromYear(): string | undefined {
@@ -71,7 +69,7 @@ export class ExperienceModel {
   }
 
   setFromYear(fromYear: string): void {
-    this.input.fromYear = fromYear;
+    this.input = { ...this.input, fromYear };
   }
 
   getToMonth(): string | undefined {
@@ -79,7 +77,7 @@ export class ExperienceModel {
   }
 
   setToMonth(toMonth: string): void {
-    this.input.toMonth = toMonth;
+    this.input = { ...this.input, toMonth };
   }
 
   getToYear(): string | undefined {
@@ -87,7 +85,7 @@ export class ExperienceModel {
   }
 
   setToYear(toYear: string): void {
-    this.input.toYear = toYear;
+    this.input = { ...this.input, toYear };
   }
 
   getUntilNow(): boolean | undefined {
@@ -95,7 +93,7 @@ export class ExperienceModel {
   }
 
   setUntilNow(untilNow: boolean): void {
-    this.input.untilNow = untilNow;
+    this.input = { ...this.input, untilNow };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -103,7 +101,7 @@ export class ExperienceModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -113,7 +111,9 @@ export class ExperienceModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -126,11 +126,15 @@ export class ExperienceModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends ExperienceModelSetMethodsKeyType>(
@@ -163,4 +167,5 @@ export type ExperienceModelSetMethodsKeyType =
   | "setToYear"
   | "setUntilNow"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";

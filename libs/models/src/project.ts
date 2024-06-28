@@ -19,14 +19,14 @@ export interface IProject {
 }
 
 export class ProjectModel {
-  constructor(private input: Partial<IProject> = {}) {}
+  constructor(public input: Partial<IProject> = {}) {}
 
   getTitle(): string | undefined {
     return this.input.title;
   }
 
   setTitle(title: string): void {
-    this.input.title = title;
+    this.input = { ...this.input, title };
   }
 
   getIsShowRole(): boolean | undefined {
@@ -34,7 +34,7 @@ export class ProjectModel {
   }
 
   setIsShowRole(isShowRole: boolean): void {
-    this.input.isShowRole = isShowRole;
+    this.input = { ...this.input, isShowRole };
   }
 
   getRole(): string | undefined {
@@ -42,7 +42,7 @@ export class ProjectModel {
   }
 
   setRole(role: string): void {
-    this.input.role = role;
+    this.input = { ...this.input, role };
   }
 
   getIsShowCompany(): boolean | undefined {
@@ -50,7 +50,7 @@ export class ProjectModel {
   }
 
   setIsShowCompany(isShowCompany: boolean): void {
-    this.input.isShowCompany = isShowCompany;
+    this.input = { ...this.input, isShowCompany };
   }
 
   getCompany(): string | undefined {
@@ -66,7 +66,7 @@ export class ProjectModel {
   }
 
   setLocation(location: string): void {
-    this.input.location = location;
+    this.input = { ...this.input, location };
   }
 
   getIsShowUrl(): boolean | undefined {
@@ -74,7 +74,7 @@ export class ProjectModel {
   }
 
   setIsShowUrl(isShowUrl: boolean): void {
-    this.input.isShowUrl = isShowUrl;
+    this.input = { ...this.input, isShowUrl };
   }
 
   getUrl(): string | undefined {
@@ -82,7 +82,7 @@ export class ProjectModel {
   }
 
   setUrl(url: string): void {
-    this.input.url = url;
+    this.input = { ...this.input, url };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -90,7 +90,7 @@ export class ProjectModel {
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getFromMonth(): string | undefined {
@@ -98,7 +98,7 @@ export class ProjectModel {
   }
 
   setFromMonth(fromMonth: string): void {
-    this.input.fromMonth = fromMonth;
+    this.input = { ...this.input, fromMonth };
   }
 
   getFromYear(): string | undefined {
@@ -106,7 +106,7 @@ export class ProjectModel {
   }
 
   setFromYear(fromYear: string): void {
-    this.input.fromYear = fromYear;
+    this.input = { ...this.input, fromYear };
   }
 
   getToMonth(): string | undefined {
@@ -114,7 +114,7 @@ export class ProjectModel {
   }
 
   setToMonth(toMonth: string): void {
-    this.input.toMonth = toMonth;
+    this.input = { ...this.input, toMonth };
   }
 
   getToYear(): string | undefined {
@@ -122,7 +122,7 @@ export class ProjectModel {
   }
 
   setToYear(toYear: string): void {
-    this.input.toYear = toYear;
+    this.input = { ...this.input, toYear };
   }
 
   getUntilNow(): boolean | undefined {
@@ -130,7 +130,7 @@ export class ProjectModel {
   }
 
   setUntilNow(untilNow: boolean): void {
-    this.input.untilNow = untilNow;
+    this.input = { ...this.input, untilNow };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -138,7 +138,7 @@ export class ProjectModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -146,7 +146,7 @@ export class ProjectModel {
   }
 
   setCompany(company: string): void {
-    this.input.company = company;
+    this.input = { ...this.input, company };
   }
 
   setIsShowLocation(isShowLocation: boolean): void {
@@ -156,7 +156,9 @@ export class ProjectModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -169,11 +171,15 @@ export class ProjectModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends ProjectModelSetMethodsKeyType>(
@@ -209,4 +215,5 @@ export type ProjectModelSetMethodsKeyType =
   | "setToYear"
   | "setUntilNow"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";

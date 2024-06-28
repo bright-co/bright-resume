@@ -12,14 +12,14 @@ export interface ICourseWork {
 }
 
 export class CourseWorkModel {
-  constructor(private input: Partial<ICourseWork> = {}) {}
+  constructor(public input: Partial<ICourseWork> = {}) {}
 
   getName(): string | undefined {
     return this.input.name;
   }
 
   setName(name: string): void {
-    this.input.name = name;
+    this.input = { ...this.input, name };
   }
 
   getIsShowInstitute(): boolean | undefined {
@@ -35,7 +35,7 @@ export class CourseWorkModel {
   }
 
   setInstitute(institute: string): void {
-    this.input.institute = institute;
+    this.input = { ...this.input, institute };
   }
 
   getIsShowDate(): boolean | undefined {
@@ -43,7 +43,7 @@ export class CourseWorkModel {
   }
 
   setIsShowDate(isShowDate: boolean): void {
-    this.input.isShowDate = isShowDate;
+    this.input = { ...this.input, isShowDate };
   }
 
   getYear(): string | undefined {
@@ -51,7 +51,7 @@ export class CourseWorkModel {
   }
 
   setYear(year: string): void {
-    this.input.year = year;
+    this.input = { ...this.input, year };
   }
 
   getIsShowSkills(): boolean | undefined {
@@ -59,7 +59,7 @@ export class CourseWorkModel {
   }
 
   setIsShowSkills(isShowSkills: boolean): void {
-    this.input.isShowSkills = isShowSkills;
+    this.input = { ...this.input, isShowSkills };
   }
 
   getIsSkills(): boolean | undefined {
@@ -67,7 +67,7 @@ export class CourseWorkModel {
   }
 
   setIsSkills(isSkills: boolean): void {
-    this.input.isSkills = isSkills;
+    this.input = { ...this.input, isSkills };
   }
 
   getSkills(): string | undefined {
@@ -75,7 +75,7 @@ export class CourseWorkModel {
   }
 
   setSkills(skills: string): void {
-    this.input.skills = skills;
+    this.input = { ...this.input, skills };
   }
 
   getIsShowPoints(): boolean | undefined {
@@ -83,7 +83,7 @@ export class CourseWorkModel {
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
-    this.input.isShowPoints = isShowPoints;
+    this.input = { ...this.input, isShowPoints };
   }
 
   getPoints(): string[] {
@@ -93,7 +93,9 @@ export class CourseWorkModel {
   setPoint(index: number, point: string): void {
     if (index >= this.getPoints().length) return;
     if (this.input.points) {
-      this.input.points[index] = point;
+      const points = [...this.input.points];
+      points[index] = point;
+      this.input = { ...this.input, points };
     }
   }
 
@@ -106,11 +108,15 @@ export class CourseWorkModel {
       return;
     }
 
-    const item1 = this.input.points[index1];
-    const item2 = this.input.points[index2];
+    const points = [...this.input.points];
 
-    this.input.points[index2] = item1;
-    this.input.points[index1] = item2;
+    const item1 = points[index1];
+    const item2 = points[index2];
+
+    points[index2] = item1;
+    points[index1] = item2;
+
+    this.input = { ...this.input, points };
   }
 
   callSetMethod<M extends CourseWorkModelSetMethodsKeyType>(
@@ -141,4 +147,5 @@ export type CourseWorkModelSetMethodsKeyType =
   | "setSkills"
   | "setSkills"
   | "setIsShowPoints"
-  | "setPoint";
+  | "setPoint"
+  | "changePointsIndex";
