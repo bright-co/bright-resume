@@ -120,7 +120,11 @@ export interface IResume {
 }
 
 export class ResumeModel {
-  constructor(public input: Partial<IResume> | undefined = {}) {}
+  input: Partial<IResume> | undefined = {};
+
+  constructor(input: Partial<IResume> | undefined = {}) {
+    this.input = input;
+  }
 
   getUserId(): string | undefined {
     return this.input.userId;

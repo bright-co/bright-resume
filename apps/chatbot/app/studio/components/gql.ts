@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
 
+export const MUTATION_UPDATE_RESUME_RESUME = gql`
+  mutation updateResume(
+    $updateResumeResumeInputs: UpdateResumeResumeInputsGQL!
+  ) {
+    updateResume(updateResumeResumeInputs: $updateResumeResumeInputs) {
+      id
+      userId
+    }
+  }
+`;
+
 export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
   query getResumeById($getResumeByIdResumeArgs: GetResumeByIdResumeArgsGQL!) {
     getResumeById(getResumeByIdResumeArgs: $getResumeByIdResumeArgs) {

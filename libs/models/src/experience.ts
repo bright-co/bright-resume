@@ -29,6 +29,8 @@ export class ExperienceModel {
   }
 
   setCompany(company: string): void {
+    console.log({ "Object.isFrozen(this.input)": Object.isFrozen(this.input) });
+
     this.input.company = company;
   }
 

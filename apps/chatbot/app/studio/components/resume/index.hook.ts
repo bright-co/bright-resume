@@ -214,6 +214,7 @@ export const useData = () => {
     if (index >= resumeModel.getExperiences().length) return;
 
     resumeModel.getExperiences()[index].callSetMethod(methodName, ...args);
+
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 

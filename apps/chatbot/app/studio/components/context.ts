@@ -15,6 +15,12 @@ export interface IContext {
   selectedResumeId: string;
   setSelectedResumeId: Dispatch<SetStateAction<string>>;
   loadingSelectedResume: boolean;
+  loadingUpdateResume: boolean;
+  updateResume: () => void;
+  isCollapsedSideMenu: boolean;
+  setIsCollapsedSideMenu: Dispatch<SetStateAction<boolean>>;
+  isOpenChat: boolean;
+  setIsOpenChat: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Context = createContext<IContext>({
@@ -28,4 +34,10 @@ export const Context = createContext<IContext>({
   selectedResumeId: "",
   setSelectedResumeId: () => {},
   loadingSelectedResume: false,
+  loadingUpdateResume: false,
+  updateResume: () => {},
+  isCollapsedSideMenu: false,
+  setIsCollapsedSideMenu: () => {},
+  isOpenChat: false,
+  setIsOpenChat: () => {},
 });

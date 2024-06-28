@@ -159,7 +159,7 @@ export const useData = () => {
     },
   });
 
-  const [signInAuth, { loading }] = useMutation<
+  const [createResume, { loading }] = useMutation<
     CreateResumeMutation,
     CreateResumeMutationVariables
   >(MUTATION_CREATE_RESUME_RESUME, {
@@ -184,7 +184,7 @@ export const useData = () => {
   const onSubmit: SubmitHandler<CreateResumeResumeInputsGql> = (
     createResumeResumeInputs
   ) => {
-    signInAuth({ variables: { createResumeResumeInputs } });
+    createResume({ variables: { createResumeResumeInputs } });
   };
 
   return {
