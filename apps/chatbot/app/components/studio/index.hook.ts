@@ -1,8 +1,7 @@
 "use client";
 
-import { IUserCookie } from "@chatbot/cookie/user";
-import { IContext } from "./context";
 import { useEffect, useState } from "react";
+import { IContext } from "./context";
 import {
   UpdateResumeMutation,
   UpdateResumeMutationVariables,
@@ -17,21 +16,25 @@ import {
 } from "./gql";
 import { useMutation, useQuery } from "@apollo/client";
 import { useToast } from "@resume-template-components/shadcn-ui";
+import { Props } from ".";
 
-export const useData = (user: IUserCookie): IContext => {
+export const useData = ({ user, resumeId }: Props): IContext => {
   const [resumes, setResumes] = useState<
     GetResumesQuery["getResumes"]["edges"]
   >([]);
 
+  const [initialLoading, setInitialLoading] = useState(true);
+
   const [selectedResume, setSelectedResume] =
     useState<GetResumeByIdQuery["getResumeById"]>();
-  const [selectedResumeId, setSelectedResumeId] = useState<string>("");
+  const [selectedResumeId, setSelectedResumeId] = useState<string>(
+    resumeId || ""
+  );
   const [isOpenNewResumeDialog, setIsNewResumeDialog] = useState(false);
   const { toast } = useToast();
   const [isCollapsedSideMenu, setIsCollapsedSideMenu] = useState(false);
   const [isOpenChat, setIsOpenChat] = useState(false);
-
-  /* ---------------------------------- args ---------------------------------- */
+  const [isOpenSteps, setIsOpenSteps] = useState(false);
 
   const [getResumeByIdResumeArgs, setGetResumeByIdResumeArgs] =
     useState<GetResumeByIdResumeArgsGql>({ resumeId: "" });
@@ -52,6 +55,7 @@ export const useData = (user: IUserCookie): IContext => {
     },
     onCompleted: async ({ getResumeById }) => {
       setSelectedResume({ ...getResumeById });
+      window.history.pushState({}, "", `/studio/resume/${getResumeById.id}`);
     },
   });
 
@@ -94,5 +98,9 @@ export const useData = (user: IUserCookie): IContext => {
     setIsCollapsedSideMenu,
     isOpenChat,
     setIsOpenChat,
+    isOpenSteps,
+    setIsOpenSteps,
+    initialLoading,
+    setInitialLoading,
   };
 };

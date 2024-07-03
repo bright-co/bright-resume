@@ -10,13 +10,18 @@ import { useData } from "./index.hook";
 import { NewResumeDialog } from "./new-resume-dialog";
 import { Resume } from "./resume";
 import { SideMenu } from "./side-menu";
+import { Steps } from "./steps";
+import { ResumeSectionType } from "@models";
 
-type Props = {
+export type Props = {
   user: IUserCookie;
+  resumeId?: string;
+  sheet?: "chat" | "steps";
+  section?: ResumeSectionType;
 };
 
-export default function Index({ user }: Props) {
-  const data = useData(user);
+export default function StudioComponents(props: Props) {
+  const data = useData(props);
 
   return (
     <Context.Provider value={data}>
@@ -58,12 +63,13 @@ export default function Index({ user }: Props) {
             className="w-full flex-grow flex border border-red-500"
           >
             <div className="h-full w-full overflow-auto bg-slate-100 relative">
-              <Chat />
               <Resume />
             </div>
           </div>
         </div>
       </div>
+      <Chat />
+      <Steps />
       <NewResumeDialog />
     </Context.Provider>
   );
