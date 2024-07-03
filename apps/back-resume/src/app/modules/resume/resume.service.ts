@@ -95,6 +95,7 @@ export class ResumeService {
   ): Promise<Resume> {
     const nameDuplication = await this.resumeModel.findOne({
       title: inputs.title,
+      userId,
     });
 
     if (nameDuplication) {

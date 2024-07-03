@@ -16,7 +16,7 @@ export interface IExperience {
 export class ExperienceModel {
   constructor(public input: Partial<IExperience> = {}) {}
 
-  getRole(): string | undefined {
+  getRole(): string | undefined | null {
     return this.input.role;
   }
 
@@ -24,7 +24,7 @@ export class ExperienceModel {
     this.input = { ...this.input, role };
   }
 
-  getCompany(): string | undefined {
+  getCompany(): string | undefined | null {
     return this.input.company;
   }
 
@@ -32,7 +32,7 @@ export class ExperienceModel {
     this.input = { ...this.input, company };
   }
 
-  getIsShowLocation(): boolean | undefined {
+  getIsShowLocation(): boolean | undefined | null {
     return this.input.isShowLocation;
   }
 
@@ -40,7 +40,7 @@ export class ExperienceModel {
     this.input = { ...this.input, isShowLocation };
   }
 
-  getLocation(): string | undefined {
+  getLocation(): string | undefined | null {
     return this.input.location;
   }
 
@@ -48,7 +48,7 @@ export class ExperienceModel {
     this.input = { ...this.input, location };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
@@ -56,7 +56,7 @@ export class ExperienceModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined {
+  getFromMonth(): string | undefined | null {
     return this.input.fromMonth;
   }
 
@@ -64,7 +64,7 @@ export class ExperienceModel {
     this.input = { ...this.input, fromMonth };
   }
 
-  getFromYear(): string | undefined {
+  getFromYear(): string | undefined | null {
     return this.input.fromYear;
   }
 
@@ -72,7 +72,7 @@ export class ExperienceModel {
     this.input = { ...this.input, fromYear };
   }
 
-  getToMonth(): string | undefined {
+  getToMonth(): string | undefined | null {
     return this.input.toMonth;
   }
 
@@ -80,7 +80,7 @@ export class ExperienceModel {
     this.input = { ...this.input, toMonth };
   }
 
-  getToYear(): string | undefined {
+  getToYear(): string | undefined | null {
     return this.input.toYear;
   }
 
@@ -88,7 +88,7 @@ export class ExperienceModel {
     this.input = { ...this.input, toYear };
   }
 
-  getUntilNow(): boolean | undefined {
+  getUntilNow(): boolean | undefined | null {
     return this.input.untilNow;
   }
 
@@ -96,7 +96,7 @@ export class ExperienceModel {
     this.input = { ...this.input, untilNow };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

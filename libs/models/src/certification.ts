@@ -11,7 +11,7 @@ export interface ICertification {
 export class CertificationModel {
   constructor(public input: Partial<ICertification> = {}) {}
 
-  getName(): string | undefined {
+  getName(): string | undefined | null {
     return this.input.name;
   }
 
@@ -19,7 +19,7 @@ export class CertificationModel {
     this.input = { ...this.input, name };
   }
 
-  getIsShowInstitute(): boolean | undefined {
+  getIsShowInstitute(): boolean | undefined | null {
     return this.input.isShowInstitute;
   }
 
@@ -31,7 +31,7 @@ export class CertificationModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getInstitute(): string | undefined {
+  getInstitute(): string | undefined | null {
     return this.input.institute;
   }
 
@@ -39,11 +39,11 @@ export class CertificationModel {
     this.input = { ...this.input, institute };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
-  getYear(): string | undefined {
+  getYear(): string | undefined | null {
     return this.input.year;
   }
 
@@ -51,7 +51,7 @@ export class CertificationModel {
     this.input = { ...this.input, year };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

@@ -5,7 +5,7 @@ export interface ISkill {
 export class SkillModel {
   constructor(public input: Partial<ISkill> = {}) {}
 
-  getPoints(): string | undefined {
+  getPoints(): string | undefined | null {
     return this.input.point;
   }
 

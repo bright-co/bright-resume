@@ -53,17 +53,17 @@ export interface ResumeTemplateProps {
     subSectionIndex: number,
     newIndex: number
   ) => void;
-  onChangeSubSectionPointIndex: (
+  onChangeSubSectionPointIndex?: (
     section: ResumeSectionType,
     subSectionIndex: number,
     pointIndex: number,
     newIndex: number
   ) => void;
-  callResumeSetMethod: <M extends ResumeModelSetMethodsKeyType>(
+  callResumeSetMethod?: <M extends ResumeModelSetMethodsKeyType>(
     methodName: M,
     ...args: Parameters<ResumeModel[M]>
   ) => void;
-  callResumeGetMethod: <M extends ResumeModelGetMethodsKeyType>(
+  callResumeGetMethod?: <M extends ResumeModelGetMethodsKeyType>(
     methodName: M,
     ...args: Parameters<ResumeModel[M]>
   ) => ReturnType<ResumeModel[M]>;
@@ -72,49 +72,51 @@ export interface ResumeTemplateProps {
     methodName: M,
     ...args: Parameters<ProjectModel[M]>
   ) => void;
-  callResumeCertificationSetMethod: <
+  callResumeCertificationSetMethod?: <
     M extends CertificationModelSetMethodsKeyType
   >(
     index: number,
     methodName: M,
     ...args: Parameters<CertificationModel[M]>
   ) => void;
-  callResumeCourseWorkSetMethod: <M extends CourseWorkModelSetMethodsKeyType>(
+  callResumeCourseWorkSetMethod?: <M extends CourseWorkModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<CourseWorkModel[M]>
   ) => void;
-  callResumeEducationSetMethod: <M extends EducationModelSetMethodsKeyType>(
+  callResumeEducationSetMethod?: <M extends EducationModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<EducationModel[M]>
   ) => void;
-  callResumeExperienceSetMethod: <M extends ExperienceModelSetMethodsKeyType>(
+  callResumeExperienceSetMethod?: <M extends ExperienceModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<ExperienceModel[M]>
   ) => void;
-  callResumeInvolvementSetMethod: <M extends InvolvementModelSetMethodsKeyType>(
+  callResumeInvolvementSetMethod?: <
+    M extends InvolvementModelSetMethodsKeyType
+  >(
     index: number,
     methodName: M,
     ...args: Parameters<InvolvementModel[M]>
   ) => void;
 
-  callResumeLanguageSetMethod: <M extends LanguageModelSetMethodsKeyType>(
+  callResumeLanguageSetMethod?: <M extends LanguageModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<LanguageModel[M]>
   ) => void;
-  callResumeSkillSetMethod: <M extends SkillModelSetMethodsKeyType>(
+  callResumeSkillSetMethod?: <M extends SkillModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<SkillModel[M]>
   ) => void;
-  callResumeHobbySetMethod: <M extends HobbyModelSetMethodsKeyType>(
+  callResumeHobbySetMethod?: <M extends HobbyModelSetMethodsKeyType>(
     index: number,
     methodName: M,
     ...args: Parameters<HobbyModel[M]>
   ) => void;
-  onMoveDownSection: (section: ResumeSectionType) => void;
-  onMoveUpSection: (section: ResumeSectionType) => void;
+  onMoveDownSection?: (section: ResumeSectionType) => void;
+  onMoveUpSection?: (section: ResumeSectionType) => void;
 }

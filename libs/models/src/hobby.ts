@@ -5,7 +5,7 @@ export interface IHobby {
 export class HobbyModel {
   constructor(public input: Partial<IHobby> = {}) {}
 
-  getPoints(): string | undefined {
+  getPoints(): string | undefined | null {
     return this.input.point;
   }
 

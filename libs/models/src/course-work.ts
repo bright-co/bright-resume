@@ -14,7 +14,7 @@ export interface ICourseWork {
 export class CourseWorkModel {
   constructor(public input: Partial<ICourseWork> = {}) {}
 
-  getName(): string | undefined {
+  getName(): string | undefined | null {
     return this.input.name;
   }
 
@@ -22,15 +22,15 @@ export class CourseWorkModel {
     this.input = { ...this.input, name };
   }
 
-  getIsShowInstitute(): boolean | undefined {
+  getIsShowInstitute(): boolean | undefined | null {
     return this.input.isShowInstitute;
   }
 
-  setIsShowInstitute(): boolean | undefined {
+  setIsShowInstitute(): boolean | undefined | null {
     return this.input.isShowInstitute;
   }
 
-  getInstitute(): string | undefined {
+  getInstitute(): string | undefined | null {
     return this.input.institute;
   }
 
@@ -38,7 +38,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, institute };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
@@ -46,7 +46,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getYear(): string | undefined {
+  getYear(): string | undefined | null {
     return this.input.year;
   }
 
@@ -54,7 +54,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, year };
   }
 
-  getIsShowSkills(): boolean | undefined {
+  getIsShowSkills(): boolean | undefined | null {
     return this.input.isShowSkills;
   }
 
@@ -62,7 +62,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, isShowSkills };
   }
 
-  getIsSkills(): boolean | undefined {
+  getIsSkills(): boolean | undefined | null {
     return this.input.isSkills;
   }
 
@@ -70,7 +70,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, isSkills };
   }
 
-  getSkills(): string | undefined {
+  getSkills(): string | undefined | null {
     return this.input.skills;
   }
 
@@ -78,7 +78,7 @@ export class CourseWorkModel {
     this.input = { ...this.input, skills };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

@@ -51,7 +51,7 @@ export const useData = () => {
   const onMoveUpSection = (section1: ResumeSectionType) => {
     const section2 = resumeModel.getUpperAndVisibleSection(section1);
 
-    if (section2 === undefined) return;
+    if (!section2) return;
     resumeModel.changeOrderOfTwoSections(section1, section2);
 
     setResumeModel(new ResumeModel(resumeModel.input));
@@ -60,7 +60,7 @@ export const useData = () => {
   const onMoveDownSection = (section1: ResumeSectionType) => {
     const section2 = resumeModel.getLowerAndVisibleSection(section1);
 
-    if (section2 === undefined) return;
+    if (!section2) return;
     resumeModel.changeOrderOfTwoSections(section1, section2);
 
     setResumeModel(new ResumeModel(resumeModel.input));
