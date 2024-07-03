@@ -21,7 +21,7 @@ export interface IProject {
 export class ProjectModel {
   constructor(public input: Partial<IProject> = {}) {}
 
-  getTitle(): string | undefined {
+  getTitle(): string | undefined | null {
     return this.input.title;
   }
 
@@ -29,7 +29,7 @@ export class ProjectModel {
     this.input = { ...this.input, title };
   }
 
-  getIsShowRole(): boolean | undefined {
+  getIsShowRole(): boolean | undefined | null {
     return this.input.isShowRole;
   }
 
@@ -37,7 +37,7 @@ export class ProjectModel {
     this.input = { ...this.input, isShowRole };
   }
 
-  getRole(): string | undefined {
+  getRole(): string | undefined | null {
     return this.input.role;
   }
 
@@ -45,7 +45,7 @@ export class ProjectModel {
     this.input = { ...this.input, role };
   }
 
-  getIsShowCompany(): boolean | undefined {
+  getIsShowCompany(): boolean | undefined | null {
     return this.input.isShowCompany;
   }
 
@@ -53,15 +53,15 @@ export class ProjectModel {
     this.input = { ...this.input, isShowCompany };
   }
 
-  getCompany(): string | undefined {
+  getCompany(): string | undefined | null {
     return this.input.company;
   }
 
-  getIsShowLocation(): boolean | undefined {
+  getIsShowLocation(): boolean | undefined | null {
     return this.input.isShowLocation;
   }
 
-  getLocation(): string | undefined {
+  getLocation(): string | undefined | null {
     return this.input.location;
   }
 
@@ -69,7 +69,7 @@ export class ProjectModel {
     this.input = { ...this.input, location };
   }
 
-  getIsShowUrl(): boolean | undefined {
+  getIsShowUrl(): boolean | undefined | null {
     return this.input.isShowUrl;
   }
 
@@ -77,7 +77,7 @@ export class ProjectModel {
     this.input = { ...this.input, isShowUrl };
   }
 
-  getUrl(): string | undefined {
+  getUrl(): string | undefined | null {
     return this.input.url;
   }
 
@@ -85,7 +85,7 @@ export class ProjectModel {
     this.input = { ...this.input, url };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
@@ -93,7 +93,7 @@ export class ProjectModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined {
+  getFromMonth(): string | undefined | null {
     return this.input.fromMonth;
   }
 
@@ -101,7 +101,7 @@ export class ProjectModel {
     this.input = { ...this.input, fromMonth };
   }
 
-  getFromYear(): string | undefined {
+  getFromYear(): string | undefined | null {
     return this.input.fromYear;
   }
 
@@ -109,7 +109,7 @@ export class ProjectModel {
     this.input = { ...this.input, fromYear };
   }
 
-  getToMonth(): string | undefined {
+  getToMonth(): string | undefined | null {
     return this.input.toMonth;
   }
 
@@ -117,7 +117,7 @@ export class ProjectModel {
     this.input = { ...this.input, toMonth };
   }
 
-  getToYear(): string | undefined {
+  getToYear(): string | undefined | null {
     return this.input.toYear;
   }
 
@@ -125,7 +125,7 @@ export class ProjectModel {
     this.input = { ...this.input, toYear };
   }
 
-  getUntilNow(): boolean | undefined {
+  getUntilNow(): boolean | undefined | null {
     return this.input.untilNow;
   }
 
@@ -133,7 +133,7 @@ export class ProjectModel {
     this.input = { ...this.input, untilNow };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

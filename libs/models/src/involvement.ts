@@ -17,7 +17,7 @@ export interface IInvolvement {
 export class InvolvementModel {
   constructor(public input: Partial<IInvolvement> = {}) {}
 
-  getRole(): string | undefined {
+  getRole(): string | undefined | null {
     return this.input.role;
   }
 
@@ -25,7 +25,7 @@ export class InvolvementModel {
     this.input = { ...this.input, role };
   }
 
-  getIsShowCompany(): boolean | undefined {
+  getIsShowCompany(): boolean | undefined | null {
     return this.input.isShowCompany;
   }
 
@@ -33,7 +33,7 @@ export class InvolvementModel {
     this.input = { ...this.input, isShowCompany };
   }
 
-  getCompany(): string | undefined {
+  getCompany(): string | undefined | null {
     return this.input.company;
   }
 
@@ -41,7 +41,7 @@ export class InvolvementModel {
     this.input = { ...this.input, company };
   }
 
-  getIsShowLocation(): boolean | undefined {
+  getIsShowLocation(): boolean | undefined | null {
     return this.input.isShowLocation;
   }
 
@@ -49,7 +49,7 @@ export class InvolvementModel {
     this.input = { ...this.input, isShowLocation };
   }
 
-  getLocation(): string | undefined {
+  getLocation(): string | undefined | null {
     return this.input.location;
   }
 
@@ -57,7 +57,7 @@ export class InvolvementModel {
     this.input = { ...this.input, location };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
@@ -65,7 +65,7 @@ export class InvolvementModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined {
+  getFromMonth(): string | undefined | null {
     return this.input.fromMonth;
   }
 
@@ -73,7 +73,7 @@ export class InvolvementModel {
     this.input = { ...this.input, fromMonth };
   }
 
-  getFromYear(): string | undefined {
+  getFromYear(): string | undefined | null {
     return this.input.fromYear;
   }
 
@@ -81,7 +81,7 @@ export class InvolvementModel {
     this.input = { ...this.input, fromYear };
   }
 
-  getToMonth(): string | undefined {
+  getToMonth(): string | undefined | null {
     return this.input.toMonth;
   }
 
@@ -89,7 +89,7 @@ export class InvolvementModel {
     this.input = { ...this.input, toMonth };
   }
 
-  getToYear(): string | undefined {
+  getToYear(): string | undefined | null {
     return this.input.toYear;
   }
 
@@ -97,7 +97,7 @@ export class InvolvementModel {
     this.input = { ...this.input, toYear };
   }
 
-  getUntilNow(): boolean | undefined {
+  getUntilNow(): boolean | undefined | null {
     return this.input.untilNow;
   }
 
@@ -105,7 +105,7 @@ export class InvolvementModel {
     this.input = { ...this.input, untilNow };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

@@ -42,7 +42,9 @@ export const Resume: FC = () => {
           <MenubarMenu>
             <MenubarTrigger className="whitespace-nowrap">{`FontSize: (${data.resumeModel.getFontSize()})`}</MenubarTrigger>
             <MenubarContent>
-              <MenubarRadioGroup value={data.resumeModel.getFontSize()}>
+              <MenubarRadioGroup
+                value={data.resumeModel.getFontSize() || undefined}
+              >
                 {Object.values(ResumeFontSizeEnum).map((value) => (
                   <MenubarRadioItem
                     key={value}
@@ -61,7 +63,9 @@ export const Resume: FC = () => {
           <MenubarMenu>
             <MenubarTrigger className="whitespace-nowrap">{`Color: (${data.resumeModel.getColor()})`}</MenubarTrigger>
             <MenubarContent>
-              <MenubarRadioGroup value={data.resumeModel.getColor()}>
+              <MenubarRadioGroup
+                value={data.resumeModel.getColor() || undefined}
+              >
                 {Object.values(ResumeColorEnum).map((value) => (
                   <MenubarRadioItem
                     key={value}
@@ -88,7 +92,9 @@ export const Resume: FC = () => {
           <MenubarMenu>
             <MenubarTrigger className="whitespace-nowrap">{`FontFamily: (${data.resumeModel.getFontFamily()})`}</MenubarTrigger>
             <MenubarContent>
-              <MenubarRadioGroup value={data.resumeModel.getFontFamily()}>
+              <MenubarRadioGroup
+                value={data.resumeModel.getFontFamily() || undefined}
+              >
                 {Object.values(ResumeFontFamilyEnum).map((value) => (
                   <MenubarRadioItem
                     key={value}
@@ -177,7 +183,7 @@ export const Resume: FC = () => {
               >
                 <Checkbox
                   id={"image"}
-                  checked={data.resumeModel.getIsShowImage()}
+                  checked={data.resumeModel.getIsShowImage() || undefined}
                 />
                 {"Image"}
               </MenubarItem>

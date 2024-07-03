@@ -120,25 +120,25 @@ export interface IResume {
 }
 
 export class ResumeModel {
-  input: Partial<IResume> | undefined = {};
+  input: Partial<IResume> = {};
 
   constructor(input: Partial<IResume> | undefined = {}) {
     this.input = input;
   }
 
-  getUserId(): string | undefined {
-    return this.input.userId;
+  getName(): string | undefined | null {
+    return this.input.name;
   }
 
-  getName(): string | undefined {
-    return this.input.name;
+  getUserId(): string | undefined | null {
+    return this.input.userId;
   }
 
   setName(name: string | undefined): void {
     this.input.name = name;
   }
 
-  getTitle(): string | undefined {
+  getTitle(): string | undefined | null {
     return this.input.title;
   }
 
@@ -146,7 +146,7 @@ export class ResumeModel {
     this.input.title = title;
   }
 
-  getFontSize(): ResumeFontSizeEnum | undefined {
+  getFontSize(): ResumeFontSizeEnum | undefined | null {
     return this.input.fontSize;
   }
 
@@ -154,7 +154,7 @@ export class ResumeModel {
     this.input.fontSize = fontSize;
   }
 
-  getFontFamily(): ResumeFontFamilyEnum | undefined {
+  getFontFamily(): ResumeFontFamilyEnum | undefined | null {
     return this.input.fontFamily;
   }
 
@@ -162,7 +162,7 @@ export class ResumeModel {
     this.input.fontFamily = fontFamily;
   }
 
-  getColor(): ResumeColorEnum | undefined {
+  getColor(): ResumeColorEnum | undefined | null {
     return this.input.color;
   }
 
@@ -183,7 +183,7 @@ export class ResumeModel {
     this.input.color = color;
   }
 
-  getRole(): string | undefined {
+  getRole(): string | undefined | null {
     return this.input.role;
   }
 
@@ -191,7 +191,7 @@ export class ResumeModel {
     this.input.role = role;
   }
 
-  getIsShowImage(): boolean | undefined {
+  getIsShowImage(): boolean | undefined | null {
     return this.input.isShowImage;
   }
 
@@ -199,7 +199,7 @@ export class ResumeModel {
     this.input.isShowImage = isShowImage;
   }
 
-  getIsShowPhoneNumber(): boolean | undefined {
+  getIsShowPhoneNumber(): boolean | undefined | null {
     return this.input.isShowPhoneNumber;
   }
 
@@ -207,7 +207,7 @@ export class ResumeModel {
     this.input.isShowPhoneNumber = isShowPhoneNumber;
   }
 
-  getPhoneNumber(): string | undefined {
+  getPhoneNumber(): string | undefined | null {
     return this.input.phoneNumber;
   }
 
@@ -215,7 +215,7 @@ export class ResumeModel {
     this.input.phoneNumber = phoneNumber;
   }
 
-  getIsShowLinkedin(): boolean | undefined {
+  getIsShowLinkedin(): boolean | undefined | null {
     return this.input.isShowLinkedin;
   }
 
@@ -223,7 +223,7 @@ export class ResumeModel {
     this.input.isShowLinkedin = isShowLinkedin;
   }
 
-  getLinkedin(): string | undefined {
+  getLinkedin(): string | undefined | null {
     return this.input.linkedin;
   }
 
@@ -231,7 +231,7 @@ export class ResumeModel {
     this.input.linkedin = linkedin;
   }
 
-  getIsShowWebsite(): boolean | undefined {
+  getIsShowWebsite(): boolean | undefined | null {
     return this.input.isShowWebsite;
   }
 
@@ -239,7 +239,7 @@ export class ResumeModel {
     this.input.isShowWebsite = isShowWebsite;
   }
 
-  getWebsite(): string | undefined {
+  getWebsite(): string | undefined | null {
     return this.input.website;
   }
 
@@ -247,7 +247,7 @@ export class ResumeModel {
     this.input.website = website;
   }
 
-  getIsShowEmail(): boolean | undefined {
+  getIsShowEmail(): boolean | undefined | null {
     return this.input.isShowEmail;
   }
 
@@ -255,7 +255,7 @@ export class ResumeModel {
     this.input.isShowEmail = isShowEmail;
   }
 
-  getEmail(): string | undefined {
+  getEmail(): string | undefined | null {
     return this.input.email;
   }
 
@@ -263,11 +263,11 @@ export class ResumeModel {
     this.input.email = email;
   }
 
-  getIsShowLocation(): boolean | undefined {
+  getIsShowLocation(): boolean | undefined | null {
     return this.input.isShowLocation;
   }
 
-  getIsShowBirthDay(): boolean | undefined {
+  getIsShowBirthDay(): boolean | undefined | null {
     return this.input.isShowBirthDay;
   }
 
@@ -275,7 +275,7 @@ export class ResumeModel {
     this.input.isShowLocation = isShowLocation;
   }
 
-  getLocation(): string | undefined {
+  getLocation(): string | undefined | null {
     return this.input.location;
   }
 
@@ -287,7 +287,7 @@ export class ResumeModel {
     this.input.isShowBirthDay = isShowBirthDay;
   }
 
-  getBirthDay(): string | undefined {
+  getBirthDay(): string | undefined | null {
     return this.input.birthDay;
   }
 
@@ -295,7 +295,7 @@ export class ResumeModel {
     this.input.birthDay = birthDay;
   }
 
-  getIsShowSummary(): boolean | undefined {
+  getIsShowSummary(): boolean | undefined | null {
     return this.input.isShowSummary;
   }
 
@@ -303,7 +303,7 @@ export class ResumeModel {
     this.input.isShowSummary = isShowSummary;
   }
 
-  getSummaryLabel(): string | undefined {
+  getSummaryLabel(): string | undefined | null {
     return this.input.summaryLabel;
   }
 
@@ -311,7 +311,7 @@ export class ResumeModel {
     this.input.summaryLabel = summaryLabel;
   }
 
-  getSummary(): string | undefined {
+  getSummary(): string | undefined | null {
     return this.input.summary;
   }
 
@@ -319,7 +319,7 @@ export class ResumeModel {
     this.input.summary = summary;
   }
 
-  getIsShowExperience(): boolean | undefined {
+  getIsShowExperience(): boolean | undefined | null {
     return this.input.isShowExperience;
   }
 
@@ -327,7 +327,7 @@ export class ResumeModel {
     this.input.isShowExperience = isShowExperience;
   }
 
-  getExperienceLabel(): string | undefined {
+  getExperienceLabel(): string | undefined | null {
     return this.input.experienceLabel;
   }
 
@@ -335,7 +335,7 @@ export class ResumeModel {
     this.input.experienceLabel = experienceLabel;
   }
 
-  getExperienceRoleLabel(): string | undefined {
+  getExperienceRoleLabel(): string | undefined | null {
     return this.input.experienceRoleLabel;
   }
 
@@ -343,7 +343,7 @@ export class ResumeModel {
     this.input.experienceRoleLabel = experienceRoleLabel;
   }
 
-  getExperienceCompanyLabel(): string | undefined {
+  getExperienceCompanyLabel(): string | undefined | null {
     return this.input.experienceCompanyLabel;
   }
 
@@ -351,7 +351,7 @@ export class ResumeModel {
     this.input.experienceCompanyLabel = experienceCompanyLabel;
   }
 
-  getExperienceLocationLabel(): string | undefined {
+  getExperienceLocationLabel(): string | undefined | null {
     return this.input.experienceLocationLabel;
   }
 
@@ -361,7 +361,7 @@ export class ResumeModel {
     this.input.experienceLocationLabel = experienceLocationLabel;
   }
 
-  getIsShowProject(): boolean | undefined {
+  getIsShowProject(): boolean | undefined | null {
     return this.input.isShowProject;
   }
 
@@ -369,7 +369,7 @@ export class ResumeModel {
     this.input.isShowProject = isShowProject;
   }
 
-  getProjectLabel(): string | undefined {
+  getProjectLabel(): string | undefined | null {
     return this.input.projectLabel;
   }
 
@@ -377,7 +377,7 @@ export class ResumeModel {
     this.input.projectLabel = projectLabel;
   }
 
-  getProjectRoleLabel(): string | undefined {
+  getProjectRoleLabel(): string | undefined | null {
     return this.input.projectRoleLabel;
   }
 
@@ -385,14 +385,14 @@ export class ResumeModel {
     this.input.projectRoleLabel = projectRoleLabel;
   }
 
-  getProjectTitleLabel(): string | undefined {
+  getProjectTitleLabel(): string | undefined | null {
     return this.input.projectTitleLabel;
   }
 
   setProjectTitleLabel(projectTitleLabel: string | undefined): void {
     this.input.projectTitleLabel = projectTitleLabel;
   }
-  getProjectCompanyLabel(): string | undefined {
+  getProjectCompanyLabel(): string | undefined | null {
     return this.input.projectCompanyLabel;
   }
 
@@ -400,7 +400,7 @@ export class ResumeModel {
     this.input.projectCompanyLabel = projectCompanyLabel;
   }
 
-  getProjectLocationLabel(): string | undefined {
+  getProjectLocationLabel(): string | undefined | null {
     return this.input.projectLocationLabel;
   }
 
@@ -408,14 +408,14 @@ export class ResumeModel {
     this.input.projectLocationLabel = projectLocationLabel;
   }
 
-  getProjectUrlLabel(): string | undefined {
+  getProjectUrlLabel(): string | undefined | null {
     return this.input.projectUrlLabel;
   }
 
   setProjectUrlLabel(projectUrlLabel: string | undefined): void {
     this.input.projectUrlLabel = projectUrlLabel;
   }
-  getIsShowEducation(): boolean | undefined {
+  getIsShowEducation(): boolean | undefined | null {
     return this.input.isShowEducation;
   }
 
@@ -423,7 +423,7 @@ export class ResumeModel {
     this.input.isShowEducation = isShowEducation;
   }
 
-  getEducationLabel(): string | undefined {
+  getEducationLabel(): string | undefined | null {
     return this.input.educationLabel;
   }
 
@@ -431,7 +431,7 @@ export class ResumeModel {
     this.input.educationLabel = educationLabel;
   }
 
-  getEducationDegreeLabel(): string | undefined {
+  getEducationDegreeLabel(): string | undefined | null {
     return this.input.educationDegreeLabel;
   }
 
@@ -439,7 +439,7 @@ export class ResumeModel {
     this.input.educationDegreeLabel = educationDegreeLabel;
   }
 
-  getEducationInstituteLabel(): string | undefined {
+  getEducationInstituteLabel(): string | undefined | null {
     return this.input.educationInstituteLabel;
   }
 
@@ -449,7 +449,7 @@ export class ResumeModel {
     this.input.educationInstituteLabel = educationInstituteLabel;
   }
 
-  getEducationLocationLabel(): string | undefined {
+  getEducationLocationLabel(): string | undefined | null {
     return this.input.educationLocationLabel;
   }
 
@@ -457,7 +457,7 @@ export class ResumeModel {
     this.input.educationLocationLabel = educationLocationLabel;
   }
 
-  getEducationGpaLabel(): string | undefined {
+  getEducationGpaLabel(): string | undefined | null {
     return this.input.educationGpaLabel;
   }
 
@@ -474,12 +474,12 @@ export class ResumeModel {
   }
 
   setEducation(index: number, education: IEducation) {
-    const educations = [...this.input.educations];
+    const educations = [...(this.input.educations || [])];
     educations[index] = education;
     this.input.educations = educations;
   }
 
-  getIsShowCertification(): boolean | undefined {
+  getIsShowCertification(): boolean | undefined | null {
     return this.input.isShowCertification;
   }
 
@@ -487,7 +487,7 @@ export class ResumeModel {
     this.input.isShowCertification = isShowCertification;
   }
 
-  getCertificationLabel(): string | undefined {
+  getCertificationLabel(): string | undefined | null {
     return this.input.certificationLabel;
   }
 
@@ -495,7 +495,7 @@ export class ResumeModel {
     this.input.certificationLabel = certificationLabel;
   }
 
-  getCertificationNameLabel(): string | undefined {
+  getCertificationNameLabel(): string | undefined | null {
     return this.input.certificationNameLabel;
   }
 
@@ -503,7 +503,7 @@ export class ResumeModel {
     this.input.certificationNameLabel = certificationNameLabel;
   }
 
-  getCertificationInstituteLabel(): string | undefined {
+  getCertificationInstituteLabel(): string | undefined | null {
     return this.input.certificationInstituteLabel;
   }
 
@@ -513,7 +513,7 @@ export class ResumeModel {
     this.input.certificationInstituteLabel = certificationInstituteLabel;
   }
 
-  getCertificationYearLabel(): string | undefined {
+  getCertificationYearLabel(): string | undefined | null {
     return this.input.certificationYearLabel;
   }
 
@@ -521,7 +521,7 @@ export class ResumeModel {
     this.input.certificationYearLabel = certificationYearLabel;
   }
 
-  getIsShowCourseWork(): boolean | undefined {
+  getIsShowCourseWork(): boolean | undefined | null {
     return this.input.isShowCourseWork;
   }
 
@@ -529,7 +529,7 @@ export class ResumeModel {
     this.input.isShowCourseWork = isShowCourseWork;
   }
 
-  getCourseWorkLabel(): string | undefined {
+  getCourseWorkLabel(): string | undefined | null {
     return this.input.courseWorkLabel;
   }
 
@@ -537,7 +537,7 @@ export class ResumeModel {
     this.input.courseWorkLabel = courseWorkLabel;
   }
 
-  getCourseWorkTitleLabel(): string | undefined {
+  getCourseWorkTitleLabel(): string | undefined | null {
     return this.input.courseWorkTitleLabel;
   }
 
@@ -545,14 +545,14 @@ export class ResumeModel {
     this.input.courseWorkTitleLabel = courseWorkTitleLabel;
   }
 
-  getCourseWorkNameLabel(): string | undefined {
+  getCourseWorkNameLabel(): string | undefined | null {
     return this.input.courseWorkNameLabel;
   }
 
   setCourseWorkNameLabel(courseWorkNameLabel: string | undefined): void {
     this.input.courseWorkNameLabel = courseWorkNameLabel;
   }
-  getCourseWorkInstituteLabel(): string | undefined {
+  getCourseWorkInstituteLabel(): string | undefined | null {
     return this.input.courseWorkInstituteLabel;
   }
 
@@ -562,7 +562,7 @@ export class ResumeModel {
     this.input.courseWorkInstituteLabel = courseWorkInstituteLabel;
   }
 
-  getCourseWorkYearLabel(): string | undefined {
+  getCourseWorkYearLabel(): string | undefined | null {
     return this.input.courseWorkYearLabel;
   }
 
@@ -570,7 +570,7 @@ export class ResumeModel {
     this.input.courseWorkYearLabel = courseWorkYearLabel;
   }
 
-  getCourseWorkSkillsLabel(): string | undefined {
+  getCourseWorkSkillsLabel(): string | undefined | null {
     return this.input.courseWorkSkillsLabel;
   }
 
@@ -578,27 +578,27 @@ export class ResumeModel {
     this.input.courseWorkSkillsLabel = courseWorkSkillsLabel;
   }
 
-  getIsShowInvolvement(): boolean | undefined {
+  getIsShowInvolvement(): boolean | undefined | null {
     return this.input.isShowInvolvement;
   }
   setIsShowInvolvement(isShowInvolvement: boolean | undefined): void {
     this.input.isShowInvolvement = isShowInvolvement;
   }
-  getInvolvementLabel(): string | undefined {
+  getInvolvementLabel(): string | undefined | null {
     return this.input.involvementLabel;
   }
   setInvolvementLabel(involvementLabel: string | undefined): void {
     this.input.involvementLabel = involvementLabel;
   }
 
-  getInvolvementRoleLabel(): string | undefined {
+  getInvolvementRoleLabel(): string | undefined | null {
     return this.input.involvementRoleLabel;
   }
   setInvolvementRoleLabel(involvementRoleLabel: string | undefined): void {
     this.input.involvementRoleLabel = involvementRoleLabel;
   }
 
-  getInvolvementCompanyLabel(): string | undefined {
+  getInvolvementCompanyLabel(): string | undefined | null {
     return this.input.involvementCompanyLabel;
   }
   setInvolvementCompanyLabel(
@@ -607,7 +607,7 @@ export class ResumeModel {
     this.input.involvementCompanyLabel = involvementCompanyLabel;
   }
 
-  getInvolvementLocationLabel(): string | undefined {
+  getInvolvementLocationLabel(): string | undefined | null {
     return this.input.involvementLocationLabel;
   }
   setInvolvementLocationLabel(
@@ -616,14 +616,14 @@ export class ResumeModel {
     this.input.involvementLocationLabel = involvementLocationLabel;
   }
 
-  getIsShowSkill(): boolean | undefined {
+  getIsShowSkill(): boolean | undefined | null {
     return this.input.isShowSkill;
   }
   setIsShowSkill(isShowSkill: boolean | undefined): void {
     this.input.isShowSkill = isShowSkill;
   }
 
-  getSkillLabel(): string | undefined {
+  getSkillLabel(): string | undefined | null {
     return this.input.skillLabel;
   }
 
@@ -632,7 +632,7 @@ export class ResumeModel {
   }
 
   setSkill(index: number, skill: ISkill) {
-    const skills = [...this.input.skills];
+    const skills = [...(this.input.skills || [])];
     skills[index] = skill;
     this.input.skills = skills;
   }
@@ -641,14 +641,14 @@ export class ResumeModel {
     this.input.skillLabel = skillLabel;
   }
 
-  getIsShowLanguage(): boolean | undefined {
+  getIsShowLanguage(): boolean | undefined | null {
     return this.input.isShowLanguage;
   }
 
   setIsShowLanguage(isShowLanguage: boolean | undefined): void {
     this.input.isShowLanguage = isShowLanguage;
   }
-  getLanguageLabel(): string | undefined {
+  getLanguageLabel(): string | undefined | null {
     return this.input.languageLabel;
   }
 
@@ -656,7 +656,7 @@ export class ResumeModel {
     this.input.languageLabel = languageLabel;
   }
 
-  getLanguageNameLabel(): string | undefined {
+  getLanguageNameLabel(): string | undefined | null {
     return this.input.languageNameLabel;
   }
 
@@ -664,7 +664,7 @@ export class ResumeModel {
     this.input.languageNameLabel = languageNameLabel;
   }
 
-  getLanguageLevelLabel(): string | undefined {
+  getLanguageLevelLabel(): string | undefined | null {
     return this.input.languageLevelLabel;
   }
   setLanguageLevelLabel(languageLevelLabel: string | undefined): void {
@@ -675,7 +675,7 @@ export class ResumeModel {
     this.input.languages = languages;
   }
 
-  getHobbyLabel(): string | undefined {
+  getHobbyLabel(): string | undefined | null {
     return this.input.hobbyLabel;
   }
 
@@ -683,7 +683,7 @@ export class ResumeModel {
     this.input.hobbyLabel = hobbyLabel;
   }
 
-  getSummaryOrder(): number | undefined {
+  getSummaryOrder(): number | undefined | null {
     return this.input.summaryOrder;
   }
 
@@ -691,7 +691,7 @@ export class ResumeModel {
     this.input.summaryOrder = order;
   }
 
-  getSectionByOrder(order: number): ResumeSectionType | undefined {
+  getSectionByOrder(order: number): ResumeSectionType | undefined | null {
     if (order === this.getExperienceOrder()) {
       return "experience";
     } else if (order === this.getProjectOrder()) {
@@ -741,7 +741,7 @@ export class ResumeModel {
     }
   }
 
-  getSectionOrder(section: ResumeSectionType): number | undefined {
+  getSectionOrder(section: ResumeSectionType): number | undefined | null {
     if (section === "experience") {
       return this.getExperienceOrder();
     } else if (section === "project") {
@@ -794,10 +794,10 @@ export class ResumeModel {
 
   getUpperAndVisibleSection(
     section: ResumeSectionType
-  ): ResumeSectionType | undefined {
+  ): ResumeSectionType | undefined | null {
     const order = this.getSectionOrder(section);
 
-    if (order === undefined || order <= 1) {
+    if (!order || order <= 1) {
       return;
     }
 
@@ -818,10 +818,10 @@ export class ResumeModel {
 
   getLowerAndVisibleSection(
     section: ResumeSectionType
-  ): ResumeSectionType | undefined {
+  ): ResumeSectionType | undefined | null {
     const order = this.getSectionOrder(section);
 
-    if (order === undefined || order >= 10) {
+    if (!order || order >= 10) {
       return;
     }
 
@@ -847,7 +847,7 @@ export class ResumeModel {
     const order1 = this.getSectionOrder(section1);
     const order2 = this.getSectionOrder(section2);
 
-    if (order1 === undefined || order2 === undefined) {
+    if (!order1 || !order2) {
       return;
     }
 
@@ -855,7 +855,7 @@ export class ResumeModel {
     this.setSectionOrder(section2, order1);
   }
 
-  getExperienceOrder(): number | undefined {
+  getExperienceOrder(): number | undefined | null {
     return this.input.experienceOrder;
   }
 
@@ -872,7 +872,7 @@ export class ResumeModel {
   }
 
   setExperience(index: number, experience: IExperience) {
-    const experiences = [...this.input.experiences];
+    const experiences = [...(this.input.experiences || [])];
     experiences[index] = experience;
     this.input.experiences = experiences;
   }
@@ -907,7 +907,7 @@ export class ResumeModel {
     experience.changePointsIndex(index1, index2);
   }
 
-  getProjectOrder(): number | undefined {
+  getProjectOrder(): number | undefined | null {
     return this.input.projectOrder;
   }
 
@@ -922,7 +922,7 @@ export class ResumeModel {
   }
 
   setProject(index: number, project: IProject) {
-    const projects = [...this.input.projects];
+    const projects = [...(this.input.projects || [])];
     projects[index] = project;
     this.input.projects = projects;
 
@@ -959,7 +959,7 @@ export class ResumeModel {
     project.changePointsIndex(index1, index2);
   }
 
-  getEducationOrder(): number | undefined {
+  getEducationOrder(): number | undefined | null {
     return this.input.educationOrder;
   }
 
@@ -997,7 +997,7 @@ export class ResumeModel {
     education.changePointsIndex(index1, index2);
   }
 
-  getCertificationOrder(): number | undefined {
+  getCertificationOrder(): number | undefined | null {
     return this.input.certificationOrder;
   }
   setCertificationOrder(order: number | undefined): void {
@@ -1013,7 +1013,7 @@ export class ResumeModel {
   }
 
   setCertification(index: number, certification: ICertification) {
-    const certifications = [...this.input.certifications];
+    const certifications = [...(this.input.certifications || [])];
     certifications[index] = certification;
     this.input.certifications = certifications;
   }
@@ -1048,7 +1048,7 @@ export class ResumeModel {
     certification.changePointsIndex(index1, index2);
   }
 
-  getCourseWorkOrder(): number | undefined {
+  getCourseWorkOrder(): number | undefined | null {
     return this.input.courseWorkOrder;
   }
   setCourseWorkOrder(order: number | undefined): void {
@@ -1064,7 +1064,7 @@ export class ResumeModel {
   }
 
   setCourseWork(index: number, courseWork: ICourseWork) {
-    const courseWorks = [...this.input.courseWorks];
+    const courseWorks = [...(this.input.courseWorks || [])];
     courseWorks[index] = courseWork;
     this.input.courseWorks = courseWorks;
   }
@@ -1099,7 +1099,7 @@ export class ResumeModel {
     courseWork.changePointsIndex(index1, index2);
   }
 
-  getInvolvementOrder(): number | undefined {
+  getInvolvementOrder(): number | undefined | null {
     return this.input.involvementOrder;
   }
   setInvolvementOrder(order: number | undefined): void {
@@ -1115,7 +1115,7 @@ export class ResumeModel {
   }
 
   setInvolvement(index: number, involvement: IInvolvement) {
-    const involvements = [...this.input.involvements];
+    const involvements = [...(this.input.involvements || [])];
     involvements[index] = involvement;
     this.input.involvements = involvements;
   }
@@ -1150,7 +1150,7 @@ export class ResumeModel {
     involvement.changePointsIndex(index1, index2);
   }
 
-  getSkillOrder(): number | undefined {
+  getSkillOrder(): number | undefined | null {
     return this.input.skillOrder;
   }
 
@@ -1174,7 +1174,7 @@ export class ResumeModel {
     this.input.skills[index1] = item2;
   }
 
-  getLanguageOrder(): number | undefined {
+  getLanguageOrder(): number | undefined | null {
     return this.input.languageOrder;
   }
   setLanguageOrder(order: number | undefined): void {
@@ -1188,7 +1188,7 @@ export class ResumeModel {
   }
 
   setLanguage(index: number, language: ILanguage) {
-    const languages = [...this.input.languages];
+    const languages = [...(this.input.languages || [])];
     languages[index] = language;
     this.input.languages = languages;
   }
@@ -1209,7 +1209,7 @@ export class ResumeModel {
     this.input.languages[index1] = item2;
   }
 
-  getHobbyOrder(): number | undefined {
+  getHobbyOrder(): number | undefined | null {
     return this.input.hobbyOrder;
   }
   setHobbyOrder(order: number | undefined): void {
@@ -1221,7 +1221,7 @@ export class ResumeModel {
   }
 
   setHobby(index: number, hobby: IHobby) {
-    const hobbies = [...this.input.hobbies];
+    const hobbies = [...(this.input.hobbies || [])];
     hobbies[index] = hobby;
     this.input.hobbies = hobbies;
   }
@@ -1243,7 +1243,7 @@ export class ResumeModel {
     this.input.hobbies[index1] = item2;
   }
 
-  getIsShowHobby(): boolean | undefined {
+  getIsShowHobby(): boolean | undefined | null {
     return this.input.isShowHobby;
   }
 
@@ -1251,10 +1251,10 @@ export class ResumeModel {
     this.input.isShowHobby = isShowHobby;
   }
 
-  getCreatedAt(): Date | undefined {
+  getCreatedAt(): Date | undefined | null {
     return this.input.createdAt;
   }
-  getUpdatedAt(): Date | undefined {
+  getUpdatedAt(): Date | undefined | null {
     return this.input.updatedAt;
   }
 

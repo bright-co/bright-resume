@@ -19,7 +19,7 @@ export interface IEducation {
 export class EducationModel {
   constructor(public input: Partial<IEducation> = {}) {}
 
-  getDegree(): string | undefined {
+  getDegree(): string | undefined | null {
     return this.input.degree;
   }
 
@@ -27,7 +27,7 @@ export class EducationModel {
     this.input = { ...this.input, degree };
   }
 
-  getIsShowInstitute(): boolean | undefined {
+  getIsShowInstitute(): boolean | undefined | null {
     return this.input.isShowInstitute;
   }
 
@@ -35,7 +35,7 @@ export class EducationModel {
     this.input = { ...this.input, isShowInstitute };
   }
 
-  getInstitute(): string | undefined {
+  getInstitute(): string | undefined | null {
     return this.input.institute;
   }
 
@@ -43,7 +43,7 @@ export class EducationModel {
     this.input = { ...this.input, institute };
   }
 
-  getIsShowLocation(): boolean | undefined {
+  getIsShowLocation(): boolean | undefined | null {
     return this.input.isShowLocation;
   }
 
@@ -51,7 +51,7 @@ export class EducationModel {
     this.input = { ...this.input, isShowLocation };
   }
 
-  getIsShowGpa(): boolean | undefined {
+  getIsShowGpa(): boolean | undefined | null {
     return this.input.isShowGpa;
   }
 
@@ -59,7 +59,7 @@ export class EducationModel {
     this.input = { ...this.input, isShowGpa };
   }
 
-  getLocation(): string | undefined {
+  getLocation(): string | undefined | null {
     return this.input.location;
   }
 
@@ -67,7 +67,7 @@ export class EducationModel {
     this.input = { ...this.input, location };
   }
 
-  getGpa(): string | undefined {
+  getGpa(): string | undefined | null {
     return this.input.gpa;
   }
 
@@ -75,7 +75,7 @@ export class EducationModel {
     this.input = { ...this.input, gpa };
   }
 
-  getIsShowDate(): boolean | undefined {
+  getIsShowDate(): boolean | undefined | null {
     return this.input.isShowDate;
   }
 
@@ -83,7 +83,7 @@ export class EducationModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined {
+  getFromMonth(): string | undefined | null {
     return this.input.fromMonth;
   }
 
@@ -91,7 +91,7 @@ export class EducationModel {
     this.input = { ...this.input, fromMonth };
   }
 
-  getFromYear(): string | undefined {
+  getFromYear(): string | undefined | null {
     return this.input.fromYear;
   }
 
@@ -99,7 +99,7 @@ export class EducationModel {
     this.input = { ...this.input, fromYear };
   }
 
-  getToMonth(): string | undefined {
+  getToMonth(): string | undefined | null {
     return this.input.toMonth;
   }
 
@@ -107,7 +107,7 @@ export class EducationModel {
     this.input = { ...this.input, toMonth };
   }
 
-  getToYear(): string | undefined {
+  getToYear(): string | undefined | null {
     return this.input.toYear;
   }
 
@@ -115,7 +115,7 @@ export class EducationModel {
     this.input = { ...this.input, toYear };
   }
 
-  getUntilNow(): boolean | undefined {
+  getUntilNow(): boolean | undefined | null {
     return this.input.untilNow;
   }
 
@@ -123,7 +123,7 @@ export class EducationModel {
     this.input = { ...this.input, untilNow };
   }
 
-  getIsShowPoints(): boolean | undefined {
+  getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 

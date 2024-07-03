@@ -7,7 +7,7 @@ export interface ILanguage {
 export class LanguageModel {
   constructor(public input: Partial<ILanguage> = {}) {}
 
-  getName(): string | undefined {
+  getName(): string | undefined | null {
     return this.input.name;
   }
 
@@ -15,7 +15,7 @@ export class LanguageModel {
     this.input = { ...this.input, name };
   }
 
-  getIsShowLevel(): boolean | undefined {
+  getIsShowLevel(): boolean | undefined | null {
     return this.input.isShowLevel;
   }
 
@@ -23,7 +23,7 @@ export class LanguageModel {
     this.input = { ...this.input, isShowLevel };
   }
 
-  getLevel(): string | undefined {
+  getLevel(): string | undefined | null {
     return this.input.level;
   }
 
