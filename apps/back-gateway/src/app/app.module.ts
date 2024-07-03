@@ -3,7 +3,6 @@ import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
-
 import { AppController } from "./app.controller";
 import { EnvironmentVariablesEnum } from "./enums";
 

@@ -10,7 +10,6 @@
     "auth:test:file": "nx test back-auth --testFile=<file-path>",
     "cms:build": "nx build back-cms",
     "cms:dev": "nx serve back-cms",
-    "resume-template:dev": "nx serve resume-template",
     "components": "nx run components:storybook",
     "resume-template-components:dev": "nx run resume-template-components:storybook",
     "file:build": "nx build back-file",
@@ -30,7 +29,9 @@
     "chatbot:dev": "concurrently \"npm run chatbot:dev:graphql-codegen\" \"npm run chatbot:dev:serve\"",
     "chatbot:dev:graphql-codegen": "env-cmd graphql-codegen -c ./apps/chatbot/codegen.ts --watch",
     "chatbot:dev:serve": "nx serve chatbot",
-    "back:dev": "concurrently \"npm run auth:dev\" \"npm run resume:dev\"  \"npm run file:dev\""
+    "back:dev": "concurrently \"npm run auth:dev\" \"npm run resume:dev\"  \"npm run file:dev\"",
+    "resume-template:build": "nx build resume-template",
+    "resume-template:dev": "nx serve resume-template"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.33",

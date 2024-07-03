@@ -13,7 +13,7 @@ import { EnvironmentVariablesEnum } from "./app/enums";
 async function bootstrap() {
   checkEnv(EnvironmentVariablesEnum);
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = "api";
+  const globalPrefix = "gateway";
   app.setGlobalPrefix(globalPrefix);
   const port = 4000;
   await app.listen(port);

@@ -14,9 +14,9 @@ export default async function Index() {
     userId: "userId",
     name: faker.person.fullName(),
     title: faker.person.fullName(),
-    color: ResumeColorEnum.orange,
-    fontFamily: ResumeFontFamilyEnum.montserrat,
-    fontSize: ResumeFontSizeEnum.large,
+    color: ResumeColorEnum.Black,
+    fontFamily: ResumeFontFamilyEnum.Arial,
+    fontSize: ResumeFontSizeEnum.Large,
     role: faker.person.jobTitle(),
     isShowPhoneNumber: faker.datatype.boolean(),
     phoneNumber: faker.phone.number(),
@@ -236,10 +236,10 @@ export default async function Index() {
     isShowSkill: faker.datatype.boolean(),
     skillLabel: "SKILLS",
     skills: [
-      faker.lorem.paragraph(),
-      faker.lorem.paragraph(),
-      faker.lorem.paragraph(),
-      faker.lorem.paragraph(),
+      { point: faker.lorem.paragraph() },
+      { point: faker.lorem.paragraph() },
+      { point: faker.lorem.paragraph() },
+      { point: faker.lorem.paragraph() },
     ],
     isShowLanguage: faker.datatype.boolean(),
     languageLabel: faker.lorem.word(),
@@ -254,7 +254,10 @@ export default async function Index() {
     ],
     hobbyLabel: faker.lorem.word(),
     isShowHobby: faker.datatype.boolean(),
-    hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+    hobbies: [
+      { point: faker.lorem.paragraph() },
+      { point: faker.lorem.paragraph() },
+    ],
   };
 
   return (

@@ -209,18 +209,21 @@ export function TemplateMinimalist({
         ].join(" ")}
       >
         {onMoveUpSection &&
+          callResumeGetMethod &&
           callResumeGetMethod("getUpperAndVisibleSection", section) && (
             <div className="button" onClick={() => onMoveUpSection(section)}>
               <UpIcon />
             </div>
           )}
 
-        <div
-          className="button"
-          onClick={() => callResumeSetMethod("setHiddenSection", section)}
-        >
-          <VisibilityOffIcon />
-        </div>
+        {callResumeSetMethod && (
+          <div
+            className="button"
+            onClick={() => callResumeSetMethod("setHiddenSection", section)}
+          >
+            <VisibilityOffIcon />
+          </div>
+        )}
         <div className="button">
           <EditIcon />
         </div>
@@ -228,6 +231,7 @@ export function TemplateMinimalist({
           <AIIcon />
         </div>
         {onMoveDownSection &&
+          callResumeGetMethod &&
           callResumeGetMethod("getLowerAndVisibleSection", section) && (
             <div className="button" onClick={() => onMoveDownSection(section)}>
               <DownIcon />
