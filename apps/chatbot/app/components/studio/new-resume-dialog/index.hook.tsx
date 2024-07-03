@@ -27,6 +27,8 @@ export const useData = () => {
     setIsNewResumeDialog,
     setResumes,
     setSelectedResumeId,
+    resumes,
+    initialLoading,
   } = useStudioContext();
   const { toast } = useToast();
 
@@ -193,5 +195,7 @@ export const useData = () => {
     loading,
     isOpenNewResumeDialog,
     setIsNewResumeDialog,
+    resumes,
+    initialLoading,
   };
 };

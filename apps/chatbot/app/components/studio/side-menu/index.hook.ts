@@ -22,6 +22,7 @@ export const useData = () => {
     setSelectedResume,
     selectedResume,
     setSelectedResumeId,
+    setInitialLoading,
   } = useStudioContext();
 
   /* ---------------------------------- args ---------------------------------- */
@@ -52,6 +53,7 @@ export const useData = () => {
         setSelectedResumeId(edges[0].id!);
       }
       setResumes(edges);
+      setInitialLoading(false);
     },
   });
 

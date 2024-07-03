@@ -23,6 +23,7 @@ import {
   ResumeFontSizeEnum,
 } from "@enums";
 import { ResumeSectionType } from "@models";
+import { useStudioContext } from "../use-context";
 
 type ZoomRangeType = 0.5 | 0.75 | 1 | 1.25 | 1.5 | 1.75;
 
@@ -31,6 +32,7 @@ export const Resume: FC = () => {
   const [zoom, setZoom] = useState<ZoomRangeType>(1);
   const target = useRef(null);
   const [width, height] = useSize(target);
+  const { setIsOpenSteps } = useStudioContext();
 
   return (
     <div className="resume-container overflow-scroll h-full px-9">
@@ -210,8 +212,12 @@ export const Resume: FC = () => {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <Button variant="outline" size="icon">
-              Save
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setIsOpenSteps(true)}
+            >
+              Edit
             </Button>
           </MenubarMenu>
         </Menubar>

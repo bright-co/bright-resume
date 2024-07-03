@@ -1,13 +1,13 @@
 import { cookie } from "@chatbot/cookie";
-import Index from "./components";
 import { redirect } from "next/navigation";
+import StudioComponents from "../components/studio";
 
-export default async function RootLayout() {
+export default async function Page() {
   const userCookie = await cookie.user.get();
 
   if (!userCookie?.id) {
     redirect("/auth/sign-in");
   }
 
-  return <Index user={userCookie} />;
+  return <StudioComponents user={userCookie} />;
 }

@@ -9,7 +9,7 @@ export const Header: FC = () => {
     <div className="bg-gray-400 w-full h-full">
       Hi, {user && (user.name || user.email || user.username)}
       <br />
-      {selectedResume && "Resume: " + selectedResume.name}
+      {selectedResume && "Resume: " + selectedResume.title}
     </div>
   );
 };

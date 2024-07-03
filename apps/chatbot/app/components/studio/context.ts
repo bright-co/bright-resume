@@ -21,6 +21,10 @@ export interface IContext {
   setIsCollapsedSideMenu: Dispatch<SetStateAction<boolean>>;
   isOpenChat: boolean;
   setIsOpenChat: Dispatch<SetStateAction<boolean>>;
+  isOpenSteps: boolean;
+  setIsOpenSteps: Dispatch<SetStateAction<boolean>>;
+  initialLoading: boolean;
+  setInitialLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Context = createContext<IContext>({
@@ -40,4 +44,8 @@ export const Context = createContext<IContext>({
   setIsCollapsedSideMenu: () => {},
   isOpenChat: false,
   setIsOpenChat: () => {},
+  isOpenSteps: false,
+  setIsOpenSteps: () => {},
+  initialLoading: true,
+  setInitialLoading: () => {},
 });

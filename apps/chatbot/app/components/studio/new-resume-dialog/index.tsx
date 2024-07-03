@@ -16,12 +16,17 @@ import {
   FormLabel,
   Input,
 } from "@resume-template-components/shadcn-ui";
-
 import { useData } from "./index.hook";
 
 export const NewResumeDialog: FC = () => {
-  const { form, onSubmit, isOpenNewResumeDialog, setIsNewResumeDialog } =
-    useData();
+  const {
+    form,
+    onSubmit,
+    isOpenNewResumeDialog,
+    setIsNewResumeDialog,
+    resumes,
+    initialLoading,
+  } = useData();
 
   const renderForm = () => {
     return (
@@ -53,7 +58,12 @@ export const NewResumeDialog: FC = () => {
   };
 
   return (
-    <Dialog open={isOpenNewResumeDialog} onOpenChange={setIsNewResumeDialog}>
+    <Dialog
+      open={
+        resumes.length === 0 && !initialLoading ? true : isOpenNewResumeDialog
+      }
+      onOpenChange={setIsNewResumeDialog}
+    >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create A new Resume</DialogTitle>
