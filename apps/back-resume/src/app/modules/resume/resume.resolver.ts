@@ -45,8 +45,6 @@ export class ResumeResolver {
     @Args("createResumeResumeInputs")
     inputs: CreateResumeResumeInputsGQL
   ): Promise<Resume> {
-    console.log({ userId });
-
     return await this.resumeService.create(userId, inputs);
   }
 

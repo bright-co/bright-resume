@@ -2,69 +2,111 @@
 
 import {
   Button,
+  Separator,
   Sheet,
   SheetContent,
 } from "@resume-template-components/shadcn-ui";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { clsx } from "clsx";
 
 import { useStudioContext } from "../use-context";
+import {
+  Header,
+  Summary,
+  Experience,
+  Involvement,
+  Project,
+  Education,
+  Skill,
+  CourseWork,
+  Certification,
+  Hobby,
+  Language,
+} from "./components";
+import { ResumeSectionType } from "@models";
 
-const examples = [
+const sections: { section: ResumeSectionType; component: ReactNode }[] = [
   {
-    name: "Mail",
-    href: "/examples/mail",
+    section: "header",
+    component: <Header />,
   },
   {
-    name: "Dashboard",
-    href: "/examples/dashboard",
+    section: "summary",
+    component: <Summary />,
   },
   {
-    name: "Cards",
-    href: "/examples/cards",
+    section: "experience",
+    component: <Experience />,
   },
   {
-    name: "Tasks",
-    href: "/examples/tasks",
+    section: "involvement",
+    component: <Involvement />,
   },
   {
-    name: "Playground",
-    href: "/examples/playground",
+    section: "project",
+    component: <Project />,
   },
   {
-    name: "Forms",
-    href: "/examples/forms",
+    section: "education",
+    component: <Education />,
   },
   {
-    name: "Music",
-    href: "/examples/music",
+    section: "skill",
+    component: <Skill />,
   },
   {
-    name: "Authentication",
-    href: "/examples/authentication",
+    section: "courseWork",
+    component: <CourseWork />,
+  },
+  {
+    section: "certification",
+    component: <Certification />,
+  },
+  {
+    section: "hobby",
+    component: <Hobby />,
+  },
+  {
+    section: "language",
+    component: <Language />,
   },
 ];
 
 export const Steps: FC = () => {
-  const { isOpenSteps, setIsOpenSteps } = useStudioContext();
+  const { isOpenSteps, setIsOpenSteps, resumeSection, setResumeSection } =
+    useStudioContext();
 
   return (
     <Sheet open={isOpenSteps} onOpenChange={setIsOpenSteps}>
       <SheetContent style={{ width: "80%", maxWidth: "80%" }} side="right">
         <div className="relative">
           <div className={clsx("mb-4 flex items-center")}>
-            {examples.map((example, index) => (
+            {sections.map(({ section }, index) => (
               <Button
-                key={example.href}
+                key={section}
+                onClick={() => setResumeSection(section)}
                 className={clsx(
                   "flex h-7  ml-4 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-secondary bg-muted font-medium text-primary"
                 )}
               >
-                {example.name}
+                {section}
               </Button>
             ))}
           </div>
         </div>
+        <Separator />
+        <div>{!resumeSection && <Header />}</div>
+        {resumeSection === "header" && <Header />}
+        {resumeSection === "summary" && <Summary />}
+        {resumeSection === "experience" && <Experience />}
+        {resumeSection === "involvement" && <Involvement />}
+        {resumeSection === "project" && <Project />}
+        {resumeSection === "education" && <Education />}
+        {resumeSection === "skill" && <Skill />}
+        {resumeSection === "courseWork" && <CourseWork />}
+        {resumeSection === "certification" && <Certification />}
+        {resumeSection === "hobby" && <Hobby />}
+        {resumeSection === "language" && <Language />}
       </SheetContent>
     </Sheet>
   );

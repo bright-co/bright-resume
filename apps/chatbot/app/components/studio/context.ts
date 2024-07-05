@@ -1,5 +1,6 @@
 import { IUserCookie } from "@chatbot/cookie/user";
 import { GetResumeByIdQuery, GetResumesQuery } from "@chatbot/gql/graphql";
+import { ResumeSectionType } from "@models";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 export interface IContext {
@@ -25,6 +26,8 @@ export interface IContext {
   setIsOpenSteps: Dispatch<SetStateAction<boolean>>;
   initialLoading: boolean;
   setInitialLoading: Dispatch<SetStateAction<boolean>>;
+  resumeSection: ResumeSectionType;
+  setResumeSection: Dispatch<SetStateAction<ResumeSectionType>>;
 }
 
 export const Context = createContext<IContext>({
@@ -48,4 +51,6 @@ export const Context = createContext<IContext>({
   setIsOpenSteps: () => {},
   initialLoading: true,
   setInitialLoading: () => {},
+  resumeSection: undefined,
+  setResumeSection: () => {},
 });
