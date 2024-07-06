@@ -1,2 +1,3 @@
-export * from "./object/index";
-export * from "./url/index";
+export * from "./object";
+export * from "./url";
+export * from "./string";

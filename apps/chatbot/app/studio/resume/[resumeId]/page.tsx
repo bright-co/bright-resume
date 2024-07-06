@@ -5,11 +5,15 @@ import { ResumeSectionType } from "@models";
 
 export default async function Page(props: {
   params: { resumeId: string };
-  searchParams: { sheet?: "chat" | "steps"; section?: ResumeSectionType };
+  searchParams: {
+    sheet?: "chat" | "steps";
+    section?: ResumeSectionType;
+    resumeSubSectionIndex?: string;
+  };
 }) {
   const {
     params: { resumeId },
-    searchParams: { sheet, section },
+    searchParams: { sheet, section, resumeSubSectionIndex },
   } = props;
 
   const userCookie = await cookie.user.get();
@@ -24,6 +28,7 @@ export default async function Page(props: {
       resumeId={resumeId}
       sheet={sheet}
       section={section}
+      resumeSubSectionIndex={resumeSubSectionIndex}
     />
   );
 }

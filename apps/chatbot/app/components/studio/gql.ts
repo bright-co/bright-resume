@@ -7,6 +7,7 @@ export const MUTATION_UPDATE_RESUME_RESUME = gql`
     updateResume(updateResumeResumeInputs: $updateResumeResumeInputs) {
       id
       userId
+      title
     }
   }
 `;

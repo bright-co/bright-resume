@@ -42,6 +42,10 @@ export const useData = (props: Props): IContext => {
     props.section
   );
 
+  const [resumeSubSectionIndex, setResumeSubSectionIndex] = useState<
+    number | undefined
+  >(utils.convertToInteger(props.resumeSubSectionIndex || "") || 0);
+
   const [getResumeByIdResumeArgs, setGetResumeByIdResumeArgs] =
     useState<GetResumeByIdResumeArgsGql>({ resumeId: "" });
 
@@ -66,39 +70,55 @@ export const useData = (props: Props): IContext => {
         {
           resumeId: selectedResumeId,
         },
-        { sheet, section: resumeSection }
+        {
+          sheet,
+          section: resumeSection,
+          resumeSubSectionIndex:
+            resumeSubSectionIndex !== undefined &&
+            resumeSubSectionIndex.toString(),
+        }
       )
     );
-  }, [selectedResumeId, isOpenSteps, resumeSection, isOpenChat]);
+  }, [
+    selectedResumeId,
+    isOpenSteps,
+    resumeSection,
+    isOpenChat,
+    resumeSubSectionIndex,
+  ]);
 
   /* -------------------------------- useQuery -------------------------------- */
 
-  const { loading: loadingSelectedResume } = useQuery<
-    GetResumeByIdQuery,
-    GetResumeByIdQueryVariables
-  >(QUERY_GET_RESUME_BY_ID_RESUME, {
-    skip: !selectedResumeId,
-    variables: {
-      getResumeByIdResumeArgs,
-    },
-    onCompleted: async ({ getResumeById }) => {
-      setSelectedResume({ ...getResumeById });
-      window.history.pushState(
-        {},
-        "",
-        utils.buildUrlClient(
-          "/studio/resume/:resumeId",
-          {
-            resumeId: getResumeById.id!,
-          },
-          {
-            sheet: props.sheet,
-            section: props.section,
-          }
-        )
-      );
-    },
-  });
+  const { loading: loadingSelectedResume, refetch: refetchSelectedResume } =
+    useQuery<GetResumeByIdQuery, GetResumeByIdQueryVariables>(
+      QUERY_GET_RESUME_BY_ID_RESUME,
+      {
+        skip: !selectedResumeId,
+        fetchPolicy: "cache-and-network",
+        variables: {
+          getResumeByIdResumeArgs,
+        },
+        onCompleted: async ({ getResumeById }) => {
+          setSelectedResume({ ...getResumeById });
+
+          window.history.pushState(
+            {},
+            "",
+            utils.buildUrlClient(
+              "/studio/resume/:resumeId",
+              {
+                resumeId: getResumeById.id!,
+              },
+              {
+                sheet: props.sheet,
+                section: props.section,
+                resumeSubSectionIndex: props.resumeSubSectionIndex,
+              }
+            )
+          );
+        },
+      }
+    );
 
   /* ------------------------------- useMutation ------------------------------ */
 
@@ -145,5 +165,8 @@ export const useData = (props: Props): IContext => {
     setInitialLoading,
     resumeSection,
     setResumeSection,
+    refetchSelectedResume,
+    resumeSubSectionIndex,
+    setResumeSubSectionIndex,
   };
 };

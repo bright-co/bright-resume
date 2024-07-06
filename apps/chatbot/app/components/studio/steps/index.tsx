@@ -1,29 +1,31 @@
 "use client";
 
 import {
-  Button,
   Separator,
   Sheet,
   SheetContent,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from "@resume-template-components/shadcn-ui";
 import { FC, ReactNode } from "react";
-import { clsx } from "clsx";
 
+import { ResumeSectionType } from "@models";
 import { useStudioContext } from "../use-context";
 import {
-  Header,
-  Summary,
-  Experience,
-  Involvement,
-  Project,
-  Education,
-  Skill,
-  CourseWork,
   Certification,
+  CourseWork,
+  Education,
+  Experience,
+  Header,
   Hobby,
+  Involvement,
   Language,
+  Project,
+  Skill,
+  Summary,
 } from "./components";
-import { ResumeSectionType } from "@models";
 
 const sections: { section: ResumeSectionType; component: ReactNode }[] = [
   {
@@ -79,34 +81,58 @@ export const Steps: FC = () => {
   return (
     <Sheet open={isOpenSteps} onOpenChange={setIsOpenSteps}>
       <SheetContent style={{ width: "80%", maxWidth: "80%" }} side="right">
-        <div className="relative">
-          <div className={clsx("mb-4 flex items-center")}>
-            {sections.map(({ section }, index) => (
-              <Button
+        <Tabs
+          defaultValue="header"
+          value={resumeSection}
+          className="h-full flex flex-col"
+        >
+          <TabsList className="bg-blue-300">
+            {sections.map(({ section }) => (
+              <TabsTrigger
                 key={section}
+                value={section!}
                 onClick={() => setResumeSection(section)}
-                className={clsx(
-                  "flex h-7  ml-4 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-secondary bg-muted font-medium text-primary"
-                )}
+                className="text-zinc-600 dark:text-zinc-200"
               >
                 {section}
-              </Button>
+              </TabsTrigger>
             ))}
-          </div>
-        </div>
+          </TabsList>
+          <TabsContent value="header" className="overflow-auto">
+            <Header />
+          </TabsContent>
+          <TabsContent value="summary" className="overflow-auto">
+            <Summary />
+          </TabsContent>
+          <TabsContent value="experience" className="overflow-auto">
+            <Experience />
+          </TabsContent>
+          <TabsContent value="involvement" className="overflow-auto">
+            <Involvement />
+          </TabsContent>
+          <TabsContent value="project" className="overflow-auto">
+            <Project />
+          </TabsContent>
+          <TabsContent value="education" className="overflow-auto">
+            <Education />
+          </TabsContent>
+          <TabsContent value="skill" className="overflow-auto">
+            <Skill />
+          </TabsContent>
+          <TabsContent value="courseWork" className="overflow-auto">
+            <CourseWork />
+          </TabsContent>
+          <TabsContent value="certification" className="overflow-auto">
+            <Certification />
+          </TabsContent>
+          <TabsContent value="hobby" className="overflow-auto">
+            <Hobby />
+          </TabsContent>
+          <TabsContent value="language" className="overflow-auto">
+            <Language />
+          </TabsContent>
+        </Tabs>
         <Separator />
-        <div>{!resumeSection && <Header />}</div>
-        {resumeSection === "header" && <Header />}
-        {resumeSection === "summary" && <Summary />}
-        {resumeSection === "experience" && <Experience />}
-        {resumeSection === "involvement" && <Involvement />}
-        {resumeSection === "project" && <Project />}
-        {resumeSection === "education" && <Education />}
-        {resumeSection === "skill" && <Skill />}
-        {resumeSection === "courseWork" && <CourseWork />}
-        {resumeSection === "certification" && <Certification />}
-        {resumeSection === "hobby" && <Hobby />}
-        {resumeSection === "language" && <Language />}
       </SheetContent>
     </Sheet>
   );

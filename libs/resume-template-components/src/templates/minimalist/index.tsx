@@ -12,6 +12,7 @@ import {
   DownIcon,
   AIIcon,
   VisibilityOffIcon,
+  LocationIcon,
 } from "../icons";
 
 import "./general.css";
@@ -60,6 +61,8 @@ export function TemplateMinimalist({
   callResumeHobbySetMethod,
   onMoveUpSection,
   onMoveDownSection,
+  onClickEditSection,
+  onClickEditSubSection,
 }: ResumeTemplateProps) {
   const { fontSize, fontFamily, color } = resume;
 
@@ -224,9 +227,11 @@ export function TemplateMinimalist({
             <VisibilityOffIcon />
           </div>
         )}
-        <div className="button">
-          <EditIcon />
-        </div>
+        {onClickEditSection && (
+          <div className="button" onClick={() => onClickEditSection(section)}>
+            <EditIcon />
+          </div>
+        )}
         <div className="button">
           <AIIcon />
         </div>
@@ -272,9 +277,14 @@ export function TemplateMinimalist({
               <UpIcon />
             </div>
           )}
-        <div className="button">
-          <EditIcon />
-        </div>
+        {onClickEditSubSection && (
+          <div
+            className="button"
+            onClick={() => onClickEditSubSection(section, subSectionIndex)}
+          >
+            <EditIcon />
+          </div>
+        )}
         <div className="button">
           <AIIcon />
         </div>
@@ -393,70 +403,96 @@ export function TemplateMinimalist({
             )}
           </div>
           <div className="hr-social-media">
-            <div className={["hr-item", subTextFontSize].join(" ")}>
-              <div className="hr-item-icon">
-                <LinkedinIcon />
+            {resume.isShowLinkedin && (
+              <div className={["hr-item", subTextFontSize].join(" ")}>
+                <div className="hr-item-icon">
+                  <LinkedinIcon />
+                </div>
+                {staticMode ? (
+                  resume.linkedin
+                ) : (
+                  <RichText
+                    value={resume.linkedin || ""}
+                    onChange={(value) =>
+                      callResumeSetMethod &&
+                      callResumeSetMethod("setLinkedin", value)
+                    }
+                  />
+                )}
               </div>
-              {staticMode ? (
-                resume.linkedin
-              ) : (
-                <RichText
-                  value={resume.linkedin || ""}
-                  onChange={(value) =>
-                    callResumeSetMethod &&
-                    callResumeSetMethod("setLinkedin", value)
-                  }
-                />
-              )}
-            </div>
-            <div className={["hr-item", subTextFontSize].join(" ")}>
-              <div className="hr-item-icon">
-                <MailIcon />
+            )}
+            {resume.isShowEmail && (
+              <div className={["hr-item", subTextFontSize].join(" ")}>
+                <div className="hr-item-icon">
+                  <MailIcon />
+                </div>
+                {staticMode ? (
+                  resume.email
+                ) : (
+                  <RichText
+                    value={resume.email || ""}
+                    onChange={(value) =>
+                      callResumeSetMethod &&
+                      callResumeSetMethod("setEmail", value)
+                    }
+                  />
+                )}
               </div>
-              {staticMode ? (
-                resume.email
-              ) : (
-                <RichText
-                  value={resume.email || ""}
-                  onChange={(value) =>
-                    callResumeSetMethod &&
-                    callResumeSetMethod("setEmail", value)
-                  }
-                />
-              )}
-            </div>
-            <div className={["hr-item", subTextFontSize].join(" ")}>
-              <div className="hr-item-icon">
-                <PhoneIcon />
+            )}
+            {resume.isShowPhoneNumber && (
+              <div className={["hr-item", subTextFontSize].join(" ")}>
+                <div className="hr-item-icon">
+                  <PhoneIcon />
+                </div>
+                {staticMode ? (
+                  resume.phoneNumber
+                ) : (
+                  <RichText
+                    value={resume.phoneNumber || ""}
+                    onChange={(value) =>
+                      callResumeSetMethod &&
+                      callResumeSetMethod("setPhoneNumber", value)
+                    }
+                  />
+                )}
               </div>
-              {staticMode ? (
-                resume.phoneNumber
-              ) : (
-                <RichText
-                  value={resume.phoneNumber || ""}
-                  onChange={(value) =>
-                    callResumeSetMethod &&
-                    callResumeSetMethod("setPhoneNumber", value)
-                  }
-                />
-              )}
-            </div>
-            <div className={["hr-item", subTextFontSize].join(" ")}>
-              <div className="hr-item-icon">
-                <WebIcon />
+            )}
+            {resume.isShowWebsite && (
+              <div className={["hr-item", subTextFontSize].join(" ")}>
+                <div className="hr-item-icon">
+                  <WebIcon />
+                </div>
+                {staticMode ? (
+                  resume.website
+                ) : (
+                  <RichText
+                    value={resume.website || ""}
+                    onChange={(value) =>
+                      callResumeSetMethod &&
+                      callResumeSetMethod("setWebsite", value)
+                    }
+                  />
+                )}
               </div>
-              {staticMode ? (
-                resume.website
-              ) : (
-                <RichText
-                  value={resume.website || ""}
-                  onChange={(value) =>
-                    callResumeSetMethod &&
-                    callResumeSetMethod("setWebsite", value)
-                  }
-                />
-              )}
-            </div>
+            )}
+            {resume.isShowLocation && (
+              <div className={["hr-item", subTextFontSize].join(" ")}>
+                <div className="hr-item-icon">
+                  <LocationIcon />
+                </div>
+                {staticMode ? (
+                  resume.location
+                ) : (
+                  <RichText
+                    value={resume.location || ""}
+                    onChange={(value) =>
+                      callResumeSetMethod &&
+                      callResumeSetMethod("setLocation", value)
+                    }
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

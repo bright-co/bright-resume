@@ -4,10 +4,10 @@ import { FC } from "react";
 
 import {
   ApolloClient,
-  InMemoryCache,
   ApolloProvider as Provider,
   createHttpLink,
 } from "@apollo/client";
+import { InMemoryCache } from "@apollo/client/cache";
 
 export const ApolloProvider: FC<{
   children: React.ReactNode;
@@ -18,6 +18,7 @@ export const ApolloProvider: FC<{
     }),
     cache: new InMemoryCache({
       dataIdFromObject: (object) => object["id"] as string,
+      addTypename: true,
     }),
   });
 

@@ -28,6 +28,9 @@ export interface IContext {
   setInitialLoading: Dispatch<SetStateAction<boolean>>;
   resumeSection: ResumeSectionType;
   setResumeSection: Dispatch<SetStateAction<ResumeSectionType>>;
+  refetchSelectedResume: () => void;
+  resumeSubSectionIndex: number | undefined;
+  setResumeSubSectionIndex: Dispatch<SetStateAction<number | undefined>>;
 }
 
 export const Context = createContext<IContext>({
@@ -53,4 +56,7 @@ export const Context = createContext<IContext>({
   setInitialLoading: () => {},
   resumeSection: undefined,
   setResumeSection: () => {},
+  refetchSelectedResume: () => {},
+  resumeSubSectionIndex: undefined,
+  setResumeSubSectionIndex: () => {},
 });

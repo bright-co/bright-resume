@@ -42,6 +42,7 @@ describe("microservice:resume UpdateResume", () => {
 
     const updateResumeResumeInputs: UpdateResumeResumeInputs = {
       resumeId: resume.id,
+      title: faker.person.jobTitle(),
     };
 
     const { errors } = await request<
@@ -75,6 +76,7 @@ describe("microservice:resume UpdateResume", () => {
 
     const updateResumeResumeInputs: UpdateResumeResumeInputs = {
       resumeId: new mongoose.Types.ObjectId().toString(),
+      title: faker.person.jobTitle(),
     };
 
     const { errors } = await request<
@@ -109,9 +111,10 @@ describe("microservice:resume UpdateResume", () => {
     const updateResumeResumeInputs: UpdateResumeResumeInputs = {
       resumeId: resume.id,
       name: faker.person.fullName(),
-      color: ResumeColorEnum.black,
-      fontFamily: ResumeFontFamilyEnum.nunito,
-      fontSize: ResumeFontSizeEnum.large,
+      title: faker.person.jobTitle(),
+      color: ResumeColorEnum.Black,
+      fontFamily: ResumeFontFamilyEnum.Nunito,
+      fontSize: ResumeFontSizeEnum.Large,
       role: faker.person.jobTitle(),
       isShowPhoneNumber: faker.datatype.boolean(),
       phoneNumber: faker.phone.number(),
@@ -297,7 +300,10 @@ describe("microservice:resume UpdateResume", () => {
       ],
       isShowSkill: faker.datatype.boolean(),
       skillLabel: faker.lorem.word(),
-      skills: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      skills: [
+        { point: faker.lorem.paragraph() },
+        { point: faker.lorem.paragraph() },
+      ],
       isShowLanguage: faker.datatype.boolean(),
       languageLabel: faker.lorem.word(),
       languageNameLabel: faker.lorem.word(),
@@ -311,7 +317,10 @@ describe("microservice:resume UpdateResume", () => {
       ],
       hobbyLabel: faker.lorem.word(),
       isShowHobby: faker.datatype.boolean(),
-      hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      hobbies: [
+        { point: faker.lorem.paragraph() },
+        { point: faker.lorem.paragraph() },
+      ],
     };
 
     const { data } = await request<
@@ -855,7 +864,9 @@ describe("microservice:resume UpdateResume", () => {
     );
 
     for (let i = 0; i < updatedResume.skills.length; i++) {
-      expect(updateResumeResumeInputs.skills[i]).toBe(updatedResume.skills[i]);
+      expect(updateResumeResumeInputs.skills[i].point).toBe(
+        updatedResume.skills[i].point
+      );
     }
 
     expect(updateResumeResumeInputs.isShowLanguage).toBe(
@@ -897,8 +908,8 @@ describe("microservice:resume UpdateResume", () => {
     );
 
     for (let i = 0; i < updatedResume.hobbies.length; i++) {
-      expect(updateResumeResumeInputs.hobbies[i]).toBe(
-        updatedResume.hobbies[i]
+      expect(updateResumeResumeInputs.hobbies[i].point).toBe(
+        updatedResume.hobbies[i].point
       );
     }
   });
