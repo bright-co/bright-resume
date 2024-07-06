@@ -9,11 +9,9 @@ export interface IProject {
   isShowUrl?: boolean | null;
   url?: string | null;
   isShowDate?: boolean | null;
-  fromMonth?: string | null;
-  fromYear?: string | null;
-  toMonth?: string | null;
-  toYear?: string | null;
-  untilNow?: boolean | null;
+  from?: string | null;
+  to?: string | null;
+  isShow?: boolean | null;
   isShowPoints?: boolean | null;
   points?: string[] | null;
 }
@@ -69,6 +67,22 @@ export class ProjectModel {
     this.input = { ...this.input, location };
   }
 
+  getTo(): string | undefined | null {
+    return this.input.to;
+  }
+
+  setTo(to: string): void {
+    this.input = { ...this.input, to };
+  }
+
+  getFrom(): string | undefined | null {
+    return this.input.from;
+  }
+
+  setFrom(from: string): void {
+    this.input = { ...this.input, from };
+  }
+
   getIsShowUrl(): boolean | undefined | null {
     return this.input.isShowUrl;
   }
@@ -93,52 +107,20 @@ export class ProjectModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined | null {
-    return this.input.fromMonth;
-  }
-
-  setFromMonth(fromMonth: string): void {
-    this.input = { ...this.input, fromMonth };
-  }
-
-  getFromYear(): string | undefined | null {
-    return this.input.fromYear;
-  }
-
-  setFromYear(fromYear: string): void {
-    this.input = { ...this.input, fromYear };
-  }
-
-  getToMonth(): string | undefined | null {
-    return this.input.toMonth;
-  }
-
-  setToMonth(toMonth: string): void {
-    this.input = { ...this.input, toMonth };
-  }
-
-  getToYear(): string | undefined | null {
-    return this.input.toYear;
-  }
-
-  setToYear(toYear: string): void {
-    this.input = { ...this.input, toYear };
-  }
-
-  getUntilNow(): boolean | undefined | null {
-    return this.input.untilNow;
-  }
-
-  setUntilNow(untilNow: boolean): void {
-    this.input = { ...this.input, untilNow };
-  }
-
   getIsShowPoints(): boolean | undefined | null {
     return this.input.isShowPoints;
   }
 
   setIsShowPoints(isShowPoints: boolean): void {
     this.input = { ...this.input, isShowPoints };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
   }
 
   getPoints(): string[] {
@@ -208,12 +190,10 @@ export type ProjectModelSetMethodsKeyType =
   | "setLocation"
   | "setIsShowUrl"
   | "setUrl"
+  | "setTo"
+  | "setFrom"
   | "setIsShowDate"
-  | "setFromMonth"
-  | "setFromYear"
-  | "setToMonth"
-  | "setToYear"
-  | "setUntilNow"
   | "setIsShowPoints"
+  | "setIsShow"
   | "setPoint"
   | "changePointsIndex";

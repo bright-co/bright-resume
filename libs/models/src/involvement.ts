@@ -5,11 +5,9 @@ export interface IInvolvement {
   isShowLocation?: boolean | null;
   location?: string | null;
   isShowDate?: boolean | null;
-  fromMonth?: string | null;
-  fromYear?: string | null;
-  toMonth?: string | null;
-  toYear?: string | null;
-  untilNow?: boolean | null;
+  from?: string | null;
+  to?: string | null;
+  isShow?: boolean | null;
   isShowPoints?: boolean | null;
   points?: string[] | null;
 }
@@ -65,44 +63,28 @@ export class InvolvementModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined | null {
-    return this.input.fromMonth;
+  getFrom(): string | undefined | null {
+    return this.input.from;
   }
 
-  setFromMonth(fromMonth: string): void {
-    this.input = { ...this.input, fromMonth };
+  setFrom(from: string): void {
+    this.input = { ...this.input, from };
   }
 
-  getFromYear(): string | undefined | null {
-    return this.input.fromYear;
+  getTo(): string | undefined | null {
+    return this.input.to;
   }
 
-  setFromYear(fromYear: string): void {
-    this.input = { ...this.input, fromYear };
+  setTo(to: string): void {
+    this.input = { ...this.input, to };
   }
 
-  getToMonth(): string | undefined | null {
-    return this.input.toMonth;
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
   }
 
-  setToMonth(toMonth: string): void {
-    this.input = { ...this.input, toMonth };
-  }
-
-  getToYear(): string | undefined | null {
-    return this.input.toYear;
-  }
-
-  setToYear(toYear: string): void {
-    this.input = { ...this.input, toYear };
-  }
-
-  getUntilNow(): boolean | undefined | null {
-    return this.input.untilNow;
-  }
-
-  setUntilNow(untilNow: boolean): void {
-    this.input = { ...this.input, untilNow };
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
   }
 
   getIsShowPoints(): boolean | undefined | null {
@@ -171,11 +153,9 @@ export type InvolvementModelSetMethodsKeyType =
   | "setIsShowLocation"
   | "setLocation"
   | "setIsShowDate"
-  | "setFromMonth"
-  | "setFromYear"
-  | "setToMonth"
-  | "setToYear"
-  | "setUntilNow"
+  | "setFrom"
+  | "setTo"
+  | "setIsShow"
   | "setIsShowPoints"
   | "setPoint"
   | "changePointsIndex";

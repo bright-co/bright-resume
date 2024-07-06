@@ -43,28 +43,18 @@ export class CreateResumeExperienceItemResumeInputs {
   isShowDate?: boolean;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromYear?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toYear?: string;
-
-  @IsOptional()
   @IsBoolean()
-  untilNow?: boolean;
+  isShow?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  from?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  to?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -125,28 +115,18 @@ export class CreateResumeProjectItemInputs {
   isShowDate?: boolean;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromYear?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toYear?: string;
-
-  @IsOptional()
   @IsBoolean()
-  untilNow?: boolean;
+  isShow?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  from?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  to?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -198,28 +178,18 @@ export class CreateResumeEducationItemInputs {
   isShowDate?: boolean;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromYear?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toYear?: string;
-
-  @IsOptional()
   @IsBoolean()
-  untilNow?: boolean;
+  isShow?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  from?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  to?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -251,6 +221,10 @@ export class CreateResumeCertificationItemInputs {
   @IsOptional()
   @IsBoolean()
   isShowDate?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isShow?: boolean;
 
   @IsOptional()
   @IsString()
@@ -287,6 +261,10 @@ export class CreateResumeCourseWorkItemInputs {
   @IsOptional()
   @IsBoolean()
   isShowDate?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isShow?: boolean;
 
   @IsOptional()
   @IsString()
@@ -343,28 +321,18 @@ export class CreateResumeInvolvementItemInputs {
   isShowDate?: boolean;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  fromYear?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toMonth?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(25)
-  toYear?: string;
-
-  @IsOptional()
   @IsBoolean()
-  untilNow?: boolean;
+  isShow?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  from?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(25)
+  to?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -389,6 +357,10 @@ export class CreateResumeLanguageItemInputs {
   isShowLevel?: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  isShow?: boolean;
+
+  @IsOptional()
   @IsString()
   @MaxLength(20)
   level?: string;
@@ -399,6 +371,10 @@ export class CreateResumeSkillItemInputs {
   @IsString()
   @MaxLength(2000)
   point?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isShow?: boolean;
 }
 
 export class CreateResumeHobbyItemInputs {
@@ -406,6 +382,10 @@ export class CreateResumeHobbyItemInputs {
   @IsString()
   @MaxLength(2000)
   point?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isShow?: boolean;
 }
 
 export class CreateResumeResumeInputs {

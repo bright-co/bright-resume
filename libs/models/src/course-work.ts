@@ -8,6 +8,7 @@ export interface ICourseWork {
   isSkills?: boolean | null;
   skills?: string | null;
   isShowPoints?: boolean | null;
+  isShow?: boolean | null;
   points?: string[] | null;
 }
 
@@ -82,6 +83,14 @@ export class CourseWorkModel {
     return this.input.isShowPoints;
   }
 
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
+  }
+
   setIsShowPoints(isShowPoints: boolean): void {
     this.input = { ...this.input, isShowPoints };
   }
@@ -148,4 +157,5 @@ export type CourseWorkModelSetMethodsKeyType =
   | "setSkills"
   | "setIsShowPoints"
   | "setPoint"
-  | "changePointsIndex";
+  | "changePointsIndex"
+  | "setIsShow";

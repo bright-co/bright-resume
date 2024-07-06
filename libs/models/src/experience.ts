@@ -4,11 +4,9 @@ export interface IExperience {
   isShowLocation?: boolean | null;
   location?: string | null;
   isShowDate?: boolean | null;
-  fromMonth?: string | null;
-  fromYear?: string | null;
-  toMonth?: string | null;
-  toYear?: string | null;
-  untilNow?: boolean | null;
+  from?: string | null;
+  to?: string | null;
+  isShow?: boolean | null;
   isShowPoints?: boolean | null;
   points?: string[] | null;
 }
@@ -40,6 +38,14 @@ export class ExperienceModel {
     this.input = { ...this.input, isShowLocation };
   }
 
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
+  }
+
   getLocation(): string | undefined | null {
     return this.input.location;
   }
@@ -55,45 +61,20 @@ export class ExperienceModel {
   setIsShowDate(isShowDate: boolean): void {
     this.input = { ...this.input, isShowDate };
   }
-
-  getFromMonth(): string | undefined | null {
-    return this.input.fromMonth;
+  getTo(): string | undefined | null {
+    return this.input.to;
   }
 
-  setFromMonth(fromMonth: string): void {
-    this.input = { ...this.input, fromMonth };
+  setTo(to: string): void {
+    this.input = { ...this.input, to };
   }
 
-  getFromYear(): string | undefined | null {
-    return this.input.fromYear;
+  getFrom(): string | undefined | null {
+    return this.input.from;
   }
 
-  setFromYear(fromYear: string): void {
-    this.input = { ...this.input, fromYear };
-  }
-
-  getToMonth(): string | undefined | null {
-    return this.input.toMonth;
-  }
-
-  setToMonth(toMonth: string): void {
-    this.input = { ...this.input, toMonth };
-  }
-
-  getToYear(): string | undefined | null {
-    return this.input.toYear;
-  }
-
-  setToYear(toYear: string): void {
-    this.input = { ...this.input, toYear };
-  }
-
-  getUntilNow(): boolean | undefined | null {
-    return this.input.untilNow;
-  }
-
-  setUntilNow(untilNow: boolean): void {
-    this.input = { ...this.input, untilNow };
+  setFrom(from: string): void {
+    this.input = { ...this.input, from };
   }
 
   getIsShowPoints(): boolean | undefined | null {
@@ -161,11 +142,9 @@ export type ExperienceModelSetMethodsKeyType =
   | "setLocation"
   | "setIsShowLocation"
   | "setIsShowDate"
-  | "setFromMonth"
-  | "setFromYear"
-  | "setToMonth"
-  | "setToYear"
-  | "setUntilNow"
+  | "setTo"
+  | "setFrom"
   | "setIsShowPoints"
   | "setPoint"
+  | "setIsShow"
   | "changePointsIndex";

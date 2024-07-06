@@ -9,6 +9,10 @@ export class Skill extends Document implements ISkill {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   point?: string;
+
+  @Field(() => Boolean, { nullable: true })
+  @Prop({ type: Boolean, required: false })
+  isShow?: boolean;
 }
 
 export const SkillSchema = SchemaFactory.createForClass(Skill);

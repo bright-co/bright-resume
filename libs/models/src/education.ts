@@ -4,15 +4,13 @@ export interface IEducation {
   institute?: string | null;
   isShowLocation?: boolean | null;
   location?: string | null;
+  from?: string | null;
+  to?: string | null;
   isShowGpa?: boolean | null;
   gpa?: string | null;
   isShowDate?: boolean | null;
-  fromMonth?: string | null;
-  fromYear?: string | null;
-  toMonth?: string | null;
-  toYear?: string | null;
-  untilNow?: boolean | null;
   isShowPoints?: boolean | null;
+  isShow?: boolean | null;
   points?: string[] | null;
 }
 
@@ -83,44 +81,28 @@ export class EducationModel {
     this.input = { ...this.input, isShowDate };
   }
 
-  getFromMonth(): string | undefined | null {
-    return this.input.fromMonth;
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
   }
 
-  setFromMonth(fromMonth: string): void {
-    this.input = { ...this.input, fromMonth };
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
   }
 
-  getFromYear(): string | undefined | null {
-    return this.input.fromYear;
+  getTo(): string | undefined | null {
+    return this.input.to;
   }
 
-  setFromYear(fromYear: string): void {
-    this.input = { ...this.input, fromYear };
+  setTo(to: string): void {
+    this.input = { ...this.input, to };
   }
 
-  getToMonth(): string | undefined | null {
-    return this.input.toMonth;
+  getFrom(): string | undefined | null {
+    return this.input.from;
   }
 
-  setToMonth(toMonth: string): void {
-    this.input = { ...this.input, toMonth };
-  }
-
-  getToYear(): string | undefined | null {
-    return this.input.toYear;
-  }
-
-  setToYear(toYear: string): void {
-    this.input = { ...this.input, toYear };
-  }
-
-  getUntilNow(): boolean | undefined | null {
-    return this.input.untilNow;
-  }
-
-  setUntilNow(untilNow: boolean): void {
-    this.input = { ...this.input, untilNow };
+  setFrom(from: string): void {
+    this.input = { ...this.input, from };
   }
 
   getIsShowPoints(): boolean | undefined | null {
@@ -191,11 +173,9 @@ export type EducationModelSetMethodsKeyType =
   | "setIsShowGpa"
   | "setGpa"
   | "setIsShowDate"
-  | "setFromMonth"
-  | "setFromYear"
-  | "setToMonth"
-  | "setToYear"
-  | "setUntilNow"
   | "setIsShowPoints"
   | "setPoint"
+  | "setIsShow"
+  | "setTo"
+  | "setFrom"
   | "changePointsIndex";

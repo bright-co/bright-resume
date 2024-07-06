@@ -1,6 +1,7 @@
 export interface ILanguage {
   name?: string | null;
   isShowLevel?: boolean | null;
+  isShow?: boolean | null;
   level?: string | null;
 }
 
@@ -19,8 +20,16 @@ export class LanguageModel {
     return this.input.isShowLevel;
   }
 
-  setIsShowRole(isShowLevel: boolean): void {
+  setIsShowLevel(isShowLevel: boolean): void {
     this.input = { ...this.input, isShowLevel };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
   }
 
   getLevel(): string | undefined | null {
@@ -50,4 +59,5 @@ export class LanguageModel {
 export type LanguageModelSetMethodsKeyType =
   | "setName"
   | "setLevel"
-  | "setIsShowRole";
+  | "setIsShowLevel"
+  | "setIsShow";
