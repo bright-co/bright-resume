@@ -1,5 +1,6 @@
 export interface IHobby {
   point?: string | null;
+  isShow?: boolean | null;
 }
 
 export class HobbyModel {
@@ -11,6 +12,14 @@ export class HobbyModel {
 
   setPoint(point: string | undefined): void {
     this.input = { ...this.input, point };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
   }
 
   callSetMethod<M extends HobbyModelSetMethodsKeyType>(
@@ -29,4 +38,4 @@ export class HobbyModel {
   }
 }
 
-export type HobbyModelSetMethodsKeyType = "setPoint";
+export type HobbyModelSetMethodsKeyType = "setPoint" | "setIsShow";

@@ -52,12 +52,10 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowLocation
         location
         isShowDate
-        fromMonth
-        fromYear
-        toMonth
-        toYear
-        untilNow
+        from
+        to
         isShowPoints
+        isShow
         points
       }
       isShowProject
@@ -79,12 +77,10 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowUrl
         url
         isShowDate
-        fromMonth
-        fromYear
-        toMonth
-        toYear
-        untilNow
+        from
+        to
         isShowPoints
+        isShow
         points
       }
       isShowEducation
@@ -103,12 +99,10 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowGpa
         gpa
         isShowDate
-        fromMonth
-        fromYear
-        toMonth
-        toYear
-        untilNow
+        from
+        to
         isShowPoints
+        isShow
         points
       }
       isShowCertification
@@ -124,6 +118,7 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowDate
         year
         isShowPoints
+        isShow
         points
       }
       isShowCourseWork
@@ -143,6 +138,7 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowSkills
         isSkills
         skills
+        isShow
         isShowPoints
         points
       }
@@ -159,19 +155,18 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowLocation
         location
         isShowDate
-        fromMonth
-        fromYear
-        toMonth
-        toYear
-        untilNow
+        from
+        to
         isShowPoints
         points
+        isShow
       }
       isShowSkill
       skillLabel
       skillOrder
       skills {
         point
+        isShow
       }
       isShowLanguage
       languageOrder
@@ -182,11 +177,13 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         name
         isShowLevel
         level
+        isShow
       }
       hobbyOrder
       hobbyLabel
       hobbies {
         point
+        isShow
       }
       isShowHobby
       createdAt

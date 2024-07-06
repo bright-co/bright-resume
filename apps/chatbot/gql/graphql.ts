@@ -21,6 +21,7 @@ export type Scalars = {
 export type Certification = {
   __typename?: 'Certification';
   institute?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowInstitute?: Maybe<Scalars['Boolean']['output']>;
   isShowPoints?: Maybe<Scalars['Boolean']['output']>;
@@ -32,6 +33,7 @@ export type Certification = {
 export type CourseWork = {
   __typename?: 'CourseWork';
   institute?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowInstitute?: Maybe<Scalars['Boolean']['output']>;
   isShowPoints?: Maybe<Scalars['Boolean']['output']>;
@@ -45,6 +47,7 @@ export type CourseWork = {
 
 export type CreateResumeCertificationItemInputsGql = {
   institute?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowInstitute?: InputMaybe<Scalars['Boolean']['input']>;
   isShowPoints?: InputMaybe<Scalars['Boolean']['input']>;
@@ -55,6 +58,7 @@ export type CreateResumeCertificationItemInputsGql = {
 
 export type CreateResumeCourseWorkItemInputsGql = {
   institute?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowInstitute?: InputMaybe<Scalars['Boolean']['input']>;
   isShowPoints?: InputMaybe<Scalars['Boolean']['input']>;
@@ -67,10 +71,10 @@ export type CreateResumeCourseWorkItemInputsGql = {
 
 export type CreateResumeEducationItemInputsGql = {
   degree?: InputMaybe<Scalars['String']['input']>;
-  fromMonth?: InputMaybe<Scalars['String']['input']>;
-  fromYear?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['String']['input']>;
   gpa?: InputMaybe<Scalars['String']['input']>;
   institute?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowGpa?: InputMaybe<Scalars['Boolean']['input']>;
   isShowInstitute?: InputMaybe<Scalars['Boolean']['input']>;
@@ -78,34 +82,31 @@ export type CreateResumeEducationItemInputsGql = {
   isShowPoints?: InputMaybe<Scalars['Boolean']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   points?: InputMaybe<Array<Scalars['String']['input']>>;
-  toMonth?: InputMaybe<Scalars['String']['input']>;
-  toYear?: InputMaybe<Scalars['String']['input']>;
-  untilNow?: InputMaybe<Scalars['Boolean']['input']>;
+  to?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateResumeExperienceItemResumeInputsGql = {
   company?: InputMaybe<Scalars['String']['input']>;
-  fromMonth?: InputMaybe<Scalars['String']['input']>;
-  fromYear?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowLocation?: InputMaybe<Scalars['Boolean']['input']>;
   isShowPoints?: InputMaybe<Scalars['Boolean']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   points?: InputMaybe<Array<Scalars['String']['input']>>;
   role?: InputMaybe<Scalars['String']['input']>;
-  toMonth?: InputMaybe<Scalars['String']['input']>;
-  toYear?: InputMaybe<Scalars['String']['input']>;
-  untilNow?: InputMaybe<Scalars['Boolean']['input']>;
+  to?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateResumeHobbyItemInputsGql = {
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   point?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateResumeInvolvementItemInputsGql = {
   company?: InputMaybe<Scalars['String']['input']>;
-  fromMonth?: InputMaybe<Scalars['String']['input']>;
-  fromYear?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowCompany?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowLocation?: InputMaybe<Scalars['Boolean']['input']>;
@@ -113,12 +114,11 @@ export type CreateResumeInvolvementItemInputsGql = {
   location?: InputMaybe<Scalars['String']['input']>;
   points?: InputMaybe<Array<Scalars['String']['input']>>;
   role?: InputMaybe<Scalars['String']['input']>;
-  toMonth?: InputMaybe<Scalars['String']['input']>;
-  toYear?: InputMaybe<Scalars['String']['input']>;
-  untilNow?: InputMaybe<Scalars['Boolean']['input']>;
+  to?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateResumeLanguageItemInputsGql = {
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowLevel?: InputMaybe<Scalars['Boolean']['input']>;
   level?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -126,8 +126,8 @@ export type CreateResumeLanguageItemInputsGql = {
 
 export type CreateResumeProjectItemInputsGql = {
   company?: InputMaybe<Scalars['String']['input']>;
-  fromMonth?: InputMaybe<Scalars['String']['input']>;
-  fromYear?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['String']['input']>;
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   isShowCompany?: InputMaybe<Scalars['Boolean']['input']>;
   isShowDate?: InputMaybe<Scalars['Boolean']['input']>;
   isShowLocation?: InputMaybe<Scalars['Boolean']['input']>;
@@ -138,9 +138,7 @@ export type CreateResumeProjectItemInputsGql = {
   points?: InputMaybe<Array<Scalars['String']['input']>>;
   role?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  toMonth?: InputMaybe<Scalars['String']['input']>;
-  toYear?: InputMaybe<Scalars['String']['input']>;
-  untilNow?: InputMaybe<Scalars['Boolean']['input']>;
+  to?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -231,6 +229,7 @@ export type CreateResumeResumeInputsGql = {
 };
 
 export type CreateResumeSkillItemInputsGql = {
+  isShow?: InputMaybe<Scalars['Boolean']['input']>;
   point?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -241,10 +240,10 @@ export type DeleteResumeResumeInputsGql = {
 export type Education = {
   __typename?: 'Education';
   degree?: Maybe<Scalars['String']['output']>;
-  fromMonth?: Maybe<Scalars['String']['output']>;
-  fromYear?: Maybe<Scalars['String']['output']>;
+  from?: Maybe<Scalars['String']['output']>;
   gpa?: Maybe<Scalars['String']['output']>;
   institute?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowGpa?: Maybe<Scalars['Boolean']['output']>;
   isShowInstitute?: Maybe<Scalars['Boolean']['output']>;
@@ -252,25 +251,21 @@ export type Education = {
   isShowPoints?: Maybe<Scalars['Boolean']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   points?: Maybe<Array<Scalars['String']['output']>>;
-  toMonth?: Maybe<Scalars['String']['output']>;
-  toYear?: Maybe<Scalars['String']['output']>;
-  untilNow?: Maybe<Scalars['Boolean']['output']>;
+  to?: Maybe<Scalars['String']['output']>;
 };
 
 export type Experience = {
   __typename?: 'Experience';
   company?: Maybe<Scalars['String']['output']>;
-  fromMonth?: Maybe<Scalars['String']['output']>;
-  fromYear?: Maybe<Scalars['String']['output']>;
+  from?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowLocation?: Maybe<Scalars['Boolean']['output']>;
   isShowPoints?: Maybe<Scalars['Boolean']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   points?: Maybe<Array<Scalars['String']['output']>>;
   role?: Maybe<Scalars['String']['output']>;
-  toMonth?: Maybe<Scalars['String']['output']>;
-  toYear?: Maybe<Scalars['String']['output']>;
-  untilNow?: Maybe<Scalars['Boolean']['output']>;
+  to?: Maybe<Scalars['String']['output']>;
 };
 
 export type File = {
@@ -407,14 +402,15 @@ export type GetUploadLinkForProfileImageFileInputsGql = {
 
 export type Hobby = {
   __typename?: 'Hobby';
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   point?: Maybe<Scalars['String']['output']>;
 };
 
 export type Involvement = {
   __typename?: 'Involvement';
   company?: Maybe<Scalars['String']['output']>;
-  fromMonth?: Maybe<Scalars['String']['output']>;
-  fromYear?: Maybe<Scalars['String']['output']>;
+  from?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowCompany?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowLocation?: Maybe<Scalars['Boolean']['output']>;
@@ -422,13 +418,12 @@ export type Involvement = {
   location?: Maybe<Scalars['String']['output']>;
   points?: Maybe<Array<Scalars['String']['output']>>;
   role?: Maybe<Scalars['String']['output']>;
-  toMonth?: Maybe<Scalars['String']['output']>;
-  toYear?: Maybe<Scalars['String']['output']>;
-  untilNow?: Maybe<Scalars['Boolean']['output']>;
+  to?: Maybe<Scalars['String']['output']>;
 };
 
 export type Language = {
   __typename?: 'Language';
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowLevel?: Maybe<Scalars['Boolean']['output']>;
   level?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -515,8 +510,8 @@ export type PaginationArgsGql = {
 export type Project = {
   __typename?: 'Project';
   company?: Maybe<Scalars['String']['output']>;
-  fromMonth?: Maybe<Scalars['String']['output']>;
-  fromYear?: Maybe<Scalars['String']['output']>;
+  from?: Maybe<Scalars['String']['output']>;
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   isShowCompany?: Maybe<Scalars['Boolean']['output']>;
   isShowDate?: Maybe<Scalars['Boolean']['output']>;
   isShowLocation?: Maybe<Scalars['Boolean']['output']>;
@@ -527,9 +522,7 @@ export type Project = {
   points?: Maybe<Array<Scalars['String']['output']>>;
   role?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-  toMonth?: Maybe<Scalars['String']['output']>;
-  toYear?: Maybe<Scalars['String']['output']>;
-  untilNow?: Maybe<Scalars['Boolean']['output']>;
+  to?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
 
@@ -706,6 +699,7 @@ export type SignUpAuthInputsGql = {
 
 export type Skill = {
   __typename?: 'Skill';
+  isShow?: Maybe<Scalars['Boolean']['output']>;
   point?: Maybe<Scalars['String']['output']>;
 };
 
@@ -843,7 +837,7 @@ export type GetResumeByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetResumeByIdQuery = { __typename?: 'Query', getResumeById: { __typename?: 'Resume', id?: string | null, userId: string, name?: string | null, title?: string | null, fontSize?: ResumeFontSizeEnum | null, fontFamily?: ResumeFontFamilyEnum | null, color?: ResumeColorEnum | null, role?: string | null, isShowImage?: boolean | null, isShowPhoneNumber?: boolean | null, phoneNumber?: string | null, isShowLinkedin?: boolean | null, linkedin?: string | null, isShowWebsite?: boolean | null, website?: string | null, isShowEmail?: boolean | null, email?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowBirthDay?: boolean | null, birthDay?: string | null, isShowSummary?: boolean | null, summaryOrder?: number | null, summaryLabel?: string | null, summary?: string | null, isShowExperience?: boolean | null, experienceOrder?: number | null, experienceLabel?: string | null, experienceRoleLabel?: string | null, experienceCompanyLabel?: string | null, experienceLocationLabel?: string | null, isShowProject?: boolean | null, projectOrder?: number | null, projectLabel?: string | null, projectRoleLabel?: string | null, projectTitleLabel?: string | null, projectCompanyLabel?: string | null, projectLocationLabel?: string | null, projectUrlLabel?: string | null, isShowEducation?: boolean | null, educationLabel?: string | null, educationOrder?: number | null, educationDegreeLabel?: string | null, educationInstituteLabel?: string | null, educationLocationLabel?: string | null, educationGpaLabel?: string | null, isShowCertification?: boolean | null, certificationOrder?: number | null, certificationLabel?: string | null, certificationNameLabel?: string | null, certificationInstituteLabel?: string | null, certificationYearLabel?: string | null, isShowCourseWork?: boolean | null, courseWorkLabel?: string | null, courseWorkOrder?: number | null, courseWorkTitleLabel?: string | null, courseWorkNameLabel?: string | null, courseWorkInstituteLabel?: string | null, courseWorkYearLabel?: string | null, courseWorkSkillsLabel?: string | null, isShowInvolvement?: boolean | null, involvementLabel?: string | null, involvementOrder?: number | null, involvementRoleLabel?: string | null, involvementCompanyLabel?: string | null, involvementLocationLabel?: string | null, isShowSkill?: boolean | null, skillLabel?: string | null, skillOrder?: number | null, isShowLanguage?: boolean | null, languageOrder?: number | null, languageLabel?: string | null, languageNameLabel?: string | null, languageLevelLabel?: string | null, hobbyOrder?: number | null, hobbyLabel?: string | null, isShowHobby?: boolean | null, createdAt: any, updatedAt: any, experiences?: Array<{ __typename?: 'Experience', role?: string | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowDate?: boolean | null, fromMonth?: string | null, fromYear?: string | null, toMonth?: string | null, toYear?: string | null, untilNow?: boolean | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, projects?: Array<{ __typename?: 'Project', title?: string | null, isShowRole?: boolean | null, role?: string | null, isShowCompany?: boolean | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowUrl?: boolean | null, url?: string | null, isShowDate?: boolean | null, fromMonth?: string | null, fromYear?: string | null, toMonth?: string | null, toYear?: string | null, untilNow?: boolean | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, educations?: Array<{ __typename?: 'Education', degree?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowGpa?: boolean | null, gpa?: string | null, isShowDate?: boolean | null, fromMonth?: string | null, fromYear?: string | null, toMonth?: string | null, toYear?: string | null, untilNow?: boolean | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, certifications?: Array<{ __typename?: 'Certification', name?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowDate?: boolean | null, year?: string | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, courseWorks?: Array<{ __typename?: 'CourseWork', name?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowDate?: boolean | null, year?: string | null, isShowSkills?: boolean | null, isSkills?: boolean | null, skills?: string | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, involvements?: Array<{ __typename?: 'Involvement', role?: string | null, isShowCompany?: boolean | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowDate?: boolean | null, fromMonth?: string | null, fromYear?: string | null, toMonth?: string | null, toYear?: string | null, untilNow?: boolean | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, skills?: Array<{ __typename?: 'Skill', point?: string | null }> | null, languages?: Array<{ __typename?: 'Language', name?: string | null, isShowLevel?: boolean | null, level?: string | null }> | null, hobbies?: Array<{ __typename?: 'Hobby', point?: string | null }> | null } };
+export type GetResumeByIdQuery = { __typename?: 'Query', getResumeById: { __typename?: 'Resume', id?: string | null, userId: string, name?: string | null, title?: string | null, fontSize?: ResumeFontSizeEnum | null, fontFamily?: ResumeFontFamilyEnum | null, color?: ResumeColorEnum | null, role?: string | null, isShowImage?: boolean | null, isShowPhoneNumber?: boolean | null, phoneNumber?: string | null, isShowLinkedin?: boolean | null, linkedin?: string | null, isShowWebsite?: boolean | null, website?: string | null, isShowEmail?: boolean | null, email?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowBirthDay?: boolean | null, birthDay?: string | null, isShowSummary?: boolean | null, summaryOrder?: number | null, summaryLabel?: string | null, summary?: string | null, isShowExperience?: boolean | null, experienceOrder?: number | null, experienceLabel?: string | null, experienceRoleLabel?: string | null, experienceCompanyLabel?: string | null, experienceLocationLabel?: string | null, isShowProject?: boolean | null, projectOrder?: number | null, projectLabel?: string | null, projectRoleLabel?: string | null, projectTitleLabel?: string | null, projectCompanyLabel?: string | null, projectLocationLabel?: string | null, projectUrlLabel?: string | null, isShowEducation?: boolean | null, educationLabel?: string | null, educationOrder?: number | null, educationDegreeLabel?: string | null, educationInstituteLabel?: string | null, educationLocationLabel?: string | null, educationGpaLabel?: string | null, isShowCertification?: boolean | null, certificationOrder?: number | null, certificationLabel?: string | null, certificationNameLabel?: string | null, certificationInstituteLabel?: string | null, certificationYearLabel?: string | null, isShowCourseWork?: boolean | null, courseWorkLabel?: string | null, courseWorkOrder?: number | null, courseWorkTitleLabel?: string | null, courseWorkNameLabel?: string | null, courseWorkInstituteLabel?: string | null, courseWorkYearLabel?: string | null, courseWorkSkillsLabel?: string | null, isShowInvolvement?: boolean | null, involvementLabel?: string | null, involvementOrder?: number | null, involvementRoleLabel?: string | null, involvementCompanyLabel?: string | null, involvementLocationLabel?: string | null, isShowSkill?: boolean | null, skillLabel?: string | null, skillOrder?: number | null, isShowLanguage?: boolean | null, languageOrder?: number | null, languageLabel?: string | null, languageNameLabel?: string | null, languageLevelLabel?: string | null, hobbyOrder?: number | null, hobbyLabel?: string | null, isShowHobby?: boolean | null, createdAt: any, updatedAt: any, experiences?: Array<{ __typename?: 'Experience', role?: string | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowDate?: boolean | null, from?: string | null, to?: string | null, isShowPoints?: boolean | null, isShow?: boolean | null, points?: Array<string> | null }> | null, projects?: Array<{ __typename?: 'Project', title?: string | null, isShowRole?: boolean | null, role?: string | null, isShowCompany?: boolean | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowUrl?: boolean | null, url?: string | null, isShowDate?: boolean | null, from?: string | null, to?: string | null, isShowPoints?: boolean | null, isShow?: boolean | null, points?: Array<string> | null }> | null, educations?: Array<{ __typename?: 'Education', degree?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowGpa?: boolean | null, gpa?: string | null, isShowDate?: boolean | null, from?: string | null, to?: string | null, isShowPoints?: boolean | null, isShow?: boolean | null, points?: Array<string> | null }> | null, certifications?: Array<{ __typename?: 'Certification', name?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowDate?: boolean | null, year?: string | null, isShowPoints?: boolean | null, isShow?: boolean | null, points?: Array<string> | null }> | null, courseWorks?: Array<{ __typename?: 'CourseWork', name?: string | null, isShowInstitute?: boolean | null, institute?: string | null, isShowDate?: boolean | null, year?: string | null, isShowSkills?: boolean | null, isSkills?: boolean | null, skills?: string | null, isShow?: boolean | null, isShowPoints?: boolean | null, points?: Array<string> | null }> | null, involvements?: Array<{ __typename?: 'Involvement', role?: string | null, isShowCompany?: boolean | null, company?: string | null, isShowLocation?: boolean | null, location?: string | null, isShowDate?: boolean | null, from?: string | null, to?: string | null, isShowPoints?: boolean | null, points?: Array<string> | null, isShow?: boolean | null }> | null, skills?: Array<{ __typename?: 'Skill', point?: string | null, isShow?: boolean | null }> | null, languages?: Array<{ __typename?: 'Language', name?: string | null, isShowLevel?: boolean | null, level?: string | null, isShow?: boolean | null }> | null, hobbies?: Array<{ __typename?: 'Hobby', point?: string | null, isShow?: boolean | null }> | null } };
 
 export type CreateResumeMutationVariables = Exact<{
   createResumeResumeInputs: CreateResumeResumeInputsGql;
@@ -865,6 +859,6 @@ export const SignInWithOAuthTokenDocument = {"kind":"Document","definitions":[{"
 export const SignInAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signInAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignInAuthMutation, SignInAuthMutationVariables>;
 export const SignUpAuthDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signUpAuth"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpAuthInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpAuthInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpAuthInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<SignUpAuthMutation, SignUpAuthMutationVariables>;
 export const UpdateResumeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateResume"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateResumeResumeInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateResumeResumeInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateResume"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateResumeResumeInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateResumeResumeInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<UpdateResumeMutation, UpdateResumeMutationVariables>;
-export const GetResumeByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumeById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumeByIdResumeArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumeById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumeByIdResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"fontSize"}},{"kind":"Field","name":{"kind":"Name","value":"fontFamily"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowImage"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPhoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLinkedin"}},{"kind":"Field","name":{"kind":"Name","value":"linkedin"}},{"kind":"Field","name":{"kind":"Name","value":"isShowWebsite"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"isShowEmail"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowBirthDay"}},{"kind":"Field","name":{"kind":"Name","value":"birthDay"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSummary"}},{"kind":"Field","name":{"kind":"Name","value":"summaryOrder"}},{"kind":"Field","name":{"kind":"Name","value":"summaryLabel"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"isShowExperience"}},{"kind":"Field","name":{"kind":"Name","value":"experienceOrder"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowProject"}},{"kind":"Field","name":{"kind":"Name","value":"projectOrder"}},{"kind":"Field","name":{"kind":"Name","value":"projectLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectUrlLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projects"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"isShowRole"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowUrl"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowEducation"}},{"kind":"Field","name":{"kind":"Name","value":"educationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"educationDegreeLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationGpaLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowGpa"}},{"kind":"Field","name":{"kind":"Name","value":"gpa"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCertification"}},{"kind":"Field","name":{"kind":"Name","value":"certificationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"certificationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCourseWork"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkOrder"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkSkillsLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkills"}},{"kind":"Field","name":{"kind":"Name","value":"isSkills"}},{"kind":"Field","name":{"kind":"Name","value":"skills"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowInvolvement"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementOrder"}},{"kind":"Field","name":{"kind":"Name","value":"involvementRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"fromMonth"}},{"kind":"Field","name":{"kind":"Name","value":"fromYear"}},{"kind":"Field","name":{"kind":"Name","value":"toMonth"}},{"kind":"Field","name":{"kind":"Name","value":"toYear"}},{"kind":"Field","name":{"kind":"Name","value":"untilNow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkill"}},{"kind":"Field","name":{"kind":"Name","value":"skillLabel"}},{"kind":"Field","name":{"kind":"Name","value":"skillOrder"}},{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowLanguage"}},{"kind":"Field","name":{"kind":"Name","value":"languageOrder"}},{"kind":"Field","name":{"kind":"Name","value":"languageLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageLevelLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLevel"}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hobbyOrder"}},{"kind":"Field","name":{"kind":"Name","value":"hobbyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowHobby"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetResumeByIdQuery, GetResumeByIdQueryVariables>;
+export const GetResumeByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumeById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumeByIdResumeArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumeById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumeByIdResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumeByIdResumeArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"fontSize"}},{"kind":"Field","name":{"kind":"Name","value":"fontFamily"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowImage"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPhoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLinkedin"}},{"kind":"Field","name":{"kind":"Name","value":"linkedin"}},{"kind":"Field","name":{"kind":"Name","value":"isShowWebsite"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"isShowEmail"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowBirthDay"}},{"kind":"Field","name":{"kind":"Name","value":"birthDay"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSummary"}},{"kind":"Field","name":{"kind":"Name","value":"summaryOrder"}},{"kind":"Field","name":{"kind":"Name","value":"summaryLabel"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"isShowExperience"}},{"kind":"Field","name":{"kind":"Name","value":"experienceOrder"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experienceLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowProject"}},{"kind":"Field","name":{"kind":"Name","value":"projectOrder"}},{"kind":"Field","name":{"kind":"Name","value":"projectLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projectUrlLabel"}},{"kind":"Field","name":{"kind":"Name","value":"projects"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"isShowRole"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowUrl"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowEducation"}},{"kind":"Field","name":{"kind":"Name","value":"educationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"educationDegreeLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educationGpaLabel"}},{"kind":"Field","name":{"kind":"Name","value":"educations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowGpa"}},{"kind":"Field","name":{"kind":"Name","value":"gpa"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCertification"}},{"kind":"Field","name":{"kind":"Name","value":"certificationOrder"}},{"kind":"Field","name":{"kind":"Name","value":"certificationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certificationYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"certifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowCourseWork"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkOrder"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkTitleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkInstituteLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkYearLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorkSkillsLabel"}},{"kind":"Field","name":{"kind":"Name","value":"courseWorks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowInstitute"}},{"kind":"Field","name":{"kind":"Name","value":"institute"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkills"}},{"kind":"Field","name":{"kind":"Name","value":"isSkills"}},{"kind":"Field","name":{"kind":"Name","value":"skills"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowInvolvement"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementOrder"}},{"kind":"Field","name":{"kind":"Name","value":"involvementRoleLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementCompanyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvementLocationLabel"}},{"kind":"Field","name":{"kind":"Name","value":"involvements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isShowCompany"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLocation"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"isShowDate"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"isShowPoints"}},{"kind":"Field","name":{"kind":"Name","value":"points"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowSkill"}},{"kind":"Field","name":{"kind":"Name","value":"skillLabel"}},{"kind":"Field","name":{"kind":"Name","value":"skillOrder"}},{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowLanguage"}},{"kind":"Field","name":{"kind":"Name","value":"languageOrder"}},{"kind":"Field","name":{"kind":"Name","value":"languageLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageNameLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languageLevelLabel"}},{"kind":"Field","name":{"kind":"Name","value":"languages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isShowLevel"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hobbyOrder"}},{"kind":"Field","name":{"kind":"Name","value":"hobbyLabel"}},{"kind":"Field","name":{"kind":"Name","value":"hobbies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"isShow"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isShowHobby"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetResumeByIdQuery, GetResumeByIdQueryVariables>;
 export const CreateResumeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createResume"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateResumeResumeInputsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createResume"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"createResumeResumeInputs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createResumeResumeInputs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<CreateResumeMutation, CreateResumeMutationVariables>;
 export const GetResumesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getResumes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetResumesResumeArgsGQL"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArgsGQL"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResumes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getResumesResumeArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"getResumesResumeArgs"}}},{"kind":"Argument","name":{"kind":"Name","value":"paginationArgs"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paginationArgs"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalEdges"}},{"kind":"Field","name":{"kind":"Name","value":"edgeCount"}},{"kind":"Field","name":{"kind":"Name","value":"edgesPerPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"currentPage"}}]}}]}}]}}]} as unknown as DocumentNode<GetResumesQuery, GetResumesQueryVariables>;

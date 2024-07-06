@@ -28,27 +28,19 @@ export class Experience extends Document implements IExperience {
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  fromMonth?: string;
+  from?: string;
 
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
-  fromYear?: string;
-
-  @Field(() => String, { nullable: true })
-  @Prop({ type: String, required: false })
-  toMonth?: string;
-
-  @Field(() => String, { nullable: true })
-  @Prop({ type: String, required: false })
-  toYear?: string;
-
-  @Field(() => Boolean, { nullable: true })
-  @Prop({ type: Boolean, required: false })
-  untilNow?: boolean;
+  to?: string;
 
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, required: false })
   isShowPoints?: boolean;
+
+  @Field(() => Boolean, { nullable: true })
+  @Prop({ type: Boolean, required: false })
+  isShow?: boolean;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })

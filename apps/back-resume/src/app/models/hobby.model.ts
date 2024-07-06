@@ -9,6 +9,10 @@ export class Hobby extends Document implements IHobby {
   @Field(() => String, { nullable: true })
   @Prop({ type: String, required: false })
   point?: string;
+
+  @Field(() => Boolean, { nullable: true })
+  @Prop({ type: Boolean, required: false })
+  isShow?: boolean;
 }
 
 export const HobbySchema = SchemaFactory.createForClass(Hobby);

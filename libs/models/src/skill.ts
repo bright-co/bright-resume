@@ -1,5 +1,6 @@
 export interface ISkill {
   point?: string | null;
+  isShow?: boolean | null;
 }
 
 export class SkillModel {
@@ -11,6 +12,14 @@ export class SkillModel {
 
   setPoint(point: string | undefined): void {
     this.input = { ...this.input, point };
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
   }
 
   callSetMethod<M extends SkillModelSetMethodsKeyType>(
@@ -29,4 +38,4 @@ export class SkillModel {
   }
 }
 
-export type SkillModelSetMethodsKeyType = "setPoint";
+export type SkillModelSetMethodsKeyType = "setPoint" | "setIsShow";

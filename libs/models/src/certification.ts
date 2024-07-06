@@ -5,6 +5,7 @@ export interface ICertification {
   isShowDate?: boolean | null;
   year?: string | null;
   isShowPoints?: boolean | null;
+  isShow?: boolean | null;
   points?: string[] | null;
 }
 
@@ -29,6 +30,14 @@ export class CertificationModel {
 
   setIsShowDate(isShowDate: boolean): void {
     this.input = { ...this.input, isShowDate };
+  }
+
+  setIsShow(isShow: boolean): void {
+    this.input = { ...this.input, isShow };
+  }
+
+  getIsShow(): boolean | undefined | null {
+    return this.input.isShow;
   }
 
   getInstitute(): string | undefined | null {
@@ -117,4 +126,5 @@ export type CertificationModelSetMethodsKeyType =
   | "setIsShowDate"
   | "setIsShowPoints"
   | "setPoint"
-  | "changePointsIndex";
+  | "changePointsIndex"
+  | "setIsShow";

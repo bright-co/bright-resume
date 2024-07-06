@@ -107,11 +107,9 @@ describe("microservice:resume CreateResume", () => {
           isShowLocation: faker.datatype.boolean(),
           location: faker.location.country(),
           isShowDate: faker.datatype.boolean(),
-          fromMonth: moment(faker.date.past()).format("MMMM"),
-          fromYear: moment(faker.date.past()).format("YYYY"),
-          toMonth: moment(faker.date.recent()).format("MMMM"),
-          toYear: moment(faker.date.recent()).format("YYYY"),
-          untilNow: faker.datatype.boolean(),
+          from: moment(faker.date.past()).format("YYYY"),
+          to: moment(faker.date.recent()).format("YYYY"),
+          isShow: faker.datatype.boolean(),
           isShowPoints: faker.datatype.boolean(),
           points: [
             faker.lorem.paragraph(),
@@ -126,11 +124,9 @@ describe("microservice:resume CreateResume", () => {
           isShowLocation: faker.datatype.boolean(),
           location: faker.location.country(),
           isShowDate: faker.datatype.boolean(),
-          fromMonth: moment(faker.date.past()).format("MMMM"),
-          fromYear: moment(faker.date.past()).format("YYYY"),
-          toMonth: moment(faker.date.recent()).format("MMMM"),
-          toYear: moment(faker.date.recent()).format("YYYY"),
-          untilNow: faker.datatype.boolean(),
+          from: moment(faker.date.past()).format("YYYY"),
+          to: moment(faker.date.recent()).format("YYYY"),
+          isShow: faker.datatype.boolean(),
           isShowPoints: faker.datatype.boolean(),
           points: [
             faker.lorem.paragraph(),
@@ -159,11 +155,9 @@ describe("microservice:resume CreateResume", () => {
           isShowUrl: faker.datatype.boolean(),
           url: faker.internet.url(),
           isShowDate: faker.datatype.boolean(),
-          fromMonth: moment(faker.date.past()).format("MMMM"),
-          fromYear: moment(faker.date.past()).format("YYYY"),
-          toMonth: moment(faker.date.recent()).format("MMMM"),
-          toYear: moment(faker.date.recent()).format("YYYY"),
-          untilNow: faker.datatype.boolean(),
+          from: moment(faker.date.past()).format("YYYY"),
+          to: moment(faker.date.recent()).format("YYYY"),
+          isShow: faker.datatype.boolean(),
           isShowPoints: faker.datatype.boolean(),
           points: [
             faker.lorem.paragraph(),
@@ -191,11 +185,9 @@ describe("microservice:resume CreateResume", () => {
             .float({ precision: 0.1, min: 0, max: 20 })
             .toString(),
           isShowDate: faker.datatype.boolean(),
-          fromMonth: moment(faker.date.past()).format("MMMM"),
-          fromYear: moment(faker.date.past()).format("YYYY"),
-          toMonth: moment(faker.date.recent()).format("MMMM"),
-          toYear: moment(faker.date.recent()).format("YYYY"),
-          untilNow: faker.datatype.boolean(),
+          from: moment(faker.date.past()).format("YYYY"),
+          to: moment(faker.date.recent()).format("YYYY"),
+          isShow: faker.datatype.boolean(),
           isShowPoints: faker.datatype.boolean(),
           points: [
             faker.lorem.paragraph(),
@@ -218,6 +210,7 @@ describe("microservice:resume CreateResume", () => {
           year: moment(faker.date.past()).format("YYYY"),
           isShowPoints: faker.datatype.boolean(),
           points: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+          isShow: faker.datatype.boolean(),
         },
       ],
       isShowCourseWork: faker.datatype.boolean(),
@@ -238,6 +231,7 @@ describe("microservice:resume CreateResume", () => {
           skills: faker.lorem.words(10),
           isShowPoints: faker.datatype.boolean(),
           points: [faker.lorem.paragraph()],
+          isShow: faker.datatype.boolean(),
         },
       ],
       isShowInvolvement: faker.datatype.boolean(),
@@ -253,18 +247,19 @@ describe("microservice:resume CreateResume", () => {
           isShowLocation: faker.datatype.boolean(),
           location: faker.location.country(),
           isShowDate: faker.datatype.boolean(),
-          fromMonth: moment(faker.date.past()).format("MMMM"),
-          fromYear: moment(faker.date.past()).format("YYYY"),
-          toMonth: moment(faker.date.recent()).format("MMMM"),
-          toYear: moment(faker.date.recent()).format("YYYY"),
-          untilNow: faker.datatype.boolean(),
+          from: moment(faker.date.past()).format("YYYY"),
+          to: moment(faker.date.recent()).format("YYYY"),
+          isShow: faker.datatype.boolean(),
           isShowPoints: faker.datatype.boolean(),
           points: [faker.lorem.paragraph(), faker.lorem.paragraph()],
         },
       ],
       isShowSkill: faker.datatype.boolean(),
       skillLabel: faker.lorem.word(),
-      skills: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      skills: [
+        { point: faker.lorem.paragraph(), isShow: faker.datatype.boolean() },
+        { point: faker.lorem.paragraph(), isShow: faker.datatype.boolean() },
+      ],
       isShowLanguage: faker.datatype.boolean(),
       languageLabel: faker.lorem.word(),
       languageNameLabel: faker.lorem.word(),
@@ -278,7 +273,10 @@ describe("microservice:resume CreateResume", () => {
       ],
       hobbyLabel: faker.lorem.word(),
       isShowHobby: faker.datatype.boolean(),
-      hobbies: [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      hobbies: [
+        { point: faker.lorem.paragraph(), isShow: faker.datatype.boolean() },
+        { point: faker.lorem.paragraph(), isShow: faker.datatype.boolean() },
+      ],
     };
 
     const { data } = await request<
@@ -376,20 +374,14 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.experiences[i].isShowDate).toBe(
         resume.experiences[i].isShowDate
       );
-      expect(createResumeResumeInputs.experiences[i].fromMonth).toBe(
-        resume.experiences[i].fromMonth
+      expect(createResumeResumeInputs.experiences[i].from).toBe(
+        resume.experiences[i].from
       );
-      expect(createResumeResumeInputs.experiences[i].fromYear).toBe(
-        resume.experiences[i].fromYear
+      expect(createResumeResumeInputs.experiences[i].to).toBe(
+        resume.experiences[i].to
       );
-      expect(createResumeResumeInputs.experiences[i].toMonth).toBe(
-        resume.experiences[i].toMonth
-      );
-      expect(createResumeResumeInputs.experiences[i].toYear).toBe(
-        resume.experiences[i].toYear
-      );
-      expect(createResumeResumeInputs.experiences[i].untilNow).toBe(
-        resume.experiences[i].untilNow
+      expect(createResumeResumeInputs.experiences[i].isShow).toBe(
+        resume.experiences[i].isShow
       );
 
       expect(createResumeResumeInputs.experiences[i].isShowPoints).toBe(
@@ -463,20 +455,14 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.projects[i].isShowDate).toBe(
         resume.projects[i].isShowDate
       );
-      expect(createResumeResumeInputs.projects[i].fromMonth).toBe(
-        resume.projects[i].fromMonth
+      expect(createResumeResumeInputs.projects[i].from).toBe(
+        resume.projects[i].from
       );
-      expect(createResumeResumeInputs.projects[i].fromYear).toBe(
-        resume.projects[i].fromYear
+      expect(createResumeResumeInputs.projects[i].to).toBe(
+        resume.projects[i].to
       );
-      expect(createResumeResumeInputs.projects[i].toMonth).toBe(
-        resume.projects[i].toMonth
-      );
-      expect(createResumeResumeInputs.projects[i].toYear).toBe(
-        resume.projects[i].toYear
-      );
-      expect(createResumeResumeInputs.projects[i].untilNow).toBe(
-        resume.projects[i].untilNow
+      expect(createResumeResumeInputs.projects[i].isShow).toBe(
+        resume.projects[i].isShow
       );
 
       expect(createResumeResumeInputs.projects[i].isShowPoints).toBe(
@@ -548,20 +534,15 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.educations[i].isShowDate).toBe(
         resume.educations[i].isShowDate
       );
-      expect(createResumeResumeInputs.educations[i].fromMonth).toBe(
-        resume.educations[i].fromMonth
+
+      expect(createResumeResumeInputs.educations[i].from).toBe(
+        resume.educations[i].from
       );
-      expect(createResumeResumeInputs.educations[i].fromYear).toBe(
-        resume.educations[i].fromYear
+      expect(createResumeResumeInputs.educations[i].to).toBe(
+        resume.educations[i].to
       );
-      expect(createResumeResumeInputs.educations[i].toMonth).toBe(
-        resume.educations[i].toMonth
-      );
-      expect(createResumeResumeInputs.educations[i].toYear).toBe(
-        resume.educations[i].toYear
-      );
-      expect(createResumeResumeInputs.educations[i].untilNow).toBe(
-        resume.educations[i].untilNow
+      expect(createResumeResumeInputs.educations[i].isShow).toBe(
+        resume.educations[i].isShow
       );
 
       expect(createResumeResumeInputs.educations[i].isShowPoints).toBe(
@@ -619,6 +600,9 @@ describe("microservice:resume CreateResume", () => {
       );
       expect(createResumeResumeInputs.certifications[i].year).toBe(
         resume.certifications[i].year
+      );
+      expect(createResumeResumeInputs.certifications[i].isShow).toBe(
+        resume.certifications[i].isShow
       );
 
       expect(createResumeResumeInputs.certifications[i].isShowPoints).toBe(
@@ -688,7 +672,9 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.courseWorks[i].year).toBe(
         resume.courseWorks[i].year
       );
-
+      expect(createResumeResumeInputs.courseWorks[i].isShow).toBe(
+        resume.courseWorks[i].isShow
+      );
       expect(createResumeResumeInputs.courseWorks[i].isShowPoints).toBe(
         resume.courseWorks[i].isShowPoints
       );
@@ -750,20 +736,14 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.involvements[i].isShowDate).toBe(
         resume.involvements[i].isShowDate
       );
-      expect(createResumeResumeInputs.involvements[i].fromMonth).toBe(
-        resume.involvements[i].fromMonth
+      expect(createResumeResumeInputs.involvements[i].from).toBe(
+        resume.involvements[i].from
       );
-      expect(createResumeResumeInputs.involvements[i].fromYear).toBe(
-        resume.involvements[i].fromYear
+      expect(createResumeResumeInputs.involvements[i].to).toBe(
+        resume.involvements[i].to
       );
-      expect(createResumeResumeInputs.involvements[i].toMonth).toBe(
-        resume.involvements[i].toMonth
-      );
-      expect(createResumeResumeInputs.involvements[i].toYear).toBe(
-        resume.involvements[i].toYear
-      );
-      expect(createResumeResumeInputs.involvements[i].untilNow).toBe(
-        resume.involvements[i].untilNow
+      expect(createResumeResumeInputs.involvements[i].isShow).toBe(
+        resume.involvements[i].isShow
       );
 
       expect(createResumeResumeInputs.involvements[i].isShowPoints).toBe(
@@ -795,7 +775,12 @@ describe("microservice:resume CreateResume", () => {
     expect(createResumeResumeInputs.skills).toHaveLength(resume.skills.length);
 
     for (let i = 0; i < resume.skills.length; i++) {
-      expect(createResumeResumeInputs.skills[i]).toBe(resume.skills[i]);
+      expect(createResumeResumeInputs.skills[i].point).toBe(
+        resume.skills[i].point
+      );
+      expect(createResumeResumeInputs.skills[i].isShow).toBe(
+        resume.skills[i].isShow
+      );
     }
 
     expect(createResumeResumeInputs.isShowLanguage).toBe(resume.isShowLanguage);
@@ -821,6 +806,9 @@ describe("microservice:resume CreateResume", () => {
       expect(createResumeResumeInputs.languages[i].isShowLevel).toBe(
         resume.languages[i].isShowLevel
       );
+      expect(createResumeResumeInputs.languages[i].isShow).toBe(
+        resume.languages[i].isShow
+      );
     }
 
     expect(createResumeResumeInputs.hobbyLabel).toBe(resume.hobbyLabel);
@@ -831,7 +819,12 @@ describe("microservice:resume CreateResume", () => {
     );
 
     for (let i = 0; i < resume.hobbies.length; i++) {
-      expect(createResumeResumeInputs.hobbies[i]).toBe(resume.hobbies[i]);
+      expect(createResumeResumeInputs.hobbies[i].point).toBe(
+        resume.hobbies[i].point
+      );
+      expect(createResumeResumeInputs.hobbies[i].isShow).toBe(
+        resume.hobbies[i].isShow
+      );
     }
   });
 });

@@ -28,20 +28,18 @@ export const useData = () => {
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
       resumeId: selectedResumeId_!,
       title: selectedResume_?.title || "",
-      isShowExperience: !!selectedResume_?.isShowExperience,
-      experienceLabel: selectedResume_?.experienceLabel || "",
-      experiences:
-        selectedResume_?.experiences?.map((experience) => ({
-          role: experience.role || "",
-          company: experience.company || "",
-          isShowLocation: !!experience.isShowLocation,
-          location: experience.location || "",
-          isShowDate: !!experience.isShowDate,
-          from: experience.from || "",
-          to: experience.to || "",
-          isShowPoints: !!experience.isShowPoints,
-          isShow: !!experience.isShow,
-          points: experience.points?.map((point) => point || "") || [],
+      isShowCertification: !!selectedResume_?.isShowCertification,
+      certificationLabel: selectedResume_?.certificationLabel || "",
+      certifications:
+        selectedResume_?.certifications?.map((certification) => ({
+          name: certification.name || "",
+          institute: certification.institute || "",
+          isShowInstitute: !!certification.isShowInstitute,
+          isShowDate: !!certification.isShowDate,
+          year: certification.year || "",
+          isShowPoints: !!certification.isShowPoints,
+          isShow: !!certification.isShow,
+          points: certification.points?.map((point) => point || "") || [],
         })) || [],
     }),
     []
@@ -83,73 +81,74 @@ export const useData = () => {
     updateResumeResume({ variables: { updateResumeResumeInputs } });
   };
 
-  const addNewExperience = () => {
-    form.setValue("experiences", [
-      ...(form.getValues("experiences") || []),
+  const addNewCertification = () => {
+    form.setValue("certifications", [
+      ...(form.getValues("certifications") || []),
       {
-        role: "Role",
-        company: "company",
-        isShowLocation: false,
-        location: "location",
+        name: "Name",
+        institute: "Institute",
         isShowDate: false,
-        from: "",
-        to: "",
+        year: "1900",
         isShowPoints: false,
         isShow: true,
         points: [],
       },
     ]);
 
-    changeSelectedExperienceIndex(
-      (form.getValues("experiences")?.length || 0) - 1
+    changeSelectedCertificationIndex(
+      (form.getValues("certifications")?.length || 0) - 1
     );
   };
 
-  const removeExperience = (experienceIndex: number) => {
-    form.setValue("experiences", [
-      ...(form.getValues("experiences") || []).filter(
-        (_, index) => index !== experienceIndex
+  const removeCertification = (certificationIndex: number) => {
+    form.setValue("certifications", [
+      ...(form.getValues("certifications") || []).filter(
+        (_, index) => index !== certificationIndex
       ),
     ]);
-    changeSelectedExperienceIndex(
+    changeSelectedCertificationIndex(
       resumeSubSectionIndex ? resumeSubSectionIndex - 1 : 0
     );
   };
 
-  const addNewPoint = (experienceIndex: number) => {
+  const addNewPoint = (certificationIndex: number) => {
     form.setValue(
-      "experiences",
-      [...(form.getValues("experiences") || [])].map((experience, index) => ({
-        ...experience,
-        points:
-          index === experienceIndex
-            ? [...(experience.points || []), "new Point"]
-            : experience.points,
-      }))
+      "certifications",
+      [...(form.getValues("certifications") || [])].map(
+        (certification, index) => ({
+          ...certification,
+          points:
+            index === certificationIndex
+              ? [...(certification.points || []), "new Point"]
+              : certification.points,
+        })
+      )
     );
     form.trigger();
   };
 
-  const removePoint = (experienceIndex: number, pointIndex: number) => {
+  const removePoint = (certificationIndex: number, pointIndex: number) => {
     form.setValue(
-      "experiences",
-      [...(form.getValues("experiences") || [])].map((experience, index) => ({
-        ...experience,
-        points:
-          index === experienceIndex
-            ? [
-                ...(experience.points || []).filter(
-                  (_, index) => index !== pointIndex
-                ),
-              ]
-            : experience.points,
-      }))
+      "certifications",
+      [...(form.getValues("certifications") || [])].map(
+        (certification, index) => ({
+          ...certification,
+          points:
+            index === certificationIndex
+              ? [
+                  ...(certification.points || []).filter(
+                    (_, index) => index !== pointIndex
+                  ),
+                ]
+              : certification.points,
+        })
+      )
     );
     form.trigger();
   };
 
-  const changeSelectedExperienceIndex = (index: number) => {
-    if (index < (form.getValues("experiences")?.length || 0) && index >= 0) {
+  const changeSelectedCertificationIndex = (index: number) => {
+    if (index < (form.getValues("certifications")?.length || 0) && index >= 0) {
       setResumeSubSectionIndex(index);
       form.trigger();
     }
@@ -160,9 +159,9 @@ export const useData = () => {
     onSubmit,
     loading,
     resumeSubSectionIndex,
-    addNewExperience,
-    removeExperience,
-    changeSelectedExperienceIndex,
+    addNewCertification,
+    removeCertification,
+    changeSelectedCertificationIndex,
     addNewPoint,
     removePoint,
   };

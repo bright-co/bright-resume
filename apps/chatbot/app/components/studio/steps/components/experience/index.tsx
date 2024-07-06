@@ -11,8 +11,6 @@ import {
   Input,
   ScrollArea,
   Textarea,
-  Switch,
-  Label,
 } from "@resume-template-components/shadcn-ui";
 import { FC } from "react";
 import { DeleteIcon } from "lucide-react";
@@ -74,39 +72,57 @@ export const Experience: FC = () => {
           <div className="p-1 bg-slate-400 w-[400px]">
             <ScrollArea>
               <div className="flex flex-col gap-2  pt-0">
-                {form.getValues("experiences")?.map((experience, index) => (
-                  <button
-                    key={"experience" + index}
-                    type="button"
-                    className={clsx(
-                      "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent ",
-                      index === resumeSubSectionIndex && "bg-blue-400"
-                    )}
-                    onClick={() => {
-                      console.log("here onclick");
-                      changeSelectedExperienceIndex(index);
-                    }}
-                  >
-                    <div className="flex w-full flex-col gap-1">
-                      <div className="flex items-center">
-                        <div className="flex items-center gap-2">
-                          <div className="font-semibold">{experience.role}</div>
+                {form
+                  .getValues("experiences")
+                  ?.map((experience, experienceIndex) => (
+                    <button
+                      key={"experience" + experienceIndex}
+                      type="button"
+                      className={clsx(
+                        "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent ",
+                        experienceIndex === resumeSubSectionIndex &&
+                          "bg-blue-400"
+                      )}
+                      onClick={() => {
+                        changeSelectedExperienceIndex(experienceIndex);
+                      }}
+                    >
+                      <div className="flex w-full flex-col gap-1">
+                        <div className="flex items-center">
+                          <div className="flex items-center gap-2">
+                            <div className="font-semibold">
+                              {experience.role}
+                            </div>
+                          </div>
+                          <div className="ml-auto text-xs">
+                            {experience.from} {"-"} {experience.to}
+                          </div>
                         </div>
-                        <div className="ml-auto text-xs">
-                          {experience.fromMonth} {experience.fromYear} -{" "}
-                          {experience.toMonth} {experience.toYear}
+                        <div className="text-xs font-medium">
+                          {experience.company} - {experience.location}
                         </div>
                       </div>
-                      <div className="text-xs font-medium">
-                        {experience.company} - {experience.location}
+                      <div className="flex items-center space-x-2">
+                        <FormField
+                          control={form.control}
+                          name={`experiences.${experienceIndex}.isShow`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value}
+                                  onCheckedChange={(checked) =>
+                                    field.onChange(checked)
+                                  }
+                                />
+                              </FormControl>
+                              <FormLabel className="ml-3">Show/hide</FormLabel>
+                            </FormItem>
+                          )}
+                        />
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Switch />
-                      <Label htmlFor="Show/Hide">Show/Hide</Label>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  ))}
 
                 <button
                   type="button"
@@ -205,48 +221,24 @@ export const Experience: FC = () => {
                 />
                 <FormField
                   control={form.control}
-                  name={`experiences.${experienceIndex}.fromMonth`}
+                  name={`experiences.${experienceIndex}.from`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>fromMonth</FormLabel>
+                      <FormLabel>from</FormLabel>
                       <FormControl>
-                        <Input placeholder="fromMonth" {...field} />
+                        <Input placeholder="from" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name={`experiences.${experienceIndex}.fromYear`}
+                  name={`experiences.${experienceIndex}.to`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>fromYear</FormLabel>
+                      <FormLabel>to</FormLabel>
                       <FormControl>
-                        <Input placeholder="fromYear" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`experiences.${experienceIndex}.toMonth`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>toMonth</FormLabel>
-                      <FormControl>
-                        <Input placeholder="toMonth" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`experiences.${experienceIndex}.toYear`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>toYear</FormLabel>
-                      <FormControl>
-                        <Input placeholder="toYear" {...field} />
+                        <Input placeholder="to" {...field} />
                       </FormControl>
                     </FormItem>
                   )}

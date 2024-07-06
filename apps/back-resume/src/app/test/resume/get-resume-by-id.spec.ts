@@ -1,8 +1,6 @@
 import { Resume } from "@@back-resume/app/models/resume.model";
-import { DeleteResumeResumeInputsGQL } from "@back-common/dto";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { RESUME_NOT_FOUND } from "@bright-resume/errors";
-import { DeleteResumeResumeInputs, GetResumeByIdResumeArgs } from "@dto";
 import gql from "graphql-tag";
 import mongoose from "mongoose";
 import request from "supertest-graphql";
@@ -34,23 +32,28 @@ describe("microservice:resume getResumeById", () => {
 
     const resume = await helperDB.createResume({});
 
+    console.log({ "resume.id": resume.id });
+
     const {
       errors: [error],
-    } = await request<{ getResumeById: Resume }, { resumeId: string }>(
-      integrationTestManager.httpServer
-    )
+    } = await request<
+      { getResumeById: Resume },
+      { getResumeByIdResumeArgs: { resumeId: string } }
+    >(integrationTestManager.httpServer)
       .set(authHeader.key, authHeader.value)
       .query(
         gql`
-          query ($resumeId: String!) {
-            getResumeById(resumeId: $resumeId) {
+          query getResumeById(
+            $getResumeByIdResumeArgs: GetResumeByIdResumeArgsGQL!
+          ) {
+            getResumeById(getResumeByIdResumeArgs: $getResumeByIdResumeArgs) {
               id
               userId
             }
           }
         `
       )
-      .variables({ resumeId: resume.id });
+      .variables({ getResumeByIdResumeArgs: { resumeId: resume.id } });
 
     expect(error).toBeDefined();
     expect(error.message).toBe(RESUME_NOT_FOUND.description);
@@ -63,20 +66,26 @@ describe("microservice:resume getResumeById", () => {
 
     const { errors } = await request<
       { getResumeById: Resume },
-      { resumeId: string }
+      { getResumeByIdResumeArgs: { resumeId: string } }
     >(integrationTestManager.httpServer)
       .set(authHeader.key, authHeader.value)
       .query(
         gql`
-          query ($resumeId: String!) {
-            getResumeById(resumeId: $resumeId) {
+          query getResumeById(
+            $getResumeByIdResumeArgs: GetResumeByIdResumeArgsGQL!
+          ) {
+            getResumeById(getResumeByIdResumeArgs: $getResumeByIdResumeArgs) {
               id
               userId
             }
           }
         `
       )
-      .variables({ resumeId: new mongoose.Types.ObjectId().toString() });
+      .variables({
+        getResumeByIdResumeArgs: {
+          resumeId: new mongoose.Types.ObjectId().toString(),
+        },
+      });
 
     expect(errors).toBeDefined();
     expect(errors[0].message).toBe(RESUME_NOT_FOUND.description);
@@ -89,20 +98,22 @@ describe("microservice:resume getResumeById", () => {
 
     const { data } = await request<
       { getResumeById: Resume },
-      { resumeId: string }
+      { getResumeByIdResumeArgs: { resumeId: string } }
     >(integrationTestManager.httpServer)
       .set(authHeader.key, authHeader.value)
       .query(
         gql`
-          query ($resumeId: String!) {
-            getResumeById(resumeId: $resumeId) {
+          query getResumeById(
+            $getResumeByIdResumeArgs: GetResumeByIdResumeArgsGQL!
+          ) {
+            getResumeById(getResumeByIdResumeArgs: $getResumeByIdResumeArgs) {
               id
               userId
             }
           }
         `
       )
-      .variables({ resumeId: resume.id })
+      .variables({ getResumeByIdResumeArgs: { resumeId: resume.id } })
       .expectNoErrors();
 
     expect(data.getResumeById.id).toBe(resume.id);

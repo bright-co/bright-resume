@@ -30,6 +30,10 @@ export class Certification extends Document implements ICertification {
   @Prop({ type: Boolean, required: false })
   isShowPoints?: boolean;
 
+  @Field(() => Boolean, { nullable: true })
+  @Prop({ type: Boolean, required: false })
+  isShow?: boolean;
+
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], required: false })
   points?: string[];

@@ -170,12 +170,10 @@ input CreateResumeExperienceItemResumeInputsGQL {
   isShowLocation: Boolean
   location: String
   isShowDate: Boolean
-  fromMonth: String
-  fromYear: String
-  toMonth: String
-  toYear: String
-  untilNow: Boolean
+  from: String
+  to: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
@@ -190,12 +188,10 @@ input CreateResumeProjectItemInputsGQL {
   isShowUrl: Boolean
   url: String
   isShowDate: Boolean
-  fromMonth: String
-  fromYear: String
-  toMonth: String
-  toYear: String
-  untilNow: Boolean
+  from: String
+  to: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
@@ -208,12 +204,10 @@ input CreateResumeEducationItemInputsGQL {
   isShowGpa: Boolean
   gpa: String
   isShowDate: Boolean
-  fromMonth: String
-  fromYear: String
-  toMonth: String
-  toYear: String
-  untilNow: Boolean
+  from: String
+  to: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
@@ -224,6 +218,7 @@ input CreateResumeCertificationItemInputsGQL {
   isShowDate: Boolean
   year: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
@@ -236,6 +231,7 @@ input CreateResumeCourseWorkItemInputsGQL {
   isShowSkills: Boolean
   skills: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
@@ -246,25 +242,26 @@ input CreateResumeInvolvementItemInputsGQL {
   isShowLocation: Boolean
   location: String
   isShowDate: Boolean
-  fromMonth: String
-  fromYear: String
-  toMonth: String
-  toYear: String
-  untilNow: Boolean
+  from: String
+  to: String
   isShowPoints: Boolean
+  isShow: Boolean
   points: [String!]
 }
 
 input CreateResumeSkillItemInputsGQL {
   point: String
+  isShow: Boolean
 }
 
 input CreateResumeLanguageItemInputsGQL {
   name: String
   isShowLevel: Boolean
   level: String
+  isShow: Boolean
 }
 
 input CreateResumeHobbyItemInputsGQL {
   point: String
+  isShow: Boolean
 }

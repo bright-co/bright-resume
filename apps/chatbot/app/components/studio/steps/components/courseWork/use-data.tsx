@@ -28,20 +28,20 @@ export const useData = () => {
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
       resumeId: selectedResumeId_!,
       title: selectedResume_?.title || "",
-      isShowExperience: !!selectedResume_?.isShowExperience,
-      experienceLabel: selectedResume_?.experienceLabel || "",
-      experiences:
-        selectedResume_?.experiences?.map((experience) => ({
-          role: experience.role || "",
-          company: experience.company || "",
-          isShowLocation: !!experience.isShowLocation,
-          location: experience.location || "",
-          isShowDate: !!experience.isShowDate,
-          from: experience.from || "",
-          to: experience.to || "",
-          isShowPoints: !!experience.isShowPoints,
-          isShow: !!experience.isShow,
-          points: experience.points?.map((point) => point || "") || [],
+      isShowCourseWork: !!selectedResume_?.isShowCourseWork,
+      courseWorkLabel: selectedResume_?.courseWorkLabel || "",
+      courseWorks:
+        selectedResume_?.courseWorks?.map((courseWork) => ({
+          name: courseWork.name || "",
+          institute: courseWork.institute || "",
+          isShowInstitute: !!courseWork.isShowInstitute,
+          isShowDate: !!courseWork.isShowDate,
+          year: courseWork.year || "",
+          skills: courseWork.skills || "",
+          isShowSkills: !!courseWork.isShowSkills,
+          isShowPoints: !!courseWork.isShowPoints,
+          isShow: !!courseWork.isShow,
+          points: courseWork.points?.map((point) => point || "") || [],
         })) || [],
     }),
     []
@@ -83,73 +83,71 @@ export const useData = () => {
     updateResumeResume({ variables: { updateResumeResumeInputs } });
   };
 
-  const addNewExperience = () => {
-    form.setValue("experiences", [
-      ...(form.getValues("experiences") || []),
+  const addNewCourseWork = () => {
+    form.setValue("courseWorks", [
+      ...(form.getValues("courseWorks") || []),
       {
-        role: "Role",
-        company: "company",
-        isShowLocation: false,
-        location: "location",
+        name: "Name",
+        institute: "Institute",
         isShowDate: false,
-        from: "",
-        to: "",
+        year: "",
         isShowPoints: false,
         isShow: true,
+        skills: "skills",
         points: [],
       },
     ]);
 
-    changeSelectedExperienceIndex(
-      (form.getValues("experiences")?.length || 0) - 1
+    changeSelectedCourseWorkIndex(
+      (form.getValues("courseWorks")?.length || 0) - 1
     );
   };
 
-  const removeExperience = (experienceIndex: number) => {
-    form.setValue("experiences", [
-      ...(form.getValues("experiences") || []).filter(
-        (_, index) => index !== experienceIndex
+  const removeCourseWork = (courseWorkIndex: number) => {
+    form.setValue("courseWorks", [
+      ...(form.getValues("courseWorks") || []).filter(
+        (_, index) => index !== courseWorkIndex
       ),
     ]);
-    changeSelectedExperienceIndex(
+    changeSelectedCourseWorkIndex(
       resumeSubSectionIndex ? resumeSubSectionIndex - 1 : 0
     );
   };
 
-  const addNewPoint = (experienceIndex: number) => {
+  const addNewPoint = (courseWorkIndex: number) => {
     form.setValue(
-      "experiences",
-      [...(form.getValues("experiences") || [])].map((experience, index) => ({
-        ...experience,
+      "courseWorks",
+      [...(form.getValues("courseWorks") || [])].map((courseWork, index) => ({
+        ...courseWork,
         points:
-          index === experienceIndex
-            ? [...(experience.points || []), "new Point"]
-            : experience.points,
+          index === courseWorkIndex
+            ? [...(courseWork.points || []), "new Point"]
+            : courseWork.points,
       }))
     );
     form.trigger();
   };
 
-  const removePoint = (experienceIndex: number, pointIndex: number) => {
+  const removePoint = (courseWorkIndex: number, pointIndex: number) => {
     form.setValue(
-      "experiences",
-      [...(form.getValues("experiences") || [])].map((experience, index) => ({
-        ...experience,
+      "courseWorks",
+      [...(form.getValues("courseWorks") || [])].map((courseWork, index) => ({
+        ...courseWork,
         points:
-          index === experienceIndex
+          index === courseWorkIndex
             ? [
-                ...(experience.points || []).filter(
+                ...(courseWork.points || []).filter(
                   (_, index) => index !== pointIndex
                 ),
               ]
-            : experience.points,
+            : courseWork.points,
       }))
     );
     form.trigger();
   };
 
-  const changeSelectedExperienceIndex = (index: number) => {
-    if (index < (form.getValues("experiences")?.length || 0) && index >= 0) {
+  const changeSelectedCourseWorkIndex = (index: number) => {
+    if (index < (form.getValues("courseWorks")?.length || 0) && index >= 0) {
       setResumeSubSectionIndex(index);
       form.trigger();
     }
@@ -160,9 +158,9 @@ export const useData = () => {
     onSubmit,
     loading,
     resumeSubSectionIndex,
-    addNewExperience,
-    removeExperience,
-    changeSelectedExperienceIndex,
+    addNewCourseWork,
+    removeCourseWork,
+    changeSelectedCourseWorkIndex,
     addNewPoint,
     removePoint,
   };
