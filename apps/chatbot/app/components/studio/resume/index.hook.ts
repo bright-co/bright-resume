@@ -29,7 +29,12 @@ import { useEffect, useState } from "react";
 import { useStudioContext } from "../use-context";
 
 export const useData = () => {
-  const { selectedResume } = useStudioContext();
+  const {
+    selectedResume,
+    setResumeSection,
+    setIsOpenSteps,
+    setResumeSubSectionIndex,
+  } = useStudioContext();
 
   const [resumeModel, setResumeModel] = useState(
     new ResumeModel(selectedResume)
@@ -293,6 +298,21 @@ export const useData = () => {
     setResumeModel(new ResumeModel(resumeModel.input));
   };
 
+  const onClickEditSection = (section: ResumeSectionType) => {
+    setResumeSection(section);
+    setResumeSubSectionIndex(0);
+    setIsOpenSteps(true);
+  };
+
+  const onClickEditSubSection = (
+    section: ResumeSectionType,
+    subSectionIndex: number
+  ) => {
+    setResumeSection(section);
+    setResumeSubSectionIndex(subSectionIndex);
+    setIsOpenSteps(true);
+  };
+
   return {
     resumeModel,
     hoverSection,
@@ -316,5 +336,7 @@ export const useData = () => {
     callResumeHobbySetMethod,
     onMoveUpSection,
     onMoveDownSection,
+    onClickEditSection,
+    onClickEditSubSection,
   };
 };

@@ -7,3 +7,4 @@ export * from "./phone";
 export * from "./web";
 export * from "./ai";
 export * from "./visibility-off";
+export * from "./location";

@@ -1,70 +1,138 @@
 "use client";
 
 import {
-  Button,
+  Separator,
   Sheet,
   SheetContent,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from "@resume-template-components/shadcn-ui";
-import { FC } from "react";
-import { clsx } from "clsx";
+import { FC, ReactNode } from "react";
 
+import { ResumeSectionType } from "@models";
 import { useStudioContext } from "../use-context";
+import {
+  Certification,
+  CourseWork,
+  Education,
+  Experience,
+  Header,
+  Hobby,
+  Involvement,
+  Language,
+  Project,
+  Skill,
+  Summary,
+} from "./components";
 
-const examples = [
+const sections: { section: ResumeSectionType; component: ReactNode }[] = [
   {
-    name: "Mail",
-    href: "/examples/mail",
+    section: "header",
+    component: <Header />,
   },
   {
-    name: "Dashboard",
-    href: "/examples/dashboard",
+    section: "summary",
+    component: <Summary />,
   },
   {
-    name: "Cards",
-    href: "/examples/cards",
+    section: "experience",
+    component: <Experience />,
   },
   {
-    name: "Tasks",
-    href: "/examples/tasks",
+    section: "involvement",
+    component: <Involvement />,
   },
   {
-    name: "Playground",
-    href: "/examples/playground",
+    section: "project",
+    component: <Project />,
   },
   {
-    name: "Forms",
-    href: "/examples/forms",
+    section: "education",
+    component: <Education />,
   },
   {
-    name: "Music",
-    href: "/examples/music",
+    section: "skill",
+    component: <Skill />,
   },
   {
-    name: "Authentication",
-    href: "/examples/authentication",
+    section: "courseWork",
+    component: <CourseWork />,
+  },
+  {
+    section: "certification",
+    component: <Certification />,
+  },
+  {
+    section: "hobby",
+    component: <Hobby />,
+  },
+  {
+    section: "language",
+    component: <Language />,
   },
 ];
 
 export const Steps: FC = () => {
-  const { isOpenSteps, setIsOpenSteps } = useStudioContext();
+  const { isOpenSteps, setIsOpenSteps, resumeSection, setResumeSection } =
+    useStudioContext();
 
   return (
     <Sheet open={isOpenSteps} onOpenChange={setIsOpenSteps}>
       <SheetContent style={{ width: "80%", maxWidth: "80%" }} side="right">
-        <div className="relative">
-          <div className={clsx("mb-4 flex items-center")}>
-            {examples.map((example, index) => (
-              <Button
-                key={example.href}
-                className={clsx(
-                  "flex h-7  ml-4 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-secondary bg-muted font-medium text-primary"
-                )}
+        <Tabs
+          defaultValue="header"
+          value={resumeSection}
+          className="h-full flex flex-col"
+        >
+          <TabsList className="bg-blue-300">
+            {sections.map(({ section }) => (
+              <TabsTrigger
+                key={section}
+                value={section!}
+                onClick={() => setResumeSection(section)}
+                className="text-zinc-600 dark:text-zinc-200"
               >
-                {example.name}
-              </Button>
+                {section}
+              </TabsTrigger>
             ))}
-          </div>
-        </div>
+          </TabsList>
+          <TabsContent value="header" className="overflow-auto">
+            <Header />
+          </TabsContent>
+          <TabsContent value="summary" className="overflow-auto">
+            <Summary />
+          </TabsContent>
+          <TabsContent value="experience" className="overflow-auto">
+            <Experience />
+          </TabsContent>
+          <TabsContent value="involvement" className="overflow-auto">
+            <Involvement />
+          </TabsContent>
+          <TabsContent value="project" className="overflow-auto">
+            <Project />
+          </TabsContent>
+          <TabsContent value="education" className="overflow-auto">
+            <Education />
+          </TabsContent>
+          <TabsContent value="skill" className="overflow-auto">
+            <Skill />
+          </TabsContent>
+          <TabsContent value="courseWork" className="overflow-auto">
+            <CourseWork />
+          </TabsContent>
+          <TabsContent value="certification" className="overflow-auto">
+            <Certification />
+          </TabsContent>
+          <TabsContent value="hobby" className="overflow-auto">
+            <Hobby />
+          </TabsContent>
+          <TabsContent value="language" className="overflow-auto">
+            <Language />
+          </TabsContent>
+        </Tabs>
+        <Separator />
       </SheetContent>
     </Sheet>
   );

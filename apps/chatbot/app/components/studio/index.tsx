@@ -18,6 +18,7 @@ export type Props = {
   resumeId?: string;
   sheet?: "chat" | "steps";
   section?: ResumeSectionType;
+  resumeSubSectionIndex?: string;
 };
 
 export default function StudioComponents(props: Props) {
@@ -60,9 +61,9 @@ export default function StudioComponents(props: Props) {
           </div>
           <div
             style={{ maxHeight: "calc( 100% - 50px)" }}
-            className="w-full flex-grow flex border border-red-500"
+            className="w-full flex-grow flex"
           >
-            <div className="h-full w-full overflow-auto bg-slate-100 relative">
+            <div className="h-full w-full overflow-auto bg-gray-300 relative">
               <Resume />
             </div>
           </div>

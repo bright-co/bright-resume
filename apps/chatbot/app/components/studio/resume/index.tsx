@@ -35,7 +35,7 @@ export const Resume: FC = () => {
   const { setIsOpenSteps } = useStudioContext();
 
   return (
-    <div className="resume-container overflow-scroll h-full px-9">
+    <div className="resume-container h-full px-9">
       <div
         className="my-3 flex justify-center items-center"
         style={{ minWidth: width * zoom }}

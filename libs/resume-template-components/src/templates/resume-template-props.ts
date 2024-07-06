@@ -119,4 +119,6 @@ export interface ResumeTemplateProps {
   ) => void;
   onMoveDownSection?: (section: ResumeSectionType) => void;
   onMoveUpSection?: (section: ResumeSectionType) => void;
+  onClickEditSection?: (section: ResumeSectionType) => void;
+  onClickEditSubSection?: (section: ResumeSectionType, index: number) => void;
 }

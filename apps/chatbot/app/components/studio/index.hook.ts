@@ -17,8 +17,10 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import { useToast } from "@resume-template-components/shadcn-ui";
 import { Props } from ".";
+import * as utils from "@utils";
+import { ResumeSectionType } from "@models";
 
-export const useData = ({ user, resumeId }: Props): IContext => {
+export const useData = (props: Props): IContext => {
   const [resumes, setResumes] = useState<
     GetResumesQuery["getResumes"]["edges"]
   >([]);
@@ -28,13 +30,21 @@ export const useData = ({ user, resumeId }: Props): IContext => {
   const [selectedResume, setSelectedResume] =
     useState<GetResumeByIdQuery["getResumeById"]>();
   const [selectedResumeId, setSelectedResumeId] = useState<string>(
-    resumeId || ""
+    props.resumeId || ""
   );
   const [isOpenNewResumeDialog, setIsNewResumeDialog] = useState(false);
   const { toast } = useToast();
   const [isCollapsedSideMenu, setIsCollapsedSideMenu] = useState(false);
-  const [isOpenChat, setIsOpenChat] = useState(false);
-  const [isOpenSteps, setIsOpenSteps] = useState(false);
+  const [isOpenChat, setIsOpenChat] = useState(props.sheet === "chat");
+  const [isOpenSteps, setIsOpenSteps] = useState(props.sheet === "steps");
+
+  const [resumeSection, setResumeSection] = useState<ResumeSectionType>(
+    props.section
+  );
+
+  const [resumeSubSectionIndex, setResumeSubSectionIndex] = useState<
+    number | undefined
+  >(utils.convertToInteger(props.resumeSubSectionIndex || "") || 0);
 
   const [getResumeByIdResumeArgs, setGetResumeByIdResumeArgs] =
     useState<GetResumeByIdResumeArgsGql>({ resumeId: "" });
@@ -43,21 +53,72 @@ export const useData = ({ user, resumeId }: Props): IContext => {
     setGetResumeByIdResumeArgs({ resumeId: selectedResumeId });
   }, [selectedResumeId]);
 
+  useEffect(() => {
+    let sheet: (typeof props)["sheet"] = undefined;
+    if (isOpenSteps) {
+      sheet = "steps";
+    }
+    if (isOpenChat) {
+      sheet = "chat";
+    }
+
+    window.history.pushState(
+      {},
+      "",
+      utils.buildUrlClient(
+        "/studio/resume/:resumeId",
+        {
+          resumeId: selectedResumeId,
+        },
+        {
+          sheet,
+          section: resumeSection,
+          resumeSubSectionIndex:
+            resumeSubSectionIndex !== undefined &&
+            resumeSubSectionIndex.toString(),
+        }
+      )
+    );
+  }, [
+    selectedResumeId,
+    isOpenSteps,
+    resumeSection,
+    isOpenChat,
+    resumeSubSectionIndex,
+  ]);
+
   /* -------------------------------- useQuery -------------------------------- */
 
-  const { loading: loadingSelectedResume } = useQuery<
-    GetResumeByIdQuery,
-    GetResumeByIdQueryVariables
-  >(QUERY_GET_RESUME_BY_ID_RESUME, {
-    skip: !selectedResumeId,
-    variables: {
-      getResumeByIdResumeArgs,
-    },
-    onCompleted: async ({ getResumeById }) => {
-      setSelectedResume({ ...getResumeById });
-      window.history.pushState({}, "", `/studio/resume/${getResumeById.id}`);
-    },
-  });
+  const { loading: loadingSelectedResume, refetch: refetchSelectedResume } =
+    useQuery<GetResumeByIdQuery, GetResumeByIdQueryVariables>(
+      QUERY_GET_RESUME_BY_ID_RESUME,
+      {
+        skip: !selectedResumeId,
+        fetchPolicy: "cache-and-network",
+        variables: {
+          getResumeByIdResumeArgs,
+        },
+        onCompleted: async ({ getResumeById }) => {
+          setSelectedResume({ ...getResumeById });
+
+          window.history.pushState(
+            {},
+            "",
+            utils.buildUrlClient(
+              "/studio/resume/:resumeId",
+              {
+                resumeId: getResumeById.id!,
+              },
+              {
+                sheet: props.sheet,
+                section: props.section,
+                resumeSubSectionIndex: props.resumeSubSectionIndex,
+              }
+            )
+          );
+        },
+      }
+    );
 
   /* ------------------------------- useMutation ------------------------------ */
 
@@ -84,7 +145,7 @@ export const useData = ({ user, resumeId }: Props): IContext => {
   return {
     isOpenNewResumeDialog,
     setIsNewResumeDialog,
-    user,
+    user: props.user,
     resumes,
     setResumes,
     selectedResume,
@@ -102,5 +163,10 @@ export const useData = ({ user, resumeId }: Props): IContext => {
     setIsOpenSteps,
     initialLoading,
     setInitialLoading,
+    resumeSection,
+    setResumeSection,
+    refetchSelectedResume,
+    resumeSubSectionIndex,
+    setResumeSubSectionIndex,
   };
 };

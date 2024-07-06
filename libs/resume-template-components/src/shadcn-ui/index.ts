@@ -14,3 +14,6 @@ export * from "./separator";
 export * from "./dialog";
 export * from "./resizable";
 export * from "./sheet";
+export * from "./tabs";
+export * from "./textarea";
+export * from "./switch";

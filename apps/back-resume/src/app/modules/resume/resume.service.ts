@@ -69,7 +69,9 @@ export class ResumeService {
       throw new CustomError(RESUME_NOT_FOUND);
     }
 
-    return await this.resumeModel.findOneAndUpdate({ id: resumeId }, inputs);
+    await this.resumeModel.findOneAndUpdate({ id: resumeId }, inputs);
+
+    return await this.resumeModel.findOne({ userId, id: resumeId });
   }
 
   async delete(
