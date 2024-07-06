@@ -84,7 +84,6 @@ export const Experience: FC = () => {
                           "bg-blue-400"
                       )}
                       onClick={() => {
-                        console.log("here onclick");
                         changeSelectedExperienceIndex(experienceIndex);
                       }}
                     >

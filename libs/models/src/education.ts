@@ -1,14 +1,14 @@
 export interface IEducation {
   degree?: string | null;
-  isShowInstitute?: boolean | null;
   institute?: string | null;
-  isShowLocation?: boolean | null;
+  isShowInstitute?: boolean | null;
   location?: string | null;
+  isShowLocation?: boolean | null;
+  isShowDate?: boolean | null;
   from?: string | null;
   to?: string | null;
   isShowGpa?: boolean | null;
   gpa?: string | null;
-  isShowDate?: boolean | null;
   isShowPoints?: boolean | null;
   isShow?: boolean | null;
   points?: string[] | null;
