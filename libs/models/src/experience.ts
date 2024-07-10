@@ -98,6 +98,24 @@ export class ExperienceModel {
     }
   }
 
+  getPlainObject() {
+    return {
+      role: this.getRole() || "",
+      company: this.getCompany() || "",
+      isShowLocation: this.getIsShowLocation() || false,
+      location: this.getLocation() || "",
+      isShowDate: this.getIsShowDate() || false,
+      from: this.getFrom() || "",
+      to: this.getTo() || "",
+      isShow: this.getIsShow() || false,
+      isShowPoints: this.getIsShowPoints() || false,
+      points:
+        this.getPoints()
+          .map((point) => point || "")
+          .filter((point) => !!point) || [],
+    };
+  }
+
   changePointsIndex(index1: number, index2: number) {
     if (!this.input.points) {
       return;

@@ -29,6 +29,7 @@ export const useData = () => {
     setSelectedResumeId,
     resumes,
     initialLoading,
+    selectedResumeId,
   } = useStudioContext();
   const { toast } = useToast();
 
@@ -169,13 +170,13 @@ export const useData = () => {
         description: error.message,
       });
     },
-    onCompleted: async ({ createResume: { id, title, userId } }) => {
+    onCompleted: async ({ createResume: { id, title, userId, updatedAt } }) => {
       toast({
         title: "Welcome!",
         description: "Resume Created Successfully!",
       });
       setIsNewResumeDialog(false);
-      setResumes((prev) => [{ id, title, userId }, ...prev]);
+      setResumes((prev) => [{ id, title, userId, updatedAt }, ...prev]);
       setSelectedResumeId(id!);
     },
   });
@@ -194,5 +195,6 @@ export const useData = () => {
     setIsNewResumeDialog,
     resumes,
     initialLoading,
+    selectedResumeId,
   };
 };

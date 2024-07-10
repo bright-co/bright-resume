@@ -4,5 +4,5 @@ import { GetResumesResumeArgs } from "@dto";
 @InputType()
 export class GetResumesResumeArgsGQL extends GetResumesResumeArgs {
   @Field(() => String, { nullable: true })
-  name?: string = "";
+  title?: string = "";
 }

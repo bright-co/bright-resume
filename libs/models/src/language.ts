@@ -40,6 +40,15 @@ export class LanguageModel {
     this.input = { ...this.input, level };
   }
 
+  getPlainObject() {
+    return {
+      name: this.getName() || "",
+      isShowLevel: this.getIsShowLevel() || false,
+      isShow: this.getIsShow() || false,
+      level: this.getLevel() || "",
+    };
+  }
+
   callSetMethod<M extends LanguageModelSetMethodsKeyType>(
     methodName: LanguageModelSetMethodsKeyType,
     ...args: Parameters<LanguageModel[M]>

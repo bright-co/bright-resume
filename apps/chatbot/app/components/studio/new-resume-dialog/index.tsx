@@ -26,6 +26,7 @@ export const NewResumeDialog: FC = () => {
     setIsNewResumeDialog,
     resumes,
     initialLoading,
+    selectedResumeId,
   } = useData();
 
   const renderForm = () => {
@@ -60,7 +61,9 @@ export const NewResumeDialog: FC = () => {
   return (
     <Dialog
       open={
-        resumes.length === 0 && !initialLoading ? true : isOpenNewResumeDialog
+        resumes.length === 0 && !initialLoading && !selectedResumeId
+          ? true
+          : isOpenNewResumeDialog
       }
       onOpenChange={setIsNewResumeDialog}
     >

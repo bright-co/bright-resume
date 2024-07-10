@@ -1,28 +1,20 @@
 "use client";
 
-import { MUTATION_UPDATE_RESUME_RESUME } from "../../../gql";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "@apollo/client";
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useToast } from "@resume-template-components/shadcn-ui";
-import {
-  UpdateResumeMutation,
-  UpdateResumeMutationVariables,
-} from "@chatbot/gql/graphql";
-import { useStudioContext } from "../../../use-context";
 import { useCallback, useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useStudioContext } from "../../../use-context";
 
 export const useData = () => {
   const {
     selectedResume,
     selectedResumeId,
-    refetchSelectedResume,
     resumeSubSectionIndex,
     setResumeSubSectionIndex,
+    updateResumeResume,
+    loadingUpdateResumeResume,
   } = useStudioContext();
-
-  const { toast } = useToast();
 
   const getFormValues = useCallback(
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
@@ -56,26 +48,6 @@ export const useData = () => {
   useEffect(() => {
     form.reset(getFormValues(selectedResumeId!, selectedResume));
   }, [form, selectedResume, selectedResumeId, getFormValues]);
-
-  const [updateResumeResume, { loading }] = useMutation<
-    UpdateResumeMutation,
-    UpdateResumeMutationVariables
-  >(MUTATION_UPDATE_RESUME_RESUME, {
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: error.message,
-      });
-    },
-    onCompleted: async () => {
-      refetchSelectedResume();
-      toast({
-        title: "Welcome!",
-        description: "Resume updated Successfully!",
-      });
-    },
-  });
 
   const onSubmit: SubmitHandler<UpdateResumeResumeInputs> = (
     updateResumeResumeInputs
@@ -158,7 +130,7 @@ export const useData = () => {
   return {
     form,
     onSubmit,
-    loading,
+    loadingUpdateResumeResume,
     resumeSubSectionIndex,
     addNewInvolvement,
     removeInvolvement,

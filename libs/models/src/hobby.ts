@@ -6,7 +6,7 @@ export interface IHobby {
 export class HobbyModel {
   constructor(public input: Partial<IHobby> = {}) {}
 
-  getPoints(): string | undefined | null {
+  getPoint(): string | undefined | null {
     return this.input.point;
   }
 
@@ -20,6 +20,13 @@ export class HobbyModel {
 
   setIsShow(isShow: boolean): void {
     this.input = { ...this.input, isShow };
+  }
+
+  getPlainObject() {
+    return {
+      isShow: this.getIsShow() || false,
+      point: this.getPoint() || "",
+    };
   }
 
   callSetMethod<M extends HobbyModelSetMethodsKeyType>(

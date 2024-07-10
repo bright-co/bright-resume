@@ -8,6 +8,7 @@ export const MUTATION_CREATE_RESUME_RESUME = gql`
       id
       title
       userId
+      updatedAt
     }
   }
 `;

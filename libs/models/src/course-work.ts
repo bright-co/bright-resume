@@ -108,6 +108,25 @@ export class CourseWorkModel {
     }
   }
 
+  getPlainObject() {
+    return {
+      name: this.getName() || "",
+      isShowInstitute: this.getIsShowInstitute() || false,
+      institute: this.getInstitute() || "",
+      isShowDate: this.getIsShowDate() || false,
+      isShowSkills: this.getIsShowSkills() || false,
+      year: this.getYear() || "",
+      isShowPoints: this.getIsShowPoints() || false,
+      isSkills: this.getIsSkills() || false,
+      isShow: this.getIsShow() || false,
+      skills: this.getSkills() || "",
+      points:
+        this.getPoints()
+          .map((point) => point || "")
+          .filter((point) => !!point) || [],
+    };
+  }
+
   changePointsIndex(index1: number, index2: number) {
     if (!this.input.points) {
       return;

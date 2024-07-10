@@ -6,7 +6,7 @@ export interface ISkill {
 export class SkillModel {
   constructor(public input: Partial<ISkill> = {}) {}
 
-  getPoints(): string | undefined | null {
+  getPoint(): string | undefined | null {
     return this.input.point;
   }
 
@@ -20,6 +20,13 @@ export class SkillModel {
 
   getIsShow(): boolean | undefined | null {
     return this.input.isShow;
+  }
+
+  getPlainObject() {
+    return {
+      isShow: this.getIsShow() || false,
+      point: this.getPoint() || "",
+    };
   }
 
   callSetMethod<M extends SkillModelSetMethodsKeyType>(

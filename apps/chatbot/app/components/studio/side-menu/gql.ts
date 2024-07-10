@@ -13,6 +13,7 @@ export const QUERY_GET_RESUMES_RESUME = gql`
         id
         title
         userId
+        updatedAt
       }
       pageInfo {
         totalEdges

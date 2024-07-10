@@ -22,24 +22,22 @@ export const useData = () => {
     setSelectedResume,
     selectedResume,
     setSelectedResumeId,
+    selectedResumeId,
     setInitialLoading,
   } = useStudioContext();
 
-  /* ---------------------------------- args ---------------------------------- */
-
   const [getResumesResumeArgs, setGetResumesResumeArgs] =
-    useState<GetResumesResumeArgsGql>({ name: "" });
+    useState<GetResumesResumeArgsGql>({ title: "" });
   const [paginationArgs] = useState<PaginationArgsGql>({
     limit: 20,
     page: 1,
   });
 
-  /* -------------------------------- useQuery -------------------------------- */
-
   const { loading, refetch } = useQuery<
     GetResumesQuery,
     GetResumesQueryVariables
   >(QUERY_GET_RESUMES_RESUME, {
+    fetchPolicy: "no-cache",
     variables: {
       getResumesResumeArgs,
       paginationArgs,
@@ -47,9 +45,8 @@ export const useData = () => {
     onError: (error) => {
       setErrorMessage(error.message);
     },
-
     onCompleted: async ({ getResumes: { edges } }) => {
-      if (paginationArgs.page === 1 && edges.length) {
+      if (!selectedResumeId && paginationArgs.page === 1 && edges.length) {
         setSelectedResumeId(edges[0].id!);
       }
       setResumes(edges);
@@ -57,24 +54,20 @@ export const useData = () => {
     },
   });
 
-  /* --------------------------------- useForm -------------------------------- */
-
   const form = useForm<GetResumesResumeArgs>({
     resolver: classValidatorResolver(GetResumesResumeArgs),
     mode: "onChange",
     defaultValues: {
-      name: "",
+      title: "",
     },
   });
 
   const onSubmit: SubmitHandler<GetResumesResumeArgs> = (
-    getProductsAdminArgs
+    getResumesResumeArgs
   ) => {
-    setGetResumesResumeArgs(getProductsAdminArgs);
+    setGetResumesResumeArgs(getResumesResumeArgs);
     refetch();
   };
-
-  /* --------------------------------- output --------------------------------- */
 
   return {
     onSubmit,
