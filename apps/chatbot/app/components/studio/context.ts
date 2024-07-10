@@ -12,7 +12,7 @@ import { FetchResult } from "@apollo/client";
 export interface IContext {
   user: IUserCookie;
   isOpenNewResumeDialog: boolean;
-  setIsNewResumeDialog: Dispatch<SetStateAction<boolean>>;
+  setIsOpenNewResumeDialog: Dispatch<SetStateAction<boolean>>;
   resumes: GetResumesQuery["getResumes"]["edges"];
   setResumes: Dispatch<SetStateAction<GetResumesQuery["getResumes"]["edges"]>>;
   selectedResume: GetResumeByIdQuery["getResumeById"] | undefined;
@@ -21,6 +21,10 @@ export interface IContext {
   >;
   selectedResumeId: string;
   setSelectedResumeId: Dispatch<SetStateAction<string>>;
+  deleteResume: GetResumesQuery["getResumes"]["edges"][0] | undefined;
+  setDeleteResume: Dispatch<
+    SetStateAction<GetResumesQuery["getResumes"]["edges"][0] | undefined>
+  >;
   loadingSelectedResume: boolean;
   loadingUpdateResumeResume: boolean;
   updateResumeResume: (variables: {
@@ -44,13 +48,15 @@ export interface IContext {
 export const Context = createContext<IContext>({
   user: {},
   isOpenNewResumeDialog: false,
-  setIsNewResumeDialog: () => {},
+  setIsOpenNewResumeDialog: () => {},
   resumes: [],
   setResumes: () => {},
   selectedResume: undefined,
   setSelectedResume: () => {},
   selectedResumeId: "",
   setSelectedResumeId: () => {},
+  deleteResume: undefined,
+  setDeleteResume: () => {},
   loadingSelectedResume: false,
   loadingUpdateResumeResume: false,
   isCollapsedSideMenu: false,

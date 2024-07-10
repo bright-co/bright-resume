@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import { Menu, Plus, Loader2, LogOut } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
@@ -33,7 +34,7 @@ export const SideMenu: FC = () => {
 
   const { isCollapsedSideMenu, setIsCollapsedSideMenu } = useStudioContext();
 
-  const { setIsNewResumeDialog } = useStudioContext();
+  const { setIsOpenNewResumeDialog } = useStudioContext();
   const router = useRouter();
 
   const renderBurgerButton = () => {
@@ -57,7 +58,7 @@ export const SideMenu: FC = () => {
         <Button
           variant="ghost"
           className="p-2"
-          onClick={() => setIsNewResumeDialog(true)}
+          onClick={() => setIsOpenNewResumeDialog(true)}
         >
           <Plus className="h-4 w-4" />
         </Button>
@@ -93,20 +94,24 @@ export const SideMenu: FC = () => {
           )}
           {!loading && resumes.length === 0 && <p> Not Found!</p>}
           {!loading &&
-            resumes.map(({ title, id }) => (
+            resumes.map((resume) => (
               <>
                 <div
-                  key={id}
-                  className={clsx("text-sm cursor-pointer", {
-                    "bg-red-400": selectedResume && selectedResume.id === id,
-                  })}
+                  key={resume.id}
+                  className={clsx(
+                    "flex justify-between text-sm cursor-pointer py-2",
+                    {
+                      "bg-red-400":
+                        selectedResume && selectedResume.id === resume.id,
+                    }
+                  )}
                   onClick={() => {
-                    setSelectedResumeId(id!);
+                    setSelectedResumeId(resume.id!);
                   }}
                 >
-                  {title}
+                  {resume.title}
                 </div>
-                <Separator className="my-2" />
+                <Separator />
               </>
             ))}
         </ScrollArea>

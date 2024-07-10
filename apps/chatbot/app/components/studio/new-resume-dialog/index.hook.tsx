@@ -24,7 +24,7 @@ import {
 export const useData = () => {
   const {
     isOpenNewResumeDialog,
-    setIsNewResumeDialog,
+    setIsOpenNewResumeDialog,
     setResumes,
     setSelectedResumeId,
     resumes,
@@ -175,7 +175,7 @@ export const useData = () => {
         title: "Welcome!",
         description: "Resume Created Successfully!",
       });
-      setIsNewResumeDialog(false);
+      setIsOpenNewResumeDialog(false);
       setResumes((prev) => [{ id, title, userId, updatedAt }, ...prev]);
       setSelectedResumeId(id!);
     },
@@ -192,7 +192,7 @@ export const useData = () => {
     onSubmit,
     loading,
     isOpenNewResumeDialog,
-    setIsNewResumeDialog,
+    setIsOpenNewResumeDialog,
     resumes,
     initialLoading,
     selectedResumeId,

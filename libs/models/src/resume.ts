@@ -1270,7 +1270,7 @@ export class ResumeModel {
       fontSize: this.getFontSize() || undefined,
       color: this.getColor() || undefined,
       role: this.getRole() || "",
-      // isShowImage: this.getIsShowImage() || false,
+      isShowImage: this.getIsShowImage() || false,
       isShowPhoneNumber: this.getIsShowPhoneNumber() || false,
       phoneNumber: this.getPhoneNumber() || "",
       isShowLinkedin: this.getIsShowLinkedin() || false,

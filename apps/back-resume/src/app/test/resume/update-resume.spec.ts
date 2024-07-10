@@ -129,6 +129,7 @@ describe("microservice:resume UpdateResume", () => {
       isShowBirthDay: faker.datatype.boolean(),
       birthDay: moment(faker.date.birthdate()).format("YYYY"),
       isShowSummary: faker.datatype.boolean(),
+      isShowImage: faker.datatype.boolean(),
       summaryLabel: faker.lorem.word(),
       summary: faker.lorem.paragraph(),
       isShowExperience: faker.datatype.boolean(),
@@ -381,6 +382,9 @@ describe("microservice:resume UpdateResume", () => {
     expect(updateResumeResumeInputs.birthDay).toBe(updatedResume.birthDay);
     expect(updateResumeResumeInputs.isShowSummary).toBe(
       updatedResume.isShowSummary
+    );
+    expect(updateResumeResumeInputs.isShowImage).toBe(
+      updatedResume.isShowImage
     );
     expect(updateResumeResumeInputs.summaryLabel).toBe(
       updatedResume.summaryLabel

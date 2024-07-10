@@ -23,7 +23,7 @@ export const NewResumeDialog: FC = () => {
     form,
     onSubmit,
     isOpenNewResumeDialog,
-    setIsNewResumeDialog,
+    setIsOpenNewResumeDialog,
     resumes,
     initialLoading,
     selectedResumeId,
@@ -65,7 +65,7 @@ export const NewResumeDialog: FC = () => {
           ? true
           : isOpenNewResumeDialog
       }
-      onOpenChange={setIsNewResumeDialog}
+      onOpenChange={setIsOpenNewResumeDialog}
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

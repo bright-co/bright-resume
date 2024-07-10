@@ -291,6 +291,7 @@ input CreateResumeResumeInputsGQL {
   location: String
   isShowBirthDay: Boolean
   birthDay: String
+  isShowImage: Boolean
   isShowSummary: Boolean
   summaryOrder: Float
   summaryLabel: String
@@ -480,6 +481,7 @@ input UpdateResumeResumeInputsGQL {
   location: String
   isShowBirthDay: Boolean
   birthDay: String
+  isShowImage: Boolean
   isShowSummary: Boolean
   summaryOrder: Float
   summaryLabel: String

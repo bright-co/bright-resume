@@ -59,6 +59,7 @@ export class HelperDB {
       isShowBirthDay: faker.datatype.boolean(),
       birthDay: moment(faker.date.birthdate()).format("YYYY"),
       isShowSummary: faker.datatype.boolean(),
+      isShowImage: faker.datatype.boolean(),
       summaryLabel: faker.lorem.word(),
       summary: faker.lorem.paragraph(),
       isShowExperience: faker.datatype.boolean(),

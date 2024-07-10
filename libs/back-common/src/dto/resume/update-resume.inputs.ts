@@ -78,6 +78,9 @@ export class UpdateResumeResumeInputsGQL extends UpdateResumeResumeInputs {
   birthDay?: string;
 
   @Field(() => Boolean, { nullable: true })
+  isShowImage?: boolean;
+
+  @Field(() => Boolean, { nullable: true })
   isShowSummary?: boolean;
 
   @Field(() => Number, { nullable: true })

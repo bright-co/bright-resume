@@ -107,6 +107,7 @@ input GeneratePdfOfResumeFileInputsGQL {
   location: String
   isShowBirthDay: Boolean
   birthDay: String
+  isShowImage: Boolean
   isShowSummary: Boolean
   summaryLabel: String
   summary: String
