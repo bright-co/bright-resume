@@ -12,6 +12,7 @@ import { Resume } from "./resume";
 import { SideMenu } from "./side-menu";
 import { Steps } from "./steps";
 import { ResumeSectionType } from "@models";
+import { DeleteResumeDialog } from "./delete-resume-dialog";
 
 export type Props = {
   user: IUserCookie;
@@ -72,6 +73,7 @@ export default function StudioComponents(props: Props) {
       <Chat />
       <Steps />
       <NewResumeDialog />
+      <DeleteResumeDialog />
     </Context.Provider>
   );
 }

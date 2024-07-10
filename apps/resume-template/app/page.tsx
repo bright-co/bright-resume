@@ -31,6 +31,7 @@ export default async function Index() {
     isShowBirthDay: faker.datatype.boolean(),
     birthDay: moment(faker.date.birthdate()).format("YYYY"),
     isShowSummary: faker.datatype.boolean(),
+    isShowImage: faker.datatype.boolean(),
     summaryLabel: "MY SUMMARY",
     summary: faker.lorem.paragraph({ min: 10, max: 12 }),
     isShowExperience: faker.datatype.boolean(),

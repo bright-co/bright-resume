@@ -32,8 +32,11 @@ export const useData = (props: Props): IContext => {
   const [selectedResumeId, setSelectedResumeId] = useState<string>(
     props.resumeId || ""
   );
+  const [deleteResume, setDeleteResume] =
+    useState<GetResumesQuery["getResumes"]["edges"][0]>();
 
-  const [isOpenNewResumeDialog, setIsNewResumeDialog] = useState(false);
+  const [isOpenNewResumeDialog, setIsOpenNewResumeDialog] = useState(false);
+
   const { toast } = useToast();
   const [isCollapsedSideMenu, setIsCollapsedSideMenu] = useState(false);
   const [isOpenChat, setIsOpenChat] = useState(props.sheet === "chat");
@@ -91,8 +94,6 @@ export const useData = (props: Props): IContext => {
     resumeSubSectionIndex,
   ]);
 
-  /* -------------------------------- useQuery -------------------------------- */
-
   const { loading: loadingSelectedResume, refetch: refetchSelectedResume } =
     useQuery<GetResumeByIdQuery, GetResumeByIdQueryVariables>(
       QUERY_GET_RESUME_BY_ID_RESUME,
@@ -149,7 +150,7 @@ export const useData = (props: Props): IContext => {
 
   return {
     isOpenNewResumeDialog,
-    setIsNewResumeDialog,
+    setIsOpenNewResumeDialog,
     user: props.user,
     resumes,
     setResumes,
@@ -173,5 +174,7 @@ export const useData = (props: Props): IContext => {
     resumeSubSectionIndex,
     setResumeSubSectionIndex,
     updateResumeResume,
+    deleteResume,
+    setDeleteResume,
   };
 };

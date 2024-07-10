@@ -321,6 +321,9 @@ export class CreateResumeResumeInputsGQL extends CreateResumeResumeInputs {
   birthDay?: string;
 
   @Field(() => Boolean, { nullable: true })
+  isShowImage?: boolean;
+
+  @Field(() => Boolean, { nullable: true })
   isShowSummary?: boolean;
 
   @Field(() => Number, { nullable: true })

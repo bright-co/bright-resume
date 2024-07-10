@@ -63,6 +63,9 @@ export class GeneratePdfOfResumeFileInputsGQL
   birthDay?: string;
 
   @Field(() => Boolean, { nullable: true })
+  isShowImage?: boolean;
+
+  @Field(() => Boolean, { nullable: true })
   isShowSummary?: boolean;
 
   @Field(() => String, { nullable: true })

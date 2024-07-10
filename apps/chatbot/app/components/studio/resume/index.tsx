@@ -32,7 +32,8 @@ export const Resume: FC = () => {
   const [zoom, setZoom] = useState<ZoomRangeType>(1);
   const target = useRef(null);
   const [width, height] = useSize(target);
-  const { setIsOpenSteps } = useStudioContext();
+  const { setIsOpenSteps, setDeleteResume, selectedResume } =
+    useStudioContext();
 
   return (
     <div className="resume-container h-full px-9">
@@ -228,6 +229,15 @@ export const Resume: FC = () => {
               disabled={!data.isChanged}
             >
               save
+            </Button>
+          </MenubarMenu>
+          <MenubarMenu>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setDeleteResume(selectedResume)}
+            >
+              delete
             </Button>
           </MenubarMenu>
         </Menubar>

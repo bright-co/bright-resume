@@ -473,6 +473,10 @@ export class CreateResumeResumeInputs {
 
   @IsOptional()
   @IsBoolean()
+  isShowImage?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
   isShowSummary?: boolean;
 
   @IsOptional()
