@@ -146,6 +146,27 @@ export class EducationModel {
     this.input = { ...this.input, points };
   }
 
+  getPlainObject() {
+    return {
+      degree: this.getDegree() || "",
+      institute: this.getInstitute() || "",
+      isShowInstitute: this.getIsShowInstitute() || false,
+      location: this.getLocation() || "",
+      isShowLocation: this.getIsShowLocation() || false,
+      isShowDate: this.getIsShowDate() || false,
+      from: this.getFrom() || "",
+      to: this.getTo() || "",
+      isShowGpa: this.getIsShowGpa() || false,
+      gpa: this.getGpa() || "",
+      isShowPoints: this.getIsShowPoints() || false,
+      isShow: this.getIsShow() || false,
+      points:
+        this.getPoints()
+          .map((point) => point || "")
+          .filter((point) => !!point) || [],
+    };
+  }
+
   callSetMethod<M extends EducationModelSetMethodsKeyType>(
     methodName: EducationModelSetMethodsKeyType,
     ...args: Parameters<EducationModel[M]>

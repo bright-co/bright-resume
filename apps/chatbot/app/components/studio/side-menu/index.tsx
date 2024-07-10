@@ -73,7 +73,7 @@ export const SideMenu: FC = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="pb-2">
               <FormField
                 control={form.control}
-                name="name"
+                name="title"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

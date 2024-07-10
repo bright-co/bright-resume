@@ -1,7 +1,13 @@
 import { IUserCookie } from "@chatbot/cookie/user";
-import { GetResumeByIdQuery, GetResumesQuery } from "@chatbot/gql/graphql";
+import {
+  GetResumeByIdQuery,
+  GetResumesQuery,
+  UpdateResumeMutation,
+} from "@chatbot/gql/graphql";
 import { ResumeSectionType } from "@models";
+import { UpdateResumeResumeInputs } from "@dto";
 import { Dispatch, SetStateAction, createContext } from "react";
+import { FetchResult } from "@apollo/client";
 
 export interface IContext {
   user: IUserCookie;
@@ -16,8 +22,10 @@ export interface IContext {
   selectedResumeId: string;
   setSelectedResumeId: Dispatch<SetStateAction<string>>;
   loadingSelectedResume: boolean;
-  loadingUpdateResume: boolean;
-  updateResume: () => void;
+  loadingUpdateResumeResume: boolean;
+  updateResumeResume: (variables: {
+    variables: { updateResumeResumeInputs: UpdateResumeResumeInputs };
+  }) => Promise<FetchResult<UpdateResumeMutation>>;
   isCollapsedSideMenu: boolean;
   setIsCollapsedSideMenu: Dispatch<SetStateAction<boolean>>;
   isOpenChat: boolean;
@@ -44,8 +52,7 @@ export const Context = createContext<IContext>({
   selectedResumeId: "",
   setSelectedResumeId: () => {},
   loadingSelectedResume: false,
-  loadingUpdateResume: false,
-  updateResume: () => {},
+  loadingUpdateResumeResume: false,
   isCollapsedSideMenu: false,
   setIsCollapsedSideMenu: () => {},
   isOpenChat: false,
@@ -59,4 +66,5 @@ export const Context = createContext<IContext>({
   refetchSelectedResume: () => {},
   resumeSubSectionIndex: undefined,
   setResumeSubSectionIndex: () => {},
+  updateResumeResume: () => Promise.resolve({}),
 });

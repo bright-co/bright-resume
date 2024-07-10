@@ -1,4 +1,4 @@
-import { Document, FilterQuery, Model } from "mongoose";
+import { Document, FilterQuery, Model, SortOrder } from "mongoose";
 
 export interface IPaginate<T> {
   edges: T[];
@@ -15,12 +15,20 @@ export const paginate = async <T extends Document>(
   model: Model<T>,
   query: FilterQuery<T>,
   page: number,
-  limit: number
+  limit: number,
+  sortFiled?: string,
+  sortOrder?: SortOrder
 ): Promise<IPaginate<T>> => {
+  const sort = {};
+  if (sortFiled) {
+    sort[sortFiled] = sortOrder || -1;
+  }
+
   const items = await model
     .find()
     .where(query)
     .skip((page - 1) * limit)
+    .sort(sort)
     .limit(limit)
     .exec();
 

@@ -126,8 +126,12 @@ export class ResumeModel {
     this.input = input;
   }
 
-  getName(): string | undefined | null {
-    return this.input.name;
+  getId(): string | undefined | null {
+    return this.input.id;
+  }
+
+  getName(): string | undefined {
+    return this.input.name || undefined;
   }
 
   getUserId(): string | undefined | null {
@@ -1256,6 +1260,111 @@ export class ResumeModel {
   }
   getUpdatedAt(): Date | undefined | null {
     return this.input.updatedAt;
+  }
+
+  getPlainObject() {
+    return {
+      name: this.getName() || "",
+      title: this.getTitle() || "",
+      fontFamily: this.getFontFamily() || undefined,
+      fontSize: this.getFontSize() || undefined,
+      color: this.getColor() || undefined,
+      role: this.getRole() || "",
+      // isShowImage: this.getIsShowImage() || false,
+      isShowPhoneNumber: this.getIsShowPhoneNumber() || false,
+      phoneNumber: this.getPhoneNumber() || "",
+      isShowLinkedin: this.getIsShowLinkedin() || false,
+      linkedin: this.getLinkedin() || "",
+      isShowWebsite: this.getIsShowWebsite() || false,
+      website: this.getWebsite() || "",
+      isShowEmail: this.getIsShowEmail() || false,
+      email: this.getEmail() || "",
+      isShowLocation: this.getIsShowLocation() || false,
+      location: this.getLocation() || "",
+      isShowBirthDay: this.getIsShowBirthDay() || false,
+      birthDay: this.getBirthDay() || "",
+      isShowSummary: this.getIsShowSummary() || false,
+      summaryOrder: this.getSummaryOrder() || undefined,
+      summaryLabel: this.getSummaryLabel() || "",
+      summary: this.getSummary() || "",
+      isShowExperience: this.getIsShowExperience() || false,
+      experienceOrder: this.getExperienceOrder() || undefined,
+      experienceLabel: this.getExperienceLabel() || "",
+      experienceRoleLabel: this.getExperienceRoleLabel() || "",
+      experienceCompanyLabel: this.getExperienceCompanyLabel() || "",
+      experienceLocationLabel: this.getExperienceLocationLabel() || "",
+      experiences:
+        this.getExperiences().map((experience) =>
+          experience.getPlainObject()
+        ) || [],
+      isShowProject: this.getIsShowProject() || false,
+      projectOrder: this.getProjectOrder() || undefined,
+      projectLabel: this.getProjectLabel() || "",
+      projectRoleLabel: this.getProjectRoleLabel() || "",
+      projectTitleLabel: this.getProjectTitleLabel() || "",
+      projectCompanyLabel: this.getProjectCompanyLabel() || "",
+      projectLocationLabel: this.getProjectLocationLabel() || "",
+      projectUrlLabel: this.getProjectUrlLabel() || "",
+      projects:
+        this.getProjects().map((project) => project.getPlainObject()) || [],
+      isShowEducation: this.getIsShowEducation() || false,
+      educationLabel: this.getEducationLabel() || "",
+      educationOrder: this.getEducationOrder() || undefined,
+      educationDegreeLabel: this.getEducationDegreeLabel() || "",
+      educationInstituteLabel: this.getEducationInstituteLabel() || "",
+      educationLocationLabel: this.getEducationLocationLabel() || "",
+      educationGpaLabel: this.getEducationGpaLabel() || "",
+      educations:
+        this.getEducations().map((education) => education.getPlainObject()) ||
+        [],
+      isShowCertification: this.getIsShowCertification() || false,
+      certificationOrder: this.getCertificationOrder() || undefined,
+      certificationLabel: this.getCertificationLabel() || "",
+      certificationNameLabel: this.getCertificationNameLabel() || "",
+      certificationInstituteLabel: this.getCertificationInstituteLabel() || "",
+      certificationYearLabel: this.getCertificationYearLabel() || "",
+      certifications:
+        this.getCertifications().map((certification) =>
+          certification.getPlainObject()
+        ) || [],
+      isShowCourseWork: this.getIsShowCourseWork() || false,
+      courseWorkLabel: this.getCourseWorkLabel() || "",
+      courseWorkOrder: this.getCourseWorkOrder() || undefined,
+      courseWorkTitleLabel: this.getCourseWorkTitleLabel() || "",
+      courseWorkNameLabel: this.getCourseWorkNameLabel() || "",
+      courseWorkInstituteLabel: this.getCourseWorkInstituteLabel() || "",
+      courseWorkYearLabel: this.getCourseWorkYearLabel() || "",
+      courseWorkSkillsLabel: this.getCourseWorkSkillsLabel() || "",
+      courseWorks:
+        this.getCourseWorks().map((courseWork) =>
+          courseWork.getPlainObject()
+        ) || [],
+      isShowInvolvement: this.getIsShowInvolvement() || false,
+      involvementLabel: this.getInvolvementLabel() || "",
+      involvementOrder: this.getInvolvementOrder() || undefined,
+      involvementRoleLabel: this.getInvolvementRoleLabel() || "",
+      involvementCompanyLabel: this.getInvolvementCompanyLabel() || "",
+      involvementLocationLabel: this.getInvolvementLocationLabel() || "",
+      involvements:
+        this.getInvolvements().map((involvement) =>
+          involvement.getPlainObject()
+        ) || [],
+      isShowSkill: this.getIsShowSkill() || false,
+      skillLabel: this.getSkillLabel() || "",
+      skillOrder: this.getSkillOrder() || undefined,
+      skills: this.getSkills().map((skill) => skill.getPlainObject()) || [],
+      isShowLanguage: this.getIsShowLanguage() || false,
+      languageOrder: this.getLanguageOrder() || undefined,
+      languageLabel: this.getLanguageLabel() || "",
+      languageNameLabel: this.getLanguageNameLabel() || "",
+      languageLevelLabel: this.getLanguageLevelLabel() || "",
+      languages:
+        this.getLanguages().map((language) => language.getPlainObject()) || [],
+      hobbyOrder: this.getHobbyOrder() || undefined,
+      hobbyLabel: this.getHobbyLabel() || "",
+      hobbies: this.getHobbies().map((hobby) => hobby.getPlainObject()) || [],
+      isShowHobby: this.getIsShowHobby() || false,
+    };
   }
 
   setHiddenSection(section: ResumeSectionType) {

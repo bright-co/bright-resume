@@ -34,15 +34,33 @@ export const useData = () => {
     setResumeSection,
     setIsOpenSteps,
     setResumeSubSectionIndex,
+    updateResumeResume,
   } = useStudioContext();
 
   const [resumeModel, setResumeModel] = useState(
     new ResumeModel(selectedResume)
   );
 
+  const [isChanged, setIsChanged] = useState(false);
+
   useEffect(() => {
-    setResumeModel(new ResumeModel(selectedResume));
+    if (selectedResume) {
+      setResumeModel(
+        new ResumeModel(JSON.parse(JSON.stringify(selectedResume)))
+      );
+    }
   }, [selectedResume]);
+
+  useEffect(() => {
+    if (
+      JSON.stringify(resumeModel.getPlainObject()) ===
+      JSON.stringify(new ResumeModel(selectedResume).getPlainObject())
+    ) {
+      setIsChanged(false);
+    } else {
+      setIsChanged(true);
+    }
+  }, [resumeModel, selectedResume]);
 
   const [hoverSection, setHoverSection] =
     useState<ResumeTemplateProps["hoverSection"]>();
@@ -313,6 +331,17 @@ export const useData = () => {
     setIsOpenSteps(true);
   };
 
+  const updateResume = () => {
+    updateResumeResume({
+      variables: {
+        updateResumeResumeInputs: {
+          ...resumeModel.getPlainObject(),
+          resumeId: resumeModel.getId()!,
+        },
+      },
+    });
+  };
+
   return {
     resumeModel,
     hoverSection,
@@ -338,5 +367,7 @@ export const useData = () => {
     onMoveDownSection,
     onClickEditSection,
     onClickEditSubSection,
+    updateResume,
+    isChanged,
   };
 };

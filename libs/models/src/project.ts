@@ -144,6 +144,29 @@ export class ProjectModel {
     }
   }
 
+  getPlainObject() {
+    return {
+      title: this.getTitle() || "",
+      isShowRole: this.getIsShowRole() || false,
+      role: this.getRole() || "",
+      isShowCompany: this.getIsShowCompany() || false,
+      company: this.getCompany() || "",
+      isShowLocation: this.getIsShowLocation() || false,
+      location: this.getLocation() || "",
+      isShowUrl: this.getIsShowUrl() || false,
+      url: this.getUrl() || "",
+      isShowDate: this.getIsShowDate() || false,
+      from: this.getFrom() || "",
+      to: this.getTo() || "",
+      isShow: this.getIsShow() || false,
+      isShowPoints: this.getIsShowPoints() || false,
+      points:
+        this.getPoints()
+          .map((point) => point || "")
+          .filter((point) => !!point) || [],
+    };
+  }
+
   changePointsIndex(index1: number, index2: number) {
     if (!this.input.points) {
       return;

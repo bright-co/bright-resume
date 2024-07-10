@@ -28,18 +28,25 @@ export class ResumeService {
     paginationArgs: PaginationArgs,
     args: GetResumesResumeArgs
   ): Promise<PaginatedResume> {
-    const { name } = args;
+    const { title } = args;
     const { limit, page } = paginationArgs;
 
     const queryBuilder: FilterQuery<Resume> = {};
 
     queryBuilder.userId = userId;
 
-    if (name) {
-      queryBuilder.name = name;
+    if (title) {
+      queryBuilder.title = { $regex: title, $options: "i" };
     }
 
-    return paginate(this.resumeModel, queryBuilder, page, limit);
+    return paginate(
+      this.resumeModel,
+      queryBuilder,
+      page,
+      limit,
+      "updatedAt",
+      "desc"
+    );
   }
 
   async getById(

@@ -34,7 +34,6 @@ export const Skill: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-2 w-full flex flex-col gap-2"
       >
-        {JSON.stringify({ resumeSubSectionIndex })}
         <FormField
           control={form.control}
           name="isShowSkill"

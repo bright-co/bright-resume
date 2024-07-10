@@ -220,6 +220,16 @@ export const Resume: FC = () => {
               Edit
             </Button>
           </MenubarMenu>
+          <MenubarMenu>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => data.updateResume()}
+              disabled={!data.isChanged}
+            >
+              save
+            </Button>
+          </MenubarMenu>
         </Menubar>
       </div>
       <div

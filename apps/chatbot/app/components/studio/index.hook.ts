@@ -32,6 +32,7 @@ export const useData = (props: Props): IContext => {
   const [selectedResumeId, setSelectedResumeId] = useState<string>(
     props.resumeId || ""
   );
+
   const [isOpenNewResumeDialog, setIsNewResumeDialog] = useState(false);
   const { toast } = useToast();
   const [isCollapsedSideMenu, setIsCollapsedSideMenu] = useState(false);
@@ -54,6 +55,7 @@ export const useData = (props: Props): IContext => {
   }, [selectedResumeId]);
 
   useEffect(() => {
+    if (!selectedResumeId) return;
     let sheet: (typeof props)["sheet"] = undefined;
     if (isOpenSteps) {
       sheet = "steps";
@@ -70,13 +72,15 @@ export const useData = (props: Props): IContext => {
         {
           resumeId: selectedResumeId,
         },
-        {
-          sheet,
-          section: resumeSection,
-          resumeSubSectionIndex:
-            resumeSubSectionIndex !== undefined &&
-            resumeSubSectionIndex.toString(),
-        }
+        sheet || resumeSection || resumeSubSectionIndex
+          ? {
+              sheet,
+              section: resumeSection,
+              resumeSubSectionIndex:
+                resumeSubSectionIndex !== undefined &&
+                resumeSubSectionIndex.toString(),
+            }
+          : {}
       )
     );
   }, [
@@ -109,38 +113,39 @@ export const useData = (props: Props): IContext => {
               {
                 resumeId: getResumeById.id!,
               },
-              {
-                sheet: props.sheet,
-                section: props.section,
-                resumeSubSectionIndex: props.resumeSubSectionIndex,
-              }
+              props.sheet || props.section || props.resumeSubSectionIndex
+                ? {
+                    sheet: props.sheet,
+                    section: props.section,
+                    resumeSubSectionIndex: props.resumeSubSectionIndex,
+                  }
+                : {}
             )
           );
         },
       }
     );
 
-  /* ------------------------------- useMutation ------------------------------ */
-
-  const [updateResume, { loading: loadingUpdateResume }] = useMutation<
-    UpdateResumeMutation,
-    UpdateResumeMutationVariables
-  >(MUTATION_UPDATE_RESUME_RESUME, {
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: error.message,
-      });
-    },
-    onCompleted: async ({ updateResume: { id, userId } }) => {
-      toast({
-        title: "Success!",
-        description: "Resume Updated Successfully!",
-      });
-      setSelectedResumeId(id!);
-    },
-  });
+  const [updateResumeResume, { loading: loadingUpdateResumeResume }] =
+    useMutation<UpdateResumeMutation, UpdateResumeMutationVariables>(
+      MUTATION_UPDATE_RESUME_RESUME,
+      {
+        onError: (error) => {
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: error.message,
+          });
+        },
+        onCompleted: async () => {
+          refetchSelectedResume();
+          toast({
+            title: "Welcome!",
+            description: "Resume updated Successfully!",
+          });
+        },
+      }
+    );
 
   return {
     isOpenNewResumeDialog,
@@ -153,8 +158,7 @@ export const useData = (props: Props): IContext => {
     selectedResumeId,
     setSelectedResumeId,
     loadingSelectedResume,
-    loadingUpdateResume,
-    updateResume,
+    loadingUpdateResumeResume,
     isCollapsedSideMenu,
     setIsCollapsedSideMenu,
     isOpenChat,
@@ -168,5 +172,6 @@ export const useData = (props: Props): IContext => {
     refetchSelectedResume,
     resumeSubSectionIndex,
     setResumeSubSectionIndex,
+    updateResumeResume,
   };
 };
