@@ -9,4 +9,5 @@ export enum EnvironmentVariablesEnum {
   MINIO_BUCKET = "MINIO_BUCKET",
   REDIS_HOST = "REDIS_HOST",
   REDIS_PORT = "REDIS_PORT",
+  RESUME_URL = "RESUME_URL",
 }

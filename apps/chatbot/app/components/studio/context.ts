@@ -3,9 +3,10 @@ import {
   GetResumeByIdQuery,
   GetResumesQuery,
   UpdateResumeMutation,
+  GeneratePdfOfResumeMutation,
 } from "@chatbot/gql/graphql";
 import { ResumeSectionType } from "@models";
-import { UpdateResumeResumeInputs } from "@dto";
+import { UpdateResumeResumeInputs, GeneratePdfOfResumeFileInputs } from "@dto";
 import { Dispatch, SetStateAction, createContext } from "react";
 import { FetchResult } from "@apollo/client";
 
@@ -27,9 +28,13 @@ export interface IContext {
   >;
   loadingSelectedResume: boolean;
   loadingUpdateResumeResume: boolean;
+  loadingGeneratePdfOfResumeFile: boolean;
   updateResumeResume: (variables: {
     variables: { updateResumeResumeInputs: UpdateResumeResumeInputs };
   }) => Promise<FetchResult<UpdateResumeMutation>>;
+  generatePdfOfResumeFile: (variables: {
+    variables: { generatePdfOfResumeFileInputs: GeneratePdfOfResumeFileInputs };
+  }) => Promise<FetchResult<GeneratePdfOfResumeMutation>>;
   isCollapsedSideMenu: boolean;
   setIsCollapsedSideMenu: Dispatch<SetStateAction<boolean>>;
   isOpenChat: boolean;
@@ -59,6 +64,7 @@ export const Context = createContext<IContext>({
   setDeleteResume: () => {},
   loadingSelectedResume: false,
   loadingUpdateResumeResume: false,
+  loadingGeneratePdfOfResumeFile: false,
   isCollapsedSideMenu: false,
   setIsCollapsedSideMenu: () => {},
   isOpenChat: false,
@@ -73,4 +79,5 @@ export const Context = createContext<IContext>({
   resumeSubSectionIndex: undefined,
   setResumeSubSectionIndex: () => {},
   updateResumeResume: () => Promise.resolve({}),
+  generatePdfOfResumeFile: () => Promise.resolve({}),
 });

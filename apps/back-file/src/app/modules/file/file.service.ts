@@ -119,7 +119,7 @@ export class FileService {
 
       await this.bullService.addToGeneratePdfOfResumeQueue({
         fileId: file.id,
-        inputs,
+        resumeId,
       });
     });
 

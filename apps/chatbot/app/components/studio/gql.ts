@@ -191,3 +191,13 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
     }
   }
 `;
+
+export const MUTATION_GENERATE_PDF_OF_RESUME_FILE = gql`
+  mutation generatePdfOfResume(
+    $generatePdfOfResumeFileInputs: GeneratePdfOfResumeFileInputsGQL!
+  ) {
+    generatePdfOfResume(
+      generatePdfOfResumeFileInputs: $generatePdfOfResumeFileInputs
+    )
+  }
+`;

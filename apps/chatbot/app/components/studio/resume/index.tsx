@@ -240,6 +240,15 @@ export const Resume: FC = () => {
               delete
             </Button>
           </MenubarMenu>
+          <MenubarMenu>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => data.generatePdf()}
+            >
+              PDF
+            </Button>
+          </MenubarMenu>
         </Menubar>
       </div>
       <div

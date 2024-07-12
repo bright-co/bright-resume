@@ -5,6 +5,8 @@ import { IContext } from "./context";
 import {
   UpdateResumeMutation,
   UpdateResumeMutationVariables,
+  GeneratePdfOfResumeMutation,
+  GeneratePdfOfResumeMutationVariables,
   GetResumeByIdQuery,
   GetResumeByIdQueryVariables,
   GetResumeByIdResumeArgsGql,
@@ -13,6 +15,7 @@ import {
 import {
   MUTATION_UPDATE_RESUME_RESUME,
   QUERY_GET_RESUME_BY_ID_RESUME,
+  MUTATION_GENERATE_PDF_OF_RESUME_FILE,
 } from "./gql";
 import { useMutation, useQuery } from "@apollo/client";
 import { useToast } from "@resume-template-components/shadcn-ui";
@@ -148,6 +151,27 @@ export const useData = (props: Props): IContext => {
       }
     );
 
+  const [generatePdfOfResumeFile, { loading: loadingGeneratePdfOfResumeFile }] =
+    useMutation<
+      GeneratePdfOfResumeMutation,
+      GeneratePdfOfResumeMutationVariables
+    >(MUTATION_GENERATE_PDF_OF_RESUME_FILE, {
+      onError: (error) => {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.message,
+        });
+      },
+      onCompleted: async () => {
+        refetchSelectedResume();
+        toast({
+          title: "PDF Generated!",
+          description: "Please wait while we generate the PDF for you.",
+        });
+      },
+    });
+
   return {
     isOpenNewResumeDialog,
     setIsOpenNewResumeDialog,
@@ -176,5 +200,7 @@ export const useData = (props: Props): IContext => {
     updateResumeResume,
     deleteResume,
     setDeleteResume,
+    generatePdfOfResumeFile,
+    loadingGeneratePdfOfResumeFile,
   };
 };

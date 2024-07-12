@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { File, PaginatedFile } from "@@back-file/app/models";
 import { UserId } from "@back-common/decorators";
 import {
@@ -75,5 +75,11 @@ export class FileResolver {
     args: GetDownloadLinkFileInputsGQL
   ): Promise<string> {
     return this.fileService.getDownloadLink(userId, args);
+  }
+
+  @Subscription(() => File)
+  @UseGuards(GqlAuthGuard)
+  subscribeToGeneratePdf() {
+    // return this.fileService.subscribeToGeneratePdf();
   }
 }
