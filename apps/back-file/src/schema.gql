@@ -80,7 +80,7 @@ input GetDownloadLinkFileInputsGQL {
 type Mutation {
   verifyUploadedFile(verifyUploadedFileFileInputs: VerifyUploadedFileFileInputsGQL!): File!
   getUploadLinkForProfileImage(getUploadLinkForProfileImageFileInputs: GetUploadLinkForProfileImageFileInputsGQL!): File!
-  generatePdfOfResume(generatePdfOfResumeFileInputs: GeneratePdfOfResumeFileInputsGQL!): String!
+  generatePdfOfResume(generatePdfOfResumeFileInputs: GeneratePdfOfResumeFileInputsGQL!): File!
 }
 
 input VerifyUploadedFileFileInputsGQL {
@@ -93,8 +93,4 @@ input GetUploadLinkForProfileImageFileInputsGQL {
 
 input GeneratePdfOfResumeFileInputsGQL {
   resumeId: String!
-}
-
-type Subscription {
-  subscribeToGeneratePdf: File!
 }

@@ -104,11 +104,12 @@ export class FileService {
   async generatePdfOfResume(
     userId: string,
     inputs: GeneratePdfOfResumeFileInputs
-  ): Promise<string> {
+  ): Promise<File> {
     const { resumeId } = inputs;
 
+    let file: File;
     await this.dbService.transaction(async () => {
-      const file = await this.fileModel.create({
+      file = await this.fileModel.create({
         resumeId,
         userId,
         isVerified: false,
@@ -123,7 +124,7 @@ export class FileService {
       });
     });
 
-    return "";
+    return file;
   }
 
   async getDownloadLink(

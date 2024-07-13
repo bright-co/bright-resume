@@ -1,22 +1,26 @@
-import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { File, PaginatedFile } from "@@back-file/app/models";
 import { UserId } from "@back-common/decorators";
 import {
+  GeneratePdfOfResumeFileInputsGQL,
   GetDownloadLinkFileInputsGQL,
   GetFileByIdFileInputsGQL,
   GetFilesFileInputsGQL,
   GetUploadLinkForProfileImageFileInputsGQL,
-  VerifyUploadedFileFileInputsGQL,
   PaginationArgsGQL,
-  GeneratePdfOfResumeFileInputsGQL,
+  VerifyUploadedFileFileInputsGQL,
 } from "@back-common/dto";
 import { GqlAuthGuard } from "@back-common/guards";
 import { UseGuards } from "@nestjs/common";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { PubSub } from "graphql-subscriptions";
 import { FileService } from "./file.service";
 
 @Resolver(() => File)
 export class FileResolver {
-  constructor(private fileService: FileService) {}
+  private pubsSub: PubSub;
+  constructor(private fileService: FileService) {
+    this.pubsSub = new PubSub();
+  }
 
   @Query(() => PaginatedFile, { nullable: false })
   @UseGuards(GqlAuthGuard)
@@ -57,13 +61,13 @@ export class FileResolver {
     return this.fileService.getUploadLinkForProfileImage(userId, inputs);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => File)
   @UseGuards(GqlAuthGuard)
   async generatePdfOfResume(
     @UserId() userId: string,
     @Args("generatePdfOfResumeFileInputs")
     inputs: GeneratePdfOfResumeFileInputsGQL
-  ): Promise<string> {
+  ): Promise<File> {
     return this.fileService.generatePdfOfResume(userId, inputs);
   }
 
@@ -75,11 +79,5 @@ export class FileResolver {
     args: GetDownloadLinkFileInputsGQL
   ): Promise<string> {
     return this.fileService.getDownloadLink(userId, args);
-  }
-
-  @Subscription(() => File)
-  @UseGuards(GqlAuthGuard)
-  subscribeToGeneratePdf() {
-    // return this.fileService.subscribeToGeneratePdf();
   }
 }

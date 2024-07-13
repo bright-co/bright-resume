@@ -198,6 +198,35 @@ export const MUTATION_GENERATE_PDF_OF_RESUME_FILE = gql`
   ) {
     generatePdfOfResume(
       generatePdfOfResumeFileInputs: $generatePdfOfResumeFileInputs
-    )
+    ) {
+      id
+      userId
+      resumeId
+    }
+  }
+`;
+
+export const QUERY_GET_FILE_BY_ID_FILE = gql`
+  query getFileById($getFileByIdFileInputs: GetFileByIdFileInputsGQL!) {
+    getFileById(getFileByIdFileInputs: $getFileByIdFileInputs) {
+      id
+      userId
+      resumeId
+      path
+      type
+      reason
+      status
+      isVerified
+      name
+      uploadLink
+    }
+  }
+`;
+
+export const QUERY_DOWNLOAD_LINK_FILE = gql`
+  query getDownloadLink(
+    $getDownloadLinkFileInputs: GetDownloadLinkFileInputsGQL!
+  ) {
+    getDownloadLink(getDownloadLinkFileInputs: $getDownloadLinkFileInputs)
   }
 `;
