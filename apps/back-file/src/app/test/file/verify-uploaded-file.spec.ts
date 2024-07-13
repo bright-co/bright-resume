@@ -98,7 +98,7 @@ describe("microservice:file VerifyUploadedFile", () => {
     expect(data.verifyUploadedFile.path).toBe(file.path);
     expect(data.verifyUploadedFile.type).toBe(file.type);
     expect(data.verifyUploadedFile.reason).toBe(file.reason);
-    expect(data.verifyUploadedFile.status).toBe(FileStatusEnum.uploaded);
+    expect(data.verifyUploadedFile.status).toBe(FileStatusEnum.Uploaded);
   });
 
   it("Should return FILE_NOT_FOUND if the file verified before", async () => {

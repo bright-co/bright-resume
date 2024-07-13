@@ -32,8 +32,12 @@ export const Resume: FC = () => {
   const [zoom, setZoom] = useState<ZoomRangeType>(1);
   const target = useRef(null);
   const [width, height] = useSize(target);
-  const { setIsOpenSteps, setDeleteResume, selectedResume } =
-    useStudioContext();
+  const {
+    setIsOpenSteps,
+    setDeleteResume,
+    selectedResume,
+    generatePdfLoading,
+  } = useStudioContext();
 
   return (
     <div className="resume-container h-full px-9">
@@ -245,6 +249,7 @@ export const Resume: FC = () => {
               variant="outline"
               size="icon"
               onClick={() => data.generatePdf()}
+              disabled={generatePdfLoading}
             >
               PDF
             </Button>

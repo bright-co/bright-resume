@@ -75,9 +75,9 @@ describe("microservice:file GetUploadLinkForProfileImage", () => {
     expect(data.getUploadLinkForProfileImage.userId).toBe(authHeader.token.id);
     expect(data.getUploadLinkForProfileImage.resumeId).toBe(resumeId);
     expect(data.getUploadLinkForProfileImage.reason).toBe(
-      FileReasonEnum.resume_profile_image
+      FileReasonEnum.ResumeProfileImage
     );
-    expect(data.getUploadLinkForProfileImage.type).toBe(FileTypeEnum.image);
+    expect(data.getUploadLinkForProfileImage.type).toBe(FileTypeEnum.Image);
     expect(data.getUploadLinkForProfileImage.isVerified).toBeFalsy();
   });
 });

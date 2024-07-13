@@ -41,10 +41,10 @@ export class GeneratePdfOfResumeConsumer {
     }
 
     file.isVerified = true;
-    file.status = FileStatusEnum.uploaded;
+    file.status = FileStatusEnum.Uploaded;
 
     await this.dbService.transaction(async () => {
-      const path = await this.pdfService.generatePdf(resumeId);
+      const path = await this.pdfService.generatePdf(fileId, resumeId);
       await this.minioService.uploadFile({
         fileId,
         path,

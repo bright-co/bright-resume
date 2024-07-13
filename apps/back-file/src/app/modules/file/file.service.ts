@@ -43,8 +43,8 @@ export class FileService {
       resumeId,
       userId,
       isVerified: false,
-      type: FileTypeEnum.image,
-      reason: FileReasonEnum.resume_profile_image,
+      type: FileTypeEnum.Image,
+      reason: FileReasonEnum.ResumeProfileImage,
     });
 
     if (!file) {
@@ -52,8 +52,8 @@ export class FileService {
         resumeId,
         userId,
         isVerified: false,
-        type: FileTypeEnum.image,
-        reason: FileReasonEnum.resume_profile_image,
+        type: FileTypeEnum.Image,
+        reason: FileReasonEnum.ResumeProfileImage,
       });
     }
 
@@ -94,7 +94,7 @@ export class FileService {
 
     file.isVerified = true;
     file.size = status.size;
-    file.status = FileStatusEnum.uploaded;
+    file.status = FileStatusEnum.Uploaded;
 
     await file.save();
 
@@ -113,9 +113,9 @@ export class FileService {
         resumeId,
         userId,
         isVerified: false,
-        type: FileTypeEnum.PDF,
-        reason: FileReasonEnum.resume_PDF,
-        status: FileStatusEnum.waiting,
+        type: FileTypeEnum.Pdf,
+        reason: FileReasonEnum.ResumePdf,
+        status: FileStatusEnum.Waiting,
       });
 
       await this.bullService.addToGeneratePdfOfResumeQueue({
@@ -137,7 +137,7 @@ export class FileService {
       id: fileId,
       userId,
       isVerified: true,
-      status: FileStatusEnum.uploaded,
+      status: FileStatusEnum.Uploaded,
     });
 
     if (!file) {

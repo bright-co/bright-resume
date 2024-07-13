@@ -12,15 +12,11 @@ import {
 import { GqlAuthGuard } from "@back-common/guards";
 import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { PubSub } from "graphql-subscriptions";
 import { FileService } from "./file.service";
 
 @Resolver(() => File)
 export class FileResolver {
-  private pubsSub: PubSub;
-  constructor(private fileService: FileService) {
-    this.pubsSub = new PubSub();
-  }
+  constructor(private fileService: FileService) {}
 
   @Query(() => PaginatedFile, { nullable: false })
   @UseGuards(GqlAuthGuard)

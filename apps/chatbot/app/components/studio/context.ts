@@ -14,6 +14,8 @@ export interface IContext {
   user: IUserCookie;
   isOpenNewResumeDialog: boolean;
   setIsOpenNewResumeDialog: Dispatch<SetStateAction<boolean>>;
+  generatePdfLoading: boolean;
+  setGeneratePdfLoading: Dispatch<SetStateAction<boolean>>;
   resumes: GetResumesQuery["getResumes"]["edges"];
   setResumes: Dispatch<SetStateAction<GetResumesQuery["getResumes"]["edges"]>>;
   selectedResume: GetResumeByIdQuery["getResumeById"] | undefined;
@@ -28,7 +30,7 @@ export interface IContext {
   >;
   loadingSelectedResume: boolean;
   loadingUpdateResumeResume: boolean;
-  loadingGeneratePdfOfResumeFile: boolean;
+  loadingGetFileByIdFIle: boolean;
   updateResumeResume: (variables: {
     variables: { updateResumeResumeInputs: UpdateResumeResumeInputs };
   }) => Promise<FetchResult<UpdateResumeMutation>>;
@@ -64,7 +66,7 @@ export const Context = createContext<IContext>({
   setDeleteResume: () => {},
   loadingSelectedResume: false,
   loadingUpdateResumeResume: false,
-  loadingGeneratePdfOfResumeFile: false,
+  loadingGetFileByIdFIle: false,
   isCollapsedSideMenu: false,
   setIsCollapsedSideMenu: () => {},
   isOpenChat: false,
@@ -80,4 +82,6 @@ export const Context = createContext<IContext>({
   setResumeSubSectionIndex: () => {},
   updateResumeResume: () => Promise.resolve({}),
   generatePdfOfResumeFile: () => Promise.resolve({}),
+  generatePdfLoading: false,
+  setGeneratePdfLoading: () => {},
 });

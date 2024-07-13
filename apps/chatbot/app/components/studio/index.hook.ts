@@ -28,7 +28,6 @@ import { useToast } from "@resume-template-components/shadcn-ui";
 import { Props } from ".";
 import * as utils from "@utils";
 import { ResumeSectionType } from "@models";
-import { get } from "http";
 import { FileStatusEnum } from "@enums";
 
 export const useData = (props: Props): IContext => {
@@ -37,14 +36,13 @@ export const useData = (props: Props): IContext => {
   >([]);
 
   const [initialLoading, setInitialLoading] = useState(true);
+  const [generatePdfLoading, setGeneratePdfLoading] = useState(false);
 
   const [selectedResume, setSelectedResume] =
     useState<GetResumeByIdQuery["getResumeById"]>();
   const [selectedResumeId, setSelectedResumeId] = useState<string>(
     props.resumeId || ""
   );
-
-  const [fileId, setFileId] = useState<string>("");
 
   const [deleteResume, setDeleteResume] =
     useState<GetResumesQuery["getResumes"]["edges"][0]>();
@@ -112,15 +110,8 @@ export const useData = (props: Props): IContext => {
     useQuery<GetFileByIdQuery, GetFileByIdQueryVariables>(
       QUERY_GET_FILE_BY_ID_FILE,
       {
-        skip: !fileId,
         fetchPolicy: "no-cache",
         initialFetchPolicy: "standby",
-        variables: {
-          getFileByIdFileInputs: {
-            fileId,
-          },
-        },
-        onCompleted: async ({ getFileById: { id } }) => {},
       }
     );
 
@@ -178,63 +169,61 @@ export const useData = (props: Props): IContext => {
       }
     );
 
-  const [generatePdfOfResumeFile, { loading: loadingGeneratePdfOfResumeFile }] =
-    useMutation<
-      GeneratePdfOfResumeMutation,
-      GeneratePdfOfResumeMutationVariables
-    >(MUTATION_GENERATE_PDF_OF_RESUME_FILE, {
-      onError: (error) => {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: error.message,
-        });
-      },
-      onCompleted: async ({ generatePdfOfResume: { id } }) => {
-        toast({
-          title: "PDF generation started!",
-          description: "Please wait while we generate the PDF for you.",
-        });
-        setFileId(id!);
+  const [generatePdfOfResumeFile] = useMutation<
+    GeneratePdfOfResumeMutation,
+    GeneratePdfOfResumeMutationVariables
+  >(MUTATION_GENERATE_PDF_OF_RESUME_FILE, {
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.message,
+      });
 
-        for (const interval of [2000, 4000, 8000, 16000, 32000]) {
-          await utils.sleep(interval);
-          const { data } = await refetchGetFileByIdFIle();
+      setGeneratePdfLoading(false);
+    },
+    onCompleted: async ({ generatePdfOfResume: { id } }) => {
+      toast({
+        title: "PDF generation started!",
+        description: "Please wait while we generate the PDF for you.",
+      });
+
+      // Federation currently does not support subscriptions. So we have to call api to check the PDF is ready or not!
+      for (const interval of [2000, 4000, 8000, 16000, 32000]) {
+        await utils.sleep(interval);
+        try {
+          const { data } = await refetchGetFileByIdFIle({
+            getFileByIdFileInputs: { fileId: id! },
+          });
 
           if (
             data &&
             data.getFileById &&
-            data.getFileById.status === "uploaded"
+            data.getFileById.status === FileStatusEnum.Uploaded
           ) {
             const downloadLink = await refetchGetDownloadLinkFile({
               getDownloadLinkFileInputs: { fileId: id! },
             });
 
+            setGeneratePdfLoading(false);
             window.open(downloadLink.data.getDownloadLink, "_blank");
             break;
           }
+        } catch (error) {
+          console.log({ error });
         }
-      },
-    });
+      }
 
-  const {
-    loading: loadingGetDownloadLinkFile,
-    refetch: refetchGetDownloadLinkFile,
-  } = useQuery<GetDownloadLinkQuery, GetDownloadLinkQueryVariables>(
-    QUERY_DOWNLOAD_LINK_FILE,
-    {
-      skip: !fileId,
-      fetchPolicy: "standby",
-      variables: {
-        getDownloadLinkFileInputs: {
-          fileId,
-        },
-      },
-      onCompleted: async ({ getDownloadLink }) => {
-        console.log(getDownloadLink);
-      },
-    }
-  );
+      setGeneratePdfLoading(false);
+    },
+  });
+
+  const { refetch: refetchGetDownloadLinkFile } = useQuery<
+    GetDownloadLinkQuery,
+    GetDownloadLinkQueryVariables
+  >(QUERY_DOWNLOAD_LINK_FILE, {
+    fetchPolicy: "standby",
+  });
 
   return {
     isOpenNewResumeDialog,
@@ -265,6 +254,8 @@ export const useData = (props: Props): IContext => {
     deleteResume,
     setDeleteResume,
     generatePdfOfResumeFile,
-    loadingGeneratePdfOfResumeFile,
+    loadingGetFileByIdFIle,
+    generatePdfLoading,
+    setGeneratePdfLoading,
   };
 };
