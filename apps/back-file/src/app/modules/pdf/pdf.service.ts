@@ -8,7 +8,7 @@ import puppeteer from "puppeteer";
 export class PdfService {
   constructor(private readonly configService: ConfigService) {}
 
-  async generatePdf(resumeId: string) {
+  async generatePdf(fileId: string, resumeId: string) {
     const browser = await puppeteer.launch({
       args: ["--no-sandbox"],
       ignoreDefaultArgs: ["--disable-extensions"],
@@ -18,13 +18,13 @@ export class PdfService {
     await page.setJavaScriptEnabled(false);
     await page.goto(
       this.configService.get(EnvironmentVariablesEnum.RESUME_URL) +
-        "/+" +
+        "/resume/" +
         resumeId
     );
 
     await page.emulateMediaType("print");
 
-    const filename = "test1" + ".pdf";
+    const filename = fileId + ".pdf";
     const path = join(process.cwd(), "./files/" + filename);
 
     await page.pdf({
@@ -34,9 +34,9 @@ export class PdfService {
       width: "21cm",
       height: "29.7cm",
       margin: {
-        top: 30,
+        top: 0,
         right: 0,
-        bottom: 30,
+        bottom: 0,
         left: 0,
       },
     });

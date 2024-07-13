@@ -1,4 +1,4 @@
 export enum FileTypeEnum {
-  image = "image",
-  PDF = "PDF",
+  Image = "Image",
+  Pdf = "Pdf",
 }

@@ -44,7 +44,7 @@ describe("microservice:file getDownloadLink", () => {
     const file = await helperDB.createFile({
       isVerified: true,
       userId: authHeader.token.id,
-      status: FileStatusEnum.uploaded,
+      status: FileStatusEnum.Uploaded,
     });
 
     const getDownloadLinkFileInputs: GetDownloadLinkFileInputs = {
@@ -84,7 +84,7 @@ describe("microservice:file getDownloadLink", () => {
       userId: authHeader.token.id,
       status: faker.helpers.arrayElement([
         FileStatusEnum.error,
-        FileStatusEnum.waiting,
+        FileReasonEnum.Waiting,
       ]),
     });
 
@@ -121,7 +121,7 @@ describe("microservice:file getDownloadLink", () => {
 
     const file = await helperDB.createFile({
       userId: authHeader.token.id,
-      status: FileStatusEnum.uploaded,
+      status: FileStatusEnum.Uploaded,
       isVerified: false,
     });
 
@@ -158,7 +158,7 @@ describe("microservice:file getDownloadLink", () => {
 
     const file = await helperDB.createFile({
       userId: new mongoose.Types.ObjectId().toString(),
-      status: FileStatusEnum.uploaded,
+      status: FileStatusEnum.Uploaded,
       isVerified: true,
     });
 

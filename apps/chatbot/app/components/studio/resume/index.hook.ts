@@ -36,6 +36,7 @@ export const useData = () => {
     setResumeSubSectionIndex,
     updateResumeResume,
     generatePdfOfResumeFile,
+    setGeneratePdfLoading,
   } = useStudioContext();
 
   const [resumeModel, setResumeModel] = useState(
@@ -344,6 +345,7 @@ export const useData = () => {
   };
 
   const generatePdf = () => {
+    setGeneratePdfLoading(true);
     generatePdfOfResumeFile({
       variables: {
         generatePdfOfResumeFileInputs: {

@@ -21,9 +21,5 @@ export default async function Page(props: { params: { resumeId: string } }) {
     return <div>404 - Resume not found</div>;
   }
 
-  return (
-    <div className="p-2">
-      <TemplateMinimalist staticMode={true} resume={resume} />
-    </div>
-  );
+  return <TemplateMinimalist staticMode={true} resume={resume} />;
 }

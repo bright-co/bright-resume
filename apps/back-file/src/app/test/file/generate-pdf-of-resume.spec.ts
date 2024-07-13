@@ -269,9 +269,9 @@ describe("microservice:file GeneratePdfOfResume", () => {
     expect(file).toBeDefined();
     expect(file.userId).toBe(authHeader.token.id);
     expect(file.isVerified).toBe(false);
-    expect(file.type).toBe(FileTypeEnum.PDF);
-    expect(file.reason).toBe(FileReasonEnum.resume_PDF);
-    expect(file.status).toBe(FileStatusEnum.waiting);
+    expect(file.type).toBe(FileTypeEnum.Pdf);
+    expect(file.reason).toBe(FileReasonEnum.ResumePdf);
+    expect(file.status).toBe(FileReasonEnum.Waiting);
     expect(getStatusSpy).toHaveBeenCalled();
   });
 });

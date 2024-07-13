@@ -28,19 +28,19 @@ type File {
 }
 
 enum FileTypeEnum {
-  image
-  PDF
+  Image
+  Pdf
 }
 
 enum FileReasonEnum {
-  resume_profile_image
-  resume_PDF
+  ResumeProfileImage
+  ResumePdf
 }
 
 enum FileStatusEnum {
-  waiting
-  error
-  uploaded
+  Waiting
+  Error
+  Uploaded
 }
 
 """

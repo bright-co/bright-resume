@@ -288,19 +288,19 @@ export type File = {
 };
 
 export enum FileReasonEnum {
-  ResumePdf = 'resume_PDF',
-  ResumeProfileImage = 'resume_profile_image'
+  ResumePdf = 'ResumePdf',
+  ResumeProfileImage = 'ResumeProfileImage'
 }
 
 export enum FileStatusEnum {
-  Error = 'error',
-  Uploaded = 'uploaded',
-  Waiting = 'waiting'
+  Error = 'Error',
+  Uploaded = 'Uploaded',
+  Waiting = 'Waiting'
 }
 
 export enum FileTypeEnum {
-  Pdf = 'PDF',
-  Image = 'image'
+  Image = 'Image',
+  Pdf = 'Pdf'
 }
 
 export type GeneratePdfOfResumeFileInputsGql = {
@@ -633,11 +633,6 @@ export type Skill = {
   __typename?: 'Skill';
   isShow?: Maybe<Scalars['Boolean']['output']>;
   point?: Maybe<Scalars['String']['output']>;
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  subscribeToGeneratePdf: File;
 };
 
 export type UpdateResumeResumeInputsGql = {
