@@ -9,9 +9,4 @@ export class AppController {
   getData() {
     return "Bright Resume File Micro Service 🚀🚀";
   }
-
-  @Get("/from-url")
-  generatePdfFromUrl() {
-    return this.pdfService.generateFromUrl();
-  }
 }

@@ -1,4 +1,5 @@
 import { Process, Processor } from "@nestjs/bull";
+import fs from "fs";
 import { Logger } from "@nestjs/common";
 import { Job } from "bull";
 import { GENERATE_PDF_OF_RESUME_QUEUE } from "./constants";
@@ -28,7 +29,7 @@ export class GeneratePdfOfResumeConsumer {
     job: Job<AddToGeneratePdfOfResumeQueueBullRequest>
   ) {
     const {
-      data: { fileId, inputs },
+      data: { fileId, resumeId },
     } = job;
 
     this.logger.log("start: jobId:", job.id, " fileId:", fileId);
@@ -43,14 +44,27 @@ export class GeneratePdfOfResumeConsumer {
     file.status = FileStatusEnum.uploaded;
 
     await this.dbService.transaction(async () => {
-      const path = await this.pdfService.generatePdfOfResume(fileId, inputs);
+      const path = await this.pdfService.generatePdf(resumeId);
       await this.minioService.uploadFile({
         fileId,
         path,
       });
       await file.save();
+      await removeFile(path);
     });
 
     this.logger.log("end: jobId:", job.id);
   }
+}
+
+function removeFile(path: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    fs.unlink(path, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 }

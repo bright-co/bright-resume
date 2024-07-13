@@ -35,6 +35,7 @@ export const useData = () => {
     setIsOpenSteps,
     setResumeSubSectionIndex,
     updateResumeResume,
+    generatePdfOfResumeFile,
   } = useStudioContext();
 
   const [resumeModel, setResumeModel] = useState(
@@ -342,6 +343,16 @@ export const useData = () => {
     });
   };
 
+  const generatePdf = () => {
+    generatePdfOfResumeFile({
+      variables: {
+        generatePdfOfResumeFileInputs: {
+          resumeId: resumeModel.getId()!,
+        },
+      },
+    });
+  };
+
   return {
     resumeModel,
     hoverSection,
@@ -368,6 +379,7 @@ export const useData = () => {
     onClickEditSection,
     onClickEditSubSection,
     updateResume,
+    generatePdf,
     isChanged,
   };
 };
