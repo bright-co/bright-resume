@@ -1,5 +1,5 @@
-import { AppModule } from "@@back-file/app/app.module";
-import { setupApp } from "@@back-file/setup-app";
+import { AppModule } from "@@back/app/app.module";
+import { setupApp } from "@@back/setup-app";
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { HelperDB } from "./helper.db";

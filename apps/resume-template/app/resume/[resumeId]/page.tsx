@@ -13,7 +13,7 @@ export default async function Page(props: { params: { resumeId: string } }) {
     return <div>Invalid resumeId</div>;
   }
 
-  const resume = (await mongoose.connection.db.collection("resumes").findOne({
+  const resume = (await mongoose.connection.db?.collection("resumes").findOne({
     _id: new mongoose.Types.ObjectId(resumeId),
   })) as unknown as IResume;
 

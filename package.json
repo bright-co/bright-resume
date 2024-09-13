@@ -4,6 +4,13 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "back:serve": "nx serve back",
+    "back:build": "nx build back",
+    "back:test:single-file": "nx test back --testFile=<file-path>",
+    "back:test:auth-module": "nx test back --testPathPattern=apps/back/src/app/test/auth/spec  --runInBand",
+    "back:test:file-module": "nx test back --testPathPattern=apps/back/src/app/test/file/spec  --runInBand",
+    "back:test:resume-module": "nx test back --testPathPattern=apps/back/src/app/test/resume/spec  --runInBand",
+    "back:test": "nx test back --testPathPattern=apps/back/src/app/test  --runInBand",
     "auth:build": "nx build back-auth",
     "auth:dev": "nx serve back-auth",
     "auth:test": "nx test back-auth --runInBand",
@@ -31,7 +38,8 @@
     "chatbot:dev:serve": "nx serve chatbot",
     "back:dev": "concurrently \"npm run auth:dev\" \"npm run resume:dev\"  \"npm run file:dev\"",
     "resume-template:build": "nx build resume-template",
-    "resume-template:dev": "nx serve resume-template"
+    "resume-template:dev": "nx serve resume-template",
+    "resume-template:run": "node ./apps/resume-template/check-env.js && cd dist/apps/resume-template && pnpm start"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.33",
@@ -140,6 +148,7 @@
     "@nx/webpack": "17.2.8",
     "@nx/workspace": "17.2.8",
     "@parcel/watcher": "^2.4.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@storybook/addon-essentials": "7.6.6",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/core-common": "^7.6.6",
@@ -150,7 +159,7 @@
     "@storybook/react-vite": "^7.6.6",
     "@storybook/test-runner": "^0.13.0",
     "@storybook/testing-library": "^0.2.2",
-    "@svgr/webpack": "^6.1.2",
+    "@svgr/webpack": "^8.0.1",
     "@swc-node/register": "~1.6.7",
     "@swc/cli": "~0.1.62",
     "@swc/core": "~1.3.85",
@@ -193,6 +202,7 @@
     "nx-cloud": "16.5.2",
     "postcss": "^8.4.38",
     "prettier": "^2.6.2",
+    "react-refresh": "^0.10.0",
     "sass": "^1.63.6",
     "supertest-graphql": "^1.1.4",
     "tailwindcss": "^3.4.3",
