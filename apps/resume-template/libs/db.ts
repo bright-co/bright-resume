@@ -7,14 +7,6 @@ declare global {
 const MONGO_URL = process.env.MONGO_URL!;
 const DATABASE_NAME = process.env.DATABASE_NAME!;
 
-if (!MONGO_URL) {
-  throw new Error("Please define the MONGO_URL environment variable");
-}
-
-if (!DATABASE_NAME) {
-  throw new Error("Please define the MONGO_URL environment variable");
-}
-
 let cached = global.mongoose;
 
 if (!cached) {

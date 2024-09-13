@@ -7,7 +7,7 @@ import { HelperDB } from "./helper.db";
 export class IntegrationTestManager {
   app: INestApplication;
   helperDB: HelperDB;
-  httpServer: any;
+  httpServer: INestApplication;
 
   async beforeAll(): Promise<void> {
     const module = await Test.createTestingModule({

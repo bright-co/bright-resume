@@ -1,5 +1,5 @@
-import { AppModule } from "@@back-file/app/app.module";
-import { setupApp } from "@@back-file/setup-app";
+import { AppModule } from "@@back/app/app.module";
+import { setupApp } from "@@back/setup-app";
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { HelperDB } from "./helper.db";
@@ -20,6 +20,7 @@ export class IntegrationTestManager {
     await this.app.init();
 
     this.helperDB = new HelperDB(this.app);
+    console.log({ "this.helperDB": this.helperDB });
   }
 
   async afterAll() {
