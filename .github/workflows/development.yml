@@ -13,18 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Build chatbot
-      #   run: |
-      #     echo BACK_URL=https://back-development.bright-resume.com > ./apps/chatbot/.env
-      #     echo MODE=develop >> ./apps/chatbot/.env
-      #     docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
+      - name: Build chatbot
+        run: |
+          echo BACK_URL=https://back-development.bright-resume.com > ./apps/chatbot/.env
+          echo MODE=develop >> ./apps/chatbot/.env
+          docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
 
-      # - name: Build resume-template
-      #   run: |
-      #     docker build -t ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }} -f infra/Dockerfile.resume-template .
+      - name: Build resume-template
+        run: |
+          docker build -t ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }} -f infra/Dockerfile.resume-template .
 
-      # - name: Build back
-      #   run: docker build -t ghcr.io/bright-co/bright-resume-back:${{ github.sha }} -f infra/Dockerfile.back .
+      - name: Build back
+        run: docker build -t ghcr.io/bright-co/bright-resume-back:${{ github.sha }} -f infra/Dockerfile.back .
 
       # - name: Build back-resume
       #   run: docker build -t ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }} -f infra/Dockerfile.resume .
@@ -48,9 +48,9 @@ jobs:
 
       - name: Push Images
         run: |
-          # docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
-          # docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
-          # docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}
