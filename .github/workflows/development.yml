@@ -47,9 +47,9 @@ jobs:
 
       - name: Push Images
         run: |
-          docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
+          # docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
-          # docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}
           # docker push ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}
