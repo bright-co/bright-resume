@@ -13,6 +13,7 @@ export class PdfService {
 
     try {
       const browser = await puppeteer.launch({
+        headless: "new",
         args: ["--no-sandbox"],
         ignoreDefaultArgs: ["--disable-extensions"],
         executablePath:
