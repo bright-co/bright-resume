@@ -9,14 +9,20 @@ export class PdfService {
   constructor(private readonly configService: ConfigService) {}
 
   async generatePdf(fileId: string, resumeId: string) {
+    console.log(1);
+
     const browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox"],
       ignoreDefaultArgs: ["--disable-extensions"],
     });
 
+    console.log(2);
+
     const page = await browser.newPage();
+    console.log(3);
     await page.setJavaScriptEnabled(false);
+    console.log(4);
 
     console.log({
       resumeAddress:
