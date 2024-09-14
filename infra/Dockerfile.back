@@ -5,7 +5,16 @@ WORKDIR /app
 ADD package.json /app/package.json
 
 RUN npm i -g pnpm
-RUN apk update && apk add --no-cache git
+RUN apk update
+RUN apk add --no-cache \
+      chromium \
+      nss \
+      freetype \
+      harfbuzz \
+      ca-certificates \
+      ttf-freefont \
+      nodejs \
+      yarn
 
 RUN pnpm install
 
@@ -13,15 +22,4 @@ ADD . /app
 
 RUN npm run back:build
 
-FROM node:20-alpine
-WORKDIR /app
-
-RUN npm i -g pnpm
-ADD package.json /app/package.json
-
-COPY --from=build app/dist/apps/back /app
-
-RUN apk update && apk add --no-cache git
-RUN pnpm install -P
-
-CMD ["node", "main.js"]
+CMD ["npm", "run", "back:run"]
