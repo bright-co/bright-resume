@@ -17,16 +17,27 @@ export class PdfService {
 
     const page = await browser.newPage();
     await page.setJavaScriptEnabled(false);
+
+    console.log({
+      resumeAddress:
+        this.configService.get(EnvironmentVariablesEnum.RESUME_URL) +
+        "/resume/" +
+        resumeId,
+    });
+
     await page.goto(
       this.configService.get(EnvironmentVariablesEnum.RESUME_URL) +
         "/resume/" +
         resumeId
     );
 
+    console.log("page.emulateMediaType");
     await page.emulateMediaType("print");
 
     const filename = fileId + ".pdf";
     const path = join(process.cwd(), "./files/" + filename);
+
+    console.log({ path });
 
     await page.pdf({
       path,
@@ -41,6 +52,8 @@ export class PdfService {
         left: 0,
       },
     });
+
+    console.log("page.pdf");
 
     await browser.close();
 
