@@ -6,6 +6,7 @@
   "scripts": {
     "back:serve": "nx serve back",
     "back:build": "nx build back",
+    "back:run": "cd dist/apps/back && node main.js",
     "back:test:single-file": "nx test back --testFile=<file-path>",
     "back:test:auth-module": "nx test back --testPathPattern=apps/back/src/app/test/auth/spec  --runInBand",
     "back:test:file-module": "nx test back --testPathPattern=apps/back/src/app/test/file/spec  --runInBand",
