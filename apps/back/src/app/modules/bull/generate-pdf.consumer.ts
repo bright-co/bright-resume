@@ -36,6 +36,8 @@ export class GeneratePdfOfResumeConsumer {
 
     const file = await this.fileModel.findById(fileId);
 
+    this.logger.log(" fil:", { file });
+
     if (!file) {
       throw new CustomError(FILE_NOT_FOUND);
     }
@@ -44,12 +46,16 @@ export class GeneratePdfOfResumeConsumer {
     file.status = FileStatusEnum.Uploaded;
 
     await this.dbService.transaction(async () => {
+      this.logger.log(" generatePdfOfResume:", { fileId, resumeId });
       const path = await this.pdfService.generatePdf(fileId, resumeId);
+      this.logger.log(" generatePdf:", { path });
       await this.minioService.uploadFile({
         fileId,
         path,
       });
+      this.logger.log("uploadFile end");
       await file.save();
+      this.logger.log("save file");
       // await removeFile(path);
     });
 
