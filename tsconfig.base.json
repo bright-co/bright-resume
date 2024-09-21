@@ -16,11 +16,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@@back/*": ["apps/back/src/*"],
       "@@back-auth/*": ["apps/back-auth/src/*"],
       "@@back-file/*": ["apps/back-file/src/*"],
-      "@@back-gateway/*": ["apps/back-gateway/src/*"],
-      "@@back-resume/*": ["apps/back-resume/src/*"],
+      "@@back/*": ["apps/back/src/*"],
       "@@chatbot/*": ["apps/chatbot/src/*"],
       "@assets": ["libs/assets/src/index.ts"],
       "@assets/*": ["libs/assets/src/*"],
@@ -29,7 +27,6 @@
       "@bright-resume/assets/*": ["libs/assets/src/*"],
       "@bright-resume/back-auth/*": ["apps/back-auth/src/*"],
       "@bright-resume/back-common/*": ["libs/back-common/src/*"],
-      "@bright-resume/back-resume/*": ["apps/back-resume/src/*"],
       "@bright-resume/components": ["libs/components/src/index.ts"],
       "@bright-resume/components/*": ["libs/components/src/lib/*"],
       "@bright-resume/errors": ["libs/errors/src/index.ts"],
@@ -50,8 +47,7 @@
       "@resume-template-components/server": [
         "libs/resume-template-components/src/server.ts"
       ],
-      "@utils": ["libs/utils/src/index.ts"],
-      "@web/*": ["apps/web/*"]
+      "@utils": ["libs/utils/src/index.ts"]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
