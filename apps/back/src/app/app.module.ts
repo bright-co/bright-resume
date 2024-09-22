@@ -11,6 +11,7 @@ import { AuthModule } from "./modules/auth/auth.module";
 import { AppController } from "./app.controller";
 
 import { JWTStrategy } from "@back-common/strategies";
+
 import { MinioModule } from "./modules/minio/minio.module";
 
 @Module({

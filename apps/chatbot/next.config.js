@@ -22,15 +22,15 @@ const nextConfig = {
       },
       {
         source: "/back/auth/sign-in/google",
-        destination: process.env["BACK_URL"] + "/auth/sign-in/google",
+        destination: process.env["BACK_URL"] + "/back/auth/sign-in/google",
       },
       {
         source: "/back/auth/sign-in/linkedin",
-        destination: process.env["BACK_URL"] + "/auth/sign-in/linkedin",
+        destination: process.env["BACK_URL"] + "/back/auth/sign-in/linkedin",
       },
       {
         source: "/back/auth/sign-in/github",
-        destination: process.env["BACK_URL"] + "/auth/sign-in/github",
+        destination: process.env["BACK_URL"] + "/back/auth/sign-in/github",
       },
     ];
   },
