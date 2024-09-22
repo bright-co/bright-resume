@@ -56,7 +56,7 @@ export class GeneratePdfOfResumeConsumer {
       this.logger.log("uploadFile end");
       await file.save();
       this.logger.log("save file");
-      // await removeFile(path);
+      await removeFile(path);
     });
 
     this.logger.log("end: jobId:", job.id);

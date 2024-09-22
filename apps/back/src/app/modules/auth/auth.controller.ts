@@ -13,13 +13,18 @@ import { Request, Response } from "express";
 import { EnvironmentVariablesEnum } from "@@back/app/enums";
 import { ConfigService } from "@nestjs/config";
 
-@Controller()
+@Controller("/auth")
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(
     private authService: AuthService,
     private readonly configService: ConfigService
   ) {}
+
+  @Get()
+  health() {
+    return "Bright Resume Back/auth Service 🚀🚀";
+  }
 
   @Get("/sign-in/google")
   @UseGuards(AuthGuard("google"))

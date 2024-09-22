@@ -3,11 +3,15 @@ import { NestFactory } from "@nestjs/core";
 import { checkEnv } from "@back-common/check-env";
 import { EnvironmentVariablesEnum } from "./app/enums";
 import { AppModule } from "./app/app.module";
+import { setupApp } from "./setup-app";
+import session from "express-session";
 
 async function bootstrap() {
   checkEnv(EnvironmentVariablesEnum);
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = "api";
+  setupApp(app);
+  const globalPrefix = "back";
+  app.use(session({ secret: "secret" }));
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 4000;
   await app.listen(port);
