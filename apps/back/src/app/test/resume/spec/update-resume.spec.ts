@@ -1,4 +1,4 @@
-import { Resume } from "@@back/app/models/resume.model";
+import { Resume } from "@back-common/db-models/resume.model";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { RESUME_NOT_FOUND } from "@bright-resume/errors";
 import { UpdateResumeResumeInputs } from "@dto";
@@ -219,7 +219,7 @@ describe("microservice:resume UpdateResume", () => {
           location: faker.location.country(),
           isShowGpa: faker.datatype.boolean(),
           gpa: faker.number
-            .float({ precision: 0.1, min: 0, max: 20 })
+            .float({ multipleOf: 0.1, min: 0, max: 20 })
             .toString(),
           isShowDate: faker.datatype.boolean(),
           from: moment(faker.date.past()).format("YYYY"),

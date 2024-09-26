@@ -1,4 +1,4 @@
-import { User } from "@@back/app/models";
+import { User } from "@back-common/db-models";
 import request from "supertest-graphql";
 import gql from "graphql-tag";
 import { HelperDB, IntegrationTestManager } from "../helper";

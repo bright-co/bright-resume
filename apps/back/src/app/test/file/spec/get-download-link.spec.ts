@@ -1,4 +1,4 @@
-import { MinioService } from "@@back/app/modules/minio/minio.service";
+import { MinioService } from "@back-common/modules/minio/minio.service";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { FILE_NOT_FOUND } from "@bright-resume/errors";
 import { GetDownloadLinkFileInputs } from "@dto";

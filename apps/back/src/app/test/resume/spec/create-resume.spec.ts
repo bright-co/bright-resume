@@ -1,4 +1,4 @@
-import { Resume } from "@@back/app/models/resume.model";
+import { Resume } from "@back-common/db-models/resume.model";
 import { CreateResumeResumeInputsGQL } from "@back-common/dto";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { faker } from "@faker-js/faker";
@@ -183,7 +183,7 @@ describe("microservice:resume CreateResume", () => {
           location: faker.location.country(),
           isShowGpa: faker.datatype.boolean(),
           gpa: faker.number
-            .float({ precision: 0.1, min: 0, max: 20 })
+            .float({ multipleOf: 0.1, min: 0, max: 20 })
             .toString(),
           isShowDate: faker.datatype.boolean(),
           from: moment(faker.date.past()).format("YYYY"),

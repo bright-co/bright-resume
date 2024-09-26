@@ -4,7 +4,7 @@ import { GetFilesFileInputs, PaginationArgs } from "@dto";
 import gql from "graphql-tag";
 import request from "supertest-graphql";
 import { HelperDB, IntegrationTestManager } from "../helper";
-import { File } from "@@back/app/models";
+import { File } from "@back-common/db-models";
 
 describe("microservice:file getFiles", () => {
   const integrationTestManager = new IntegrationTestManager();

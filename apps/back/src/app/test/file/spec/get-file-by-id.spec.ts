@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import mongoose from "mongoose";
 import request from "supertest-graphql";
 import { HelperDB, IntegrationTestManager } from "../helper";
-import { File } from "@@back/app/models";
+import { File } from "@back-common/db-models";
 import { GetFileByIdFileInputs } from "@dto";
 
 describe("microservice:file getFileById", () => {

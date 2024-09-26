@@ -1,4 +1,4 @@
-import { Resume } from "@@back/app/models/resume.model";
+import { Resume } from "@back-common/db-models/resume.model";
 import { PageInfo } from "@back-common/model";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { GetResumesResumeArgs, PaginationArgs } from "@dto";
