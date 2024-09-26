@@ -1,19 +1,17 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { models } from "../../models";
+import { models } from "@back-common/db-models";
 import { FileResolver } from "./file.resolver";
 import { FileService } from "./file.service";
-import { DBModule } from "../db/db.module";
-import { MinioModule } from "../minio/minio.module";
-import { BullModule } from "../bull/bull.module";
-import { PdfModule } from "../pdf/pdf.module";
+import { DBModule } from "@back-common/modules/db/db.module";
+import { MinioModule } from "@back-common/modules/minio/minio.module";
+import { BullModule } from "@back-common/modules/bull/bull.module";
 
 @Module({
   imports: [
     DBModule,
     MongooseModule.forFeature(models),
     BullModule,
-    PdfModule,
     MinioModule,
   ],
   providers: [FileResolver, FileService],

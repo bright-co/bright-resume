@@ -5,7 +5,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Model } from "mongoose";
 import { Strategy } from "passport-github2";
 import { EnvironmentVariablesEnum } from "../../../enums";
-import { User } from "../../../models";
+import { User } from "@back-common/db-models";
 
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy, "github") {

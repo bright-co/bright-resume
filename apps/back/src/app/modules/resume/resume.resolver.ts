@@ -4,7 +4,7 @@ import { UseGuards } from "@nestjs/common";
 import { UserId } from "@back-common/decorators";
 import { GqlAuthGuard } from "@back-common/guards";
 import { ResumeService } from "./resume.service";
-import { PaginatedResume, Resume } from "../../models";
+import { PaginatedResume, Resume } from "@back-common/db-models";
 
 import {
   CreateResumeResumeInputsGQL,

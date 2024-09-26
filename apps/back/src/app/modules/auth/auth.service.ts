@@ -15,7 +15,7 @@ import {
   generateOAuthUserToken,
   verifyPassword,
 } from "@back-common/helpers";
-import { User } from "../../models";
+import { User } from "@back-common/db-models";
 import { EnvironmentVariablesEnum } from "../../enums";
 import { ConfigService } from "@nestjs/config";
 

@@ -5,7 +5,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Model } from "mongoose";
 import { Strategy } from "passport-linkedin-oauth2";
 import { EnvironmentVariablesEnum } from "../../../enums";
-import { User } from "../../../models";
+import { User } from "@back-common/db-models";
 
 @Injectable()
 export class LinkedInStrategy extends PassportStrategy(Strategy, "linkedin") {

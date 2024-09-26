@@ -1,4 +1,4 @@
-import { File, PaginatedFile } from "@@back/app/models";
+import { File, PaginatedFile } from "@back-common/db-models";
 import { UserId } from "@back-common/decorators";
 import {
   GeneratePdfOfResumeFileInputsGQL,

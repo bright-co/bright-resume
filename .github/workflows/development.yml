@@ -26,6 +26,9 @@ jobs:
       - name: Build back
         run: docker build -t ghcr.io/bright-co/bright-resume-back:${{ github.sha }} -f infra/Dockerfile.back .
 
+      - name: Build back-pdf
+        run: docker build -t ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }} -f infra/Dockerfile.back-pdf .
+
       - name: Docker Login
         uses: docker/login-action@v3.0.0
         with:
@@ -39,32 +42,33 @@ jobs:
           docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
           docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
           docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}
 
-  update-manifest-stage:
-    if: github.ref == 'refs/heads/development'
-    runs-on: ubuntu-latest
-    needs: ["build-and-push-images"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: bright-co/bright-resume-gitops
-          ref: main
-          token: ${{ secrets.G_TOKEN }}
+  # update-manifest-stage:
+  #   if: github.ref == 'refs/heads/development'
+  #   runs-on: ubuntu-latest
+  #   needs: ["build-and-push-images"]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         repository: bright-co/bright-resume-gitops
+  #         ref: main
+  #         token: ${{ secrets.G_TOKEN }}
 
-      - name: Configure Git
-        run: |
-          git config --global user.email "erfan@bright-resume.com"
-          git config --global user.name "erfan"
+  #     - name: Configure Git
+  #       run: |
+  #         git config --global user.email "erfan@bright-resume.com"
+  #         git config --global user.name "erfan"
 
-      - name: Update Image Tag
-        run: |
-          echo ${{ github.sha }}
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back:.*|image: ghcr.io/bright-co/bright-resume-back:${{ github.sha }}|" ./development/back.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./development/chatbot.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./development/resume-template.yaml
-          git add -A
-          git commit -m "update image for - ${{ github.sha }}"
+  #     - name: Update Image Tag
+  #       run: |
+  #         echo ${{ github.sha }}
+  #         sed -i "s|image: ghcr.io/bright-co/bright-resume-back:.*|image: ghcr.io/bright-co/bright-resume-back:${{ github.sha }}|" ./development/back.yaml
+  #         sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./development/chatbot.yaml
+  #         sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./development/resume-template.yaml
+  #         git add -A
+  #         git commit -m "update image for - ${{ github.sha }}"
 
-      - name: Push Changes
-        run: git push
+  #     - name: Push Changes
+  #       run: git push

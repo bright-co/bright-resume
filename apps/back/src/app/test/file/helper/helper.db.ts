@@ -1,9 +1,9 @@
 import { INestApplication } from "@nestjs/common";
 import { faker } from "@faker-js/faker";
-import { DbService } from "../../../modules/db/db.service";
+import { DbService } from "@back-common/modules/db/db.service";
 import mongoose from "mongoose";
 import { FileReasonEnum, FileStatusEnum, FileTypeEnum } from "@enums";
-import { File } from "../../../models";
+import { File } from "@back-common/db-models";
 
 export class HelperDB {
   dbService: DbService;

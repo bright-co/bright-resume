@@ -1,8 +1,8 @@
-import { User } from "@@back/app/models";
+import { User } from "@back-common/db-models";
 import { faker } from "@faker-js/faker";
 import { INestApplication } from "@nestjs/common";
 import mongoose from "mongoose";
-import { DbService } from "../../../modules/db/db.service";
+import { DbService } from "@back-common/modules/db/db.service";
 import { generateHashPassword } from "@back-common/helpers";
 
 export class HelperDB {
