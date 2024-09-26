@@ -1,6 +1,6 @@
 import { MinioService } from "@back-common/modules/minio/minio.service";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
-import { FILE_NOT_FOUND } from "@bright-resume/errors";
+import { FILE_NOT_FOUND } from "@errors";
 import { GetDownloadLinkFileInputs } from "@dto";
 import { FileStatusEnum } from "@enums";
 import { faker } from "@faker-js/faker";

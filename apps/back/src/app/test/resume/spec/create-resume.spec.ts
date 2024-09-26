@@ -12,7 +12,7 @@ import {
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@enums";
-import { A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS } from "@bright-resume/errors";
+import { A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS } from "@errors";
 
 describe("microservice:resume CreateResume", () => {
   const integrationTestManager = new IntegrationTestManager();

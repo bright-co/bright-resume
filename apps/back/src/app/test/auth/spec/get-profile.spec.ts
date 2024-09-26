@@ -1,6 +1,6 @@
 import { User } from "@back-common/db-models";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
-import { USER_NOT_FOUND } from "@bright-resume/errors";
+import { USER_NOT_FOUND } from "@errors";
 import gql from "graphql-tag";
 import request from "supertest-graphql";
 import { HelperDB, IntegrationTestManager } from "../helper";

@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { HelperDB, IntegrationTestManager } from "../helper";
 import { SignUpAuthInputs } from "@dto";
 import { faker } from "@faker-js/faker";
-import { USER_WITH_THIS_USERNAME_ALREADY_EXISTS } from "@bright-resume/errors";
+import { USER_WITH_THIS_USERNAME_ALREADY_EXISTS } from "@errors";
 
 describe("microservice:auth SignUp", () => {
   const integrationTestManager = new IntegrationTestManager();

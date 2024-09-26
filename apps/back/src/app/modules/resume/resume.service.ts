@@ -6,7 +6,7 @@ import {
   A_RESUME_WITH_THE_GIVEN_TITLE_ALREADY_EXISTS,
   CustomError,
   RESUME_NOT_FOUND,
-} from "@bright-resume/errors";
+} from "@errors";
 import {
   CreateResumeResumeInputs,
   DeleteResumeResumeInputs,
@@ -15,7 +15,7 @@ import {
   PaginationArgs,
   UpdateResumeResumeInputs,
 } from "@dto";
-import { paginate } from "@bright-resume/back-common/pagination";
+import { paginate } from "@back-common/pagination";
 
 import { PaginatedResume, Resume } from "@back-common/db-models";
 

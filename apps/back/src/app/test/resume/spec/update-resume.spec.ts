@@ -1,6 +1,6 @@
 import { Resume } from "@back-common/db-models/resume.model";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
-import { RESUME_NOT_FOUND } from "@bright-resume/errors";
+import { RESUME_NOT_FOUND } from "@errors";
 import { UpdateResumeResumeInputs } from "@dto";
 import { faker } from "@faker-js/faker";
 import gql from "graphql-tag";
