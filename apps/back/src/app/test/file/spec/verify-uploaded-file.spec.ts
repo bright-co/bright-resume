@@ -1,4 +1,4 @@
-import { File } from "@@back/app/models";
+import { File } from "@back-common/db-models";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import {
   FILE_NOT_FOUND,
@@ -9,7 +9,7 @@ import { VerifyUploadedFileFileInputs } from "@dto";
 import gql from "graphql-tag";
 import request from "supertest-graphql";
 import { HelperDB, IntegrationTestManager } from "../helper";
-import { MinioService } from "@@back/app/modules/minio/minio.service";
+import { MinioService } from "@back-common/modules/minio/minio.service";
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
 import { FileStatusEnum } from "@enums";

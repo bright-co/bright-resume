@@ -1,4 +1,4 @@
-import { BullService } from "@@back/app/modules/bull/bull.service";
+import { BullService } from "@back-common/modules/bull/bull.service";
 import { GeneratePdfOfResumeFileInputsGQL } from "@back-common/dto";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { GeneratePdfOfResumeFileInputs } from "@dto";

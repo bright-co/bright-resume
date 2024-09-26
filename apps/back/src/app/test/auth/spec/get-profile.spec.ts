@@ -1,4 +1,4 @@
-import { User } from "@@back/app/models";
+import { User } from "@back-common/db-models";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { USER_NOT_FOUND } from "@bright-resume/errors";
 import gql from "graphql-tag";

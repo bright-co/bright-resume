@@ -1,4 +1,4 @@
-import { Resume } from "@@back/app/models/resume.model";
+import { Resume } from "@back-common/db-models/resume.model";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { RESUME_NOT_FOUND } from "@bright-resume/errors";
 import gql from "graphql-tag";

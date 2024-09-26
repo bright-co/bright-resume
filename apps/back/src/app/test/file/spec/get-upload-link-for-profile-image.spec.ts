@@ -1,4 +1,4 @@
-import { File } from "@@back/app/models";
+import { File } from "@back-common/db-models";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
 import { GetUploadLinkForProfileImageFileInputs } from "@dto";
 import { FileReasonEnum, FileTypeEnum } from "@enums";

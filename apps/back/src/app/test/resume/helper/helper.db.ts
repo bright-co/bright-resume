@@ -146,7 +146,7 @@ export class HelperDB {
           location: faker.location.country(),
           isShowGpa: faker.datatype.boolean(),
           gpa: faker.number
-            .float({ precision: 0.1, min: 0, max: 20 })
+            .float({ multipleOf: 0.1, min: 0, max: 20 })
             .toString(),
           isShowDate: faker.datatype.boolean(),
           from: moment(faker.date.past()).format("YYYY MMMM"),
