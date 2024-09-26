@@ -9,7 +9,7 @@ import { Model } from "mongoose";
 import { DbService } from "@back-common/modules/db/db.service";
 import { PdfService } from "../pdf/pdf.service";
 import { MinioService } from "@back-common/modules/minio/minio.service";
-import { CustomError, FILE_NOT_FOUND } from "@bright-resume/errors";
+import { CustomError, FILE_NOT_FOUND } from "@errors";
 import { File } from "@back-common/db-models";
 import { FileStatusEnum } from "@enums";
 

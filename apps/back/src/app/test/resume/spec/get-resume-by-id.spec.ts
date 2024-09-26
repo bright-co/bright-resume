@@ -1,6 +1,6 @@
 import { Resume } from "@back-common/db-models/resume.model";
 import { generateAuthorizationHeader } from "@back-common/test/helpers";
-import { RESUME_NOT_FOUND } from "@bright-resume/errors";
+import { RESUME_NOT_FOUND } from "@errors";
 import gql from "graphql-tag";
 import mongoose from "mongoose";
 import request from "supertest-graphql";

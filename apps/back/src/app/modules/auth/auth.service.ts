@@ -5,7 +5,7 @@ import {
   USERNAME_OR_PASSWORD_IS_INCORRECT,
   USER_NOT_FOUND,
   USER_WITH_THIS_USERNAME_ALREADY_EXISTS,
-} from "@bright-resume/errors";
+} from "@errors";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";

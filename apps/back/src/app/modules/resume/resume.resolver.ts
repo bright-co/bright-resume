@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { PaginationArgsGQL } from "@bright-resume/back-common/dto";
+import { PaginationArgsGQL } from "@back-common/dto";
 import { UseGuards } from "@nestjs/common";
 import { UserId } from "@back-common/decorators";
 import { GqlAuthGuard } from "@back-common/guards";

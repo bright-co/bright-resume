@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { HelperDB, IntegrationTestManager } from "../helper";
 import { SignInAuthInputs } from "@dto";
 import { faker } from "@faker-js/faker";
-import { USERNAME_OR_PASSWORD_IS_INCORRECT } from "@bright-resume/errors";
+import { USERNAME_OR_PASSWORD_IS_INCORRECT } from "@errors";
 
 describe("microservice:auth SignIn", () => {
   const integrationTestManager = new IntegrationTestManager();

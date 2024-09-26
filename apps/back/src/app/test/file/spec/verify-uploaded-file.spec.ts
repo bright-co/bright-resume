@@ -4,7 +4,7 @@ import {
   FILE_NOT_FOUND,
   THE_FILE_HAS_ALREADY_BEEN_APPROVED,
   THE_FILE_HAS_NOT_BEEN_UPLOADED_YET,
-} from "@bright-resume/errors";
+} from "@errors";
 import { VerifyUploadedFileFileInputs } from "@dto";
 import gql from "graphql-tag";
 import request from "supertest-graphql";
