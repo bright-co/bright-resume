@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { UseGuards } from "@nestjs/common";
 import { UserId } from "@back-common/decorators";
 import { GqlAuthGuard, GqlOAuthGuard } from "@back-common/guards";
-import { User } from "@@back/app/models";
+import { User } from "@back-common/db-models";
 import { SignInAuthInputsGQL, SignUpAuthInputsGQL } from "@back-common/dto";
 import { AuthService } from "./auth.service";
 

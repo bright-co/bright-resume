@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { FilterQuery, Model } from "mongoose";
-import { File, PaginatedFile } from "../../models";
-import { DbService } from "../db/db.service";
-import { MinioService } from "../minio/minio.service";
+import { File, PaginatedFile } from "@back-common/db-models";
+import { DbService } from "@back-common/modules/db/db.service";
+import { MinioService } from "@back-common/modules/minio/minio.service";
+import { BullService } from "@back-common/modules/bull/bull.service";
 import { paginate } from "@back-common/pagination";
 import {
   GeneratePdfOfResumeFileInputs,
@@ -21,7 +22,6 @@ import {
   THE_FILE_HAS_ALREADY_BEEN_APPROVED,
   THE_FILE_HAS_NOT_BEEN_UPLOADED_YET,
 } from "@errors";
-import { BullService } from "../bull/bull.service";
 
 @Injectable()
 export class FileService {

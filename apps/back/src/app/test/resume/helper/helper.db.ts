@@ -1,9 +1,9 @@
 import { INestApplication } from "@nestjs/common";
 import { faker } from "@faker-js/faker";
 import moment from "moment";
-import { DbService } from "../../../modules/db/db.service";
+import { DbService } from "@back-common/modules/db/db.service";
 import mongoose from "mongoose";
-import { Resume } from "@@back/app/models";
+import { Resume } from "@back-common/db-models";
 import {
   ResumeColorEnum,
   ResumeFontFamilyEnum,

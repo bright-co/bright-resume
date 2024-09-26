@@ -17,7 +17,7 @@ import {
 } from "@dto";
 import { paginate } from "@bright-resume/back-common/pagination";
 
-import { PaginatedResume, Resume } from "../../models/resume.model";
+import { PaginatedResume, Resume } from "@back-common/db-models";
 
 @Injectable()
 export class ResumeService {

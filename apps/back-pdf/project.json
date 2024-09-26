@@ -1,0 +1,53 @@
+{
+  "name": "back-pdf",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/back-pdf/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/back-pdf",
+        "main": "apps/back-pdf/src/main.ts",
+        "tsConfig": "apps/back-pdf/tsconfig.app.json",
+        "assets": ["apps/back-pdf/src/assets"],
+        "webpackConfig": "apps/back-pdf/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "back-pdf:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "back-pdf:build:development"
+        },
+        "production": {
+          "buildTarget": "back-pdf:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/back-pdf/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
