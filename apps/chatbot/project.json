@@ -13,7 +13,7 @@
         "assets": [
           {
             "input": "libs/assets/src",
-            "glob": "**/*.{png,jpeg,jpg,svg,ttf,gif,eot,woff,woff2,otf,ico}",
+            "glob": "**/*.{png,jpeg,jpg,svg,ttf,gif,eot,woff,woff2,otf,ico,webp}",
             "output": "/assets"
           }
         ]
