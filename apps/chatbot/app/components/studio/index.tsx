@@ -28,7 +28,7 @@ export default function StudioComponents(props: Props) {
   return (
     <Context.Provider value={data}>
       <div
-        className="max-w-full w-full h-screen flex border-4 border-blue-600"
+        className="max-w-full w-full h-screen flex"
         style={{ minWidth: 1200 }}
       >
         <div
@@ -55,7 +55,7 @@ export default function StudioComponents(props: Props) {
               ? "calc( 100% - 60px)"
               : "calc( 100% - 200px)",
           }}
-          className="flex-grow h-full flex flex-col border-4 border-green-500"
+          className="flex-grow h-full flex flex-col border-4"
         >
           <div style={{ maxHeight: "50px", height: "50px" }}>
             <Header />

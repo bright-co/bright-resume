@@ -17,3 +17,6 @@ export * from "./sheet";
 export * from "./tabs";
 export * from "./textarea";
 export * from "./switch";
+export * from "./avatar";
+export * from "./tooltip";
+export * from "./card";
