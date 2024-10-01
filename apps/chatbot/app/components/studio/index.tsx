@@ -55,7 +55,7 @@ export default function StudioComponents(props: Props) {
               ? "calc( 100% - 60px)"
               : "calc( 100% - 200px)",
           }}
-          className="flex-grow h-full flex flex-col border-4"
+          className="flex-grow h-full flex flex-col"
         >
           <div style={{ maxHeight: "50px", height: "50px" }}>
             <Header />

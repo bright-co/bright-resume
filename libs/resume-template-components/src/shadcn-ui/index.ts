@@ -20,3 +20,5 @@ export * from "./switch";
 export * from "./avatar";
 export * from "./tooltip";
 export * from "./card";
+export * from "./dropdown-menu";
+export * from "./alert-dialog";
