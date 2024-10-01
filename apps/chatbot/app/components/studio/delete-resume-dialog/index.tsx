@@ -1,12 +1,14 @@
 "use client";
 
 import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@resume-template-components/shadcn-ui";
 import { FC } from "react";
 import { useData } from "./index.hook";
@@ -15,7 +17,7 @@ export const DeleteResumeDialog: FC = () => {
   const { onDelete, deleteResume, setDeleteResume } = useData();
 
   return (
-    <Dialog
+    <AlertDialog
       open={!!deleteResume}
       onOpenChange={(isOpen) => {
         if (!isOpen) {
@@ -23,19 +25,21 @@ export const DeleteResumeDialog: FC = () => {
         }
       }}
     >
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Delete a Resume ? </DialogTitle>
-          <DialogDescription>{`Are You Sure to delete '${deleteResume?.title}' ?`}</DialogDescription>
-          <Button
-            type="button"
-            variant={"destructive"}
-            onClick={() => onDelete()}
-          >
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            resume.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => onDelete()}>
             Delete
-          </Button>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

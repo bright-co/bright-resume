@@ -66,8 +66,8 @@ jobs:
           echo ${{ github.sha }}
           sed -i "s|image: ghcr.io/bright-co/bright-resume-back:.*|image: ghcr.io/bright-co/bright-resume-back:${{ github.sha }}|" ./development/back.yaml
           sed -i "s|image: ghcr.io/bright-co/bright-resume-back-pdf:.*|image: ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}|" ./development/back-pdf.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./development/chatbot.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./development/resume-template.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./development/resume-template.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./development/chatbot.yaml
           git add -A
           git commit -m "update image for - ${{ github.sha }}"
 

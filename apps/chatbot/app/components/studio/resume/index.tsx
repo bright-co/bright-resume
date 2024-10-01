@@ -12,7 +12,22 @@ import {
   MenubarRadioGroup,
   MenubarRadioItem,
   MenubarTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   Button,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@resume-template-components/shadcn-ui";
 import { TemplateMinimalist } from "@resume-template-components/templates/minimalist";
 
@@ -24,12 +39,48 @@ import {
 } from "@enums";
 import { ResumeSectionType } from "@models";
 import { useStudioContext } from "../use-context";
+import {
+  Type,
+  Palette,
+  TextCursor,
+  LayoutList,
+  ZoomIn,
+  ZoomOut,
+  Edit,
+  Trash2,
+  FileDown,
+  Save,
+} from "lucide-react";
 
-type ZoomRangeType = 0.5 | 0.75 | 1 | 1.25 | 1.5 | 1.75;
+const colors = [
+  "Black",
+  "Blue",
+  "Brown",
+  "Gray",
+  "Green",
+  "Orange",
+  "Purple",
+  "Red",
+  "Yellow",
+];
+const fontFamilies = ["Arial", "Monsterrate", "Nunito", "Raleway", "Roboto"];
+const sections = [
+  "Summary",
+  "Experience",
+  "Involvement",
+  "Project",
+  "Education",
+  "Skill",
+  "Coursework",
+  "Certification",
+  "Hobby",
+  "Language",
+  "Image",
+];
+const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75];
 
 export const Resume: FC = () => {
   const data = useData();
-  const [zoom, setZoom] = useState<ZoomRangeType>(1);
   const target = useRef(null);
   const [width, height] = useSize(target);
   const {
@@ -39,87 +90,123 @@ export const Resume: FC = () => {
     generatePdfLoading,
   } = useStudioContext();
 
+  const [zoom, setZoom] = useState(1);
+
+  const handleZoomIn = () => {
+    const currentIndex = zoomLevels.indexOf(zoom);
+    if (currentIndex < zoomLevels.length - 1) {
+      setZoom(zoomLevels[currentIndex + 1]);
+    }
+  };
+
+  const handleZoomOut = () => {
+    const currentIndex = zoomLevels.indexOf(zoom);
+    if (currentIndex > 0) {
+      setZoom(zoomLevels[currentIndex - 1]);
+    }
+  };
+
   return (
-    <div className="resume-container h-full px-9">
+    <div className="resume-container h-full">
       <div
-        className="my-3 flex justify-center items-center"
+        className="my-1 flex justify-center items-center"
         style={{ minWidth: width * zoom }}
       >
-        <Menubar>
-          <MenubarMenu>
-            <MenubarTrigger className="whitespace-nowrap">{`FontSize: (${data.resumeModel.getFontSize()})`}</MenubarTrigger>
-            <MenubarContent>
-              <MenubarRadioGroup
-                value={data.resumeModel.getFontSize() || undefined}
-              >
-                {Object.values(ResumeFontSizeEnum).map((value) => (
-                  <MenubarRadioItem
-                    key={value}
-                    value={value}
-                    onClick={() => {
-                      data.callResumeSetMethod("setFontSize", value);
+        <div className="flex items-center justify-center p-1 bg-background space-x-1 flex-wrap rounded-sm">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => data.updateResume()}
+            disabled={!data.isChanged}
+          >
+            <FileDown className="h-4 w-4 mr-2" />
+            Save
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Type className="h-4 w-4 mr-2" />
+                Font: {data.resumeModel.getFontSize()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Font Size</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {Object.values(ResumeFontSizeEnum).map((value) => (
+                <DropdownMenuItem
+                  key={value}
+                  onSelect={() => {
+                    data.callResumeSetMethod("setFontSize", value);
+                  }}
+                >
+                  {value}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Palette className="h-4 w-4 mr-2" />
+                Color: {data.resumeModel.getColor()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Color</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {Object.values(ResumeColorEnum).map((value) => (
+                <DropdownMenuItem
+                  key={value}
+                  onSelect={() => {
+                    data.callResumeSetMethod("setColor", value);
+                  }}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full mr-2`}
+                    style={{
+                      backgroundColor: data.resumeModel.getColorValue(value),
                     }}
-                    className="flex gap-3"
-                  >
-                    {value}
-                  </MenubarRadioItem>
-                ))}
-              </MenubarRadioGroup>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger className="whitespace-nowrap">{`Color: (${data.resumeModel.getColor()})`}</MenubarTrigger>
-            <MenubarContent>
-              <MenubarRadioGroup
-                value={data.resumeModel.getColor() || undefined}
-              >
-                {Object.values(ResumeColorEnum).map((value) => (
-                  <MenubarRadioItem
-                    key={value}
-                    value={value}
-                    onClick={() => {
-                      data.callResumeSetMethod("setColor", value);
-                    }}
-                    className="flex gap-3"
-                  >
-                    <div
-                      className="rounded"
-                      style={{
-                        backgroundColor: data.resumeModel.getColorValue(value),
-                        width: "20px",
-                        height: "20px",
-                      }}
-                    />
-                    {value}
-                  </MenubarRadioItem>
-                ))}
-              </MenubarRadioGroup>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger className="whitespace-nowrap">{`FontFamily: (${data.resumeModel.getFontFamily()})`}</MenubarTrigger>
-            <MenubarContent>
-              <MenubarRadioGroup
-                value={data.resumeModel.getFontFamily() || undefined}
-              >
-                {Object.values(ResumeFontFamilyEnum).map((value) => (
-                  <MenubarRadioItem
-                    key={value}
-                    value={value}
-                    onClick={() => {
-                      data.callResumeSetMethod("setFontFamily", value);
-                    }}
-                    className="flex gap-3"
-                  >
-                    {value}
-                  </MenubarRadioItem>
-                ))}
-              </MenubarRadioGroup>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>{`Sections`}</MenubarTrigger>
-            <MenubarContent>
+                  />
+                  {value}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                <TextCursor className="h-4 w-4 mr-2" />
+                Font: {data.resumeModel.getFontFamily()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Font Family</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {Object.values(ResumeFontFamilyEnum).map((value) => (
+                <DropdownMenuItem
+                  key={value}
+                  onSelect={() => {
+                    data.callResumeSetMethod("setFontFamily", value);
+                  }}
+                >
+                  <div style={{ fontFamily: value.toLowerCase() }}>{value}</div>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                <LayoutList className="h-4 w-4 mr-2" />
+                Sections
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Sections</DropdownMenuLabel>
+              <DropdownMenuSeparator />
               {(
                 [
                   {
@@ -164,9 +251,8 @@ export const Resume: FC = () => {
                   },
                 ] as { section: ResumeSectionType; isShow: boolean }[]
               ).map(({ section, isShow }) => (
-                <MenubarItem
+                <DropdownMenuItem
                   key={section}
-                  className="flex gap-2"
                   onClick={(e) => {
                     e.preventDefault();
                     isShow
@@ -174,87 +260,70 @@ export const Resume: FC = () => {
                       : data.callResumeSetMethod("setShowSection", section);
                   }}
                 >
-                  <Checkbox id={section} checked={isShow} />
-                  {section}
-                </MenubarItem>
+                  <Checkbox id={section} className="mr-2" checked={isShow} />
+                  <label htmlFor={section}>{section}</label>
+                </DropdownMenuItem>
               ))}
-              <MenubarItem
-                className="flex gap-2"
-                onClick={(e) => {
-                  e.preventDefault();
-                  data.callResumeSetMethod(
-                    "setIsShowImage",
-                    !data.resumeModel.getIsShowImage()
-                  );
-                }}
-              >
-                <Checkbox
-                  id={"image"}
-                  checked={data.resumeModel.getIsShowImage() || undefined}
-                />
-                {"Image"}
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger className="whitespace-nowrap">
-              {`Zoom (×${zoom})`}{" "}
-            </MenubarTrigger>
-            <MenubarContent>
-              <MenubarRadioGroup value={zoom.toString()}>
-                {([0.5, 0.75, 1, 1.25, 1.5, 1.75] as ZoomRangeType[]).map(
-                  (value) => (
-                    <MenubarRadioItem
-                      key={value.toString()}
-                      value={value.toString()}
-                      onClick={() => setZoom(value)}
-                    >
-                      {`×${value}`}
-                    </MenubarRadioItem>
-                  )
-                )}
-              </MenubarRadioGroup>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setIsOpenSteps(true)}
-            >
-              Edit
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <div className="flex items-center space-x-0">
+            <Button variant="outline" size="sm" onClick={handleZoomOut}>
+              <ZoomOut className="h-4 w-4" />
             </Button>
-          </MenubarMenu>
-          <MenubarMenu>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => data.updateResume()}
-              disabled={!data.isChanged}
-            >
-              save
+            <span className="text-center text-sm">x {zoom}</span>
+            <Button variant="outline" size="sm" onClick={handleZoomIn}>
+              <ZoomIn className="h-4 w-4" />
             </Button>
-          </MenubarMenu>
-          <MenubarMenu>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDeleteResume(selectedResume)}
-            >
-              delete
-            </Button>
-          </MenubarMenu>
-          <MenubarMenu>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => data.generatePdf()}
-              disabled={generatePdfLoading}
-            >
-              PDF
-            </Button>
-          </MenubarMenu>
-        </Menubar>
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsOpenSteps(true)}
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Edit
+          </Button>
+
+          {/* <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" size="sm" className="w-12">
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your resume.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Delete</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog> */}
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setDeleteResume(selectedResume)}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => data.generatePdf()}
+            disabled={generatePdfLoading}
+          >
+            <FileDown className="h-4 w-4 mr-2" />
+            PDF
+          </Button>
+        </div>
       </div>
       <div
         className="resume my-4 ml-auto mr-auto relative overflow-hidden"
