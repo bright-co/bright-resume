@@ -1,82 +1,40 @@
 "use client";
 
-import { FC } from "react";
-import { useRef, useState } from "react";
 import useSize from "@react-hook/size";
 import {
+  Button,
   Checkbox,
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarTrigger,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Button,
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@resume-template-components/shadcn-ui";
 import { TemplateMinimalist } from "@resume-template-components/templates/minimalist";
+import { FC, useRef, useState } from "react";
 
-import { useData } from "./index.hook";
 import {
   ResumeColorEnum,
   ResumeFontFamilyEnum,
   ResumeFontSizeEnum,
 } from "@enums";
 import { ResumeSectionType } from "@models";
-import { useStudioContext } from "../use-context";
 import {
-  Type,
+  Edit,
+  FileDown,
+  LayoutList,
   Palette,
   TextCursor,
-  LayoutList,
+  Trash2,
+  Type,
   ZoomIn,
   ZoomOut,
-  Edit,
-  Trash2,
-  FileDown,
-  Save,
 } from "lucide-react";
 
-const colors = [
-  "Black",
-  "Blue",
-  "Brown",
-  "Gray",
-  "Green",
-  "Orange",
-  "Purple",
-  "Red",
-  "Yellow",
-];
-const fontFamilies = ["Arial", "Monsterrate", "Nunito", "Raleway", "Roboto"];
-const sections = [
-  "Summary",
-  "Experience",
-  "Involvement",
-  "Project",
-  "Education",
-  "Skill",
-  "Coursework",
-  "Certification",
-  "Hobby",
-  "Language",
-  "Image",
-];
+import { useStudioContext } from "../use-context";
+import { useData } from "./index.hook";
+
 const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75];
 
 export const Resume: FC = () => {
@@ -271,7 +229,7 @@ export const Resume: FC = () => {
             <Button variant="outline" size="sm" onClick={handleZoomOut}>
               <ZoomOut className="h-4 w-4" />
             </Button>
-            <span className="text-center text-sm">x {zoom}</span>
+            <span className="text-center text-sm px-1">x {zoom}</span>
             <Button variant="outline" size="sm" onClick={handleZoomIn}>
               <ZoomIn className="h-4 w-4" />
             </Button>
@@ -285,28 +243,6 @@ export const Resume: FC = () => {
             <Edit className="h-4 w-4 mr-2" />
             Edit
           </Button>
-
-          {/* <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="outline" size="sm" className="w-12">
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your resume.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Delete</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog> */}
-
           <Button
             variant="outline"
             size="sm"
