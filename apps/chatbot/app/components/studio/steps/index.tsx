@@ -119,11 +119,8 @@ export const Steps: FC = () => {
       >
         <SheetHeader className="space-y-0">
           <SheetTitle>Edit Your Resume</SheetTitle>
-          <SheetDescription className="flex justify-between items-center">
+          <SheetDescription>
             {"Make changes to your resume here. Click save when you're done."}
-            <Button size={"sm"}>
-              <Save className="mr-2 h-4 w-4" /> Save Changes
-            </Button>
           </SheetDescription>
         </SheetHeader>
 
