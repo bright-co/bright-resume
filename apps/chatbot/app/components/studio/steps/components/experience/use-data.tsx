@@ -88,6 +88,31 @@ export const useData = () => {
     );
   };
 
+  const changeOrderOfExperiencePoints = (
+    experienceIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "experiences",
+      [...(form.getValues("experiences") || [])].map((experience, index) => ({
+        ...experience,
+        points:
+          index === experienceIndex
+            ? experience.points?.map((point, index) => {
+                if (index === index1) {
+                  return experience.points[index2];
+                } else if (index === index2) {
+                  return experience.points[index1];
+                }
+                return point;
+              }) || []
+            : experience.points,
+      }))
+    );
+    form.trigger();
+  };
+
   const addNewPoint = (experienceIndex: number) => {
     form.setValue(
       "experiences",
@@ -137,5 +162,6 @@ export const useData = () => {
     changeSelectedExperienceIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfExperiencePoints,
   };
 };
