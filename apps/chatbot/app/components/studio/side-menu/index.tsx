@@ -210,7 +210,3 @@ export const SideMenu: FC = () => {
     </TooltipProvider>
   );
 };
-/* {renderBurgerButton()}
-      {renderNewButton()}
-      {renderResumes()}
-      {renderSignOut()} */

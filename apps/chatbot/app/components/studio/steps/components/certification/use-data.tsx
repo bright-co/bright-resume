@@ -1,9 +1,9 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useCallback, useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
 export const useData = () => {
@@ -25,8 +25,8 @@ export const useData = () => {
       certifications:
         selectedResume_?.certifications?.map((certification) => ({
           name: certification.name || "",
-          institute: certification.institute || "",
           isShowInstitute: !!certification.isShowInstitute,
+          institute: certification.institute || "",
           isShowDate: !!certification.isShowDate,
           year: certification.year || "",
           isShowPoints: !!certification.isShowPoints,
@@ -57,10 +57,11 @@ export const useData = () => {
     form.setValue("certifications", [
       ...(form.getValues("certifications") || []),
       {
-        name: "Name",
-        institute: "Institute",
+        name: "name",
+        isShowInstitute: false,
+        institute: "institute",
         isShowDate: false,
-        year: "1900",
+        year: "",
         isShowPoints: false,
         isShow: true,
         points: [],
@@ -81,6 +82,33 @@ export const useData = () => {
     changeSelectedCertificationIndex(
       resumeSubSectionIndex ? resumeSubSectionIndex - 1 : 0
     );
+  };
+
+  const changeOrderOfCertificationPoints = (
+    certificationIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "certifications",
+      [...(form.getValues("certifications") || [])].map(
+        (certification, index) => ({
+          ...certification,
+          points:
+            index === certificationIndex
+              ? certification.points?.map((point, index) => {
+                  if (certification.points && index === index1) {
+                    return certification.points[index2];
+                  } else if (certification.points && index === index2) {
+                    return certification.points[index1];
+                  }
+                  return point;
+                }) || []
+              : certification.points,
+        })
+      )
+    );
+    form.trigger();
   };
 
   const addNewPoint = (certificationIndex: number) => {
@@ -136,5 +164,6 @@ export const useData = () => {
     changeSelectedCertificationIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfCertificationPoints,
   };
 };

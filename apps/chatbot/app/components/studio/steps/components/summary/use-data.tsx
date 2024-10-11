@@ -2,7 +2,7 @@
 
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
@@ -10,27 +10,31 @@ export const useData = () => {
   const {
     selectedResume,
     selectedResumeId,
+    resumeSubSectionIndex,
     updateResumeResume,
     loadingUpdateResumeResume,
   } = useStudioContext();
 
+  const getFormValues = useCallback(
+    (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
+      resumeId: selectedResumeId_!,
+      title: selectedResume_?.title || "",
+      isShowSummary: !!selectedResume_?.isShowSummary,
+      summaryLabel: selectedResume_?.summaryLabel || "",
+      summary: selectedResume_?.summary || "",
+    }),
+    []
+  );
+
   const form = useForm<UpdateResumeResumeInputs>({
     resolver: classValidatorResolver(UpdateResumeResumeInputs),
     mode: "onChange",
-    defaultValues: {
-      resumeId: selectedResumeId!,
-      title: selectedResume?.title || "",
-      summary: selectedResume?.summary || "",
-    },
+    defaultValues: getFormValues(selectedResumeId!, selectedResume),
   });
 
   useEffect(() => {
-    form.reset({
-      resumeId: selectedResumeId!,
-      title: selectedResume?.title || "",
-      summary: selectedResume?.summary || "",
-    });
-  }, [form, selectedResume, selectedResumeId]);
+    form.reset(getFormValues(selectedResumeId!, selectedResume));
+  }, [form, selectedResume, selectedResumeId, getFormValues]);
 
   const onSubmit: SubmitHandler<UpdateResumeResumeInputs> = (
     updateResumeResumeInputs
@@ -42,6 +46,6 @@ export const useData = () => {
     form,
     onSubmit,
     loadingUpdateResumeResume,
-    updateResumeResume,
+    resumeSubSectionIndex,
   };
 };

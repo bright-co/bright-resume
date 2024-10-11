@@ -100,9 +100,9 @@ export const useData = () => {
         points:
           index === experienceIndex
             ? experience.points?.map((point, index) => {
-                if (index === index1) {
+                if (experience.points && index === index1) {
                   return experience.points[index2];
-                } else if (index === index2) {
+                } else if (experience.points && index === index2) {
                   return experience.points[index1];
                 }
                 return point;

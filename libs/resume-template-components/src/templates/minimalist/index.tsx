@@ -946,107 +946,147 @@ export function TemplateMinimalist({
                   subSectionIndex,
                   resume.projects?.length || 0
                 )}
-                <div className={["pr-item-role", subTitleFontSize].join(" ")}>
-                  {staticMode ? (
-                    project.role
-                  ) : (
-                    <RichText
-                      value={project.role || ""}
-                      onChange={(value) =>
-                        callResumeProjectSetMethod &&
-                        callResumeProjectSetMethod(
-                          subSectionIndex,
-                          "setRole",
-                          value
-                        )
-                      }
-                    />
+
+                <div className="pr-item-title-role">
+                  <div
+                    className={["pr-item-title", subTitleFontSize].join(" ")}
+                  >
+                    {staticMode ? (
+                      project.title
+                    ) : (
+                      <RichText
+                        value={project.title || ""}
+                        onChange={(value) =>
+                          callResumeProjectSetMethod &&
+                          callResumeProjectSetMethod(
+                            subSectionIndex,
+                            "setTitle",
+                            value
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+                  {project.isShowRole && (
+                    <>
+                      <div className="linear-space">{"-"}</div>
+                      <div
+                        className={["pr-item-role", subTitleFontSize].join(" ")}
+                      >
+                        {staticMode ? (
+                          project.role
+                        ) : (
+                          <RichText
+                            value={project.role || ""}
+                            onChange={(value) =>
+                              callResumeProjectSetMethod &&
+                              callResumeProjectSetMethod(
+                                subSectionIndex,
+                                "setRole",
+                                value
+                              )
+                            }
+                          />
+                        )}
+                      </div>
+                    </>
                   )}
                 </div>
+
                 <div className="pr-item-company-date-location">
                   <div className={["pr-item-company", textFontSize].join(" ")}>
-                    {staticMode ? (
-                      project.company
-                    ) : (
-                      <RichText
-                        value={project.company || ""}
-                        onChange={(value) =>
-                          callResumeProjectSetMethod &&
-                          callResumeProjectSetMethod(
-                            subSectionIndex,
-                            "setCompany",
-                            value
-                          )
-                        }
-                      />
-                    )}
-                    {staticMode ? (
-                      project.url
-                    ) : (
-                      <RichText
-                        value={project.url || ""}
-                        onChange={(value) =>
-                          callResumeProjectSetMethod &&
-                          callResumeProjectSetMethod(
-                            subSectionIndex,
-                            "setUrl",
-                            value
-                          )
-                        }
-                      />
-                    )}
+                    {project.isShowCompany &&
+                      (staticMode ? (
+                        project.company
+                      ) : (
+                        <RichText
+                          value={project.company || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setCompany",
+                              value
+                            )
+                          }
+                        />
+                      ))}
+                    {project.isShowUrl &&
+                      (staticMode ? (
+                        project.url
+                      ) : (
+                        <RichText
+                          value={project.url || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setUrl",
+                              value
+                            )
+                          }
+                        />
+                      ))}
                   </div>
-                  <div className={["pr-item-date", textFontSize].join(" ")}>
-                    {staticMode ? (
-                      project.from
-                    ) : (
-                      <RichText
-                        value={project.from || ""}
-                        onChange={(value) =>
-                          callResumeProjectSetMethod &&
-                          callResumeProjectSetMethod(
-                            subSectionIndex,
-                            "setFrom",
-                            value
-                          )
-                        }
-                      />
-                    )}
-                    {"-"}
-                    {staticMode ? (
-                      project.to
-                    ) : (
-                      <RichText
-                        value={project.to || ""}
-                        onChange={(value) =>
-                          callResumeProjectSetMethod &&
-                          callResumeProjectSetMethod(
-                            subSectionIndex,
-                            "setTo",
-                            value
-                          )
-                        }
-                      />
-                    )}
-                    {","}
-                  </div>
-                  <div className={["pr-item-location", textFontSize].join(" ")}>
-                    {staticMode ? (
-                      project.location
-                    ) : (
-                      <RichText
-                        value={project.location || ""}
-                        onChange={(value) =>
-                          callResumeProjectSetMethod &&
-                          callResumeProjectSetMethod(
-                            subSectionIndex,
-                            "setLocation",
-                            value
-                          )
-                        }
-                      />
-                    )}
-                  </div>
+                  {project.isShowDate && (
+                    <div className={["pr-item-date", textFontSize].join(" ")}>
+                      {staticMode ? (
+                        project.from
+                      ) : (
+                        <RichText
+                          value={project.from || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setFrom",
+                              value
+                            )
+                          }
+                        />
+                      )}
+                      {"-"}
+                      {staticMode ? (
+                        project.to
+                      ) : (
+                        <RichText
+                          value={project.to || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setTo",
+                              value
+                            )
+                          }
+                        />
+                      )}
+                    </div>
+                  )}
+                  {project.isShowDate && project.isShowLocation && (
+                    <div className="linear-space">{"-"}</div>
+                  )}
+                  {project.isShowLocation && (
+                    <div
+                      className={["pr-item-location", textFontSize].join(" ")}
+                    >
+                      {staticMode ? (
+                        project.location
+                      ) : (
+                        <RichText
+                          value={project.location || ""}
+                          onChange={(value) =>
+                            callResumeProjectSetMethod &&
+                            callResumeProjectSetMethod(
+                              subSectionIndex,
+                              "setLocation",
+                              value
+                            )
+                          }
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               {project.points &&

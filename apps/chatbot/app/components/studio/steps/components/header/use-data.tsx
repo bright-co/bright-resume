@@ -2,7 +2,7 @@
 
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
@@ -10,59 +10,42 @@ export const useData = () => {
   const {
     selectedResume,
     selectedResumeId,
+    resumeSubSectionIndex,
     updateResumeResume,
     loadingUpdateResumeResume,
   } = useStudioContext();
 
+  const getFormValues = useCallback(
+    (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
+      resumeId: selectedResumeId_!,
+      title: selectedResume_?.title || "",
+      role: selectedResume_?.role || "",
+      isShowImage: !!selectedResume_?.isShowImage,
+      isShowPhoneNumber: !!selectedResume_?.isShowPhoneNumber,
+      phoneNumber: selectedResume_?.phoneNumber || "",
+      isShowLinkedin: !!selectedResume_?.isShowLinkedin,
+      linkedin: selectedResume_?.linkedin || "",
+      isShowWebsite: !!selectedResume_?.isShowWebsite,
+      website: selectedResume_?.website || "",
+      isShowEmail: !!selectedResume_?.isShowEmail,
+      email: selectedResume_?.email || "",
+      isShowLocation: !!selectedResume_?.isShowLocation,
+      location: selectedResume_?.location || "",
+      isShowBirthDay: !!selectedResume_?.isShowBirthDay,
+      birthDay: selectedResume_?.birthDay || "",
+    }),
+    []
+  );
+
   const form = useForm<UpdateResumeResumeInputs>({
     resolver: classValidatorResolver(UpdateResumeResumeInputs),
     mode: "onChange",
-    defaultValues: {
-      resumeId: selectedResumeId!,
-      title: selectedResume?.title || "",
-      name: selectedResume?.name || "",
-      role: selectedResume?.role || "",
-
-      phoneNumber: selectedResume?.phoneNumber || "",
-      isShowPhoneNumber: !!selectedResume?.isShowPhoneNumber,
-
-      linkedin: selectedResume?.linkedin || "",
-      isShowLinkedin: !!selectedResume?.isShowLinkedin,
-
-      website: selectedResume?.website || "",
-      isShowWebsite: !!selectedResume?.isShowWebsite,
-
-      email: selectedResume?.email || "",
-      isShowEmail: !!selectedResume?.isShowWebsite,
-
-      location: selectedResume?.location || "",
-      isShowLocation: !!selectedResume?.isShowWebsite,
-    },
+    defaultValues: getFormValues(selectedResumeId!, selectedResume),
   });
 
   useEffect(() => {
-    form.reset({
-      resumeId: selectedResumeId!,
-      title: selectedResume?.title || "",
-      name: selectedResume?.name || "",
-      role: selectedResume?.role || "",
-
-      phoneNumber: selectedResume?.phoneNumber || "",
-      isShowPhoneNumber: !!selectedResume?.isShowPhoneNumber,
-
-      linkedin: selectedResume?.linkedin || "",
-      isShowLinkedin: !!selectedResume?.isShowLinkedin,
-
-      website: selectedResume?.website || "",
-      isShowWebsite: !!selectedResume?.isShowWebsite,
-
-      email: selectedResume?.email || "",
-      isShowEmail: !!selectedResume?.isShowWebsite,
-
-      location: selectedResume?.location || "",
-      isShowLocation: !!selectedResume?.isShowWebsite,
-    });
-  }, [form, selectedResume, selectedResumeId]);
+    form.reset(getFormValues(selectedResumeId!, selectedResume));
+  }, [form, selectedResume, selectedResumeId, getFormValues]);
 
   const onSubmit: SubmitHandler<UpdateResumeResumeInputs> = (
     updateResumeResumeInputs
@@ -74,5 +57,6 @@ export const useData = () => {
     form,
     onSubmit,
     loadingUpdateResumeResume,
+    resumeSubSectionIndex,
   };
 };

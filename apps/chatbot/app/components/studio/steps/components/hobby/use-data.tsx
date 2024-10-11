@@ -51,7 +51,7 @@ export const useData = () => {
     form.setValue("hobbies", [
       ...(form.getValues("hobbies") || []),
       {
-        point: "hobbies...",
+        point: "",
         isShow: true,
       },
     ]);

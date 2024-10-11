@@ -1,0 +1,46 @@
+export const TEXTS = {
+  header: {
+    educationLabelPlaceholder: "Education Label",
+    showEducationsLabel: "Show Educations",
+    saveChangesButton: "Save Changes",
+  },
+  addNewEducation: {
+    noEducationSelectedTitle: "No Education Selected",
+    noEducationSelectedMessage:
+      "Select an education from the list on the left to view and edit its details, or add a new education to get started.",
+    addNewEducationButton: "Add New Education",
+  },
+  educationCard: {
+    newEducationLabel: "New Education",
+    visibleLabel: "Visible",
+    hiddenLabel: "Hidden",
+    deleteConfirmationTitle: "Are you sure you want to delete this education?",
+    deleteConfirmationMessage:
+      "This action cannot be undone. This will permanently delete the education and remove the data from our servers.",
+    deleteButton: "Delete",
+  },
+  educationForm: {
+    degreeLabel: "Education Degree",
+    degreePlaceholder: "education degree",
+    showInstituteLabel: "Show Institute",
+    instituteLabel: "Institute",
+    institutePlaceholder: "Institute",
+    showGpaLabel: "Show Gpa",
+    gpaLabel: "Gpa",
+    gpaPlaceholder: "gpa",
+    showCompanyLabel: "Show Company",
+    companyLabel: "Company",
+    companyPlaceholder: "company",
+    showLocationLabel: "Show Location",
+    locationLabel: "Location",
+    locationPlaceholder: "location",
+    showDateLabel: "Show Date",
+    fromLabel: "From",
+    fromPlaceholder: "from",
+    toLabel: "To",
+    toPlaceholder: "to",
+    showPointsLabel: "Show Points",
+    pointPlaceholder: "point",
+    addPointButton: "Add Point",
+  },
+};

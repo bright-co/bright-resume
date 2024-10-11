@@ -5,13 +5,13 @@ import { Textarea, TextareaProps } from "../shadcn-ui";
 
 export interface AutoExpandingInputProps
   extends Omit<TextareaProps, "value" | "onChange"> {
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 export function AutoExpandingInput({
-  value,
-  onChange,
+  value = "",
+  onChange = () => {},
   className,
   ...props
 }: AutoExpandingInputProps) {
