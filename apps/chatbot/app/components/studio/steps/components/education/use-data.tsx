@@ -25,15 +25,15 @@ export const useData = () => {
       educations:
         selectedResume_?.educations?.map((education) => ({
           degree: education.degree || "",
-          institute: education.institute || "",
           isShowInstitute: !!education.isShowInstitute,
+          institute: education.institute || "",
+          isShowGpa: !!education.isShowGpa,
+          gpa: education.gpa || "",
           isShowLocation: !!education.isShowLocation,
           location: education.location || "",
           isShowDate: !!education.isShowDate,
           from: education.from || "",
           to: education.to || "",
-          gpa: education.gpa || "",
-          isShowGpa: !!education.isShowGpa,
           isShowPoints: !!education.isShowPoints,
           isShow: !!education.isShow,
           points: education.points?.map((point) => point || "") || [],
@@ -62,8 +62,8 @@ export const useData = () => {
     form.setValue("educations", [
       ...(form.getValues("educations") || []),
       {
-        degree: "Degree",
-        institute: "Institute",
+        degree: "degree",
+        institute: "institute",
         isShowLocation: false,
         location: "location",
         isShowDate: false,
@@ -89,6 +89,31 @@ export const useData = () => {
     changeSelectedEducationIndex(
       resumeSubSectionIndex ? resumeSubSectionIndex - 1 : 0
     );
+  };
+
+  const changeOrderOfEducationPoints = (
+    educationIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "educations",
+      [...(form.getValues("educations") || [])].map((education, index) => ({
+        ...education,
+        points:
+          index === educationIndex
+            ? education.points?.map((point, index) => {
+                if (education.points && index === index1) {
+                  return education.points[index2];
+                } else if (education.points && index === index2) {
+                  return education.points[index1];
+                }
+                return point;
+              }) || []
+            : education.points,
+      }))
+    );
+    form.trigger();
   };
 
   const addNewPoint = (educationIndex: number) => {
@@ -140,5 +165,6 @@ export const useData = () => {
     changeSelectedEducationIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfEducationPoints,
   };
 };

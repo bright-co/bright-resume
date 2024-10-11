@@ -22,6 +22,15 @@
   background-color: #0002;
 }
 
+.pr-item-title-role {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.pr-item-title {
+  font-weight: bold;
+}
+
 .pr-item-role {
   font-weight: bold;
 }

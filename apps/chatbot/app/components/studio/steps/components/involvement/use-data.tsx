@@ -88,6 +88,31 @@ export const useData = () => {
     );
   };
 
+  const changeOrderOfInvolvementPoints = (
+    involvementIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "involvements",
+      [...(form.getValues("involvements") || [])].map((involvement, index) => ({
+        ...involvement,
+        points:
+          index === involvementIndex
+            ? involvement.points?.map((point, index) => {
+                if (involvement.points && index === index1) {
+                  return involvement.points[index2];
+                } else if (involvement.points && index === index2) {
+                  return involvement.points[index1];
+                }
+                return point;
+              }) || []
+            : involvement.points,
+      }))
+    );
+    form.trigger();
+  };
+
   const addNewPoint = (involvementIndex: number) => {
     form.setValue(
       "involvements",
@@ -137,5 +162,6 @@ export const useData = () => {
     changeSelectedInvolvementIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfInvolvementPoints,
   };
 };

@@ -44,7 +44,7 @@ export const Experience: FC = () => {
 
   const renderHeader = () => {
     return (
-      <div className="flex px-1 space-x-1 items-center border-b pb-2">
+      <div className="flex px-1 space-x-1 items-start border-b pb-2">
         <div className="flex flex-col flex-grow justify-between items-start space-y-1">
           <FormField
             control={form.control}
@@ -82,7 +82,12 @@ export const Experience: FC = () => {
             />
           </div>
         </div>
-        <Button size={"sm"} type="submit" disabled={!form.formState.isValid}>
+        <Button
+          className="mt-2"
+          size={"sm"}
+          type="submit"
+          disabled={!form.formState.isValid}
+        >
           <Save className="mr-2 h-4 w-4" /> {TEXTS.header.saveChangesButton}
         </Button>
       </div>

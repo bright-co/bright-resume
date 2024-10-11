@@ -245,3 +245,9 @@
 .font-size-18 {
   font-size: 18px;
 }
+
+.container .linear-space {
+  margin-left: 3px;
+  margin-right: 3px;
+  font-size: 10px;
+}

@@ -24,7 +24,12 @@ export const useData = () => {
       projectLabel: selectedResume_?.projectLabel || "",
       projects:
         selectedResume_?.projects?.map((project) => ({
+          title: project.title || "",
+          isShowUrl: !!project.isShowUrl,
+          url: project.url || "",
+          isShowRole: !!project.isShowRole,
           role: project.role || "",
+          isShowCompany: !!project.isShowCompany,
           company: project.company || "",
           isShowLocation: !!project.isShowLocation,
           location: project.location || "",
@@ -86,6 +91,31 @@ export const useData = () => {
     );
   };
 
+  const changeOrderOfProjectPoints = (
+    projectIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "projects",
+      [...(form.getValues("projects") || [])].map((project, index) => ({
+        ...project,
+        points:
+          index === projectIndex
+            ? project.points?.map((point, index) => {
+                if (project.points && index === index1) {
+                  return project.points[index2];
+                } else if (project.points && index === index2) {
+                  return project.points[index1];
+                }
+                return point;
+              }) || []
+            : project.points,
+      }))
+    );
+    form.trigger();
+  };
+
   const addNewPoint = (projectIndex: number) => {
     form.setValue(
       "projects",
@@ -135,5 +165,6 @@ export const useData = () => {
     changeSelectedProjectIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfProjectPoints,
   };
 };

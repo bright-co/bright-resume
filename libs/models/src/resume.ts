@@ -31,11 +31,11 @@ export type ResumeSectionType =
 export interface IResume {
   id?: string | null;
   userId: string | null;
-  name?: string | null;
   title?: string | null;
   fontFamily?: ResumeFontFamilyEnum | null;
   fontSize?: ResumeFontSizeEnum | null;
   color?: ResumeColorEnum | null;
+  name?: string | null;
   role?: string | null;
   isShowImage?: boolean | null;
   isShowPhoneNumber?: boolean | null;

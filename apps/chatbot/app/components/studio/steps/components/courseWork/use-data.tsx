@@ -25,12 +25,12 @@ export const useData = () => {
       courseWorks:
         selectedResume_?.courseWorks?.map((courseWork) => ({
           name: courseWork.name || "",
-          institute: courseWork.institute || "",
           isShowInstitute: !!courseWork.isShowInstitute,
+          institute: courseWork.institute || "",
           isShowDate: !!courseWork.isShowDate,
           year: courseWork.year || "",
-          skills: courseWork.skills || "",
           isShowSkills: !!courseWork.isShowSkills,
+          skills: courseWork.skills || "",
           isShowPoints: !!courseWork.isShowPoints,
           isShow: !!courseWork.isShow,
           points: courseWork.points?.map((point) => point || "") || [],
@@ -59,13 +59,15 @@ export const useData = () => {
     form.setValue("courseWorks", [
       ...(form.getValues("courseWorks") || []),
       {
-        name: "Name",
-        institute: "Institute",
+        name: "name",
+        isShowInstitute: false,
+        institute: "",
         isShowDate: false,
         year: "",
+        isShowSkills: false,
+        skills: "",
         isShowPoints: false,
         isShow: true,
-        skills: "skills",
         points: [],
       },
     ]);
@@ -84,6 +86,31 @@ export const useData = () => {
     changeSelectedCourseWorkIndex(
       resumeSubSectionIndex ? resumeSubSectionIndex - 1 : 0
     );
+  };
+
+  const changeOrderOfCourseWorkPoints = (
+    courseWorkIndex: number,
+    index1: number,
+    index2: number
+  ) => {
+    form.setValue(
+      "courseWorks",
+      [...(form.getValues("courseWorks") || [])].map((courseWork, index) => ({
+        ...courseWork,
+        points:
+          index === courseWorkIndex
+            ? courseWork.points?.map((point, index) => {
+                if (courseWork.points && index === index1) {
+                  return courseWork.points[index2];
+                } else if (courseWork.points && index === index2) {
+                  return courseWork.points[index1];
+                }
+                return point;
+              }) || []
+            : courseWork.points,
+      }))
+    );
+    form.trigger();
   };
 
   const addNewPoint = (courseWorkIndex: number) => {
@@ -135,5 +162,6 @@ export const useData = () => {
     changeSelectedCourseWorkIndex,
     addNewPoint,
     removePoint,
+    changeOrderOfCourseWorkPoints,
   };
 };

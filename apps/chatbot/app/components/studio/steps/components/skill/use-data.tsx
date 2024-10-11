@@ -51,7 +51,7 @@ export const useData = () => {
     form.setValue("skills", [
       ...(form.getValues("skills") || []),
       {
-        point: "skills...",
+        point: "",
         isShow: true,
       },
     ]);
@@ -81,7 +81,6 @@ export const useData = () => {
     form,
     onSubmit,
     loadingUpdateResumeResume,
-    updateResumeResume,
     resumeSubSectionIndex,
     addNewSkill,
     removeSkill,
