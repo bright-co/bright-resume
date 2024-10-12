@@ -36,6 +36,9 @@ export const Skill: FC = () => {
     changeSelectedSkillIndex,
     addNewSkill,
     removeSkill,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfSkills,
   } = useData();
 
   const renderHeader = () => {
@@ -148,22 +151,22 @@ export const Skill: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveSkill(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfSkills(skillIndex, skillIndex - 1);
+            }}
+            disabled={skillIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveSkill(exp.id, "down");
-            // }}
-            // disabled={index === skills.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfSkills(skillIndex, skillIndex + 1);
+            }}
+            disabled={skillIndex === form.getValues("skills")!.length - 1}
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -195,9 +198,18 @@ export const Skill: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === skillIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(skillIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -213,7 +225,10 @@ export const Skill: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeSkill(skillIndex)}
+                    onClick={() => {
+                      removeSkill(skillIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.skillCard.deleteButton}
                   </Button>

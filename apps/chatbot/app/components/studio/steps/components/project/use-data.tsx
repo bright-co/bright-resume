@@ -2,7 +2,7 @@
 
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
@@ -15,6 +15,10 @@ export const useData = () => {
     updateResumeResume,
     loadingUpdateResumeResume,
   } = useStudioContext();
+
+  const [isOpenRemoveDialogIndex, setIsOpenRemoveDialogIndex] = useState<
+    number | undefined
+  >();
 
   const getFormValues = useCallback(
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
@@ -91,6 +95,21 @@ export const useData = () => {
     );
   };
 
+  const changeOrderOfProjects = (index1: number, index2: number) => {
+    form.setValue(
+      "projects",
+      form.getValues("projects")?.map((project, index) => {
+        if (index === index1) {
+          return form.getValues("projects")![index2];
+        } else if (index === index2) {
+          return form.getValues("projects")![index1];
+        }
+        return project;
+      }) || []
+    );
+    form.trigger();
+  };
+
   const changeOrderOfProjectPoints = (
     projectIndex: number,
     index1: number,
@@ -163,8 +182,11 @@ export const useData = () => {
     addNewProject,
     removeProject,
     changeSelectedProjectIndex,
+    changeOrderOfProjects,
     addNewPoint,
     removePoint,
     changeOrderOfProjectPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
   };
 };

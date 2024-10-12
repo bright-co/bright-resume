@@ -2,7 +2,7 @@
 
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
@@ -15,6 +15,25 @@ export const useData = () => {
     updateResumeResume,
     loadingUpdateResumeResume,
   } = useStudioContext();
+
+  const [isOpenRemoveDialogIndex, setIsOpenRemoveDialogIndex] = useState<
+    number | undefined
+  >();
+
+  const changeOrderOfHobbies = (index1: number, index2: number) => {
+    form.setValue(
+      "hobbies",
+      form.getValues("hobbies")?.map((project, index) => {
+        if (index === index1) {
+          return form.getValues("hobbies")![index2];
+        } else if (index === index2) {
+          return form.getValues("hobbies")![index1];
+        }
+        return project;
+      }) || []
+    );
+    form.trigger();
+  };
 
   const getFormValues = useCallback(
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
@@ -85,5 +104,8 @@ export const useData = () => {
     addNewHobby,
     removeHobby,
     changeSelectedHobbyIndex,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfHobbies,
   };
 };

@@ -40,6 +40,9 @@ export const Certification: FC = () => {
     removePoint,
     removeCertification,
     changeOrderOfCertificationPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfCertifications,
   } = useData();
 
   const renderHeader = () => {
@@ -154,22 +157,31 @@ export const Certification: FC = () => {
             <Button
               variant="ghost"
               size="icon"
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   handleMoveCertification(exp.id, "up");
-              // }}
-              // disabled={index === 0}
+              onClick={(e) => {
+                e.stopPropagation();
+                changeOrderOfCertifications(
+                  certificationIndex,
+                  certificationIndex - 1
+                );
+              }}
+              disabled={certificationIndex === 0}
             >
               <ChevronUp className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   handleMoveCertification(exp.id, "down");
-              // }}
-              // disabled={index === certifications.length - 1}
+              onClick={(e) => {
+                e.stopPropagation();
+                changeOrderOfCertifications(
+                  certificationIndex,
+                  certificationIndex + 1
+                );
+              }}
+              disabled={
+                certificationIndex ===
+                form.getValues("certifications")!.length - 1
+              }
             >
               <ChevronDown className="h-4 w-4" />
             </Button>
@@ -205,10 +217,20 @@ export const Certification: FC = () => {
                   )}
                 />
               </div>
-              <Dialog>
+              <Dialog
+                open={isOpenRemoveDialogIndex === certificationIndex}
+                onOpenChange={(value) => {
+                  !value && setIsOpenRemoveDialogIndex(undefined);
+                }}
+              >
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm">
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2
+                      className="h-4 w-4"
+                      onClick={() =>
+                        setIsOpenRemoveDialogIndex(certificationIndex)
+                      }
+                    />
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -223,7 +245,10 @@ export const Certification: FC = () => {
                   <DialogFooter>
                     <Button
                       variant="destructive"
-                      onClick={() => removeCertification(certificationIndex)}
+                      onClick={() => {
+                        removeCertification(certificationIndex);
+                        setIsOpenRemoveDialogIndex(undefined);
+                      }}
                     >
                       {TEXTS.certificationCard.deleteButton}
                     </Button>

@@ -2,7 +2,7 @@
 
 import { UpdateResumeResumeInputs } from "@dto";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStudioContext } from "../../../use-context";
 
@@ -15,6 +15,10 @@ export const useData = () => {
     updateResumeResume,
     loadingUpdateResumeResume,
   } = useStudioContext();
+
+  const [isOpenRemoveDialogIndex, setIsOpenRemoveDialogIndex] = useState<
+    number | undefined
+  >();
 
   const getFormValues = useCallback(
     (selectedResumeId_: string, selectedResume_: typeof selectedResume) => ({
@@ -31,6 +35,21 @@ export const useData = () => {
     }),
     []
   );
+
+  const changeOrderOfLanguages = (index1: number, index2: number) => {
+    form.setValue(
+      "languages",
+      form.getValues("languages")?.map((project, index) => {
+        if (index === index1) {
+          return form.getValues("languages")![index2];
+        } else if (index === index2) {
+          return form.getValues("languages")![index1];
+        }
+        return project;
+      }) || []
+    );
+    form.trigger();
+  };
 
   const form = useForm<UpdateResumeResumeInputs>({
     resolver: classValidatorResolver(UpdateResumeResumeInputs),
@@ -87,5 +106,8 @@ export const useData = () => {
     addNewLanguage,
     removeLanguage,
     changeSelectedLanguageIndex,
+    changeOrderOfLanguages,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
   };
 };
