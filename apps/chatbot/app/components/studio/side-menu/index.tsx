@@ -144,9 +144,9 @@ export const SideMenu: FC = () => {
                         setSelectedResumeId(resume.id!);
                       }}
                       className={clsx(
-                        "bg-white p-2 mx-1 rounded-md shadow flex items-center justify-between",
+                        "p-2 mx-1 rounded-md shadow flex items-center justify-between",
                         {
-                          "ring-1 ring-primary":
+                          "bg-primary/10":
                             selectedResume && selectedResume.id === resume.id,
                         }
                       )}

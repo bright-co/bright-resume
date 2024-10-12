@@ -36,6 +36,9 @@ export const Language: FC = () => {
     changeSelectedLanguageIndex,
     addNewLanguage,
     removeLanguage,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfLanguages,
   } = useData();
 
   const renderHeader = () => {
@@ -148,22 +151,22 @@ export const Language: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveLanguage(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfLanguages(languageIndex, languageIndex - 1);
+            }}
+            disabled={languageIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveLanguage(exp.id, "down");
-            // }}
-            // disabled={index === languages.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfLanguages(languageIndex, languageIndex + 1);
+            }}
+            disabled={languageIndex === form.getValues("languages")!.length - 1}
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -196,9 +199,18 @@ export const Language: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === languageIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(languageIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -214,7 +226,10 @@ export const Language: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeLanguage(languageIndex)}
+                    onClick={() => {
+                      removeLanguage(languageIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.languageCard.deleteButton}
                   </Button>

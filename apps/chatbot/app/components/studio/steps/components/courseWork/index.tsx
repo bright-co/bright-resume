@@ -40,6 +40,9 @@ export const CourseWork: FC = () => {
     removePoint,
     removeCourseWork,
     changeOrderOfCourseWorkPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfCourseWorks,
   } = useData();
 
   const renderHeader = () => {
@@ -152,22 +155,24 @@ export const CourseWork: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveCourseWork(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfCourseWorks(courseWorkIndex, courseWorkIndex - 1);
+            }}
+            disabled={courseWorkIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveCourseWork(exp.id, "down");
-            // }}
-            // disabled={index === courseWorks.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfCourseWorks(courseWorkIndex, courseWorkIndex + 1);
+            }}
+            disabled={
+              courseWorkIndex === form.getValues("courseWorks")!.length - 1
+            }
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -200,10 +205,18 @@ export const CourseWork: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === courseWorkIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
                 <Button variant="ghost" size="sm">
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2
+                    className="h-4 w-4"
+                    onClick={() => setIsOpenRemoveDialogIndex(courseWorkIndex)}
+                  />
                 </Button>
               </DialogTrigger>
               <DialogContent>
@@ -218,7 +231,10 @@ export const CourseWork: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeCourseWork(courseWorkIndex)}
+                    onClick={() => {
+                      removeCourseWork(courseWorkIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.courseWorkCard.deleteButton}
                   </Button>

@@ -54,7 +54,6 @@ type CourseWork {
   isShowDate: Boolean
   year: String
   isShowSkills: Boolean
-  isSkills: Boolean
   skills: String
   isShowPoints: Boolean
   isShow: Boolean

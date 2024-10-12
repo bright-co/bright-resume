@@ -37,11 +37,12 @@ export const useData = () => {
         description: error.message,
       });
     },
-    onCompleted: async ({ deleteResume: { id, title } }) => {
+    onCompleted: async ({ deleteResume }) => {
       toast({
         title: "Delete Resume",
         description: "Resume Deleted Successfully!",
       });
+
       const resumes_ = resumes.filter(
         (resume) => resume.id !== deleteResume?.id
       );

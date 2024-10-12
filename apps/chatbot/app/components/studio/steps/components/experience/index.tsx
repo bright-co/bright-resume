@@ -40,6 +40,9 @@ export const Experience: FC = () => {
     removePoint,
     removeExperience,
     changeOrderOfExperiencePoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfExperiences,
   } = useData();
 
   const renderHeader = () => {
@@ -152,22 +155,24 @@ export const Experience: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveExperience(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfExperiences(experienceIndex, experienceIndex - 1);
+            }}
+            disabled={experienceIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveExperience(exp.id, "down");
-            // }}
-            // disabled={index === experiences.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfExperiences(experienceIndex, experienceIndex + 1);
+            }}
+            disabled={
+              experienceIndex === form.getValues("experiences")!.length - 1
+            }
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -200,9 +205,18 @@ export const Experience: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === experienceIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(experienceIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -218,7 +232,10 @@ export const Experience: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeExperience(experienceIndex)}
+                    onClick={() => {
+                      removeExperience(experienceIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.experienceCard.deleteButton}
                   </Button>

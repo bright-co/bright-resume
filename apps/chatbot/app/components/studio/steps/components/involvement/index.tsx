@@ -40,6 +40,9 @@ export const Involvement: FC = () => {
     removePoint,
     removeInvolvement,
     changeOrderOfInvolvementPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfInvolvements,
   } = useData();
 
   const renderHeader = () => {
@@ -154,22 +157,30 @@ export const Involvement: FC = () => {
             <Button
               variant="ghost"
               size="icon"
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   handleMoveInvolvement(exp.id, "up");
-              // }}
-              // disabled={index === 0}
+              onClick={(e) => {
+                e.stopPropagation();
+                changeOrderOfInvolvements(
+                  involvementIndex,
+                  involvementIndex - 1
+                );
+              }}
+              disabled={involvementIndex === 0}
             >
               <ChevronUp className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   handleMoveInvolvement(exp.id, "down");
-              // }}
-              // disabled={index === involvements.length - 1}
+              onClick={(e) => {
+                e.stopPropagation();
+                changeOrderOfInvolvements(
+                  involvementIndex,
+                  involvementIndex + 1
+                );
+              }}
+              disabled={
+                involvementIndex === form.getValues("involvements")!.length - 1
+              }
             >
               <ChevronDown className="h-4 w-4" />
             </Button>
@@ -202,10 +213,20 @@ export const Involvement: FC = () => {
                   )}
                 />
               </div>
-              <Dialog>
+              <Dialog
+                open={isOpenRemoveDialogIndex === involvementIndex}
+                onOpenChange={(value) => {
+                  !value && setIsOpenRemoveDialogIndex(undefined);
+                }}
+              >
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm">
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2
+                      className="h-4 w-4"
+                      onClick={() =>
+                        setIsOpenRemoveDialogIndex(involvementIndex)
+                      }
+                    />
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -220,7 +241,10 @@ export const Involvement: FC = () => {
                   <DialogFooter>
                     <Button
                       variant="destructive"
-                      onClick={() => removeInvolvement(involvementIndex)}
+                      onClick={() => {
+                        removeInvolvement(involvementIndex);
+                        setIsOpenRemoveDialogIndex(undefined);
+                      }}
                     >
                       {TEXTS.involvementCard.deleteButton}
                     </Button>

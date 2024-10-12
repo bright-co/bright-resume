@@ -35,11 +35,14 @@ export const Project: FC = () => {
     onSubmit,
     resumeSubSectionIndex,
     changeSelectedProjectIndex,
+    changeOrderOfProjects,
     addNewProject,
     addNewPoint,
     removePoint,
     removeProject,
     changeOrderOfProjectPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
   } = useData();
 
   const renderHeader = () => {
@@ -152,22 +155,22 @@ export const Project: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveProject(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfProjects(projectIndex, projectIndex - 1);
+            }}
+            disabled={projectIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveProject(exp.id, "down");
-            // }}
-            // disabled={index === projects.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfProjects(projectIndex, projectIndex + 1);
+            }}
+            disabled={projectIndex === form.getValues("projects")!.length - 1}
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -200,9 +203,18 @@ export const Project: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === projectIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(projectIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -218,7 +230,10 @@ export const Project: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeProject(projectIndex)}
+                    onClick={() => {
+                      removeProject(projectIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.projectCard.deleteButton}
                   </Button>

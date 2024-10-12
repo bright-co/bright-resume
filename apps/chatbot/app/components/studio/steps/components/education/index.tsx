@@ -40,6 +40,9 @@ export const Education: FC = () => {
     removePoint,
     removeEducation,
     changeOrderOfEducationPoints,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfEducations,
   } = useData();
 
   const renderHeader = () => {
@@ -152,22 +155,24 @@ export const Education: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveEducation(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfEducations(educationIndex, educationIndex - 1);
+            }}
+            disabled={educationIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveEducation(exp.id, "down");
-            // }}
-            // disabled={index === educations.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfEducations(educationIndex, educationIndex + 1);
+            }}
+            disabled={
+              educationIndex === form.getValues("educations")!.length - 1
+            }
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -200,9 +205,18 @@ export const Education: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === educationIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(educationIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -218,7 +232,10 @@ export const Education: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeEducation(educationIndex)}
+                    onClick={() => {
+                      removeEducation(educationIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.educationCard.deleteButton}
                   </Button>

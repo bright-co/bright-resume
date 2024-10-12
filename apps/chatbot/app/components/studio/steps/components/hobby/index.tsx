@@ -36,6 +36,9 @@ export const Hobby: FC = () => {
     changeSelectedHobbyIndex,
     addNewHobby,
     removeHobby,
+    isOpenRemoveDialogIndex,
+    setIsOpenRemoveDialogIndex,
+    changeOrderOfHobbies,
   } = useData();
 
   const renderHeader = () => {
@@ -148,22 +151,22 @@ export const Hobby: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveHobby(exp.id, "up");
-            // }}
-            // disabled={index === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfHobbies(hobbyIndex, hobbyIndex - 1);
+            }}
+            disabled={hobbyIndex === 0}
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   handleMoveHobby(exp.id, "down");
-            // }}
-            // disabled={index === hobbies.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeOrderOfHobbies(hobbyIndex, hobbyIndex + 1);
+            }}
+            disabled={hobbyIndex === form.getValues("hobbies")!.length - 1}
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -195,9 +198,18 @@ export const Hobby: FC = () => {
                 )}
               />
             </div>
-            <Dialog>
+            <Dialog
+              open={isOpenRemoveDialogIndex === hobbyIndex}
+              onOpenChange={(value) => {
+                !value && setIsOpenRemoveDialogIndex(undefined);
+              }}
+            >
               <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpenRemoveDialogIndex(hobbyIndex)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -213,7 +225,10 @@ export const Hobby: FC = () => {
                 <DialogFooter>
                   <Button
                     variant="destructive"
-                    onClick={() => removeHobby(hobbyIndex)}
+                    onClick={() => {
+                      removeHobby(hobbyIndex);
+                      setIsOpenRemoveDialogIndex(undefined);
+                    }}
                   >
                     {TEXTS.hobbyCard.deleteButton}
                   </Button>
