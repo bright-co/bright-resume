@@ -5,7 +5,6 @@ export interface ICourseWork {
   isShowDate?: boolean | null;
   year?: string | null;
   isShowSkills?: boolean | null;
-  isSkills?: boolean | null;
   skills?: string | null;
   isShowPoints?: boolean | null;
   isShow?: boolean | null;
@@ -63,14 +62,6 @@ export class CourseWorkModel {
     this.input = { ...this.input, isShowSkills };
   }
 
-  getIsSkills(): boolean | undefined | null {
-    return this.input.isSkills;
-  }
-
-  setIsSkills(isSkills: boolean): void {
-    this.input = { ...this.input, isSkills };
-  }
-
   getSkills(): string | undefined | null {
     return this.input.skills;
   }
@@ -117,7 +108,6 @@ export class CourseWorkModel {
       isShowSkills: this.getIsShowSkills() || false,
       year: this.getYear() || "",
       isShowPoints: this.getIsShowPoints() || false,
-      isSkills: this.getIsSkills() || false,
       isShow: this.getIsShow() || false,
       skills: this.getSkills() || "",
       points:

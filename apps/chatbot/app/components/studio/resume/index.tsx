@@ -10,6 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  ScrollArea,
 } from "@resume-template-components/shadcn-ui";
 import { TemplateMinimalist } from "@resume-template-components/templates/minimalist";
 import { FC, useRef, useState } from "react";
@@ -34,6 +35,7 @@ import {
 
 import { useStudioContext } from "../use-context";
 import { useData } from "./index.hook";
+import clsx from "clsx";
 
 const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75];
 
@@ -65,12 +67,12 @@ export const Resume: FC = () => {
   };
 
   return (
-    <div className="resume-container h-full">
+    <div className="resume-container">
       <div
-        className="my-1 flex justify-center items-center"
+        className="my-1 flex justify-center items-center sticky top-1 z-10"
         style={{ minWidth: width * zoom }}
       >
-        <div className="flex items-center justify-center p-1 bg-background space-x-1 flex-wrap rounded-sm">
+        <div className="flex items-center justify-center p-1 bg-background space-x-1 flex-wrap rounded-sm shadow-2xl">
           <Button
             variant="outline"
             size="sm"
@@ -93,6 +95,9 @@ export const Resume: FC = () => {
               {Object.values(ResumeFontSizeEnum).map((value) => (
                 <DropdownMenuItem
                   key={value}
+                  className={clsx({
+                    "bg-primary/10": data.resumeModel.getFontSize() === value,
+                  })}
                   onSelect={() => {
                     data.callResumeSetMethod("setFontSize", value);
                   }}
@@ -115,6 +120,9 @@ export const Resume: FC = () => {
               <DropdownMenuSeparator />
               {Object.values(ResumeColorEnum).map((value) => (
                 <DropdownMenuItem
+                  className={clsx({
+                    "bg-primary/10": data.resumeModel.getColor() === value,
+                  })}
                   key={value}
                   onSelect={() => {
                     data.callResumeSetMethod("setColor", value);
@@ -145,6 +153,9 @@ export const Resume: FC = () => {
               {Object.values(ResumeFontFamilyEnum).map((value) => (
                 <DropdownMenuItem
                   key={value}
+                  className={clsx({
+                    "bg-primary/10": data.resumeModel.getFontFamily() === value,
+                  })}
                   onSelect={() => {
                     data.callResumeSetMethod("setFontFamily", value);
                   }}

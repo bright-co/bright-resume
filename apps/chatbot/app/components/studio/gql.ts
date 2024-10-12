@@ -136,7 +136,6 @@ export const QUERY_GET_RESUME_BY_ID_RESUME = gql`
         isShowDate
         year
         isShowSkills
-        isSkills
         skills
         isShow
         isShowPoints
