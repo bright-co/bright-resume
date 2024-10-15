@@ -11,7 +11,8 @@ import {
   CardContent,
   Input,
 } from "@resume-template-components/shadcn-ui";
-import { CheckCircle, FileText, Menu, Star, Users, X, Zap } from "lucide-react";
+import { Logo } from "@@chatbot/app/components/logo";
+import { CheckCircle, Menu, Star, Users, X, Zap } from "lucide-react";
 
 import { useData } from "./index.hook";
 import { TEXTS } from "./texts";
@@ -23,8 +24,8 @@ export const Index: FC = () => {
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center fixed w-full bg-background z-50">
         <Link className="flex items-center justify-center" href="#">
-          <FileText className="h-6 w-6 mr-2" />
-          <span className="font-bold">{TEXTS.header.logo}</span>
+          <Logo width={25} height={25} className="mr-3" />
+          <span className="font-bold text-primary">{TEXTS.header.logo}</span>
         </Link>
         <button
           className="ml-auto lg:hidden"
@@ -53,6 +54,7 @@ export const Index: FC = () => {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
+                <Logo width={80} height={80} className="mx-auto" />
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   {TEXTS.hero.title}
                 </h1>

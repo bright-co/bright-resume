@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Index } from "./components/landing-page";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bright-resume.com"),
   title: {
     template: "%s | Bright-Resume: Free Open-Source Resume Builder",
     default: "Bright-Resume: Free Open-Source Resume Builder",

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Button,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -15,6 +14,19 @@ import {
 import { FC, ReactNode } from "react";
 
 import { ResumeSectionType } from "@models";
+import {
+  Award as AwardIcon,
+  Book as BookIcon,
+  Briefcase as BriefcaseIcon,
+  FileText as FileTextIcon,
+  Folder as FolderIcon,
+  Globe as GlobeIcon,
+  GraduationCap as GraduationCapIcon,
+  Heart as HeartIcon,
+  User as UserIcon,
+  Users as UsersIcon,
+  Wrench as WrenchIcon,
+} from "lucide-react";
 import { useStudioContext } from "../use-context";
 import {
   Certification,
@@ -29,20 +41,6 @@ import {
   Skill,
   Summary,
 } from "./components";
-import {
-  User as UserIcon,
-  FileText as FileTextIcon,
-  Briefcase as BriefcaseIcon,
-  Users as UsersIcon,
-  Folder as FolderIcon,
-  GraduationCap as GraduationCapIcon,
-  Wrench as WrenchIcon,
-  Book as BookIcon,
-  Award as AwardIcon,
-  Heart as HeartIcon,
-  Globe as GlobeIcon,
-  Save,
-} from "lucide-react";
 
 const sections: {
   section: ResumeSectionType;
@@ -135,7 +133,7 @@ export const Steps: FC = () => {
                 key={section}
                 value={section!}
                 onClick={() => setResumeSection(section)}
-                className="text-zinc-600 dark:text-zinc-200 pr-2"
+                className="text-zinc-600 pr-2"
               >
                 {icon}
                 {section}

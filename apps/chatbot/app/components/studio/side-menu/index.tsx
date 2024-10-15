@@ -30,6 +30,7 @@ import { client } from "@chatbot/app/api/client";
 
 import { useStudioContext } from "../use-context";
 import { useData } from "./index.hook";
+import { TEXTS } from "./texts";
 
 export const SideMenu: FC = () => {
   const {
@@ -57,7 +58,9 @@ export const SideMenu: FC = () => {
             size="icon"
             onClick={() => setIsCollapsedSideMenu(!isCollapsedSideMenu)}
             aria-label={
-              isCollapsedSideMenu ? "Expand side menu" : "Collapse side menu"
+              isCollapsedSideMenu
+                ? TEXTS.expandSideMenu
+                : TEXTS.collapseSideMenu
             }
           >
             {isCollapsedSideMenu ? (
@@ -71,18 +74,18 @@ export const SideMenu: FC = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="default"
+                variant="outline"
                 size={isCollapsedSideMenu ? "icon" : "default"}
                 className="w-full"
                 onClick={() => setIsOpenNewResumeDialog(true)}
-                aria-label="Logout"
+                aria-label={TEXTS.logoutAriaLabel}
               >
                 <Plus className="h-4 w-4 mr-2" />
-                {!isCollapsedSideMenu && " Add New Resume"}
+                {!isCollapsedSideMenu && ` ${TEXTS.addNewResume}`}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">
-              <p> Add New Resume</p>
+              <p>{TEXTS.addNewResume}</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -104,9 +107,9 @@ export const SideMenu: FC = () => {
                           <FormItem>
                             <FormControl>
                               <Input
-                                placeholder="Search resumes..."
+                                placeholder={TEXTS.searchResumesPlaceholder}
                                 className="pl-8"
-                                aria-label="Search resumes"
+                                aria-label={TEXTS.searchResumesAriaLabel}
                                 {...field}
                               />
                             </FormControl>
@@ -120,7 +123,7 @@ export const SideMenu: FC = () => {
                                 field.onChange("");
                                 form.handleSubmit(onSubmit)();
                               }}
-                              aria-label="Clear search"
+                              aria-label={TEXTS.clearSearchAriaLabel}
                               type="button"
                             >
                               <X className="h-4 w-4" />
@@ -136,7 +139,7 @@ export const SideMenu: FC = () => {
                 </Form>
               </div>
               <ScrollArea className="h-[calc(100vh-180px)]">
-                <ul className="space-y-2 mt-1">
+                <ul className="space-y-2">
                   {resumes.map((resume, index) => (
                     <li
                       key={resume.id}
@@ -144,7 +147,7 @@ export const SideMenu: FC = () => {
                         setSelectedResumeId(resume.id!);
                       }}
                       className={clsx(
-                        "p-2 mx-1 rounded-md shadow flex items-center justify-between",
+                        "p-2 rounded-md shadow flex items-center justify-between",
                         {
                           "bg-primary/10":
                             selectedResume && selectedResume.id === resume.id,
@@ -161,7 +164,7 @@ export const SideMenu: FC = () => {
                           </span>
                         </TooltipTrigger>
                         <TooltipContent side="right">
-                          <p> {resume.title} </p>
+                          <p>{resume.title}</p>
                         </TooltipContent>
                       </Tooltip>
 
@@ -172,7 +175,7 @@ export const SideMenu: FC = () => {
                           onClick={() => {
                             setSelectedResumeId(resume.id!);
                           }}
-                          aria-label={`Edit ${resume.title}`}
+                          aria-label={TEXTS.editAriaLabel(resume.title!)}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -195,14 +198,14 @@ export const SideMenu: FC = () => {
                   client.signOut();
                   router.push("/auth/sign-in");
                 }}
-                aria-label="Logout"
+                aria-label={TEXTS.logoutAriaLabel}
               >
                 <LogOut className="h-4 w-4 mr-2" />
-                {!isCollapsedSideMenu && "Logout"}
+                {!isCollapsedSideMenu && TEXTS.logout}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">
-              <p>Logout</p>
+              <p>{TEXTS.logout}</p>
             </TooltipContent>
           </Tooltip>
         </div>
