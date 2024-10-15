@@ -1,13 +1,14 @@
 "use client";
 
-import { FC } from "react";
-import { FileTextIcon } from "lucide-react";
+import { Logo } from "@@chatbot/app/components/logo";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@resume-template-components/shadcn-ui";
+import { FC } from "react";
 
+import Link from "next/link";
 import { useStudioContext } from "../use-context";
 
 export const Header: FC = () => {
@@ -16,9 +17,11 @@ export const Header: FC = () => {
     <header className="bg-background border-b w-full h-full">
       <div className="max-h-full mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <FileTextIcon className="h-8 w-8 text-primary" />
+          <Link href="/">
+            <Logo width={25} height={25} />
+          </Link>
           <div className="hidden md:block">
-            <h1 className="text-2xl font-bold text-primary">bright-resume</h1>
+            <h1 className="text-1xl font-bold text-primary">bright-resume</h1>
             {selectedResume?.title && (
               <p className="text-sm text-accent-foreground">
                 {selectedResume?.title}

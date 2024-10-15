@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@@back/*": ["apps/back/src/*"],
-      "@@chatbot/*": ["apps/chatbot/src/*"],
+      "@@chatbot/*": ["apps/chatbot/*"],
       "@back-common/*": ["libs/back-common/src/*"],
       "@chatbot/*": ["apps/chatbot/*"],
       "@dto": ["libs/dto/src/index.ts"],
