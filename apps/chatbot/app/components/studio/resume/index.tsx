@@ -10,7 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  ScrollArea,
 } from "@resume-template-components/shadcn-ui";
 import { TemplateMinimalist } from "@resume-template-components/templates/minimalist";
 import { FC, useRef, useState } from "react";
@@ -33,6 +32,7 @@ import {
   ZoomOut,
 } from "lucide-react";
 
+import { localStorage } from "@@chatbot/local-storage";
 import { useStudioContext } from "../use-context";
 import { useData } from "./index.hook";
 import clsx from "clsx";
@@ -50,12 +50,13 @@ export const Resume: FC = () => {
     generatePdfLoading,
   } = useStudioContext();
 
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(localStorage.resumeZoomLevel.get());
 
   const handleZoomIn = () => {
     const currentIndex = zoomLevels.indexOf(zoom);
     if (currentIndex < zoomLevels.length - 1) {
       setZoom(zoomLevels[currentIndex + 1]);
+      localStorage.resumeZoomLevel.set(zoomLevels[currentIndex + 1]);
     }
   };
 
@@ -63,6 +64,7 @@ export const Resume: FC = () => {
     const currentIndex = zoomLevels.indexOf(zoom);
     if (currentIndex > 0) {
       setZoom(zoomLevels[currentIndex - 1]);
+      localStorage.resumeZoomLevel.set(zoomLevels[currentIndex - 1]);
     }
   };
 
@@ -247,7 +249,7 @@ export const Resume: FC = () => {
           </div>
 
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
             onClick={() => setIsOpenSteps(true)}
           >
@@ -255,14 +257,14 @@ export const Resume: FC = () => {
             Edit
           </Button>
           <Button
-            variant="outline"
+            variant="destructive"
             size="sm"
             onClick={() => setDeleteResume(selectedResume)}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
             onClick={() => data.generatePdf()}
             disabled={generatePdfLoading}

@@ -22,6 +22,8 @@ import {
 } from "@enums";
 
 export const useData = () => {
+  const { toast } = useToast();
+
   const {
     isOpenNewResumeDialog,
     setIsOpenNewResumeDialog,
@@ -30,131 +32,33 @@ export const useData = () => {
     resumes,
     initialLoading,
     selectedResumeId,
+    user,
+    setIsOpenSteps,
   } = useStudioContext();
-  const { toast } = useToast();
 
   const form = useForm<CreateResumeResumeInputs>({
     resolver: classValidatorResolver(CreateResumeResumeInputs),
     mode: "onChange",
     defaultValues: {
       title: "",
-
-      name: "Your Name",
+      name: user.name || user.username || "Your Name",
       role: "Your Role",
       fontFamily: ResumeFontFamilyEnum.Arial,
       color: ResumeColorEnum.Black,
       fontSize: ResumeFontSizeEnum.Medium,
 
       summaryLabel: "Summary",
-      summary: "Your summary",
-      summaryOrder: 1,
+      summary: "Write your summary ...",
       isShowSummary: true,
-
-      experienceLabel: "Experiences",
+      summaryOrder: 1,
       experienceOrder: 2,
-      isShowExperience: true,
-      experiences: [
-        {
-          company: "Company",
-          role: "Role",
-          from: "from",
-          to: "to",
-          location: "Location",
-          isShowDate: true,
-          isShow: true,
-          isShowLocation: true,
-          isShowPoints: true,
-          points: ["Point ....."],
-        },
-      ],
-
-      isShowInvolvement: true,
-      involvementLabel: "Involvements",
       involvementOrder: 3,
-      involvements: [
-        {
-          company: "Involvement",
-          role: "Role",
-          from: "from",
-          to: "to",
-          location: "Location",
-          isShowDate: true,
-          isShow: true,
-          isShowLocation: true,
-          isShowPoints: true,
-          points: ["point ....."],
-        },
-      ],
-
-      projectLabel: "Projects",
-      isShowProject: true,
       projectOrder: 4,
-      projects: [
-        {
-          company: "Company",
-          role: "Role",
-          from: "from",
-          to: "to",
-          isShowCompany: true,
-          isShowDate: true,
-          isShow: true,
-          isShowPoints: true,
-          isShowLocation: true,
-          title: "Project Title",
-          isShowRole: true,
-          isShowUrl: true,
-          url: "url address",
-          points: ["point 1 ....", "point 2 ...."],
-        },
-      ],
-
-      educationLabel: "Educations",
-      isShowEducation: true,
       educationOrder: 5,
-      educations: [
-        {
-          degree: "Degree",
-          from: "from",
-          to: "to",
-          gpa: "GPA",
-          isShowInstitute: true,
-          isShowLocation: true,
-          isShowPoints: true,
-          location: "Location",
-          institute: "Institute",
-          isShowDate: true,
-          isShow: true,
-          isShowGpa: true,
-          points: ["point 1 ....", "point 2 ...."],
-        },
-      ],
-
-      skillLabel: "Skills",
       skillOrder: 6,
-
-      certificationLabel: "Certifications",
-      isShowCertification: true,
       certificationOrder: 7,
-      certifications: [
-        {
-          institute: "Institute",
-          name: "Name",
-          year: "Year",
-          points: ["point 1 ....", "point 2 ...."],
-          isShowDate: true,
-          isShow: true,
-          isShowInstitute: true,
-          isShowPoints: true,
-        },
-      ],
-
-      courseWorkLabel: "CourseWork",
       courseWorkOrder: 8,
-
-      languageLabel: "Languages",
       languageOrder: 9,
-
-      hobbyLabel: "Hobbies",
       hobbyOrder: 10,
     },
   });
@@ -178,6 +82,7 @@ export const useData = () => {
       setIsOpenNewResumeDialog(false);
       setResumes((prev) => [{ id, title, userId, updatedAt }, ...prev]);
       setSelectedResumeId(id!);
+      setIsOpenSteps(true);
     },
   });
 
