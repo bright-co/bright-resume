@@ -1,19 +1,16 @@
 "use client";
 
+import { client } from "@chatbot/app/api/client";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Edit,
-  Loader2,
-  LogOut,
-  Plus,
-  Search,
-  X,
-} from "lucide-react";
-import { FC } from "react";
-import clsx from "clsx";
-import { useRouter } from "next/navigation";
-import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
   Button,
   Form,
   FormControl,
@@ -26,7 +23,19 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@resume-template-components/shadcn-ui";
-import { client } from "@chatbot/app/api/client";
+import clsx from "clsx";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Edit,
+  Loader2,
+  LogOutIcon,
+  Plus,
+  Search,
+  X,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
 
 import { useStudioContext } from "../use-context";
 import { useData } from "./index.hook";
@@ -188,26 +197,33 @@ export const SideMenu: FC = () => {
           )}
         </div>
         <div className="p-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="destructive"
-                size={isCollapsedSideMenu ? "icon" : "default"}
-                className="w-full"
-                onClick={() => {
-                  client.signOut();
-                  router.push("/auth/sign-in");
-                }}
-                aria-label={TEXTS.logoutAriaLabel}
-              >
-                <LogOut className="h-4 w-4 mr-2" />
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" className="w-full" size={"icon"}>
+                <LogOutIcon className="mr-2 h-4 w-4" />
                 {!isCollapsedSideMenu && TEXTS.logout}
               </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              <p>{TEXTS.logout}</p>
-            </TooltipContent>
-          </Tooltip>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{TEXTS.logoutDialogTitle}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {TEXTS.logoutDialogWarning}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{TEXTS.cancel}</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    client.signOut();
+                    router.push("/");
+                  }}
+                >
+                  {TEXTS.logout}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </TooltipProvider>
