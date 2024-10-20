@@ -39,8 +39,6 @@ export class LinkedInStrategy extends PassportStrategy(Strategy, "linkedin") {
   ) {
     const { email, displayName, picture } = profile;
 
-    console.log("linkedin strategy > ", { profile });
-
     let user = await this.userModel.findOne({ email });
     if (!user) {
       user = await this.userModel.create({ email, name: displayName, picture });
@@ -48,8 +46,6 @@ export class LinkedInStrategy extends PassportStrategy(Strategy, "linkedin") {
     user.name = displayName;
     user.picture = picture;
     await user.save();
-
-    console.log("linkedin strategy > ", { user });
 
     return user;
   }

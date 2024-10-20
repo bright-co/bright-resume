@@ -27,7 +27,7 @@ import { Logo } from "@@chatbot/app/components/logo";
 import { useData } from "./useData";
 import { TEXTS } from "./texts";
 
-export function SignInPage() {
+export function SignInPage({ BACK_URL }: { BACK_URL: string }) {
   const { form, onSubmit, loading } = useData();
 
   return (
@@ -107,7 +107,7 @@ export function SignInPage() {
               variant="outline"
               className="h-20"
               onClick={() =>
-                window.location.replace("/back/auth/sign-in/google")
+                window.location.replace(BACK_URL + "/back/auth/sign-in/google")
               }
             >
               <div className="w-14 h-14">
@@ -118,7 +118,9 @@ export function SignInPage() {
               variant="outline"
               className="h-20"
               onClick={() =>
-                window.location.replace("/back/auth/sign-in/linkedin")
+                window.location.replace(
+                  BACK_URL + "/back/auth/sign-in/linkedin"
+                )
               }
             >
               <div className="w-14 h-14">
@@ -129,7 +131,7 @@ export function SignInPage() {
               variant="outline"
               className="h-20"
               onClick={() =>
-                window.location.replace("/back/auth/sign-in/github")
+                window.location.replace(BACK_URL + "/back/auth/sign-in/github")
               }
             >
               <div className="w-14 h-14">
