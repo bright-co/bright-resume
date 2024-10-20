@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -15,10 +16,23 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bright-resume/components": ["libs/components/src/index.ts"],
-      "@bright-resume/web": ["apps/web"],
-      "@libs/scss": ["libs/components/scss"]
-    }
+      "@@back/*": ["apps/back/src/*"],
+      "@@chatbot/*": ["apps/chatbot/*"],
+      "@back-common/*": ["libs/back-common/src/*"],
+      "@chatbot/*": ["apps/chatbot/*"],
+      "@dto": ["libs/dto/src/index.ts"],
+      "@enums": ["libs/enums/src/index.ts"],
+      "@errors": ["libs/errors/src/index.ts"],
+      "@models": ["libs/models/src/index.ts"],
+      "@resume-template-components/*": [
+        "libs/resume-template-components/src/*"
+      ],
+      "@resume-template-components/server": [
+        "libs/resume-template-components/src/server.ts"
+      ],
+      "@utils": ["libs/utils/src/index.ts"]
+    },
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
   "exclude": ["node_modules", "tmp"]
 }
