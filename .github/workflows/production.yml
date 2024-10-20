@@ -13,23 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build back-auth
-        run: docker build -t ghcr.io/bright-co/bright-resume-back-auth:${{ github.sha }} -f infra/Dockerfile.auth .
+      - name: Build chatbot
+        run: |
+          echo BACK_URL=https://back.bright-resume.com > ./apps/chatbot/.env
+          echo MODE=production >> ./apps/chatbot/.env
+          docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
 
-      - name: Build back-resume
-        run: docker build -t ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }} -f infra/Dockerfile.resume .
+      - name: Build resume-template
+        run: |
+          docker build -t ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }} -f infra/Dockerfile.resume-template .
 
-      - name: Build back-file
-        run: docker build -t ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }} -f infra/Dockerfile.file .
+      - name: Build back
+        run: docker build -t ghcr.io/bright-co/bright-resume-back:${{ github.sha }} -f infra/Dockerfile.back .
 
-      - name: Build back-gateway
-        run: docker build -t ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }} -f infra/Dockerfile.gateway .
-
-      - name: Build back-cms
-        run: docker build -t ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }} -f infra/Dockerfile.cms .
-
-      - name: Build web
-        run: docker build -t ghcr.io/bright-co/bright-resume-web:${{ github.sha }} -f infra/Dockerfile.web .
+      - name: Build back-pdf
+        run: docker build -t ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }} -f infra/Dockerfile.back-pdf .
 
       - name: Docker Login
         uses: docker/login-action@v3.0.0
@@ -37,15 +35,14 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.G_TOKEN }}
+          logout: true
 
       - name: Push Images
         run: |
-          docker push ghcr.io/bright-co/bright-resume-back-auth:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }}
-          docker push ghcr.io/bright-co/bright-resume-web:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}
 
   update-manifest-stage:
     if: github.ref == 'refs/heads/production'
@@ -67,12 +64,10 @@ jobs:
       - name: Update Image Tag
         run: |
           echo ${{ github.sha }}
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-auth:.*|image: ghcr.io/bright-co/bright-resume-back-auth:${{ github.sha }}|" ./production/auth.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-resume:.*|image: ghcr.io/bright-co/bright-resume-back-resume:${{ github.sha }}|" ./production/resume.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-file:.*|image: ghcr.io/bright-co/bright-resume-back-file:${{ github.sha }}|" ./production/file.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-gateway:.*|image: ghcr.io/bright-co/bright-resume-back-gateway:${{ github.sha }}|" ./production/gateway.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-cms:.*|image: ghcr.io/bright-co/bright-resume-back-cms:${{ github.sha }}|" ./production/cms.yaml
-          sed -i "s|image: ghcr.io/bright-co/bright-resume-web:.*|image: ghcr.io/bright-co/bright-resume-web:${{ github.sha }}|" ./production/web.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-back:.*|image: ghcr.io/bright-co/bright-resume-back:${{ github.sha }}|" ./production/back.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-pdf:.*|image: ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}|" ./production/back-pdf.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./production/resume-template.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./production/chatbot.yaml
           git add -A
           git commit -m "update image for - ${{ github.sha }}"
 
