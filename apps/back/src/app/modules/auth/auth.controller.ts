@@ -73,7 +73,12 @@ export class AuthController {
     @Req() request: Request,
     @Res() response: Response
   ) {
+    console.log("controller 1");
+
     const token = await this.authService.generateOAuthUserToken(request.user);
+
+    console.log("controller 2", { token });
+
     response.redirect(
       this.configService.get(EnvironmentVariablesEnum.CLIENT_AUTH_URL) +
         `?oauth-token=${token}`
