@@ -9,5 +9,5 @@ export default async function Page() {
     redirect("/studio");
   }
 
-  return <SignInPage />;
+  return <SignInPage BACK_URL={process.env["BACK_URL"]!} />;
 }

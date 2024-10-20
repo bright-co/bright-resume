@@ -31,13 +31,19 @@ export class GitHubStrategy extends PassportStrategy(Strategy, "github") {
     profile: {
       id: string;
       username: string;
-      name: string;
+      displayName: string;
       email: string;
+      emails: { value: string }[];
+      photos: { value: string }[];
       avatar_url: string;
       // _json: any;
     }
   ) {
-    const { email, name, avatar_url } = profile;
+    const {
+      emails: [{ value: email }],
+      photos: [{ value: photo }],
+      displayName,
+    } = profile;
 
     let user = await this.userModel.findOne({ email });
 
@@ -45,8 +51,8 @@ export class GitHubStrategy extends PassportStrategy(Strategy, "github") {
       user = await this.userModel.create({ email });
     }
 
-    user.name = name;
-    user.picture = avatar_url;
+    user.name = displayName;
+    user.picture = photo;
 
     await user.save();
     return user;

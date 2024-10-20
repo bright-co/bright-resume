@@ -9,5 +9,5 @@ export default async function Page() {
     redirect("/studio");
   }
 
-  return <SignUpPage />;
+  return <SignUpPage BACK_URL={process.env["BACK_URL"]!} />;
 }
