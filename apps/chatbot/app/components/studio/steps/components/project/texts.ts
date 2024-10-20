@@ -1,0 +1,46 @@
+export const TEXTS = {
+  header: {
+    projectLabelPlaceholder: "Project Label",
+    showProjectsLabel: "Show Projects",
+    saveChangesButton: "Save Changes",
+  },
+  addNewProject: {
+    noProjectSelectedTitle: "No Project Selected",
+    noProjectSelectedMessage:
+      "Select an project from the list on the left to view and edit its details, or add a new project to get started.",
+    addNewProjectButton: "Add New Project",
+  },
+  projectCard: {
+    newProjectLabel: "New Project",
+    visibleLabel: "Visible",
+    hiddenLabel: "Hidden",
+    deleteConfirmationTitle: "Are you sure you want to delete this project?",
+    deleteConfirmationMessage:
+      "This action cannot be undone. This will permanently delete the project and remove the data from our servers.",
+    deleteButton: "Delete",
+  },
+  projectForm: {
+    titleLabel: "Project Title",
+    titlePlaceholder: "project title",
+    showUrlLabel: "Show Url",
+    urlLabel: "Url",
+    urlPlaceholder: "Url",
+    showRoleLabel: "Show Role",
+    roleLabel: "Role",
+    rolePlaceholder: "role",
+    showCompanyLabel: "Show Company",
+    companyLabel: "Company",
+    companyPlaceholder: "company",
+    showLocationLabel: "Show Location",
+    locationLabel: "Location",
+    locationPlaceholder: "location",
+    showDateLabel: "Show Date",
+    fromLabel: "From",
+    fromPlaceholder: "from",
+    toLabel: "To",
+    toPlaceholder: "to",
+    showPointsLabel: "Show Points",
+    pointPlaceholder: "point",
+    addPointButton: "Add Point",
+  },
+};

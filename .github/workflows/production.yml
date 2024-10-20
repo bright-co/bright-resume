@@ -1,0 +1,75 @@
+name: Production CI
+
+on:
+  push:
+    branches: ["production"]
+  pull_request:
+    branches: [production]
+
+jobs:
+  build-and-push-images:
+    if: github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build chatbot
+        run: |
+          echo BACK_URL=https://back.bright-resume.com > ./apps/chatbot/.env
+          echo MODE=production >> ./apps/chatbot/.env
+          docker build -t ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }} -f infra/Dockerfile.chatbot .
+
+      - name: Build resume-template
+        run: |
+          docker build -t ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }} -f infra/Dockerfile.resume-template .
+
+      - name: Build back
+        run: docker build -t ghcr.io/bright-co/bright-resume-back:${{ github.sha }} -f infra/Dockerfile.back .
+
+      - name: Build back-pdf
+        run: docker build -t ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }} -f infra/Dockerfile.back-pdf .
+
+      - name: Docker Login
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.G_TOKEN }}
+          logout: true
+
+      - name: Push Images
+        run: |
+          docker push ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back:${{ github.sha }}
+          docker push ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}
+
+  update-manifest-stage:
+    if: github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+    needs: ["build-and-push-images"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: bright-co/bright-resume-gitops
+          ref: main
+          token: ${{ secrets.G_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "erfan@bright-resume.com"
+          git config --global user.name "erfan"
+
+      - name: Update Image Tag
+        run: |
+          echo ${{ github.sha }}
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-back:.*|image: ghcr.io/bright-co/bright-resume-back:${{ github.sha }}|" ./production/back.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-back-pdf:.*|image: ghcr.io/bright-co/bright-resume-back-pdf:${{ github.sha }}|" ./production/back-pdf.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-resume-template:.*|image: ghcr.io/bright-co/bright-resume-resume-template:${{ github.sha }}|" ./production/resume-template.yaml
+          sed -i "s|image: ghcr.io/bright-co/bright-resume-chatbot:.*|image: ghcr.io/bright-co/bright-resume-chatbot:${{ github.sha }}|" ./production/chatbot.yaml
+          git add -A
+          git commit -m "update image for - ${{ github.sha }}"
+
+      - name: Push Changes
+        run: git push
